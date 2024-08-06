@@ -5,7 +5,7 @@
 {!! Toastr::message() !!}
 <div class="login-right">
     <div class="login-right-wrap">
-        <h1>Note Software Company</h1>
+        <h1>Note Software Company Hello</h1>
         <p class="account-subtitle">Need an account? <a href="{{ route('register') }}">Sign Up</a></p>
         <h2>Sign in</h2>
         <form action="{{ route('login') }}" method="POST">
