@@ -373,11 +373,11 @@ class FeesController extends Controller
         if (!empty($request->Class)) {
             $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(function ($query) use ($request) {
                 $query->where('application_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('sr_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('student_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('father_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('district', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('state', 'LIKE', "%" . $request->studentsearch . "%");
-            })->where('class_id', $request->Class)->where('students.status', $request->searchId)->get();
+            })->where('class_id', $request->Class)->where('school_classes.school_id', $school->id)->where('school_classes.academic_session', $academic)->where('students.status', $request->searchId)->get();
         } else {
             $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(function ($query) use ($request) {
                 $query->where('application_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('sr_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('student_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('father_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('district', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('state', 'LIKE', "%" . $request->studentsearch . "%");
-            })->where('students.status', $request->searchId)->get();
+            })->where('students.status', $request->searchId)->where('school_classes.school_id', $school->id)->where('school_classes.academic_session', $academic)->get();
         }
 
         if ($request->searchId == 2) {
