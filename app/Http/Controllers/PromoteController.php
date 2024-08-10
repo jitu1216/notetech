@@ -1,0 +1,158 @@
+<?php
+
+namespace App\Http\Controllers;
+use App\Models\FeesType;
+use App\Models\SchoolClass;
+use App\Models\FeesAmount;
+use App\Models\Student;
+use App\Models\StudentFees;
+use App\Models\Subject;
+use App\Models\FeesTransaction;
+use App\Models\Staff;
+use Session;
+use Custom;
+use Auth;
+use Illuminate\Http\Request;
+
+class PromoteController extends Controller
+{
+
+    public function promoteList($id)
+    {
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+
+        $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '0'])->get();
+
+        $newClass = [];
+        foreach ($schoolclass as $class) {
+            $number =  Custom::romanToInt($class->classname);
+            $newClass[$class->id] = $number;
+        }
+
+        $sortedArray = ['P.N.C.','N.C.','K.G.','L.K.G.','U.K.G.','I','II','III','IV','V','VI','VII','VIII','IX','X','XI (Art)','XI (Biology)','XI (Agriculture)','XI (Mathematics)','XI (Commerce)','XII (Art)','XII (Biology)','XII (Agriculture)','XII (Mathematics)','XII (Commerce)'];
+        $newroman = [];
+        sort($newClass);
+        $newromanclass = [];
+
+        foreach($sortedArray as $organize){
+            if(in_array($organize,$newClass)){
+                array_push($newromanclass, $organize);
+            }
+        }
+
+        foreach ($newromanclass as $sortClass) {
+            $newnumber = Custom::getRomanNumber($sortClass);
+            array_push($newroman, $newnumber);
+            // dd($newroman);
+        }
+        $finalarray = array();
+
+
+        foreach ($newroman as $value) {
+            foreach ($schoolclass as $class) {
+                if ($class->classname == $value) {
+                    $x['classname'] = $class->classname;
+                    $x['id'] = $class->id;
+                    $finalarray[] = $x;
+                }
+                $x = [];
+            }
+        }
+
+        $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(['students.status' => $id, 'students.school_id' => $school->id, 'students.academic_session' => $academic])->get();
+
+        if ($id == 2) {
+            $mark = 2;
+        }
+        if ($id == 1) {
+            $mark = 1;
+        }
+        if ($id == 3) {
+            $mark = 3;
+        }
+        if ($id == 4) {
+            $mark = 4;
+        }
+
+        // dd($finalarray);
+        return view('school.promote.student-list', compact('studentList', 'mark', 'finalarray'));
+    }
+
+
+    public function promoteSearchStudent(Request $request)
+    {
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+
+        $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '0'])->get();
+
+        $newClass = [];
+        foreach ($schoolclass as $class) {
+            $number =  Custom::romanToInt($class->classname);
+            $newClass[$class->id] = $number;
+        }
+
+
+        $sortedArray = ['P.N.C.','N.C.','K.G.','L.K.G.','U.K.G.','I','II','III','IV','V','VI','VII','VIII','IX','X','XI (Art)','XI (Biology)','XI (Agriculture)','XI (Mathematics)','XI (Commerce)','XII (Art)','XII (Biology)','XII (Agriculture)','XII (Mathematics)','XII (Commerce)'];
+
+        $newroman = [];
+        sort($newClass);
+        $newromanclass = [];
+
+        foreach($sortedArray as $organize){
+            if(in_array($organize,$newClass)){
+                array_push($newromanclass, $organize);
+            }
+        }
+
+        foreach ($newromanclass as $sortClass) {
+            $newnumber = Custom::getRomanNumber($sortClass);
+            array_push($newroman, $newnumber);
+            // dd($newroman);
+        }
+        $finalarray = array();
+
+
+        foreach ($newroman as $value) {
+            foreach ($schoolclass as $class) {
+                if ($class->classname == $value) {
+                    $x['classname'] = $class->classname;
+                    $x['id'] = $class->id;
+                    $finalarray[] = $x;
+                }
+                $x = [];
+            }
+        }
+
+
+        if (!empty($request->Class)) {
+            $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(function ($query) use ($request) {
+                $query->where('application_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('sr_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('student_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('father_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('district', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('state', 'LIKE', "%" . $request->studentsearch . "%");
+            })->where('class_id', $request->Class)->where('school_classes.school_id', $school->id)->where('school_classes.academic_session', $academic)->where('students.status', $request->searchId)->get();
+        } else {
+            $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(function ($query) use ($request) {
+                $query->where('application_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('sr_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('student_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('father_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('district', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('state', 'LIKE', "%" . $request->studentsearch . "%");
+            })->where('students.status', $request->searchId)->where('school_classes.school_id', $school->id)->where('school_classes.academic_session', $academic)->get();
+        }
+
+        if ($request->searchId == 2) {
+            $mark = 2;
+        }
+        if ($request->searchId == 1) {
+            $mark = 1;
+        }
+        if ($request->searchId == 3) {
+            $mark = 3;
+        }
+        if ($request->searchId == 4) {
+            $mark = 4;
+        }
+
+        $studentsearch = $request->studentsearch;
+        $class =  $request->Class;
+        return view('school.promote.student-list', compact('studentList', 'mark', 'finalarray', 'studentsearch', 'class'));
+    }
+
+}

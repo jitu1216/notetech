@@ -14,6 +14,7 @@ use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SchoolDashboardController;
 use App\Http\Controllers\FeesController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\PromoteController;
 
 
 
@@ -210,6 +211,13 @@ Route::controller(FeesController::class)->group(function () {
 
 });
 
+// Promote //
+
+Route::controller(PromoteController::class)->group(function () {
+    Route::get('school/promote-list/{id}', 'promoteList')->middleware('auth')->name('promote-list');
+    Route::get('school/promotesearchStudent', 'promoteSearchStudent')->middleware('auth')->name('promotesearchStudent');
+});
+
 Route::controller(StaffController::class)->group(function () {
     Route::get('school/add-staff', 'addStaff')->middleware('auth')->name('add-staff');
     Route::post('school/store-staff', 'storeStaff')->middleware('auth')->name('store-staff');
@@ -218,8 +226,6 @@ Route::controller(StaffController::class)->group(function () {
     Route::get('school/view-staff/{id}', 'viewStaff')->middleware('auth')->name('view-staff');
     Route::post('school/update-staff', 'updateStaff')->middleware('auth')->name('update-staff');
     Route::post('school/deletestaff', 'DeleteStaff')->middleware('auth')->name('deletestaff');
-
-
 });
 
 

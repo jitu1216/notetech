@@ -310,6 +310,34 @@
                         </ul>
                     </li>
 
+                    <li class="{{ set_active(['school/add-staff', 'school/add-class']) }}">
+                        <a href="#"><i class="fas fa-pen"></i>
+                            <span>Data Entry</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <i class='bx bxs-chevron-down js-staff arrow '></i>
+                        <ul class="js-staff-menu sub-menu">
+
+                            @if (Custom::getUser()->role_name == 'Staff')
+                                @if (in_array('4', Custom::getStaffPower()))
+                                    <li><a class="{{ set_active(['school/staff-list']) }}"
+                                            href="{{ route('promote-list','2') }}">Promote</a></li>
+                                @else
+                                    <li><a class="{{ set_active(['school/staff-list']) }} popup"
+                                            href="javascript:void(0)">Promote</a></li>
+                                @endif
+                            @else
+                                <li><a class="{{ set_active(['school/staff-list']) }}"
+                                        href="{{ route('promote-list','2') }}">Promote</a></li>
+                            @endif
+
+
+                            {{-- <li><a href="add-department.html">Staff Attendance</a></li> --}}
+                            {{-- <li><a href="add-department.html">Staff Salary</a></li> --}}
+
+                        </ul>
+                    </li>
+
                 </ul>
             </div>
             <div class="search-box">
