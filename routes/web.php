@@ -216,6 +216,8 @@ Route::controller(FeesController::class)->group(function () {
 Route::controller(PromoteController::class)->group(function () {
     Route::get('school/promote-list/{id}', 'promoteList')->middleware('auth')->name('promote-list');
     Route::get('school/promotesearchStudent', 'promoteSearchStudent')->middleware('auth')->name('promotesearchStudent');
+    Route::post('school/promote-student', 'promoteStudent')->middleware('auth')->name('promoteStudent');
+
 });
 
 Route::controller(StaffController::class)->group(function () {

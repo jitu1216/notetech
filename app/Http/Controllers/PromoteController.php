@@ -9,6 +9,7 @@ use App\Models\StudentFees;
 use App\Models\Subject;
 use App\Models\FeesTransaction;
 use App\Models\Staff;
+use App\Models\AcademicSession;
 use Session;
 use Custom;
 use Auth;
@@ -75,8 +76,10 @@ class PromoteController extends Controller
             $mark = 4;
         }
 
-        // dd($finalarray);
-        return view('school.promote.student-list', compact('studentList', 'mark', 'finalarray'));
+        $session_data = AcademicSession::all();
+
+        // dd($session_data);
+        return view('school.promote.student-list', compact('studentList', 'mark', 'finalarray','session_data'));
     }
 
 
@@ -152,7 +155,70 @@ class PromoteController extends Controller
 
         $studentsearch = $request->studentsearch;
         $class =  $request->Class;
-        return view('school.promote.student-list', compact('studentList', 'mark', 'finalarray', 'studentsearch', 'class'));
+
+        $session_data = AcademicSession::all();
+        // dd($finalarray);
+        return view('school.promote.student-list', compact('studentList', 'mark', 'finalarray', 'studentsearch', 'class','session_data'));
+    }
+
+    public function promoteStudent(Request $request){
+        $student = Student::where(['id' => $request->id])->first();
+        // dd($student);
+        $academic = $request->session;
+        $student_id = substr($academic, -5);
+        $student_id = str_replace('-','',$student_id).$student->sr_no;
+        $school = Custom::getSchool();
+
+        $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '0','classname' => $request->class])->first();
+        if(empty($schoolclass)){
+            return redirect()->back()->with('Error', 'Class not Available in Promoted Session!');
+        }
+
+        $newstudent = new Student;
+        $newstudent->application_no   = $student->application_no;
+        $newstudent->application_date   = $student->application_date;
+        $newstudent->admission_date   = $student->admission_date;
+        $newstudent->sr_no   = $student->sr_no;
+        $newstudent->student_id   = $student_id;
+        $newstudent->roll_no   = $request->roll_no;
+        $newstudent->fee_account   = $request->fees_account;
+        $newstudent->student_name    = $student->student_name;
+        $newstudent->father_name       = $student->father_name;
+        $newstudent->mother_name   = $student->mother_name;
+        $newstudent->class_id         = $schoolclass->id;
+        $newstudent->gender          = $student->gender;
+        $newstudent->dob             = $student->dob;
+        $newstudent->religion        = $student->religion;
+        $newstudent->category        = $student->category;
+        $newstudent->caste           = $student->caste;
+        $newstudent->locality_type           = $student->locality_type;
+        $newstudent->post_type           = $student->post_type;
+        $newstudent->village         = $student->village;
+        $newstudent->town            = $student->town;
+        $newstudent->district          = $student->district;
+        $newstudent->state             = $student->state;
+        $newstudent->pincode        = $student->pincode;
+        $newstudent->mobile        = $student->mobile;
+        $newstudent->email           = $student->email;
+        $newstudent->nationality         = $student->nationality;
+        $newstudent->transport            = $student->transport;
+        $newstudent->father_occupation            = $student->father_occupation;
+        $newstudent->aadhar_no          = $student->aadhar_no;
+        $newstudent->last_institute             = $student->last_institute;
+        $newstudent->subject_id        =         $student->subject_id;
+        $newstudent->academic_session        = $request->session;
+        $newstudent->school_id           = Custom::getSchool()->id;
+        $newstudent->status        =  2;
+        $newstudent->reject_reason   = null;
+        $newstudent->promoted   = 0;
+        $newstudent->image         = $student->image;
+        // dd($newstudent);
+        $newstudent->save();
+
+        $student->promoted = 1;
+        $student->update();
+
+        return redirect()->back()->with('Success', 'Student Promoted Successfully!');
     }
 
 }
