@@ -272,7 +272,7 @@
                                             style="background-color: rgb(0, 197, 0) !important; color:white !important;">
                                             <i data-src="{{ URL::to('student-photos') . '/' . $data->image }}"
                                                 data-id="{{ $data->id }}"
-                                                data-name="{{ $data->student_name }}" data-srno="{{ $data->sr_no }}" class="feather-upload recover-btn"></i>
+                                                data-name="{{ $data->student_name }}" data-srno="{{ $data->sr_no }}" data-promoted="{{ $data->promoted }}" class="feather-upload recover-btn"></i>
                                         </a>
                                         </div>
                                         @else
@@ -359,7 +359,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('recoverstudent') }}" method="POST">
+                    <form action="{{ route('promoteStudent') }}" method="POST">
                         @csrf
                         <div class="delete-wrap">
                             {{-- <div class="del-icon">
@@ -375,7 +375,7 @@
 
 
                             </div>
-                            <div class="row pt-3 pb-2 mb-4 align-items-left justify-content-left">
+                            <div class="row pt-3 pb-0 mb-0 align-items-left justify-content-left">
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group text-left local-forms">
                                         <label>Student Name <span class="login-danger">*</span></label>
@@ -399,7 +399,7 @@
                                             name="class" id="class">
                                             <option selected disabled>Select Class</option>
                                             @foreach ($finalarray as $value)
-                                                <option value="{{ $value['id'] }}">
+                                                <option value="{{ $value['classname'] }}">
                                                     {{ $value['classname'] }}
                                                 </option>
                                             @endforeach
@@ -443,13 +443,13 @@
                                     <div class="form-group local-forms">
                                         <label>Session Year<span class="login-danger">*</span></label>
                                         <select class="form-control @error('class') is-invalid @enderror"
-                                            name="class" id="class">
+                                            name="session" id="session">
                                             <option selected disabled>Select Session Year</option>
-                                            {{-- @foreach ($finalarray as $value)
-                                                <option value="{{ $value['id'] }}">
-                                                    {{ $value['classname'] }}
+                                            @foreach ($session_data as $value)
+                                                <option value="{{ $value['session_date'] }}">
+                                                    {{ $value['session_date'] }}
                                                 </option>
-                                            @endforeach --}}
+                                            @endforeach
                                         </select>
                                         @error('class')
                                             <span class="invalid-feedback" role="alert">
@@ -459,9 +459,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="submit-section">
-                                {{-- <button type="submit" class="btn btn-success me-2">Yes</button>
-                                <a class="btn btn-danger" data-bs-dismiss="modal">No</a> --}}
+                            <div class="submit-section mt-0">
+                               <button type="submit" id="promotebtn" class="btn btn-success me-2">Promote Now</button>
+                                {{-- <a class="btn btn-danger" data-bs-dismiss="modal">No</a>  --}}
                             </div>
                         </div>
                     </form>
@@ -509,11 +509,25 @@
                 var name = $(this).data('name');
                 var src = $(this).data('src');
                 var srno = $(this).data('srno');
+                var promote = $(this).data('promoted');
 
                 $(".recoverId").val(id);
                 $('.recoverimg').attr("src", src);
                 $('.recovername').val(name);
                 $('.s_r_no').val(srno);
+                if(promote == 1){
+                    $("#class").prop('disabled', true);
+                    $("#roll_no").prop('disabled', true);
+                    $("#session").prop('disabled', true);
+                    $("#fees_account").prop('disabled', true);
+                    $("#promotebtn").prop('disabled', true);
+                }else{
+                    $("#class").prop('disabled', false);
+                    $("#roll_no").prop('disabled', false);
+                    $("#session").prop('disabled', false);
+                    $("#fees_account").prop('disabled', false);
+                    $("#promotebtn").prop('disabled', false);
+                }
                 $('#recoverstudent').modal('show');
             });
         });

@@ -47,6 +47,7 @@ return new class extends Migration
             $table->string('image');
             $table->string('status');
             $table->string('reject_reason');
+            $table->integer('promoted')->default(0);
             $table->timestamps();
 
         });
