@@ -1093,6 +1093,16 @@ margin-top: 0rem !important;
     </div>
 
 
+    @if (Custom::getUser()->role_name == 'Staff')
+    <script>
+        $(document).ready(function(){
+            $("input").prop("disabled", true);
+            $("select").prop("disabled", true);
+
+        });
+    </script>
+    @endif
+
 
 
     <script>

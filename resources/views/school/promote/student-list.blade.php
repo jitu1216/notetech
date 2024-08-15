@@ -3,6 +3,9 @@
     body {
         overflow: scroll !important;
     }
+    .bgpromoted{
+            background-color: rgb(255, 215, 215) !important;
+        }
 
     table {
         background-color: white;
@@ -74,6 +77,7 @@
             display: none;
         }
 
+
         nav {
             display: none;
         }
@@ -143,7 +147,7 @@
                                 @if ($mark == 1)
                                     Pending Student List
                                 @elseif ($mark == 2)
-                                    Approved Student List
+                                    Promote Student List
                                 @elseif ($mark == 3)
                                     Rejected Students List
                                 @else
@@ -157,7 +161,7 @@
                                     @if ($mark == 1)
                                         Pending Student List
                                     @elseif ($mark == 2)
-                                        Approved Student List
+                                    Promote Student List
                                     @elseif ($mark == 3)
                                         Rejected Students List
                                     @else
@@ -229,6 +233,7 @@
                                 <th>S.No</th>
                                 @if ($mark == 2)
                                     <th>Student Id No.</th>
+                                    <th>Fees Account No.</th>
                                     <th>Roll No.</th>
                                 @else
                                     <th>Application No.</th>
@@ -249,10 +254,13 @@
                         </thead>
                         <tbody class="text-nowrap">
                             @foreach ($studentList as $key => $data)
-                                <tr>
+                                <tr @if ($data->promoted == 1)
+                                    class="bgpromoted"
+                                @endif>
                                     <td>{{ ++$key }}</td>
                                     @if ($mark == 2)
                                         <td>{{ $data->student_id  }}</td>
+                                        <td>{{ $data->fee_account  }}</td>
                                         <td>{{ $data->roll_no }}</td>
                                     @else
                                         <td>{{ $data->application_no }}</td>

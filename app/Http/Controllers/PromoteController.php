@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\FeesController;
 use App\Models\FeesType;
 use App\Models\SchoolClass;
 use App\Models\FeesAmount;
@@ -217,6 +218,79 @@ class PromoteController extends Controller
 
         $student->promoted = 1;
         $student->update();
+
+        $class_id = $schoolclass->id;
+
+        $FeesAmount = FeesAmount::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 1, 'class' => $class_id])->get()->toArray();
+        $allfees = FeesType::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 1, 'global' => 1])->get()->toArray();
+
+        $feestype = array_merge($FeesAmount, $allfees);
+
+        $studentlist = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 2, 'class_id' => $class_id])->get();
+
+        foreach ($studentlist as $student) {
+
+            foreach ($feestype as $fees) {
+                if (isset($fees['global'])) {
+                    $studentFees = StudentFees::where(['school_id' => $school->id, 'academic_session' => $academic,'fees_type_id' => $fees['id'], 'student_id'=>$student->id])->first();
+
+                    if (!empty($studentFees)) {
+
+                        $studentFees->school_id = $school->id;
+                        $studentFees->academic_session = $academic;
+                        $studentFees->fees_type_id = $fees['id'];
+                        $studentFees->student_id = $student->id;
+                        $studentFees->class_id = $class_id;
+                        $studentFees->status =  1;
+                        $studentFees->update();
+
+                    } else {
+
+                        $data = new StudentFees;
+                        $data->school_id = $school->id;
+                        $data->academic_session = $academic;
+                        $data->fees_type_id = $fees['id'];
+                        $data->student_id = $student->id;
+                        $data->class_id = $class_id;
+                        $data->fees_amount = 0;
+                        $data->total_installment =  0;
+                        $data->status =  1;
+                        $data->save();
+                    }
+                } else {
+                    $studentFees = StudentFees::where(['school_id' => $school->id, 'academic_session' => $academic,'fees_type_id' => $fees['fees_type_id'],'student_id'=>$student->id])->first();
+
+
+                    if (!empty($studentFees)) {
+
+                        $studentFees->school_id = $school->id;
+                        $studentFees->academic_session = $academic;
+                        $studentFees->fees_type_id = $fees['fees_type_id'];
+                        $studentFees->student_id = $student->id;
+                        $studentFees->class_id = $class_id;
+                        $studentFees->fees_amount = $fees['amount'];
+                        $studentFees->total_installment =  $fees['installment'];
+                        $studentFees->status =  1;
+                        $studentFees->update();
+
+                    } else {
+
+                        $data = new StudentFees;
+                        $data->school_id = $school->id;
+                        $data->academic_session = $academic;
+                        $data->fees_type_id = $fees['fees_type_id'];
+                        $data->student_id = $student->id;
+                        $data->class_id = $class_id;
+                        $data->fees_amount = $fees['amount'];
+                        $data->fees_paid =  0;
+                        $data->total_installment =  $fees['installment'];
+                        $data->paid_installment =  0;
+                        $data->status =  1;
+                        $data->save();
+                    }
+                }
+            }
+        }
 
         return redirect()->back()->with('Success', 'Student Promoted Successfully!');
     }
