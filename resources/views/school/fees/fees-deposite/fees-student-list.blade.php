@@ -405,7 +405,7 @@
                                     <th id="totalpending">{{ $totalPending }}</th>
                                 @endif
                                 <th></th>
-                               
+
                                 {{-- @if ($mark == 4)
                                 <th class="action">Recover</th>
                                 @else

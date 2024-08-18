@@ -191,19 +191,46 @@
                                         name="Class">
 
                                         <option selected value="">All Class</option>
-                                        @if (!empty($class))
-                                            @foreach ($finalarray as $value)
-                                                <option value="{{ $value['id'] }}"
-                                                    {{ $value['id'] == $class ? 'selected' : '' }}>
-                                                    {{ $value['classname'] }}
-                                                </option>
-                                            @endforeach
+                                        @if (Custom::getStaffRole() == 'Assistant Teacher')
+                                            @if (!empty($class))
+                                                @foreach ($finalarray as $value)
+                                                    @foreach (Custom::getTeacherClass() as $allot_class)
+                                                        @if ($allot_class == $value['id'])
+                                                            <option value="{{ $value['id'] }}"
+                                                                {{ $value['id'] == $class ? 'selected' : '' }}>
+                                                                {{ $value['classname'] }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @else
+                                                @foreach ($finalarray as $value)
+                                                    @foreach (Custom::getTeacherClass() as $allot_class)
+                                                        @if ($allot_class == $value['id'])
+                                                            <option value="{{ $value['id'] }}"
+                                                                {{ old('Class') == 'I' ? 'selected' : '' }}>
+                                                                {{ $value['classname'] }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @endif
                                         @else
-                                            @foreach ($finalarray as $value)
-                                                <option value="{{ $value['id'] }}"
-                                                    {{ old('Class') == 'I' ? 'selected' : '' }}>{{ $value['classname'] }}
-                                                </option>
-                                            @endforeach
+                                            @if (!empty($class))
+                                                @foreach ($finalarray as $value)
+                                                    <option value="{{ $value['id'] }}"
+                                                        {{ $value['id'] == $class ? 'selected' : '' }}>
+                                                        {{ $value['classname'] }}
+                                                    </option>
+                                                @endforeach
+                                            @else
+                                                @foreach ($finalarray as $value)
+                                                    <option value="{{ $value['id'] }}"
+                                                        {{ old('Class') == 'I' ? 'selected' : '' }}>
+                                                        {{ $value['classname'] }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
                                         @endif
                                     </select>
                                 </div>
@@ -241,47 +268,107 @@
                                 {{-- <th>Email</th> --}}
                                 <th>Mobile</th>
                                 @if ($mark == 4)
-                                <th class="action">Recover</th>
+                                    <th class="action">Recover</th>
                                 @else
-                                <th class="action">Action</th>
+                                    <th class="action">Action</th>
                                 @endif
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
-                            @foreach ($studentList as $key => $data)
-                                <tr>
-                                    <td>{{ ++$key }}</td>
-                                    @if ($mark == 2)
-                                        <td>{{ $data->student_id  }}</td>
-                                        <td>{{ $data->roll_no }}</td>
-                                    @else
-                                        <td>{{ $data->application_no }}</td>
-                                    @endif
 
-                                    <td>{{ $data->student_name }}</td>
-                                    <td>{{ $data->father_name }}</td>
-                                    <td>{{ $data->mother_name }}</td>
-                                    <td>{{ $data->classname }}</td>
-                                    <td>{{ $data->locality_type.' '. $data->village . ',' .$data->post_type.' '. $data->town . ' (' . $data->district .'),'.$data->pincode.' '.$data->state }}</td>
-                                    {{-- <td>{{ $data->email }}</td> --}}
-                                    <td>{{ $data->mobile }}</td>
-                                    <td class="action">
-                                        @if ($mark == 4)
-                                        <div class="actions">
-                                            <a href="javascript:;" class="btn btn-sm bg-success-light me-2 "
-                                            style="background-color: rgb(0, 197, 0) !important; color:white !important;">
-                                            <i data-src="{{ URL::to('student-photos') . '/' . $data->image }}"
-                                                data-id="{{ $data->id }}"
-                                                data-name="{{ $data->student_name }}"class="feather-upload recover-btn"></i>
-                                        </a>
-                                        </div>
+
+                            @if (Custom::getStaffRole() == 'Assistant Teacher')
+                                @foreach ($studentList as $key => $data)
+                                    @foreach (Custom::getTeacherClass() as $allot_class)
+                                        @if ($allot_class == $data->class_id)
+                                            <tr>
+                                                <td>{{ ++$key }}</td>
+                                                @if ($mark == 2)
+                                                    <td>{{ $data->student_id }}</td>
+                                                    <td>{{ $data->roll_no }}</td>
+                                                @else
+                                                    <td>{{ $data->application_no }}</td>
+                                                @endif
+
+                                                <td>{{ $data->student_name }}</td>
+                                                <td>{{ $data->father_name }}</td>
+                                                <td>{{ $data->mother_name }}</td>
+                                                <td>{{ $data->classname }}</td>
+                                                <td>{{ $data->locality_type . ' ' . $data->village . ',' . $data->post_type . ' ' . $data->town . ' (' . $data->district . '),' . $data->pincode . ' ' . $data->state }}
+                                                </td>
+                                                {{-- <td>{{ $data->email }}</td> --}}
+                                                <td>{{ $data->mobile }}</td>
+                                                <td class="action">
+                                                    @if ($mark == 4)
+                                                        <div class="actions">
+                                                            <a href="javascript:;" class="btn btn-sm bg-success-light me-2 "
+                                                                style="background-color: rgb(0, 197, 0) !important; color:white !important;">
+                                                                <i data-src="{{ URL::to('student-photos') . '/' . $data->image }}"
+                                                                    data-id="{{ $data->id }}"
+                                                                    data-name="{{ $data->student_name }}"class="feather-upload recover-btn"></i>
+                                                            </a>
+                                                        </div>
+                                                    @else
+                                                        <div class="actions">
+                                                            <a href="{{ url('school/edit-fees') . '/' . $data->id }}"
+                                                                class="btn btn-sm bg-danger-light me-2"style="background-color: rgb(2, 167, 11) !important; color:white !important;">
+                                                                <i class="feather-edit"></i>
+                                                            </a>
+                                                            {{-- <a href="{{ url('school/printstudent') . '/' . $data->id }}"
+                                                        class="btn btn-sm bg-danger-light me-2"style="background-color: orange !important; color:white !important;">
+                                                        <i class="feather-eye"></i>
+                                                    </a>
+                                                    <a href="javascript:;" class="btn btn-sm bg-success-light me-2 "
+                                                        style="background-color: rgb(197, 0, 0) !important; color:white !important;">
+                                                        <i data-src="{{ URL::to('student-photos') . '/' . $data->image }}"
+                                                            data-id="{{ $data->id }}"
+                                                            data-name="{{ $data->student_name }}"class="feather-trash-2 school_delete"></i>
+                                                    </a> --}}
+                                                        </div>
+                                                    @endif
+
+                                                </td>
+
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                            @else
+                                @foreach ($studentList as $key => $data)
+                                    <tr>
+                                        <td>{{ ++$key }}</td>
+                                        @if ($mark == 2)
+                                            <td>{{ $data->student_id }}</td>
+                                            <td>{{ $data->roll_no }}</td>
                                         @else
-                                        <div class="actions">
-                                            <a href="{{ url('school/edit-fees') . '/' . $data->id }}"
-                                                class="btn btn-sm bg-danger-light me-2"style="background-color: rgb(2, 167, 11) !important; color:white !important;">
-                                                <i class="feather-edit"></i>
-                                            </a>
-                                            {{-- <a href="{{ url('school/printstudent') . '/' . $data->id }}"
+                                            <td>{{ $data->application_no }}</td>
+                                        @endif
+
+                                        <td>{{ $data->student_name }}</td>
+                                        <td>{{ $data->father_name }}</td>
+                                        <td>{{ $data->mother_name }}</td>
+                                        <td>{{ $data->classname }}</td>
+                                        <td>{{ $data->locality_type . ' ' . $data->village . ',' . $data->post_type . ' ' . $data->town . ' (' . $data->district . '),' . $data->pincode . ' ' . $data->state }}
+                                        </td>
+                                        {{-- <td>{{ $data->email }}</td> --}}
+                                        <td>{{ $data->mobile }}</td>
+                                        <td class="action">
+                                            @if ($mark == 4)
+                                                <div class="actions">
+                                                    <a href="javascript:;" class="btn btn-sm bg-success-light me-2 "
+                                                        style="background-color: rgb(0, 197, 0) !important; color:white !important;">
+                                                        <i data-src="{{ URL::to('student-photos') . '/' . $data->image }}"
+                                                            data-id="{{ $data->id }}"
+                                                            data-name="{{ $data->student_name }}"class="feather-upload recover-btn"></i>
+                                                    </a>
+                                                </div>
+                                            @else
+                                                <div class="actions">
+                                                    <a href="{{ url('school/edit-fees') . '/' . $data->id }}"
+                                                        class="btn btn-sm bg-danger-light me-2"style="background-color: rgb(2, 167, 11) !important; color:white !important;">
+                                                        <i class="feather-edit"></i>
+                                                    </a>
+                                                    {{-- <a href="{{ url('school/printstudent') . '/' . $data->id }}"
                                                 class="btn btn-sm bg-danger-light me-2"style="background-color: orange !important; color:white !important;">
                                                 <i class="feather-eye"></i>
                                             </a>
@@ -291,14 +378,14 @@
                                                     data-id="{{ $data->id }}"
                                                     data-name="{{ $data->student_name }}"class="feather-trash-2 school_delete"></i>
                                             </a> --}}
-                                        </div>
-                                        @endif
+                                                </div>
+                                            @endif
 
-                                    </td>
+                                        </td>
 
-                                </tr>
-                            @endforeach
-
+                                    </tr>
+                                @endforeach
+                            @endif
 
                         </tbody>
                     </table>

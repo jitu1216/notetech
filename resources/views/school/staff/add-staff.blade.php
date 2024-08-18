@@ -1,32 +1,35 @@
 @extends('school.layouts.master')
 @section('content')
+    <style>
+        .allot .dropdown-toggle::after {
+            font-size: 1.3rem;
+            vertical-align: 0rem;
+            margin-left: 0.5rem;
+        }
 
+        .allot .dropdown {
+            padding-top: 0.6rem;
+        }
 
-<style>
+        .power {
+            /* margin-top: -13rem !important; */
+        }
 
-.power{
-    margin-top: -13rem !important;
-}
+        @media only screen and (max-width: 900px) {
 
-@media only screen and (max-width: 900px) {
+            .power {
+                margin-top: -11rem !important;
+            }
+        }
 
-    .power{
-    margin-top: -11rem !important;
-}
-}
+        @media only screen and (max-width: 600px) {
 
-@media only screen and (max-width: 600px) {
+            .power {
+                margin-top: 0rem !important;
+            }
 
-.power{
-margin-top: 0rem !important;
-}
-
-}
-
-
-
-
-</style>
+        }
+    </style>
     <div class="page-wrapper">
         <div class="content container-fluid">
 
@@ -570,7 +573,7 @@ margin-top: 0rem !important;
                                             <label>Appointment Position <span class="login-danger">*</span></label>
                                             <select
                                                 class="form-control select @error('appointment_position') is-invalid @enderror"
-                                                name="appointment_position">
+                                                name="appointment_position" id="appointment_position">
                                                 <option selected disabled>Please Select Appointment Position </option>
                                                 <option value="Founder"
                                                     {{ old('appointment_position') == 'Founder' ? 'selected' : '' }}>
@@ -618,9 +621,9 @@ margin-top: 0rem !important;
                                                     {{ old('appointment_position') == 'Librarian' ? 'selected' : '' }}>
                                                     Librarian
                                                 </option>
-                                                <option value="Physcal Teacher"
-                                                    {{ old('appointment_position') == 'Physcal Teacher' ? 'selected' : '' }}>
-                                                    Physcal Teacher
+                                                <option value="Physical Teacher"
+                                                    {{ old('appointment_position') == 'Physical Teacher' ? 'selected' : '' }}>
+                                                    Physical Teacher
                                                 </option>
                                                 <option value="Yoga Teacher"
                                                     {{ old('appointment_position') == 'Yoga Teacher' ? 'selected' : '' }}>
@@ -633,6 +636,28 @@ margin-top: 0rem !important;
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4" id="teacher_class" style="display: none;">
+                                        <div class="form-group local-forms allot">
+                                            <label>Select Class <span class="login-danger">*</span></label>
+                                            <div class="dropdown form-control">
+                                                <a class="dropdown-toggle text-black" href="javascript:(0)"
+                                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">Select
+                                                    Class for Teacher</a>
+                                                <div class="dropdown-menu radio" style="min-width:20rem">
+                                                    @foreach ($finalarray as $key => $value)
+                                                        <a class="dropdown-item " href="javascript:(0)">
+                                                            <input name="t_class_{{ $key }}"
+                                                                value="{{ $value['id'] }}" type="checkbox"
+                                                                {{ old('t_class_' . $key) == $value['id'] ? 'checked' : '' }}
+                                                                class="form-check-input"
+                                                                style="font-size: 14px; margin-right: 10px;">
+                                                            {{ $value['classname'] }}
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -738,6 +763,9 @@ margin-top: 0rem !important;
                                                 class="form-control select @error('experience_qualification') is-invalid @enderror"
                                                 name="experience_qualification">
                                                 <option selected disabled>Please Select Degree </option>
+                                                <option value="No Degree"
+                                                    {{ old('experience_qualification') == 'No Degree' ? 'selected' : '' }}>
+                                                    B.Ed.</option>
                                                 <option value="B.Ed."
                                                     {{ old('experience_qualification') == 'B.Ed.' ? 'selected' : '' }}>
                                                     B.Ed.</option>
@@ -817,6 +845,103 @@ margin-top: 0rem !important;
                                             @enderror
                                         </div>
                                     </div>
+
+                                    <div class="col-12 col-sm-8 power">
+                                        <div class="col-12">
+                                            <h5 class="form-title"><span>Select Staff Power</span></h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 col-md-4 col-sm-2">
+                                                <div class="form-group local-forms">
+                                                    <label style="margin-left: -14px;">New Admission</label>
+                                                    <input name="power_1" value="1" type="checkbox"
+                                                        class="form-check-input"
+                                                        style="font-size: 30px; margin-top:20px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-4 col-sm-3">
+                                                <div class="form-group local-forms">
+                                                    <label style="margin-left: -14px;">Approve Admission</label>
+                                                    <input name="power_2" value="2" type="checkbox"
+                                                        class="form-check-input"
+                                                        style="font-size: 30px; margin-top:20px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-2 col-sm-2">
+                                                <div class="form-group local-forms">
+                                                    <label style="margin-left: -14px;">Exam</label>
+                                                    <input name="power_3" value="3" type="checkbox"
+                                                        class="form-check-input"
+                                                        style="font-size: 30px; margin-top:20px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-3 col-sm-2">
+                                                <div class="form-group local-forms">
+                                                    <label style="margin-left: -14px;">Fees</label>
+                                                    <input name="power_4" value="4" type="checkbox"
+                                                        class="form-check-input"
+                                                        style="font-size: 30px; margin-top:20px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-3 col-sm-2">
+                                                <div class="form-group local-forms">
+                                                    <label style="margin-left: -14px;">T.C</label>
+                                                    <input name="power_5" value="5" type="checkbox"
+                                                        class="form-check-input"
+                                                        style="font-size: 30px; margin-top:20px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-3 col-sm-2">
+                                                <div class="form-group local-forms">
+                                                    <label style="margin-left: -14px;">C.C</label>
+                                                    <input name="power_6" value="6" type="checkbox"
+                                                        class="form-check-input"
+                                                        style="font-size: 30px; margin-top:20px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-3 col-sm-2">
+                                                <div class="form-group local-forms">
+                                                    <label style="margin-left: -14px;">Libraian</label>
+                                                    <input name="power_7" value="7" type="checkbox"
+                                                        class="form-check-input"
+                                                        style="font-size: 30px; margin-top:20px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-3 col-sm-2">
+                                                <div class="form-group local-forms">
+                                                    <label style="margin-left: -14px;">Promote</label>
+                                                    <input name="power_8" value="8" type="checkbox"
+                                                        class="form-check-input"
+                                                        style="font-size: 30px; margin-top:20px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-3 col-sm-2">
+                                                <div class="form-group local-forms">
+                                                    <label style="margin-left: -14px;">Print</label>
+                                                    <input name="power_9" value="9" type="checkbox"
+                                                        class="form-check-input"
+                                                        style="font-size: 30px; margin-top:20px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-3 col-sm-2">
+                                                <div class="form-group local-forms">
+                                                    <label style="margin-left: -14px;">S.R</label>
+                                                    <input name="power_10" value="10" type="checkbox"
+                                                        class="form-check-input"
+                                                        style="font-size: 30px; margin-top:20px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-3 col-sm-2">
+                                                <div class="form-group local-forms">
+                                                    <label style="margin-left: -14px;">Staff</label>
+                                                    <input name="power_11" value="11" type="checkbox"
+                                                        class="form-check-input"
+                                                        style="font-size: 30px; margin-top:20px;">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                     <div class="col-12 col-sm-4">
                                         <div
                                             class="  form-group students-up-files d-flex justify-content-center align-items-center flex-column">
@@ -837,80 +962,6 @@ margin-top: 0rem !important;
                                                 @enderror
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-sm-8 power">
-                                        <div class="col-12">
-                                            <h5 class="form-title"><span>Select Staff Power</span></h5>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6 col-md-4 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">New Admission</label>
-                                                    <input name="power_1" value="1" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;">
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-md-4 col-sm-3">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">Approve Admission</label>
-                                                    <input name="power_2" value="2" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;">
-                                                </div>
-                                            </div>
-                                            <div class="col-2 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">Exam</label>
-                                                    <input name="power_3" value="3" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;">
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">Fees</label>
-                                                    <input name="power_4" value="4" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;">
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">T.C</label>
-                                                    <input name="power_5" value="5" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;">
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">C.C</label>
-                                                    <input name="power_6" value="6" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;">
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">Libraian</label>
-                                                    <input name="power_7" value="7" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;">
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">Promote</label>
-                                                    <input name="power_8" value="8" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;">
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">Print</label>
-                                                    <input name="power_9" value="9" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;">
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">S.R</label>
-                                                    <input name="power_10" value="10" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;">
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">Staff</label>
-                                                    <input name="power_11" value="11" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;">
-                                                </div>
-                                            </div>
-                                        </div>
-
                                     </div>
 
                                     <div class="col-12 col-sm-12">
@@ -1032,6 +1083,15 @@ margin-top: 0rem !important;
     <script>
         $(document).ready(function() {
 
+            $("#appointment_position").change(function() {
+                var appoint_position = $('#appointment_position').val();
+                if (appoint_position == 'Assistant Teacher') {
+                    $('#teacher_class').show();
+                } else {
+                    $('#teacher_class').hide();
+                }
+            });
+
 
             $('#popup').on('click', function() {
 
@@ -1081,6 +1141,8 @@ margin-top: 0rem !important;
             $("#image").change(function() {
                 readURL(this);
             });
+
+
 
 
             function readURL(input) {

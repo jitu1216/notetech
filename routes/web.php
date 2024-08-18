@@ -228,6 +228,9 @@ Route::controller(StaffController::class)->group(function () {
     Route::get('school/view-staff/{id}', 'viewStaff')->middleware('auth')->name('view-staff');
     Route::post('school/update-staff', 'updateStaff')->middleware('auth')->name('update-staff');
     Route::post('school/deletestaff', 'DeleteStaff')->middleware('auth')->name('deletestaff');
+    Route::get('school/promote-staff-list', 'promoteListStaff')->middleware('auth')->name('promote-staff-list');
+    Route::post('school/search-promote-staff', 'searchPromoteStaff')->middleware('auth')->name('promotesearchStaff');
+    Route::post('school/promoteStaff', 'promoteStaff')->middleware('auth')->name('promoteStaff');
 });
 
 

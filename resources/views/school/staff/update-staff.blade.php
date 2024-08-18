@@ -4,8 +4,17 @@
 
 <style>
 
+.allot .dropdown-toggle::after{
+    font-size: 1.3rem;
+    vertical-align: 0rem;
+    margin-left: 0.5rem;
+}
+.allot .dropdown{
+    padding-top: 0.6rem;
+}
+
 .power{
-    margin-top: -13rem !important;
+    /* margin-top: -13rem !important; */
 }
 
 @media only screen and (max-width: 900px) {
@@ -602,7 +611,7 @@ margin-top: 0rem !important;
                                             <label>Appointment Position <span class="login-danger">*</span></label>
                                             <select
                                             class="form-control select @error('appointment_position') is-invalid @enderror"
-                                            name="appointment_position">
+                                            name="appointment_position" id="appointment_position">
                                             <option selected disabled>Please Select Appointment Position </option>
                                             <option value="Founder"
                                                 {{ $staffList->appointment_position == 'Founder' ? 'selected' : '' }}>
@@ -665,6 +674,27 @@ margin-top: 0rem !important;
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4" id="teacher_class" @if ($staffList->appointment_position != 'Assistant Teacher') style="display: none;"
+                                    @endif >
+                                        <div class="form-group local-forms allot">
+                                            <label>Select Class <span class="login-danger">*</span></label>
+                                            <div class="dropdown form-control">
+                                                <a class="dropdown-toggle text-black" href="javascript:(0)"
+                                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">Classess Selected for Teacher</a>
+                                                <div class="dropdown-menu radio" style="min-width:20rem">
+                                                    @foreach ($finalarray as $key => $value)
+                                                    <a class="dropdown-item " href="javascript:(0)">
+                                                        <input name="t_class_{{ $key }}" value="{{ $value['id'] }}" type="checkbox" @foreach ($allot_class as $allot)
+                                                        {{ $allot == $value['id'] ? 'checked' : '' }}
+                                                        @endforeach
+                                                            class="form-check-input"
+                                                            style="font-size: 14px; margin-right: 10px;"> {{ $value['classname'] }}
+                                                    </a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -849,27 +879,7 @@ margin-top: 0rem !important;
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div
-                                            class="  form-group students-up-files d-flex justify-content-center align-items-center flex-column">
-                                            <img class="border m-3" id="preview_experience_certificate"
-                                            src="{{ URL::to('images') . '/' . $staffList->experience_certificate }}" alt="Logo"
-                                                width="125" height="150">
-                                            <label style="font-size: 13px;">Upload Expirenced Certificate Photo</label>
-                                            <div class="uplod">
-                                                <label
-                                                    class="file-upload image-upbtn mb-0 @error('experience_certificate') is-invalid @enderror">
-                                                    Choose File <input type="file" name="experience_certificate"
-                                                        id="experience_certificate">
-                                                </label>
-                                                @error('experience_certificate')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
+
 
                                     <div class="col-12 col-sm-8 power">
                                         <div class="col-12">
@@ -881,7 +891,6 @@ margin-top: 0rem !important;
                                                     <label style="margin-left: -14px;">New Admission</label>
                                                     <input @if (in_array('1',$staffPower)) checked
                                                     @endif name="power_1" value="1" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;" @isset($check)
-                                                    disabled
                                                 @endisset>
                                                 </div>
                                             </div>
@@ -977,6 +986,28 @@ margin-top: 0rem !important;
                                             </div>
                                         </div>
 
+                                    </div>
+
+                                    <div class="col-12 col-sm-4">
+                                        <div
+                                            class="  form-group students-up-files d-flex justify-content-center align-items-center flex-column">
+                                            <img class="border m-3" id="preview_experience_certificate"
+                                            src="{{ URL::to('images') . '/' . $staffList->experience_certificate }}" alt="Logo"
+                                                width="125" height="150">
+                                            <label style="font-size: 13px;">Upload Expirenced Certificate Photo</label>
+                                            <div class="uplod">
+                                                <label
+                                                    class="file-upload image-upbtn mb-0 @error('experience_certificate') is-invalid @enderror">
+                                                    Choose File <input type="file" name="experience_certificate"
+                                                        id="experience_certificate">
+                                                </label>
+                                                @error('experience_certificate')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-6 col-sm-6">
@@ -1107,6 +1138,15 @@ margin-top: 0rem !important;
 
     <script>
         $(document).ready(function() {
+
+            $("#appointment_position").change(function(){
+                var appoint_position = $('#appointment_position').val();
+                if(appoint_position == 'Assistant Teacher'){
+                    $('#teacher_class').show();
+                }else{
+                    $('#teacher_class').hide();
+                }
+            });
 
 
 

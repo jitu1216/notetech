@@ -178,9 +178,9 @@
                         <div class=" col-md-5">
                             <div class="form-group">
                                 <input @if (!empty($studentsearch)) value="{{ $studentsearch }}" @endif type="text"
-                                       class="form-control" name="studentsearch" placeholder="Search Student ...">
+                                    class="form-control" name="studentsearch" placeholder="Search Student ...">
                                 <input value="{{ $mark }}" type="text" class="form-control" name="searchId"
-                                       hidden>
+                                    hidden>
                             </div>
 
                         </div>
@@ -188,22 +188,49 @@
                             <div class="form-group">
                                 <div class="form-group ">
                                     <select class="form-control select  @error('category') is-invalid @enderror"
-                                            name="Class">
+                                        name="Class">
 
                                         <option selected value="">All Class</option>
-                                        @if (!empty($class))
-                                            @foreach ($finalarray as $value)
-                                                <option value="{{ $value['id'] }}"
-                                                        {{ $value['id'] == $class ? 'selected' : '' }}>
-                                                    {{ $value['classname'] }}
-                                                </option>
-                                            @endforeach
+                                        @if (Custom::getStaffRole() == 'Assistant Teacher')
+                                            @if (!empty($class))
+                                                @foreach ($finalarray as $value)
+                                                    @foreach (Custom::getTeacherClass() as $allot_class)
+                                                        @if ($allot_class == $value['id'])
+                                                            <option value="{{ $value['id'] }}"
+                                                                {{ $value['id'] == $class ? 'selected' : '' }}>
+                                                                {{ $value['classname'] }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @else
+                                                @foreach ($finalarray as $value)
+                                                    @foreach (Custom::getTeacherClass() as $allot_class)
+                                                        @if ($allot_class == $value['id'])
+                                                            <option value="{{ $value['id'] }}"
+                                                                {{ old('Class') == 'I' ? 'selected' : '' }}>
+                                                                {{ $value['classname'] }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @endif
                                         @else
-                                            @foreach ($finalarray as $value)
-                                                <option value="{{ $value['id'] }}"
-                                                        {{ old('Class') == 'I' ? 'selected' : '' }}>{{ $value['classname'] }}
-                                                </option>
-                                            @endforeach
+                                            @if (!empty($class))
+                                                @foreach ($finalarray as $value)
+                                                    <option value="{{ $value['id'] }}"
+                                                        {{ $value['id'] == $class ? 'selected' : '' }}>
+                                                        {{ $value['classname'] }}
+                                                    </option>
+                                                @endforeach
+                                            @else
+                                                @foreach ($finalarray as $value)
+                                                    <option value="{{ $value['id'] }}"
+                                                        {{ old('Class') == 'I' ? 'selected' : '' }}>
+                                                        {{ $value['classname'] }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
                                         @endif
                                     </select>
                                 </div>
@@ -225,103 +252,121 @@
                 <div class="table table-card">
                     <table class="table">
                         <thead class="table-success text-nowrap">
-                        <tr style="">
-                            <th>S.No</th>
-                            @if ($mark == 2)
-                                <th>Student Id No.</th>
-                                <th>Fees Account No.</th>
-                                <th>Roll No.</th>
-                            @else
-                                <th>Application No.</th>
-                            @endif
-                            <th>Student Name</th>
-                            <th>Father Name</th>
-                            <th>Mother Name</th>
-                            <th>Class</th>
-                            <th>Address</th>
-                            {{-- <th>Email</th> --}}
-                            <th>Mobile</th>
-                            {{-- <th>Total Deposite Fees</th>
+                            <tr style="">
+                                <th>S.No</th>
+                                @if ($mark == 2)
+                                    <th>Student Id No.</th>
+                                    <th>Fees Account No.</th>
+                                    <th>Roll No.</th>
+                                @else
+                                    <th>Application No.</th>
+                                @endif
+                                <th>Student Name</th>
+                                <th>Father Name</th>
+                                <th>Mother Name</th>
+                                <th>Class</th>
+                                <th>Address</th>
+                                {{-- <th>Email</th> --}}
+                                <th>Mobile</th>
+                                {{-- <th>Total Deposite Fees</th>
                             <th>Total Pending Fees</th>
                             <th>Total Fees</th> --}}
-                            @if ($mark == 4)
-                                <th class="action">Recover</th>
-                            @else
-                                <th class="action">Action</th>
-                            @endif
-                        </tr>
+                                @if ($mark == 4)
+                                    <th class="action">Recover</th>
+                                @else
+                                    <th class="action">Action</th>
+                                @endif
+                            </tr>
                         </thead>
                         <tbody class="text-nowrap">
-                        @foreach ($studentList as $key => $data)
-                            {{--@dd($onlineRecieptNos)--}}
 
-                            <tr>
-                                <td>{{ ++$key }}</td>
-                                @if ($mark == 2)
-                                    <td>{{ $data->student_id }}</td>
-                                    <td>{{ $data->fee_account }}</td>
-                                    <td>{{ $data->roll_no }}</td>
-                                @else
-                                    <td>{{ $data->application_no }}</td>
-                                @endif
+                            @if (Custom::getStaffRole() == 'Assistant Teacher')
+                                @foreach ($studentList as $key => $data)
+                                    @foreach (Custom::getTeacherClass() as $allot_class)
+                                        @if ($allot_class == $data->class_id)
+                                            <tr>
+                                                <td>{{ ++$key }}</td>
+                                                @if ($mark == 2)
+                                                    <td>{{ $data->student_id }}</td>
+                                                    <td>{{ $data->fee_account }}</td>
+                                                    <td>{{ $data->roll_no }}</td>
+                                                @else
+                                                    <td>{{ $data->application_no }}</td>
+                                                @endif
 
-                                <td>{{ $data->student_name }}</td>
-                                <td>{{ $data->father_name }}</td>
-                                <td>{{ $data->mother_name }}</td>
-                                <td>{{ $data->classname }}</td>
-                                <td>{{ $data->locality_type.' '. $data->village . ',' .$data->post_type.' '. $data->town . ' (' . $data->district .'),'.$data->pincode.' '.$data->state }}</td>
-                                {{-- <td>{{ $data->email }}</td> --}}
-                                <td>{{ $data->mobile }}</td>
-                                {{-- <td>{{ Custom::getDepositeFees($data->class_id, $data->id)}}</td>
-                                <td>{{ Custom::getPendingFees($data->class_id, $data->id)}}</td>
-                                <td>{{ Custom::gettotalFees($data->class_id, $data->id)}}</td> --}}
+                                                <td>{{ $data->student_name }}</td>
+                                                <td>{{ $data->father_name }}</td>
+                                                <td>{{ $data->mother_name }}</td>
+                                                <td>{{ $data->classname }}</td>
+                                                <td>{{ $data->locality_type . ' ' . $data->village . ',' . $data->post_type . ' ' . $data->town . ' (' . $data->district . '),' . $data->pincode . ' ' . $data->state }}
+                                                </td>
 
-                                <td class="action">
-                                    @if ($mark == 4)
-                                        <div class="actions">
-                                            <a href="javascript:;" class="btn btn-sm bg-success-light me-2 "
-                                               style="background-color: rgb(0, 197, 0) !important; color:white !important;">
-                                                <i data-src="{{ URL::to('student-photos') . '/' . $data->image }}"
-                                                   data-id="{{ $data->id }}"
-                                                   data-name="{{ $data->student_name }}"class="feather-upload recover-btn"></i>
-                                            </a>
-                                        </div>
-                                    @else
-                                        <div class=" ">
+                                                <td>{{ $data->mobile }}</td>
+                                                <td class="action">
+                                                    @if ($mark == 4)
+                                                        <div class="actions">
+                                                            <a href="javascript:;" class="btn btn-sm bg-success-light me-2 "
+                                                                style="background-color: rgb(0, 197, 0) !important; color:white !important;">
+                                                                <i data-src="{{ URL::to('student-photos') . '/' . $data->image }}"
+                                                                    data-id="{{ $data->id }}"
+                                                                    data-name="{{ $data->student_name }}"class="feather-upload recover-btn"></i>
+                                                            </a>
+                                                        </div>
+                                                    @else
+                                                        <div class=" ">
+                                                            <a href="{{ url('school/view-deposite-fees') . '/' . $data->id }}"
+                                                                class="btn btn-sm bg-danger-light me-2"style="background-color: rgb(2, 167, 11) !important; color:white !important;">
+                                                                <i class="feather-edit"></i>
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                            @else
+                                @foreach ($studentList as $key => $data)
+                                    <tr>
+                                        <td>{{ ++$key }}</td>
+                                        @if ($mark == 2)
+                                            <td>{{ $data->student_id }}</td>
+                                            <td>{{ $data->fee_account }}</td>
+                                            <td>{{ $data->roll_no }}</td>
+                                        @else
+                                            <td>{{ $data->application_no }}</td>
+                                        @endif
 
-                                            <a href="{{ url('school/view-deposite-fees') . '/' . $data->id }}"
-                                               class="btn btn-sm bg-danger-light me-2"style="background-color: rgb(2, 167, 11) !important; color:white !important;">
-                                                <i class="feather-edit"></i>
-                                            </a>
-                                            {{--                                             @foreach ($onlineRecieptNos[$data->student_id][0] as $onlineReciept)--}}
+                                        <td>{{ $data->student_name }}</td>
+                                        <td>{{ $data->father_name }}</td>
+                                        <td>{{ $data->mother_name }}</td>
+                                        <td>{{ $data->classname }}</td>
+                                        <td>{{ $data->locality_type . ' ' . $data->village . ',' . $data->post_type . ' ' . $data->town . ' (' . $data->district . '),' . $data->pincode . ' ' . $data->state }}
+                                        </td>
 
-                                            {{--                                            <a href="/school/recieptprint/{{$onlineReciept->online_receipt_no. '/'.$data->id}}"--}}
-                                            {{--                                               class="btn btn-sm bg-danger-light me-2"style="background-color: rgb(2, 167, 11) !important; color:white !important;">--}}
-                                            {{--                                                {{$onlineReciept->online_receipt_no}}--}}
-                                            {{--                                            </a>--}}
-                                            {{--                                            @endforeach--}}
-
-                                            {{--                                            @if ($mark == 2)--}}
-{{--                                            @foreach ($onlineRecieptNos[$data->student_id][0] as $onlineReciept)--}}
-{{--                                                <a href="/school/recieptprint/{{$onlineReciept->online_receipt_no. '/'.$data->id}}"--}}
-{{--                                                   class="btn btn-sm bg-danger-light me-2"style="background-color: rgb(0,0,0) !important; color:#ffffff !important;">--}}
-{{--                                                    {{$onlineReciept->online_receipt_no}}--}}
-{{--                                                </a>--}}
-
-{{--                                            @endforeach--}}
-                                            {{--                                            @endif--}}
-
-
-
-                                        </div>
-                                    @endif
-
-                                </td>
-
-                            </tr>
-                        @endforeach
-
-
+                                        <td>{{ $data->mobile }}</td>
+                                        <td class="action">
+                                            @if ($mark == 4)
+                                                <div class="actions">
+                                                    <a href="javascript:;" class="btn btn-sm bg-success-light me-2 "
+                                                        style="background-color: rgb(0, 197, 0) !important; color:white !important;">
+                                                        <i data-src="{{ URL::to('student-photos') . '/' . $data->image }}"
+                                                            data-id="{{ $data->id }}"
+                                                            data-name="{{ $data->student_name }}"class="feather-upload recover-btn"></i>
+                                                    </a>
+                                                </div>
+                                            @else
+                                                <div class=" ">
+                                                    <a href="{{ url('school/view-deposite-fees') . '/' . $data->id }}"
+                                                        class="btn btn-sm bg-danger-light me-2"style="background-color: rgb(2, 167, 11) !important; color:white !important;">
+                                                        <i class="feather-edit"></i>
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
 
@@ -340,7 +385,7 @@
             <div class="modal-content doctor-profile">
                 <div class="modal-header pb-0 border-bottom-0  justify-content-end">
                     <button type="button" class="close-btn" data-bs-dismiss="modal" aria-label="Close"><i
-                                class="feather-x-circle"></i>
+                            class="feather-x-circle"></i>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -355,7 +400,7 @@
                             <div class="row align-items-center justify-content-center">
                                 <div class="col-md-12">
                                     <img class="avatar-img modalimg rounded-circle" src="" alt="Logo"
-                                         width="50" height="50">
+                                        width="50" height="50">
                                 </div>
                                 <div class="col-md-8 mt-2">
                                     <h4 class="name text-left"></h4>
@@ -377,7 +422,7 @@
             <div class="modal-content doctor-profile">
                 <div class="modal-header pb-0 border-bottom-0  justify-content-end">
                     <button type="button" class="close-btn" data-bs-dismiss="modal" aria-label="Close"><i
-                                class="feather-x-circle"></i>
+                            class="feather-x-circle"></i>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -392,7 +437,7 @@
                             <div class="row align-items-center justify-content-center">
                                 <div class="col-md-12">
                                     <img class="avatar-img recoverimg rounded-circle" src="" alt="Logo"
-                                         width="50" height="50">
+                                        width="50" height="50">
                                 </div>
                                 <div class="col-md-8 mt-2">
                                     <h4 class="recovername text-left"></h4>
@@ -412,18 +457,18 @@
     <script>
         @if (Session::has('Success'))
             toastr.options = {
-            "closeButton": true,
-            "progressBar": true
-        }
-        toastr.success("{{ session('Success') }}");
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.success("{{ session('Success') }}");
         @endif
 
-                @if (Session::has('Error'))
+        @if (Session::has('Error'))
             toastr.options = {
-            "closeButton": true,
-            "progressBar": true
-        }
-        toastr.error("{{ session('Error') }}");
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.error("{{ session('Error') }}");
         @endif
 
         $('#printbtn').on('click', function() {
@@ -456,9 +501,9 @@
         });
 
         //select of print receipt
-        $(function(){
+        $(function() {
             // bind change event to select
-            $('#printreciept').on('change', function () {
+            $('#printreciept').on('change', function() {
                 var url = $(this).val(); // get selected value
                 console.log(url);
                 if (url) { // require a URL
@@ -467,7 +512,6 @@
                 return false;
             });
         });
-
     </script>
 
 @endsection
