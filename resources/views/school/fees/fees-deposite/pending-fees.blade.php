@@ -191,19 +191,46 @@
                                         name="Class">
 
                                         <option selected value="">All Class</option>
-                                        @if (!empty($class))
-                                            @foreach ($finalarray as $value)
-                                                <option value="{{ $value['id'] }}"
-                                                    {{ $value['id'] == $class ? 'selected' : '' }}>
-                                                    {{ $value['classname'] }}
-                                                </option>
-                                            @endforeach
+                                        @if (Custom::getStaffRole() == 'Assistant Teacher')
+                                            @if (!empty($class))
+                                                @foreach ($finalarray as $value)
+                                                    @foreach (Custom::getTeacherClass() as $allot_class)
+                                                        @if ($allot_class == $value['id'])
+                                                            <option value="{{ $value['id'] }}"
+                                                                {{ $value['id'] == $class ? 'selected' : '' }}>
+                                                                {{ $value['classname'] }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @else
+                                                @foreach ($finalarray as $value)
+                                                    @foreach (Custom::getTeacherClass() as $allot_class)
+                                                        @if ($allot_class == $value['id'])
+                                                            <option value="{{ $value['id'] }}"
+                                                                {{ old('Class') == 'I' ? 'selected' : '' }}>
+                                                                {{ $value['classname'] }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @endif
                                         @else
-                                            @foreach ($finalarray as $value)
-                                                <option value="{{ $value['id'] }}"
-                                                    {{ old('Class') == 'I' ? 'selected' : '' }}>{{ $value['classname'] }}
-                                                </option>
-                                            @endforeach
+                                            @if (!empty($class))
+                                                @foreach ($finalarray as $value)
+                                                    <option value="{{ $value['id'] }}"
+                                                        {{ $value['id'] == $class ? 'selected' : '' }}>
+                                                        {{ $value['classname'] }}
+                                                    </option>
+                                                @endforeach
+                                            @else
+                                                @foreach ($finalarray as $value)
+                                                    <option value="{{ $value['id'] }}"
+                                                        {{ old('Class') == 'I' ? 'selected' : '' }}>
+                                                        {{ $value['classname'] }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
                                         @endif
                                     </select>
                                 </div>
@@ -245,7 +272,7 @@
                                 {{-- @if ($mark == 4)
                                     <th class="action">Recover</th>
                                 @else --}}
-                                    {{-- <th class="action">Action</th> --}}
+                                {{-- <th class="action">Action</th> --}}
                                 {{-- @endif --}}
                             </tr>
                         </thead>
@@ -257,31 +284,105 @@
 
                         @endphp
                         <tbody class="text-nowrap">
-                            @foreach ($studentList as $key => $data)
-                                <tr>
-                                    <td>{{ ++$key }}</td>
-                                    @if ($mark == 2)
-                                      <td>{{ $data->student_id }}</td>
-                                        <td>{{ $data->roll_no }}</td>
-                                    @else
-                                        <td>{{ $data->application_no }}</td>
-                                    @endif
 
-                                    <td>{{ $data->student_name }}</td>
-                                    <td>{{ $data->father_name }}</td>
-                                    <td>{{ $data->mother_name }}</td>
-                                    <td>{{ $data->classname }}</td>
-                                    <td>{{ $data->locality_type . ' ' . $data->village . ',' . $data->post_type . ' ' . $data->town . ' (' . $data->district . '),' . $data->pincode . ' ' . $data->state }}
-                                    </td>
+                            @if (Custom::getStaffRole() == 'Assistant Teacher')
+                                @foreach ($studentList as $key => $data)
+                                    @foreach (Custom::getTeacherClass() as $allot_class)
+                                        @if ($allot_class == $data->class_id)
+                                            <tr>
+                                                <td>{{ ++$key }}</td>
+                                                @if ($mark == 2)
+                                                    <td>{{ $data->student_id }}</td>
+                                                    <td>{{ $data->roll_no }}</td>
+                                                @else
+                                                    <td>{{ $data->application_no }}</td>
+                                                @endif
 
-                                    <td>{{ $data->mobile }}</td>
-                                    <td class="text-center">{{ Custom::gettotalFees($data->class_id, $data->id) }}</td>
-                                    <td class="text-center">{{ Custom::getDepositeFees($data->class_id, $data->id) }}</td>
-                                    {{-- <td>{{ Custom::gettotaltodayFees($data->class_id, $data->id, $data->date, $data->online_receipt_no) }}
+                                                <td>{{ $data->student_name }}</td>
+                                                <td>{{ $data->father_name }}</td>
+                                                <td>{{ $data->mother_name }}</td>
+                                                <td>{{ $data->classname }}</td>
+                                                <td>{{ $data->locality_type . ' ' . $data->village . ',' . $data->post_type . ' ' . $data->town . ' (' . $data->district . '),' . $data->pincode . ' ' . $data->state }}
+                                                </td>
+
+                                                <td>{{ $data->mobile }}</td>
+                                                <td class="text-center">
+                                                    {{ Custom::gettotalFees($data->class_id, $data->id) }}</td>
+                                                <td class="text-center">
+                                                    {{ Custom::getDepositeFees($data->class_id, $data->id) }}</td>
+                                                {{-- <td>{{ Custom::gettotaltodayFees($data->class_id, $data->id, $data->date, $data->online_receipt_no) }}
+                                            </td> --}}
+                                                <td class="text-center">
+                                                    {{ Custom::getPendingFees($data->class_id, $data->id) }}</td>
+
+                                                {{-- <td class="action">
+                                                @if ($mark == 4)
+                                                    <div class="actions">
+                                                        <a href="javascript:;" class="btn btn-sm bg-success-light me-2 "
+                                                            style="background-color: rgb(0, 197, 0) !important; color:white !important;">
+                                                            <i data-src="{{ URL::to('student-photos') . '/' . $data->image }}"
+                                                                data-id="{{ $data->id }}"
+                                                                data-name="{{ $data->student_name }}"class="feather-upload recover-btn"></i>
+                                                        </a>
+                                                    </div>
+                                                @else
+                                                    <div class="actions">
+                                                        <a href="{{ url('school/view-deposite-fees') . '/' . $data->id }}"
+                                                            class="btn btn-sm bg-danger-light me-2"style="background-color: rgb(2, 167, 11) !important; color:white !important;">
+                                                            <i class="feather-edit"></i>
+                                                        </a>
+
+                                                    </div>
+                                                @endif
+
+                                            </td> --}}
+
+                                            </tr>
+
+                                            @php
+                                                $totalAmount =
+                                                    $totalAmount + Custom::gettotalFees($data->class_id, $data->id);
+                                                $totalDeposite =
+                                                    $totalDeposite +
+                                                    Custom::getDepositeFees($data->class_id, $data->id);
+                                                $totaltodayAmount =
+                                                    $totaltodayAmount +
+                                                    Custom::gettotaltodayFees($data->class_id, $data->id, $data->date);
+                                                $totalPending =
+                                                    $totalPending + Custom::getPendingFees($data->class_id, $data->id);
+
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                            @else
+                                @foreach ($studentList as $key => $data)
+                                    <tr>
+                                        <td>{{ ++$key }}</td>
+                                        @if ($mark == 2)
+                                            <td>{{ $data->student_id }}</td>
+                                            <td>{{ $data->roll_no }}</td>
+                                        @else
+                                            <td>{{ $data->application_no }}</td>
+                                        @endif
+
+                                        <td>{{ $data->student_name }}</td>
+                                        <td>{{ $data->father_name }}</td>
+                                        <td>{{ $data->mother_name }}</td>
+                                        <td>{{ $data->classname }}</td>
+                                        <td>{{ $data->locality_type . ' ' . $data->village . ',' . $data->post_type . ' ' . $data->town . ' (' . $data->district . '),' . $data->pincode . ' ' . $data->state }}
+                                        </td>
+
+                                        <td>{{ $data->mobile }}</td>
+                                        <td class="text-center">{{ Custom::gettotalFees($data->class_id, $data->id) }}</td>
+                                        <td class="text-center">{{ Custom::getDepositeFees($data->class_id, $data->id) }}
+                                        </td>
+                                        {{-- <td>{{ Custom::gettotaltodayFees($data->class_id, $data->id, $data->date, $data->online_receipt_no) }}
                                     </td> --}}
-                                    <td class="text-center">{{ Custom::getPendingFees($data->class_id, $data->id) }}</td>
+                                        <td class="text-center">{{ Custom::getPendingFees($data->class_id, $data->id) }}
+                                        </td>
 
-                                    {{-- <td class="action">
+                                        {{-- <td class="action">
                                         @if ($mark == 4)
                                             <div class="actions">
                                                 <a href="javascript:;" class="btn btn-sm bg-success-light me-2 "
@@ -303,17 +404,21 @@
 
                                     </td> --}}
 
-                                </tr>
+                                    </tr>
 
-                                @php
-                                $totalAmount = $totalAmount + Custom::gettotalFees($data->class_id, $data->id);
-                                $totalDeposite = $totalDeposite + Custom::getDepositeFees($data->class_id, $data->id);
-                                $totaltodayAmount = $totaltodayAmount + Custom::gettotaltodayFees($data->class_id, $data->id, $data->date);
-                                $totalPending = $totalPending + Custom::getPendingFees($data->class_id, $data->id);
+                                    @php
+                                        $totalAmount = $totalAmount + Custom::gettotalFees($data->class_id, $data->id);
+                                        $totalDeposite =
+                                            $totalDeposite + Custom::getDepositeFees($data->class_id, $data->id);
+                                        $totaltodayAmount =
+                                            $totaltodayAmount +
+                                            Custom::gettotaltodayFees($data->class_id, $data->id, $data->date);
+                                        $totalPending =
+                                            $totalPending + Custom::getPendingFees($data->class_id, $data->id);
 
-                            @endphp
-                            @endforeach
-
+                                    @endphp
+                                @endforeach
+                            @endif
 
                         </tbody>
                         <thead class="table-success text-nowrap">

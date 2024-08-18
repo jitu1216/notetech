@@ -9,12 +9,15 @@ use Auth;
 use App\Models\Staff;
 use App\Models\User;
 use App\Models\StateCities;
+use App\Models\SchoolClass;
+use App\Models\AcademicSession;
 use Brian2694\Toastr\Facades\Toastr;
 
 
 class StaffController extends Controller
 {
     public function addStaff(){
+
 
         $school = Custom::getSchool();
         $academic = Session::get('academic_session');
@@ -28,7 +31,46 @@ class StaffController extends Controller
             }
         }
 
-        return view('school.staff.add-staff',compact('state'));
+        $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '0'])->get();
+        // dd($schoolclass);
+        $newClass = [];
+        foreach ($schoolclass as $class) {
+            $number =  Custom::romanToInt($class->classname);
+            $newClass[$class->id] = $number;
+        }
+        $sortedArray = ['P.N.C.','N.C.','K.G.','L.K.G.','U.K.G.','I','II','III','IV','V','VI','VII','VIII','IX','X','XI (Art)','XI (Biology)','XI (Agriculture)','XI (Mathematics)','XI (Commerce)','XII (Art)','XII (Biology)','XII (Agriculture)','XII (Mathematics)','XII (Commerce)'];
+        $newroman = [];
+        sort($newClass);
+        $newromanclass = [];
+
+        foreach($sortedArray as $organize){
+            if(in_array($organize,$newClass)){
+                array_push($newromanclass, $organize);
+            }
+        }
+
+        foreach ($newromanclass as $sortClass) {
+            $newnumber = Custom::getRomanNumber($sortClass);
+            array_push($newroman, $newnumber);
+            // dd($newroman);
+        }
+        // dd($newroman);
+
+        $finalarray = array();
+
+
+        foreach ($newroman as $value) {
+            foreach ($schoolclass as $class) {
+                if ($class->classname == $value) {
+                    $x['classname'] = $class->classname;
+                    $x['id'] = $class->id;
+                    $finalarray[] = $x;
+                }
+                $x = [];
+            }
+        }
+
+        return view('school.staff.add-staff',compact('state','finalarray'));
     }
 
 
@@ -36,7 +78,6 @@ class StaffController extends Controller
 
         $school = Custom::getSchool();
         $academic = Session::get('academic_session');
-
 
         $request->validate([
             'application_date' => 'required',
@@ -92,6 +133,19 @@ class StaffController extends Controller
             $Image_certificate = null;
           }
 
+          $allot_class = array();
+
+          if($request->appointment_position == 'Assistant Teacher'){
+            for ($x = 0; $x <= 20; $x++) {
+                $t_class = 't_class_'.$x;
+                if(isset($request[$t_class])){
+                    array_push($allot_class,$request[$t_class]);
+                }
+              }
+          }
+
+          $allot_class =  implode(",",$allot_class);
+
         $data = new Staff;
         $data->school_id = $school->id;
         $data->academic_session = $academic;
@@ -126,6 +180,10 @@ class StaffController extends Controller
         $data->experience_year = $request->experience_year;
         $data->experience_certificate = $Image_certificate;
         $data->image = $Image_fileName;
+        if($request->appointment_position == 'Assistant Teacher'){
+            $data->allot_class = $allot_class;
+        }
+        // dd($data);
         $data->save();
 
 
@@ -141,12 +199,78 @@ class StaffController extends Controller
 
     }
 
+    public function promoteStaff(Request $request){
+
+
+        $school = Custom::getSchool();
+        $academic = $request->session;
+        $staffdetail = Staff::where('id',$request->id)->first();
+
+        // dd($staffdetail);
+
+        $data = new Staff;
+        $data->school_id = $school->id;
+        $data->academic_session = $academic;
+        $data->application_date = $staffdetail->application_date;
+        $data->staff_name = $staffdetail->staff_name;
+        $data->staff_code = $staffdetail->staff_code;
+        $data->father_name = $staffdetail->father_name;
+        $data->mother_name = $staffdetail->mother_name;
+        $data->gender = $staffdetail->gender;
+        $data->date_of_birth = $staffdetail->date_of_birth;
+        $data->religion = $staffdetail->religion;
+        $data->category = $staffdetail->category;
+        $data->caste = $staffdetail->caste;
+        $data->locality_type = $staffdetail->locality_type;
+        $data->village = $staffdetail->village;
+        $data->post_type = $staffdetail->post_type;
+        $data->town = $staffdetail->town;
+        $data->state = $staffdetail->state;
+        $data->city = $staffdetail->city;
+        $data->pincode = $staffdetail->pincode;
+        $data->mobile = $staffdetail->mobile;
+        $data->email = $staffdetail->email;
+        $data->nationality = $staffdetail->nationality;
+        $data->appointment_date = $staffdetail->appointment_date;
+        $data->appointment_position = $staffdetail->appointment_position;
+        $data->id_type = $staffdetail->id_type;
+        $data->qualification = $staffdetail->qualification;
+        $data->occupation = $staffdetail->occupation;
+        $data->identity_no = $staffdetail->identity_no;
+        $data->staff_power =  $staffdetail->staff_power;
+        $data->experience_qualification = $staffdetail->experience_qualification;
+        $data->experience_year = $staffdetail->experience_year;
+        $data->experience_certificate = $staffdetail->experience_certificate;
+        $data->image = $staffdetail->image;
+        $data->allot_class = $staffdetail->allot_class;
+        $data->promoted = 0;
+        // dd($data);
+        $data->save();
+
+        $staffdetail->promoted = 1;
+        $staffdetail->update();
+
+        return redirect()->back()->with('Success', 'Staff Promoted Successfully!');
+
+
+    }
+
     public function listStaff(){
 
         $school = Custom::getSchool();
         $academic = Session::get('academic_session');
         $staffList = Staff::where(['school_id'=> $school->id, 'academic_session'=>$academic ])->get();
+        // dd($staffList);
         return view('school.staff.staff-list', compact('staffList'));
+    }
+
+    public function promoteListStaff(){
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $staffList = Staff::where(['school_id'=> $school->id, 'academic_session'=>$academic ])->get();
+        // dd($staffList);
+        $session_data = AcademicSession::all();
+        return view('school.staff.promote-staff-list', compact('staffList','session_data'));
     }
 
     public function searchStaff(Request $request){
@@ -167,6 +291,27 @@ class StaffController extends Controller
         return view('school.staff.staff-list', compact('staffList','staffsearch'));
     }
 
+    public function searchPromoteStaff(Request $request){
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+
+        if (!empty($request->staffsearch)) {
+            $staffList = Staff::where(function ($query) use ($request) {
+                $query->where('staff_code', 'LIKE', "%" . $request->staffsearch . "%")->orwhere('staff_name', 'LIKE', "%" . $request->staffsearch . "%")->orwhere('father_name', 'LIKE', "%" . $request->staffsearch . "%")->orwhere('village', 'LIKE', "%" . $request->staffsearch . "%")->orwhere('town', 'LIKE', "%" . $request->staffsearch . "%")->orwhere('city', 'LIKE', "%" . $request->staffsearch . "%")->orwhere('state', 'LIKE', "%" . $request->staffsearch . "%");
+            })->get();
+        } else {
+           $staffList = Staff::where(['school_id'=> $school->id, 'academic_session'=>$academic ])->get();
+        }
+
+
+        $staffsearch = $request->staffsearch;
+        $session_data = AcademicSession::all();
+        return view('school.staff.promote-staff-list', compact('staffList','staffsearch','session_data'));
+    }
+
+
+
     public function viewStaff($id){
         $school = Custom::getSchool();
         $academic = Session::get('academic_session');
@@ -182,14 +327,52 @@ class StaffController extends Controller
 
         $staffList = Staff::where('id',$id)->first();
         $staffPower = explode(',',$staffList->staff_power);
+        $allot_class = explode(',',$staffList->allot_class);
 
-        return view('school.staff.update-staff', compact('staffList','state','staffPower'));
+        $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '0'])->get();
+        // dd($schoolclass);
+        $newClass = [];
+        foreach ($schoolclass as $class) {
+            $number =  Custom::romanToInt($class->classname);
+            $newClass[$class->id] = $number;
+        }
+        $sortedArray = ['P.N.C.','N.C.','K.G.','L.K.G.','U.K.G.','I','II','III','IV','V','VI','VII','VIII','IX','X','XI (Art)','XI (Biology)','XI (Agriculture)','XI (Mathematics)','XI (Commerce)','XII (Art)','XII (Biology)','XII (Agriculture)','XII (Mathematics)','XII (Commerce)'];
+        $newroman = [];
+        sort($newClass);
+        $newromanclass = [];
+
+        foreach($sortedArray as $organize){
+            if(in_array($organize,$newClass)){
+                array_push($newromanclass, $organize);
+            }
+        }
+
+        foreach ($newromanclass as $sortClass) {
+            $newnumber = Custom::getRomanNumber($sortClass);
+            array_push($newroman, $newnumber);
+            // dd($newroman);
+        }
+        // dd($newroman);
+
+        $finalarray = array();
+
+
+        foreach ($newroman as $value) {
+            foreach ($schoolclass as $class) {
+                if ($class->classname == $value) {
+                    $x['classname'] = $class->classname;
+                    $x['id'] = $class->id;
+                    $finalarray[] = $x;
+                }
+                $x = [];
+            }
+        }
+
+        return view('school.staff.update-staff', compact('staffList','state','staffPower','finalarray','allot_class'));
 
     }
 
     public function updateStaff(Request $request){
-
-
 
         $school = Custom::getSchool();
         $academic = Session::get('academic_session');
@@ -224,6 +407,22 @@ class StaffController extends Controller
               }
         }
 
+        $allot_class = array();
+
+        if($request->appointment_position == 'Assistant Teacher'){
+          for ($x = 0; $x <= 20; $x++) {
+              $t_class = 't_class_'.$x;
+              if(isset($request[$t_class])){
+                  array_push($allot_class,$request[$t_class]);
+              }
+            }
+            $allot_class =  implode(",",$allot_class);
+        }else{
+            $allot_class = null;
+        }
+
+        // dd($allot_class);
+
 
         $user = User::where(['name'=> $staffdetail->staff_name, 'email'=> $staffdetail->email,'phone_number' => $staffdetail->mobile ])->first();
 
@@ -233,7 +432,6 @@ class StaffController extends Controller
         $user->role_name = 'Staff';
         if(!empty($request->password)){
             $user->password = bcrypt($request->password);
-
         }
         $user->update();
 
@@ -265,8 +463,10 @@ class StaffController extends Controller
         $staffdetail->occupation = $request->occupation;
         $staffdetail->identity_no = $request->identity_no;
         $staffdetail->staff_power = $power;
+        $staffdetail->allot_class = $allot_class;
         $staffdetail->experience_qualification = $request->experience_qualification;
         $staffdetail->experience_year = $request->experience_year;
+        $staffdetail->experience_certificate = $Image_certificate;
         $staffdetail->experience_certificate = $Image_certificate;
         $staffdetail->image = $Image_fileName;
         $staffdetail->update();

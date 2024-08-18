@@ -127,7 +127,7 @@ class StudentController extends Controller
             $mark = 4;
         }
 
-        // dd($finalarray);
+        // dd($studentList);
         return view('school.student.student-list', compact('studentList', 'mark', 'finalarray'));
     }
 
@@ -551,7 +551,7 @@ class StudentController extends Controller
     {
 
         if (isset($request->rejectbtn)) {
-            
+
              $request->validate([
                 'reject'    => 'required',
             ]);

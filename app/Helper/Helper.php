@@ -320,6 +320,27 @@ class Custom{
         return $staffPower;
     }
 
+    public static function getTeacherClass(){
+
+        $user = Auth::User();
+        $staff = Staff::where('email', $user->email)->where('staff_name', $user->name)->first();
+        $allot_class = explode(',',$staff->allot_class);
+        return $allot_class;
+    }
+
+    public static function getStaffRole(){
+
+        $user = Auth::User();
+        $staff = Staff::where('email', $user->email)->where('staff_name', $user->name)->first();
+        if($staff != null){
+            return $staff->appointment_position;
+        }else{
+            $staff = 'School';
+            return $staff;
+        }
+
+    }
+
     public static function getstudentFeesTransaction($classid, $stdId, $date = null){
         $school = Custom::getSchool();
         $academic = Session::get('academic_session');
