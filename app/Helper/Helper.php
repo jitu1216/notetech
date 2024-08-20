@@ -263,6 +263,34 @@ class Custom{
             return $totaldata;
     }
 
+    public static function classtotalfees(){
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $class_fees = 0;
+
+        foreach (Custom::getTeacherClass() as $key => $value) {
+            $totaldata = StudentFees::where(['school_id' => $school->id , 'class_id' => $value, 'academic_session'=> $academic, 'status'=>1])->sum('fees_amount');
+            $class_fees = $class_fees + $totaldata;
+        }
+
+        return $totaldata;
+    }
+
+    public static function classtotalpaidfees(){
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $class_fees = 0;
+
+        foreach (Custom::getTeacherClass() as $key => $value) {
+            $totaldata = StudentFees::where(['school_id' => $school->id , 'class_id' => $value, 'academic_session'=> $academic, 'status'=>1])->sum('fees_paid');
+            $class_fees = $class_fees + $totaldata;
+        }
+
+        return $totaldata;
+    }
+
     public static function schoototalpaidfees(){
 
         $school = Custom::getSchool();

@@ -13,15 +13,17 @@
     <link rel="stylesheet" href="{{ URL::to('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ URL::to('assets/plugins/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ URL::to('assets/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/css/multi-select-tag.css">
     <link rel="stylesheet" href="{{ URL::to('assets/css/style.css') }}">
     {{-- message toastr --}}
 	<link rel="stylesheet" href="{{ URL::to('assets/css/toastr.min.css') }}">
 	<script src="{{ URL::to('assets/js/toastr_jquery.min.js') }}"></script>
 	<script src="{{ URL::to('assets/js/toastr.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script>
 </head>
 
 <body>
-    <style>    
+    <style>
         .invalid-feedback{
             font-size: 14px;
         }
@@ -43,6 +45,7 @@
     <script src="{{ URL::to('assets/js/feather.min.js') }}"></script>
     <script src="{{ URL::to('assets/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ URL::to('assets/js/script.js') }}"></script>
+
 </body>
 
 </html>

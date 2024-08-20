@@ -128,6 +128,8 @@
                         List of All Approved Students
                     @elseif ($mark == 3)
                         List of All Rejected Students
+                    @elseif ($mark == 5)
+                        List of All Student
                     @else
                         List of All Deleted Students
                     @endif
@@ -146,6 +148,8 @@
                                     Approved Student List
                                 @elseif ($mark == 3)
                                     Rejected Students List
+                                @elseif ($mark == 5)
+                                    All Students List
                                 @else
                                     Deleted Students List
                                 @endif
@@ -160,6 +164,8 @@
                                         Approved Student List
                                     @elseif ($mark == 3)
                                         Rejected Students List
+                                    @elseif ($mark == 5)
+                                        All Students List
                                     @else
                                         Deleted Students List
                                     @endif
@@ -196,10 +202,10 @@
                                                 @foreach ($finalarray as $value)
                                                     @foreach (Custom::getTeacherClass() as $allot_class)
                                                         @if ($allot_class == $value['id'])
-                                                        <option value="{{ $value['id'] }}"
-                                                        {{ $value['id'] == $class ? 'selected' : '' }}>
-                                                        {{ $value['classname'] }}
-                                                    </option>
+                                                            <option value="{{ $value['id'] }}"
+                                                                {{ $value['id'] == $class ? 'selected' : '' }}>
+                                                                {{ $value['classname'] }}
+                                                            </option>
                                                         @endif
                                                     @endforeach
                                                 @endforeach
@@ -255,7 +261,7 @@
                         <thead class="table-success text-nowrap">
                             <tr style="">
                                 <th>S.No</th>
-                                @if ($mark == 2)
+                                @if ($mark == 2 || $mark == 5)
                                     <th>Student Id No.</th>
                                     <th>Roll No.</th>
                                 @else
@@ -268,11 +274,14 @@
                                 <th>Address</th>
                                 {{-- <th>Email</th> --}}
                                 <th>Mobile</th>
-                                @if ($mark == 4)
-                                    <th class="action">Recover</th>
-                                @else
-                                    <th class="action">Action</th>
+                                @if ($mark != 5)
+                                    @if ($mark == 4)
+                                        <th class="action">Recover</th>
+                                    @else
+                                        <th class="action">Action</th>
+                                    @endif
                                 @endif
+
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
@@ -283,7 +292,7 @@
                                         @if ($allot_class == $data->class_id)
                                             <tr>
                                                 <td>{{ ++$key }}</td>
-                                                @if ($mark == 2)
+                                                @if ($mark == 2 || $mark == 5)
                                                     <td>{{ $data->student_id }}</td>
                                                     <td>{{ $data->roll_no }}</td>
                                                 @else
@@ -298,42 +307,61 @@
                                                 </td>
                                                 {{-- <td>{{ $data->email }}</td> --}}
                                                 <td>{{ $data->mobile }}</td>
-                                                <td class="action">
-                                                    @if ($mark == 4)
-                                                        <div class="actions">
-                                                            <a href="javascript:;" class="btn btn-sm bg-success-light me-2 "
-                                                                style="background-color: rgb(0, 197, 0) !important; color:white !important;">
-                                                                <i data-src="{{ URL::to('student-photos') . '/' . $data->image }}"
-                                                                    data-id="{{ $data->id }}"
-                                                                    data-name="{{ $data->student_name }}"class="feather-upload recover-btn"></i>
-                                                            </a>
-                                                        </div>
-                                                    @else
-                                                        <div class="actions">
+                                                @if ($mark != 5)
+                                                    <td class="action">
+                                                        @if ($mark == 4)
+                                                            <div class="actions">
+                                                                <a href="javascript:;"
+                                                                    class="btn btn-sm bg-success-light me-2 "
+                                                                    style="background-color: rgb(0, 197, 0) !important; color:white !important;">
+                                                                    <i data-src="{{ URL::to('student-photos') . '/' . $data->image }}"
+                                                                        data-id="{{ $data->id }}"
+                                                                        data-name="{{ $data->student_name }}"class="feather-upload recover-btn"></i>
+                                                                </a>
+                                                            </div>
+                                                        @else
+                                                            <div class="actions">
 
-                                                            @if (Custom::getUser()->role_name == 'Staff')
-                                                                @if (in_array('2', Custom::getStaffPower()))
+                                                                @if (Custom::getUser()->role_name == 'Staff')
+                                                                    @if (in_array('2', Custom::getStaffPower()))
+                                                                        <a href="{{ url('school/update-student') . '/' . $data->id }}"
+                                                                            class="btn btn-sm bg-danger-light me-2"style="background-color: rgb(2, 167, 11) !important; color:white !important;">
+                                                                            <i class="feather-edit"></i>
+                                                                        @else
+                                                                            <a href="javascript:;"
+                                                                                class="popup btn btn-sm bg-danger-light me-2"style="background-color: rgb(2, 167, 11) !important; color:white !important;">
+                                                                                <i class="feather-edit"></i>
+                                                                    @endif
+                                                                @else
                                                                     <a href="{{ url('school/update-student') . '/' . $data->id }}"
                                                                         class="btn btn-sm bg-danger-light me-2"style="background-color: rgb(2, 167, 11) !important; color:white !important;">
                                                                         <i class="feather-edit"></i>
+                                                                @endif
+                                                                </a>
+                                                                <a href="{{ url('school/printstudent') . '/' . $data->id }}"
+                                                                    class="btn btn-sm bg-danger-light me-2"style="background-color: orange !important; color:white !important;">
+                                                                    <i class="feather-eye"></i>
+                                                                </a>
+
+                                                                @if (Custom::getUser()->role_name == 'Staff')
+                                                                    @if (in_array('2', Custom::getStaffPower()))
+                                                                        <a href="javascript:;"
+                                                                            class="btn btn-sm bg-success-light me-2 "
+                                                                            style="background-color: rgb(197, 0, 0) !important; color:white !important;">
+                                                                            <i data-src="{{ URL::to('student-photos') . '/' . $data->image }}"
+                                                                                data-id="{{ $data->id }}"
+                                                                                data-name="{{ $data->student_name }}"class="feather-trash-2 school_delete"></i>
+                                                                        </a>
                                                                     @else
                                                                         <a href="javascript:;"
-                                                                            class="popup btn btn-sm bg-danger-light me-2"style="background-color: rgb(2, 167, 11) !important; color:white !important;">
-                                                                            <i class="feather-edit"></i>
-                                                                @endif
-                                                            @else
-                                                                <a href="{{ url('school/update-student') . '/' . $data->id }}"
-                                                                    class="btn btn-sm bg-danger-light me-2"style="background-color: rgb(2, 167, 11) !important; color:white !important;">
-                                                                    <i class="feather-edit"></i>
-                                                            @endif
-                                                            </a>
-                                                            <a href="{{ url('school/printstudent') . '/' . $data->id }}"
-                                                                class="btn btn-sm bg-danger-light me-2"style="background-color: orange !important; color:white !important;">
-                                                                <i class="feather-eye"></i>
-                                                            </a>
-
-                                                            @if (Custom::getUser()->role_name == 'Staff')
-                                                                @if (in_array('2', Custom::getStaffPower()))
+                                                                            class="btn btn-sm bg-success-light me-2 "
+                                                                            style="background-color: rgb(197, 0, 0) !important; color:white !important;">
+                                                                            <i data-src="{{ URL::to('student-photos') . '/' . $data->image }}"
+                                                                                data-id="{{ $data->id }}"
+                                                                                data-name="{{ $data->student_name }}"class="feather-trash-2 popup"></i>
+                                                                        </a>
+                                                                    @endif
+                                                                @else
                                                                     <a href="javascript:;"
                                                                         class="btn btn-sm bg-success-light me-2 "
                                                                         style="background-color: rgb(197, 0, 0) !important; color:white !important;">
@@ -341,31 +369,14 @@
                                                                             data-id="{{ $data->id }}"
                                                                             data-name="{{ $data->student_name }}"class="feather-trash-2 school_delete"></i>
                                                                     </a>
-                                                                @else
-                                                                    <a href="javascript:;"
-                                                                        class="btn btn-sm bg-success-light me-2 "
-                                                                        style="background-color: rgb(197, 0, 0) !important; color:white !important;">
-                                                                        <i data-src="{{ URL::to('student-photos') . '/' . $data->image }}"
-                                                                            data-id="{{ $data->id }}"
-                                                                            data-name="{{ $data->student_name }}"class="feather-trash-2 popup"></i>
-                                                                    </a>
                                                                 @endif
-                                                            @else
-                                                                <a href="javascript:;"
-                                                                    class="btn btn-sm bg-success-light me-2 "
-                                                                    style="background-color: rgb(197, 0, 0) !important; color:white !important;">
-                                                                    <i data-src="{{ URL::to('student-photos') . '/' . $data->image }}"
-                                                                        data-id="{{ $data->id }}"
-                                                                        data-name="{{ $data->student_name }}"class="feather-trash-2 school_delete"></i>
-                                                                </a>
-                                                            @endif
 
 
-                                                        </div>
-                                                    @endif
+                                                            </div>
+                                                        @endif
 
-                                                </td>
-
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @endif
                                     @endforeach

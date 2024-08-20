@@ -771,4 +771,74 @@ class StudentController extends Controller
         $student->update();
         return redirect()->back()->with('Success', 'Student Recovered Successfully!');
     }
+
+
+    public function allStudentList($id)
+    {
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+
+        $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '0'])->get();
+
+        $newClass = [];
+        foreach ($schoolclass as $class) {
+            $number =  Custom::romanToInt($class->classname);
+            $newClass[$class->id] = $number;
+        }
+        $sortedArray = ['P.N.C.','N.C.','K.G.','L.K.G.','U.K.G.','I','II','III','IV','V','VI','VII','VIII','IX','X','XI (Art)','XI (Biology)','XI (Agriculture)','XI (Mathematics)','XI (Commerce)','XII (Art)','XII (Biology)','XII (Agriculture)','XII (Mathematics)','XII (Commerce)'];
+        $newroman = [];
+        sort($newClass);
+        $newromanclass = [];
+
+        foreach($sortedArray as $organize){
+            if(in_array($organize,$newClass)){
+                array_push($newromanclass, $organize);
+            }
+        }
+
+        foreach ($newromanclass as $sortClass) {
+            $newnumber = Custom::getRomanNumber($sortClass);
+            array_push($newroman, $newnumber);
+            // dd($newroman);
+        }
+        $finalarray = array();
+        foreach ($newroman as $value) {
+            foreach ($schoolclass as $class) {
+                if ($class->classname == $value) {
+                    $x['classname'] = $class->classname;
+                    $x['id'] = $class->id;
+                    $finalarray[] = $x;
+                }
+                $x = [];
+            }
+        }
+
+        if($id == 5){
+            $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(['students.status'=> '2' ,'students.school_id'=> $school->id, 'students.academic_session' => $academic])->get();
+        }else{
+            $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(['students.status'=> $id ,'students.school_id'=> $school->id, 'students.academic_session' => $academic])->get();
+        }
+
+
+
+
+        if($id == 2) {
+            $mark = 2;
+        }
+        if($id == 1) {
+            $mark = 1;
+        }
+        if($id == 3) {
+            $mark = 3;
+        }
+        if($id == 4){
+            $mark = 4;
+        }
+        if($id == 5){
+            $mark = 5;
+        }
+
+        // dd($studentList);
+        return view('school.student.student-list', compact('studentList', 'mark', 'finalarray'));
+    }
 }

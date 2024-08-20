@@ -176,6 +176,8 @@ Route::controller(StudentController::class)->group(function () {
     Route::post('school/student-delete', 'deleteStudent')->middleware('auth')->name('deletestudent');
     Route::get('school/searchStudent', 'searchStudent')->middleware('auth')->name('searchStudent');
     Route::post('school/student-recover', 'recoverStudent')->middleware('auth')->name('recoverstudent');
+    Route::get('school/all-student-list/{id}', 'allStudentList')->middleware('auth')->name('allstudentlist');
+
 });
 
 
