@@ -48,13 +48,58 @@ class SchoolDashboardController extends Controller
             }
         }
 
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+
+        $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '0'])->get();
+        // dd($schoolclass);
+        $newClass = [];
+        foreach ($schoolclass as $class) {
+            $number =  Custom::romanToInt($class->classname);
+            $newClass[$class->id] = $number;
+        }
+        $sortedArray = ['P.N.C.','N.C.','K.G.','L.K.G.','U.K.G.','I','II','III','IV','V','VI','VII','VIII','IX','X','XI (Art)','XI (Biology)','XI (Agriculture)','XI (Mathematics)','XI (Commerce)','XII (Art)','XII (Biology)','XII (Agriculture)','XII (Mathematics)','XII (Commerce)'];
+        $newroman = [];
+        sort($newClass);
+        $newromanclass = [];
+
+        foreach($sortedArray as $organize){
+            if(in_array($organize,$newClass)){
+                array_push($newromanclass, $organize);
+            }
+        }
+
+        foreach ($newromanclass as $sortClass) {
+            $newnumber = Custom::getRomanNumber($sortClass);
+            array_push($newroman, $newnumber);
+            // dd($newroman);
+        }
+        // dd($newroman);
+
+        $finalarray = array();
+
+
+        foreach ($newroman as $value) {
+            foreach ($schoolclass as $class) {
+                if ($class->classname == $value) {
+                    $x['classname'] = $class->classname;
+                    $x['id'] = $class->id;
+                    $finalarray[] = $x;
+                }
+                $x = [];
+            }
+        }
+
+
         if($user->role_name == 'School' || $user->role_name == 'Super Admin'){
                  return view('school.profile', compact('data','state'));
         }elseif($user->role_name == 'Staff'){
 
         $check = 1;
         $staffPower = explode(',',$staffList->staff_power);
-        return view('school.staff.update-staff', compact('staffList','state','staffPower','check'));
+        $allot_class = explode(',',$staffList->allot_class);
+
+        return view('school.staff.update-staff', compact('staffList','state','staffPower','check','finalarray','allot_class'));
         }
     }
 

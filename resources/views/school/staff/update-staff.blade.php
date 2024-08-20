@@ -1,39 +1,35 @@
 @extends('school.layouts.master')
 @section('content')
+    <style>
+        .allot .dropdown-toggle::after {
+            font-size: 1.3rem;
+            vertical-align: 0rem;
+            margin-left: 0.5rem;
+        }
 
+        .allot .dropdown {
+            padding-top: 0.6rem;
+        }
 
-<style>
+        .power {
+            /* margin-top: -13rem !important; */
+        }
 
-.allot .dropdown-toggle::after{
-    font-size: 1.3rem;
-    vertical-align: 0rem;
-    margin-left: 0.5rem;
-}
-.allot .dropdown{
-    padding-top: 0.6rem;
-}
+        @media only screen and (max-width: 900px) {
 
-.power{
-    /* margin-top: -13rem !important; */
-}
+            .power {
+                margin-top: -11rem !important;
+            }
+        }
 
-@media only screen and (max-width: 900px) {
+        @media only screen and (max-width: 600px) {
 
-    .power{
-    margin-top: -11rem !important;
-}
-}
+            .power {
+                margin-top: 0rem !important;
+            }
 
-@media only screen and (max-width: 600px) {
-
-.power{
-margin-top: 0rem !important;
-}
-
-}
-
-
-</style>
+        }
+    </style>
     <div class="page-wrapper">
         <div class="content container-fluid">
 
@@ -59,9 +55,9 @@ margin-top: 0rem !important;
                             <form action="{{ route('update-staff') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    @if ((Custom::checkProfile(Custom::getUser()->id) == 1))
-                                    <h4 style="color:red; text-align:center; margin:10px;">Please Complete your Profile!</h4>
-
+                                    @if (Custom::checkProfile(Custom::getUser()->id) == 1)
+                                        <h4 style="color:red; text-align:center; margin:10px;">Please Complete your Profile!
+                                        </h4>
                                     @endif
                                     <div class="col-12">
                                         <h5 class="form-title student-info">Staff Information
@@ -90,11 +86,13 @@ margin-top: 0rem !important;
                                             <div class="col-12 col-sm-12">
                                                 <div class="form-group local-forms calendar-icon">
                                                     <label>Application Date <span class="login-danger">*</span></label>
-                                                    <input type="text" name="id" value="{{ $staffList->id }}" hidden>
+                                                    <input type="text" name="id" value="{{ $staffList->id }}"
+                                                        hidden>
                                                     <input
                                                         class="form-control datetimepicker @error('application_date') is-invalid @enderror"
                                                         name="application_date" type="text" placeholder="DD-MM-YYYY"
-                                                        value="{{ $staffList->application_date }}" id="dob"@isset($check)
+                                                        value="{{ $staffList->application_date }}"
+                                                        id="dob"@isset($check)
                                                             disabled
                                                         @endisset>
                                                     @error('application_date')
@@ -121,9 +119,11 @@ margin-top: 0rem !important;
                                             <div class="col-12 col-sm-6">
                                                 <div class="form-group local-forms">
                                                     <label>Staff Code<span class="login-danger">*</span></label>
-                                                    <input @isset($check)
+                                                    <input
+                                                        @isset($check)
                                                     disabled
-                                                @endisset type="text"
+                                                @endisset
+                                                        type="text"
                                                         class="form-control @error('staff_code') is-invalid @enderror"
                                                         name="staff_code" placeholder="Enter Staff Code"
                                                         value="{{ $staffList->staff_code }}" id="staff_code">
@@ -569,7 +569,7 @@ margin-top: 0rem !important;
                                             <label>Email</label>
                                             <input class="form-control @error('email') is-invalid @enderror"
                                                 type="text" name="email" placeholder="Enter Email"
-                                                value="{{ $staffList->email  }}" id="email">
+                                                value="{{ $staffList->email }}" id="email">
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -610,65 +610,65 @@ margin-top: 0rem !important;
                                         <div class="form-group local-forms">
                                             <label>Appointment Position <span class="login-danger">*</span></label>
                                             <select
-                                            class="form-control select @error('appointment_position') is-invalid @enderror"
-                                            name="appointment_position" id="appointment_position">
-                                            <option selected disabled>Please Select Appointment Position </option>
-                                            <option value="Founder"
-                                                {{ $staffList->appointment_position == 'Founder' ? 'selected' : '' }}>
-                                                Founder</option>
-                                            <option value="Director"
-                                                {{ $staffList->appointment_position == 'Director' ? 'selected' : '' }}>
-                                                Director
-                                            </option>
-                                            <option value="Chairman"
-                                                {{ $staffList->appointment_position == 'Chairman' ? 'selected' : '' }}>
-                                                Chairman</option>
-                                            <option value="Manager"
-                                                {{ $staffList->appointment_position == 'Manager' ? 'selected' : '' }}>
-                                                Manager
-                                            </option>
-                                            <option value="Principle"
-                                                {{ $staffList->appointment_position == 'Principle' ? 'selected' : '' }}>
-                                                Principle
-                                            </option>
-                                            <option value="Assistant Teacher"
-                                                {{ $staffList->appointment_position == 'Assistant Teacher' ? 'selected' : '' }}>
-                                                Assistant Teacher
-                                            </option>
-                                            <option value="Clerk"
-                                                {{ $staffList->appointment_position == 'Clerk' ? 'selected' : '' }}>
-                                                Clerk
-                                            </option>
-                                            <option value="Peon"
-                                                {{ $staffList->appointment_position == 'Peon' ? 'selected' : '' }}>
-                                                Peon
-                                            </option>
-                                            <option value="Seurity Gauard"
-                                                {{ $staffList->appointment_position == 'Seurity Gauard' ? 'selected' : '' }}>
-                                                Seurity Gauard
-                                            </option>
-                                            <option value="Cleaner"
-                                                {{ $staffList->appointment_position == 'Cleaner' ? 'selected' : '' }}>
-                                                Cleaner
-                                            </option>
-                                            <option value="Gardner"
-                                                {{ $staffList->appointment_position == 'Gardner' ? 'selected' : '' }}>
-                                                Gardner
-                                            </option>
-                                            <option value="Librarian"
-                                                {{ $staffList->appointment_position == 'Librarian' ? 'selected' : '' }}>
-                                                Librarian
-                                            </option>
-                                            <option value="Physcal Teacher"
-                                                {{ $staffList->appointment_position == 'Physcal Teacher' ? 'selected' : '' }}>
-                                                Physcal Teacher
-                                            </option>
-                                            <option value="Yoga Teacher"
-                                                {{ $staffList->appointment_position == 'Yoga Teacher' ? 'selected' : '' }}>
-                                                Yoga Teacher
-                                            </option>
+                                                class="form-control select @error('appointment_position') is-invalid @enderror"
+                                                name="appointment_position" id="appointment_position">
+                                                <option selected disabled>Please Select Appointment Position </option>
+                                                <option value="Founder"
+                                                    {{ $staffList->appointment_position == 'Founder' ? 'selected' : '' }}>
+                                                    Founder</option>
+                                                <option value="Director"
+                                                    {{ $staffList->appointment_position == 'Director' ? 'selected' : '' }}>
+                                                    Director
+                                                </option>
+                                                <option value="Chairman"
+                                                    {{ $staffList->appointment_position == 'Chairman' ? 'selected' : '' }}>
+                                                    Chairman</option>
+                                                <option value="Manager"
+                                                    {{ $staffList->appointment_position == 'Manager' ? 'selected' : '' }}>
+                                                    Manager
+                                                </option>
+                                                <option value="Principle"
+                                                    {{ $staffList->appointment_position == 'Principle' ? 'selected' : '' }}>
+                                                    Principle
+                                                </option>
+                                                <option value="Assistant Teacher"
+                                                    {{ $staffList->appointment_position == 'Assistant Teacher' ? 'selected' : '' }}>
+                                                    Assistant Teacher
+                                                </option>
+                                                <option value="Clerk"
+                                                    {{ $staffList->appointment_position == 'Clerk' ? 'selected' : '' }}>
+                                                    Clerk
+                                                </option>
+                                                <option value="Peon"
+                                                    {{ $staffList->appointment_position == 'Peon' ? 'selected' : '' }}>
+                                                    Peon
+                                                </option>
+                                                <option value="Seurity Gauard"
+                                                    {{ $staffList->appointment_position == 'Seurity Gauard' ? 'selected' : '' }}>
+                                                    Seurity Gauard
+                                                </option>
+                                                <option value="Cleaner"
+                                                    {{ $staffList->appointment_position == 'Cleaner' ? 'selected' : '' }}>
+                                                    Cleaner
+                                                </option>
+                                                <option value="Gardner"
+                                                    {{ $staffList->appointment_position == 'Gardner' ? 'selected' : '' }}>
+                                                    Gardner
+                                                </option>
+                                                <option value="Librarian"
+                                                    {{ $staffList->appointment_position == 'Librarian' ? 'selected' : '' }}>
+                                                    Librarian
+                                                </option>
+                                                <option value="Physcal Teacher"
+                                                    {{ $staffList->appointment_position == 'Physcal Teacher' ? 'selected' : '' }}>
+                                                    Physcal Teacher
+                                                </option>
+                                                <option value="Yoga Teacher"
+                                                    {{ $staffList->appointment_position == 'Yoga Teacher' ? 'selected' : '' }}>
+                                                    Yoga Teacher
+                                                </option>
 
-                                        </select>
+                                            </select>
                                             @error('appointment_position')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -676,22 +676,33 @@ margin-top: 0rem !important;
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-4" id="teacher_class" @if ($staffList->appointment_position != 'Assistant Teacher') style="display: none;"
-                                    @endif >
+                                    <div class="col-12 col-sm-4" id="teacher_class"
+                                        @if ($staffList->appointment_position != 'Assistant Teacher') style="display: none;" @endif>
                                         <div class="form-group local-forms allot">
-                                            <label>Select Class <span class="login-danger">*</span></label>
+                                            <label>Select Class for Teacher <span class="login-danger">*</span></label>
+                                            {{-- <select name="teacher_class" id="test_class">
+                                                @foreach ($finalarray as $key => $value)
+                                                    <option value="{{ $value['id'] }}"
+                                                        @foreach ($allot_class as $allot)
+                                            {{ $allot == $value['id'] ? 'selected' : '' }} @endforeach>
+                                                        {{ $value['classname'] }}</option>
+                                                @endforeach
+                                            </select> --}}
                                             <div class="dropdown form-control">
                                                 <a class="dropdown-toggle text-black" href="javascript:(0)"
-                                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">Classess Selected for Teacher</a>
+                                                    role="button" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">Classess Selected for Teacher</a>
                                                 <div class="dropdown-menu radio" style="min-width:20rem">
                                                     @foreach ($finalarray as $key => $value)
-                                                    <a class="dropdown-item " href="javascript:(0)">
-                                                        <input name="t_class_{{ $key }}" value="{{ $value['id'] }}" type="checkbox" @foreach ($allot_class as $allot)
-                                                        {{ $allot == $value['id'] ? 'checked' : '' }}
-                                                        @endforeach
-                                                            class="form-check-input"
-                                                            style="font-size: 14px; margin-right: 10px;"> {{ $value['classname'] }}
-                                                    </a>
+                                                        <a class="dropdown-item " href="javascript:(0)">
+                                                            <input name="t_class_{{ $key }}"
+                                                                value="{{ $value['id'] }}" type="checkbox"
+                                                                @foreach ($allot_class as $allot)
+                                                        {{ $allot == $value['id'] ? 'checked' : '' }} @endforeach
+                                                                class="form-check-input"
+                                                                style="font-size: 14px; margin-right: 10px;">
+                                                            {{ $value['classname'] }}
+                                                        </a>
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -756,7 +767,8 @@ margin-top: 0rem !important;
                                                     {{ $staffList->qualification == '5th Pass' ? 'selected' : '' }}>
                                                     5th Pass</option>
                                                 <option value="8th Pass"
-                                                    {{ $staffList->qualification == '8th Pass' ? 'selected' : '' }}>8th Pass
+                                                    {{ $staffList->qualification == '8th Pass' ? 'selected' : '' }}>8th
+                                                    Pass
                                                 </option>
                                                 <option value="High School"
                                                     {{ $staffList->qualification == 'High School' ? 'selected' : '' }}>
@@ -823,7 +835,7 @@ margin-top: 0rem !important;
                                             <label>Experience Year <span class="login-danger">*</span></label>
                                             <select
                                                 class="form-control select @error('experience_year') is-invalid @enderror"
-                                                name="experience_year">
+                                                name="experience_year" id="experiencetest">
                                                 <option selected disabled>Please Select Experience Years </option>
                                                 <option value="1 Year"
                                                     {{ $staffList->experience_year == '1 Year' ? 'selected' : '' }}>
@@ -889,16 +901,20 @@ margin-top: 0rem !important;
                                             <div class="col-6 col-md-4 col-sm-2">
                                                 <div class="form-group local-forms">
                                                     <label style="margin-left: -14px;">New Admission</label>
-                                                    <input @if (in_array('1',$staffPower)) checked
-                                                    @endif name="power_1" value="1" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;" @isset($check)
+                                                    <input @if (in_array('1', $staffPower)) checked @endif name="power_1"
+                                                        value="1" type="checkbox" class="form-check-input"
+                                                        style="font-size: 30px; margin-top:20px;"
+                                                        @isset($check)
                                                 @endisset>
                                                 </div>
                                             </div>
                                             <div class="col-6 col-md-4 col-sm-3">
                                                 <div class="form-group local-forms">
                                                     <label style="margin-left: -14px;">Approve Admission</label>
-                                                    <input @if (in_array('2',$staffPower)) checked
-                                                    @endif name="power_2" value="2" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;" @isset($check)
+                                                    <input @if (in_array('2', $staffPower)) checked @endif name="power_2"
+                                                        value="2" type="checkbox" class="form-check-input"
+                                                        style="font-size: 30px; margin-top:20px;"
+                                                        @isset($check)
                                                     disabled
                                                 @endisset>
                                                 </div>
@@ -906,8 +922,10 @@ margin-top: 0rem !important;
                                             <div class="col-2 col-sm-2">
                                                 <div class="form-group local-forms">
                                                     <label style="margin-left: -14px;">Exam</label>
-                                                    <input @if (in_array('3',$staffPower)) checked
-                                                    @endif name="power_3" value="3" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;" @isset($check)
+                                                    <input @if (in_array('3', $staffPower)) checked @endif name="power_3"
+                                                        value="3" type="checkbox" class="form-check-input"
+                                                        style="font-size: 30px; margin-top:20px;"
+                                                        @isset($check)
                                                     disabled
                                                 @endisset>
                                                 </div>
@@ -915,8 +933,10 @@ margin-top: 0rem !important;
                                             <div class="col-3 col-sm-2">
                                                 <div class="form-group local-forms">
                                                     <label style="margin-left: -14px;">Fees</label>
-                                                    <input @if (in_array('4',$staffPower)) checked
-                                                    @endif name="power_4" value="4" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;" @isset($check)
+                                                    <input @if (in_array('4', $staffPower)) checked @endif
+                                                        name="power_4" value="4" type="checkbox"
+                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
+                                                        @isset($check)
                                                     disabled
                                                 @endisset>
                                                 </div>
@@ -924,8 +944,10 @@ margin-top: 0rem !important;
                                             <div class="col-3 col-sm-2">
                                                 <div class="form-group local-forms">
                                                     <label style="margin-left: -14px;">T.C</label>
-                                                    <input @if (in_array('5',$staffPower)) checked
-                                                    @endif name="power_5" value="5" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;" @isset($check)
+                                                    <input @if (in_array('5', $staffPower)) checked @endif
+                                                        name="power_5" value="5" type="checkbox"
+                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
+                                                        @isset($check)
                                                     disabled
                                                 @endisset>
                                                 </div>
@@ -933,8 +955,10 @@ margin-top: 0rem !important;
                                             <div class="col-3 col-sm-2">
                                                 <div class="form-group local-forms">
                                                     <label style="margin-left: -14px;">C.C</label>
-                                                    <input @if (in_array('6',$staffPower)) checked
-                                                    @endif name="power_6" value="6" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;" @isset($check)
+                                                    <input @if (in_array('6', $staffPower)) checked @endif
+                                                        name="power_6" value="6" type="checkbox"
+                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
+                                                        @isset($check)
                                                     disabled
                                                 @endisset>
                                                 </div>
@@ -942,8 +966,10 @@ margin-top: 0rem !important;
                                             <div class="col-3 col-sm-2">
                                                 <div class="form-group local-forms">
                                                     <label style="margin-left: -14px;">Libraian</label>
-                                                    <input @if (in_array('7',$staffPower)) checked
-                                                    @endif name="power_7" value="7" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;" @isset($check)
+                                                    <input @if (in_array('7', $staffPower)) checked @endif
+                                                        name="power_7" value="7" type="checkbox"
+                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
+                                                        @isset($check)
                                                     disabled
                                                 @endisset>
                                                 </div>
@@ -951,8 +977,10 @@ margin-top: 0rem !important;
                                             <div class="col-3 col-sm-2">
                                                 <div class="form-group local-forms">
                                                     <label style="margin-left: -14px;">Promote</label>
-                                                    <input @if (in_array('8',$staffPower)) checked
-                                                    @endif name="power_8" value="8" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;" @isset($check)
+                                                    <input @if (in_array('8', $staffPower)) checked @endif
+                                                        name="power_8" value="8" type="checkbox"
+                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
+                                                        @isset($check)
                                                     disabled
                                                 @endisset>
                                                 </div>
@@ -960,8 +988,10 @@ margin-top: 0rem !important;
                                             <div class="col-3 col-sm-2">
                                                 <div class="form-group local-forms">
                                                     <label style="margin-left: -14px;">Print</label>
-                                                    <input @if (in_array('9',$staffPower)) checked
-                                                    @endif name="power_9" value="9" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;" @isset($check)
+                                                    <input @if (in_array('9', $staffPower)) checked @endif
+                                                        name="power_9" value="9" type="checkbox"
+                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
+                                                        @isset($check)
                                                     disabled
                                                 @endisset>
                                                 </div>
@@ -969,8 +999,10 @@ margin-top: 0rem !important;
                                             <div class="col-3 col-sm-2">
                                                 <div class="form-group local-forms">
                                                     <label style="margin-left: -14px;">S.R</label>
-                                                    <input @if (in_array('10',$staffPower)) checked
-                                                    @endif name="power_10" value="10" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;" @isset($check)
+                                                    <input @if (in_array('10', $staffPower)) checked @endif
+                                                        name="power_10" value="10" type="checkbox"
+                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
+                                                        @isset($check)
                                                     disabled
                                                 @endisset>
                                                 </div>
@@ -978,8 +1010,10 @@ margin-top: 0rem !important;
                                             <div class="col-3 col-sm-2">
                                                 <div class="form-group local-forms">
                                                     <label style="margin-left: -14px;">Staff</label>
-                                                    <input @if (in_array('11',$staffPower)) checked
-                                                    @endif name="power_11" value="11" type="checkbox" class="form-check-input" style="font-size: 30px; margin-top:20px;" @isset($check)
+                                                    <input @if (in_array('11', $staffPower)) checked @endif
+                                                        name="power_11" value="11" type="checkbox"
+                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
+                                                        @isset($check)
                                                     disabled
                                                 @endisset>
                                                 </div>
@@ -992,8 +1026,8 @@ margin-top: 0rem !important;
                                         <div
                                             class="  form-group students-up-files d-flex justify-content-center align-items-center flex-column">
                                             <img class="border m-3" id="preview_experience_certificate"
-                                            src="{{ URL::to('images') . '/' . $staffList->experience_certificate }}" alt="Logo"
-                                                width="125" height="150">
+                                                src="{{ URL::to('images') . '/' . $staffList->experience_certificate }}"
+                                                alt="Logo" width="125" height="150">
                                             <label style="font-size: 13px;">Upload Expirenced Certificate Photo</label>
                                             <div class="uplod">
                                                 <label
@@ -1125,25 +1159,29 @@ margin-top: 0rem !important;
 
 
     @if (Custom::getUser()->role_name == 'Staff')
-    <script>
-        $(document).ready(function(){
-            $("input").prop("disabled", true);
-            $("select").prop("disabled", true);
+        <script>
+            $(document).ready(function() {
+                $("input").prop("disabled", true);
+                $("select").prop("disabled", true);
 
-        });
-    </script>
+            });
+        </script>
     @endif
 
 
+    <script>
+        new MultiSelectTag('test_class') // id
+    </script>
 
     <script>
         $(document).ready(function() {
 
-            $("#appointment_position").change(function(){
+
+            $("#appointment_position").change(function() {
                 var appoint_position = $('#appointment_position').val();
-                if(appoint_position == 'Assistant Teacher'){
+                if (appoint_position == 'Assistant Teacher') {
                     $('#teacher_class').show();
-                }else{
+                } else {
                     $('#teacher_class').hide();
                 }
             });
@@ -1151,20 +1189,20 @@ margin-top: 0rem !important;
 
 
             @if (Session::has('Success'))
-            toastr.options = {
-                "closeButton": true,
-                "progressBar": true
-            }
-            toastr.success("{{ session('Success') }}");
-        @endif
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true
+                }
+                toastr.success("{{ session('Success') }}");
+            @endif
 
-        @if (Session::has('Error'))
-            toastr.options = {
-                "closeButton": true,
-                "progressBar": true
-            }
-            toastr.error("{{ session('Error') }}");
-        @endif
+            @if (Session::has('Error'))
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true
+                }
+                toastr.error("{{ session('Error') }}");
+            @endif
 
 
             $('#popup').on('click', function() {

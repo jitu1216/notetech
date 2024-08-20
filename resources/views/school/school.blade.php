@@ -20,14 +20,15 @@
 
             <div class="row">
                 <div class="col-xl-3 col-sm-4 col-12 d-flex">
-                    <div class="card bg-comman w-100" style="background-image: linear-gradient(to right, rgb(15, 240, 27), rgb(27, 116, 0));">
+                    <div class="card bg-comman w-100"
+                        style="background-image: linear-gradient(to right, rgb(15, 240, 27), rgb(27, 116, 0));">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Approved Students</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getApprovedStudent()}}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getApprovedStudent() }}</h3>
                                 </div>
-                                <div >
+                                <div>
                                     <i class="fas fa-user-graduate" style="font-size: 50px; color:white;"></i>
                                 </div>
                             </div>
@@ -35,14 +36,15 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-4 col-12 d-flex">
-                    <div class="card bg-comman w-100" style="background-image: linear-gradient(to right, rgb(216, 195, 6), rgb(172, 154, 0));">
+                    <div class="card bg-comman w-100"
+                        style="background-image: linear-gradient(to right, rgb(216, 195, 6), rgb(172, 154, 0));">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: rgb(255, 255, 10);">Pending Students</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getpendingStudent()}}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getpendingStudent() }}</h3>
                                 </div>
-                                <div >
+                                <div>
                                     <i class="fas fa-users" style="font-size: 50px; color:white;"></i>
                                 </div>
                             </div>
@@ -50,14 +52,15 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-4 col-12 d-flex">
-                    <div class="card bg-comman w-100" style="background-image: linear-gradient(to right, rgb(253, 67, 54), rgb(185, 6, 0));">
+                    <div class="card bg-comman w-100"
+                        style="background-image: linear-gradient(to right, rgb(253, 67, 54), rgb(185, 6, 0));">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Rejected Students</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getrejectedStudent()}}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getrejectedStudent() }}</h3>
                                 </div>
-                                <div >
+                                <div>
                                     <i class="fas fa-graduation-cap" style="font-size: 50px; color:white;"></i>
                                 </div>
                             </div>
@@ -65,29 +68,35 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-4 col-12 d-flex">
-                    <div class="card bg-comman w-100" style="background-image: linear-gradient(to right, rgb(54, 253, 203), rgb(0, 132, 185));">
+                    <div class="card bg-comman w-100"
+                        style="background-image: linear-gradient(to right, rgb(54, 253, 203), rgb(0, 132, 185));">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Total Staff</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getStaff()}}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getStaff() }}</h3>
                                 </div>
-                                <div >
+                                <div>
                                     <i class="fas fa-user-graduate" style="font-size: 50px; color:white;"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                 <div class="col-xl-3 col-sm-4 col-12 d-flex">
-                    <div class="card bg-comman w-100" style="background-image: linear-gradient(to right, rgb(253, 54, 193), rgb(185, 0, 92));">
+                <div class="col-xl-3 col-sm-4 col-12 d-flex">
+                    <div class="card bg-comman w-100"
+                        style="background-image: linear-gradient(to right, rgb(253, 54, 193), rgb(185, 0, 92));">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Total Fees</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::schoototalfees()}}</h3>
+                                    @if (Custom::getStaffRole() == 'Assistant Teacher')
+                                        <h3 style="color: rgb(255, 255, 255);">{{ Custom::classtotalfees() }}</h3>
+                                    @else
+                                        <h3 style="color: rgb(255, 255, 255);">{{ Custom::schoototalfees() }}</h3>
+                                    @endif
                                 </div>
-                                <div >
+                                <div>
                                     <i class="fas fa-dollar-sign" style="font-size: 50px; color:white;"></i>
                                 </div>
                             </div>
@@ -95,14 +104,15 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-4 col-12 d-flex">
-                    <div class="card bg-comman w-100" style="background-image: linear-gradient(to right, rgb(96, 149, 248), rgb(3, 59, 163));">
+                    <div class="card bg-comman w-100"
+                        style="background-image: linear-gradient(to right, rgb(96, 149, 248), rgb(3, 59, 163));">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Today Collected Fees</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::todayfees()}}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::todayfees() }}</h3>
                                 </div>
-                                <div >
+                                <div>
                                     <i class="fas fa-money-bill-alt" style="font-size: 50px; color:white;"></i>
                                 </div>
                             </div>
@@ -111,14 +121,19 @@
                 </div>
 
                 <div class="col-xl-3 col-sm-4 col-12 d-flex">
-                    <div class="card bg-comman w-100" style="background-image: linear-gradient(to right, rgb(121, 39, 252), rgb(72, 3, 163));">
+                    <div class="card bg-comman w-100"
+                        style="background-image: linear-gradient(to right, rgb(121, 39, 252), rgb(72, 3, 163));">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Total Paid Fees</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::schoototalpaidfees()}}</h3>
+                                    @if (Custom::getStaffRole() == 'Assistant Teacher')
+                                        <h3 style="color: rgb(255, 255, 255);">{{ Custom::classtotalpaidfees() }}</h3>
+                                    @else
+                                        <h3 style="color: rgb(255, 255, 255);">{{ Custom::schoototalpaidfees() }}</h3>
+                                    @endif
                                 </div>
-                                <div >
+                                <div>
                                     <i class="fas fa-rupee-sign" style="font-size: 50px; color:white;"></i>
                                 </div>
                             </div>
@@ -126,14 +141,22 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-4 col-12 d-flex">
-                    <div class="card bg-comman w-100" style="background-image: linear-gradient(to right, rgb(253, 19, 242), rgb(165, 10, 30));">
+                    <div class="card bg-comman w-100"
+                        style="background-image: linear-gradient(to right, rgb(253, 19, 242), rgb(165, 10, 30));">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Total Pending Fees</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::schoototalfees() - Custom::schoototalpaidfees()}}</h3>
+                                    @if (Custom::getStaffRole() == 'Assistant Teacher')
+                                    <h3 style="color: rgb(255, 255, 255);">
+                                    {{ Custom::classtotalfees() - Custom::classtotalpaidfees()}} </h3>
+                                    @else
+                                    <h3 style="color: rgb(255, 255, 255);">
+                                        {{ Custom::schoototalfees() - Custom::schoototalpaidfees() }}</h3>
+                                    @endif
+
                                 </div>
-                                <div >
+                                <div>
                                     <i class="fas fa-rupee-sign" style="font-size: 50px; color:white;"></i>
                                 </div>
                             </div>
@@ -157,7 +180,8 @@
                                     <ul class="chart-list-out">
                                         <li><span class="circle-blue"></span>Teacher</li>
                                         <li><span class="circle-green"></span>Student</li>
-                                        <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a>
+                                        <li class="star-menus"><a href="javascript:;"><i
+                                                    class="fas fa-ellipsis-v"></i></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -181,7 +205,8 @@
                                     <ul class="chart-list-out">
                                         <li><span class="circle-blue"></span>Girls</li>
                                         <li><span class="circle-green"></span>Boys</li>
-                                        <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a>
+                                        <li class="star-menus"><a href="javascript:;"><i
+                                                    class="fas fa-ellipsis-v"></i></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -206,7 +231,8 @@
                                     <ul class="chart-list-out">
                                         <li><span class="circle-blue"></span>Teacher</li>
                                         <li><span class="circle-green"></span>Student</li>
-                                        <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a>
+                                        <li class="star-menus"><a href="javascript:;"><i
+                                                    class="fas fa-ellipsis-v"></i></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -242,26 +268,26 @@
                                                     value="something">
                                             </div>
                                         </th> --}}
-                                            {{-- <th>S.No.</th>
+            {{-- <th>S.No.</th>
                                             <th>Logo</th> --}}
-                                            {{-- <th>UserCode</th> --}}
-                                            {{-- <th>Student Name</th> --}}
-                                            {{-- <th>Account Start Date</th>
+            {{-- <th>UserCode</th> --}}
+            {{-- <th>Student Name</th> --}}
+            {{-- <th>Account Start Date</th>
                                             <th>Account Expiry Date</th> --}}
-                                            {{-- <th>User Name</th> --}}
-                                            {{-- <th>Email</th> --}}
-                                            {{-- <th>Mobile No.</th>
+            {{-- <th>User Name</th> --}}
+            {{-- <th>Email</th> --}}
+            {{-- <th>Mobile No.</th>
                                             <th>Address</th>
                                             <th>Action</th> --}}
-                                        {{-- </tr>
+            {{-- </tr>
                                     </thead>
                                     <tbody> --}}
 
-                                        {{-- @foreach ($schoolList as $key => $value) --}}
-                                            {{-- <tr> --}}
+            {{-- @foreach ($schoolList as $key => $value) --}}
+            {{-- <tr> --}}
 
-                                                {{-- <td>{{ ++$key }}</td> --}}
-                                                {{-- <td>
+            {{-- <td>{{ ++$key }}</td> --}}
+            {{-- <td>
                                                     <h2 class="table-avatar">
                                                         <a class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
@@ -269,47 +295,47 @@
                                                                 alt="Logo" width="10" height="10"></a>
                                                     </h2>
                                                 </td> --}}
-                                                {{-- <td>{{ $value->UserCode }}</td> --}}
-                                                {{-- <td>{{ $value->Name }}</td> --}}
-                                                {{-- <td>{{ $value->Start_Date }}</td> --}}
-                                                {{-- <td style="color:red;">{{ $value->Expiry_Date }}</td> --}}
-                                                {{-- <td>{{ $value->Username }}</td> --}}
-                                                {{-- <td>{{ $value->Email }}</td> --}}
-                                                {{-- <td>{{ $value->Mobile }}</td>
+            {{-- <td>{{ $value->UserCode }}</td> --}}
+            {{-- <td>{{ $value->Name }}</td> --}}
+            {{-- <td>{{ $value->Start_Date }}</td> --}}
+            {{-- <td style="color:red;">{{ $value->Expiry_Date }}</td> --}}
+            {{-- <td>{{ $value->Username }}</td> --}}
+            {{-- <td>{{ $value->Email }}</td> --}}
+            {{-- <td>{{ $value->Mobile }}</td>
                                                 <td>{{ $value->Address }}</td>
                                                 <td class="text-end"> --}}
-                                                    {{-- <div class="actions "> --}}
-                                                        {{-- <a href="javascript:;" class="btn btn-sm bg-success-light me-2 "  style="background-color: rgb(5, 136, 197) !important; color:white !important;">
+            {{-- <div class="actions "> --}}
+            {{-- <a href="javascript:;" class="btn btn-sm bg-success-light me-2 "  style="background-color: rgb(5, 136, 197) !important; color:white !important;">
                                                             <i class="feather-eye"></i>
                                                         </a> --}}
-                                                        {{-- <a href="{{ route('updateSchool') . '/' . $value->id }}"
+            {{-- <a href="{{ route('updateSchool') . '/' . $value->id }}"
                                                             class="btn btn-sm bg-danger-light me-2"style="background-color: rgb(2, 167, 11) !important; color:white !important;">
                                                             <i class="feather-edit"></i>
                                                         </a> --}}
-                                                        {{-- <a href="javascript:;" class="btn btn-sm bg-success-light me-2 "
+            {{-- <a href="javascript:;" class="btn btn-sm bg-success-light me-2 "
                                                             style="background-color: rgb(197, 0, 0) !important; color:white !important;">
                                                             <i data-src="{{ URL::to('images') . '/' . $value->Logo }}"
                                                                 data-id="{{ $value->id }}"
                                                                 data-name="{{ $value->Name }}"class="feather-trash-2 school_delete"></i>
                                                         </a> --}}
-                                                        {{-- <a href="javascript:;" class="btn btn-sm bg-success-light me-2"
+            {{-- <a href="javascript:;" class="btn btn-sm bg-success-light me-2"
                                                             style="background-color: rgb(67, 18, 245) !important; color:white !important;">
                                                             <i class="feather-log-in"></i> --}}
-                                                        {{-- </a>
+            {{-- </a>
                                                     </div>
                                                 </td>
                                             </tr> --}}
-                                        {{-- @endforeach --}}
+            {{-- @endforeach --}}
 
 
-                                    {{-- </tbody>
+            {{-- </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
 
                 </div> --}}
-                {{-- <div class="col-xl-6 d-flex">
+            {{-- <div class="col-xl-6 d-flex">
 
                     <div class="card flex-fill comman-shadow">
                         <div class="card-header d-flex align-items-center">
