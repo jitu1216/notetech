@@ -31,13 +31,15 @@ class SchoolDashboardController extends Controller
     public function profileView(){
 
         $user = Auth::User();
+        $academic = Session::get('academic_session');
+
         if($user->role_name == 'School'){
             $data = School::where(['Email'=> $user->email,'Name'=>$user->name])->first();
         }elseif($user->role_name == 'Super Admin'){
             $admin_school = Session::get('admin_school');
             $data = School::where('Email', $admin_school->Email)->where('Name', $admin_school->Name)->first();
         }elseif($user->role_name == 'Staff'){
-            $staffList = Staff::where('email', $user->email)->where('staff_name', $user->name)->first();
+            $staffList = Staff::where('email', $user->email)->where('academic_session', $academic)->first();
         }
 
         $statedata = StateCities::all()->toarray();
@@ -49,7 +51,6 @@ class SchoolDashboardController extends Controller
         }
 
         $school = Custom::getSchool();
-        $academic = Session::get('academic_session');
 
         $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '0'])->get();
         // dd($schoolclass);
