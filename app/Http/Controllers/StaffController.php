@@ -424,7 +424,7 @@ class StaffController extends Controller
         // dd($allot_class);
 
 
-        $user = User::where(['name'=> $staffdetail->staff_name, 'email'=> $staffdetail->email,'phone_number' => $staffdetail->mobile ])->first();
+        $user = User::where('email', $staffdetail->email)->first();
 
         $user->name = $request->staff_name;
         $user->email = $request->email;

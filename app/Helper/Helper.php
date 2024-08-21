@@ -69,6 +69,7 @@ class Custom{
 
      public static function getSchool(){
         $user = Auth::User();
+        $academic = Session::get('academic_session');
         // dd($user);
         if($user->role_name == 'School'){
             $school = School::where('Email', $user->email)->where('Name', $user->name)->first();
@@ -84,7 +85,7 @@ class Custom{
                  $school = School::where('Email', $user->email)->where('Name', $user->name)->first();
             }
         }elseif($user->role_name == 'Staff'){
-            $staff = Staff::where('email', $user->email)->where('staff_name', $user->name)->first();
+            $staff = Staff::where('email', $user->email)->where('academic_session', $academic)->first();
             $school = School::where('id',$staff->school_id)->first();
         }
 
