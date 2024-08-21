@@ -34,12 +34,14 @@ class Custom{
 
      public static function getStaffDetail(){
         $user = Auth::User();
-        $data = Staff::where(['email'=> $user->email,'staff_name'=> $user->name])->first();
+        $academic = Session::get('academic_session');
+        $data = Staff::where(['email'=> $user->email,'academic_session'=> $academic])->first();
         return $data;
      }
 
      public static function checkProfile($id){
         $user = Auth::User();
+        $academic = Session::get('academic_session');
 
         if($user->role_name == 'School'){
             $data = School::where(['Name'=>$user->name,'Email'=>$user->email])->first();
@@ -57,7 +59,7 @@ class Custom{
                 return 0;
             }
         }elseif($user->role_name == 'Staff'){
-            $data = Staff::where('email', $user->email)->where('staff_name', $user->name)->first();
+            $data = Staff::where('email', $user->email)->where('academic_session', $academic)->first();
             if($data->staff_name == null || $data->father_name == null){
                 return 1;
             }else{
@@ -344,7 +346,9 @@ class Custom{
     public static function getStaffPower(){
 
         $user = Auth::User();
-        $staffList = Staff::where('email', $user->email)->where('staff_name', $user->name)->first();
+        $academic = Session::get('academic_session');
+
+        $staffList = Staff::where('email', $user->email)->where('academic_session', $academic)->first();
         $staffPower = explode(',',$staffList->staff_power);
         return $staffPower;
     }
@@ -352,7 +356,9 @@ class Custom{
     public static function getTeacherClass(){
 
         $user = Auth::User();
-        $staff = Staff::where('email', $user->email)->where('staff_name', $user->name)->first();
+        $academic = Session::get('academic_session');
+
+        $staff = Staff::where('email', $user->email)->where('academic_session', $academic)->first();
         $allot_class = explode(',',$staff->allot_class);
         return $allot_class;
     }
@@ -360,7 +366,9 @@ class Custom{
     public static function getStaffRole(){
 
         $user = Auth::User();
-        $staff = Staff::where('email', $user->email)->where('staff_name', $user->name)->first();
+        $academic = Session::get('academic_session');
+
+        $staff = Staff::where('email', $user->email)->where('academic_session', $academic)->first();
         if($staff != null){
             return $staff->appointment_position;
         }else{
