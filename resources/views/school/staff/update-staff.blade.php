@@ -7,6 +7,11 @@
             margin-left: 0.5rem;
         }
 
+        .local-forms label{
+            top:-22px !important;
+            left: 0px !important;
+        }
+
         .allot .dropdown {
             padding-top: 0.6rem;
         }
@@ -14,6 +19,11 @@
         .power {
             /* margin-top: -13rem !important; */
         }
+
+        /* .select2-container--default .select2-selection--multiple .select2-selection__rendered li{
+            padding-left: 25px;
+            padding-right: 5px;
+        } */
 
         @media only screen and (max-width: 900px) {
 
@@ -680,32 +690,14 @@
                                         @if ($staffList->appointment_position != 'Assistant Teacher') style="display: none;" @endif>
                                         <div class="form-group local-forms allot">
                                             <label>Select Class for Teacher <span class="login-danger">*</span></label>
-                                            {{-- <select name="teacher_class" id="test_class">
+                                            <select name="teacher_class[]" class="form-control select allot_class" id="test_class" multiple="multiple">
                                                 @foreach ($finalarray as $key => $value)
                                                     <option value="{{ $value['id'] }}"
                                                         @foreach ($allot_class as $allot)
                                             {{ $allot == $value['id'] ? 'selected' : '' }} @endforeach>
                                                         {{ $value['classname'] }}</option>
                                                 @endforeach
-                                            </select> --}}
-                                            <div class="dropdown form-control">
-                                                <a class="dropdown-toggle text-black" href="javascript:(0)"
-                                                    role="button" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">Classess Selected for Teacher</a>
-                                                <div class="dropdown-menu radio" style="min-width:20rem">
-                                                    @foreach ($finalarray as $key => $value)
-                                                        <a class="dropdown-item " href="javascript:(0)">
-                                                            <input name="t_class_{{ $key }}"
-                                                                value="{{ $value['id'] }}" type="checkbox"
-                                                                @foreach ($allot_class as $allot)
-                                                        {{ $allot == $value['id'] ? 'checked' : '' }} @endforeach
-                                                                class="form-check-input"
-                                                                style="font-size: 14px; margin-right: 10px;">
-                                                            {{ $value['classname'] }}
-                                                        </a>
-                                                    @endforeach
-                                                </div>
-                                            </div>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -893,136 +885,135 @@
                                     </div>
 
 
-                                    <div class="col-12 col-sm-8 power">
-                                        <div class="col-12">
-                                            <h5 class="form-title"><span>Select Staff Power</span></h5>
+                                    <div class="col-12 col-sm-4 power">
+                                        <div class="form-group local-forms" >
+                                            <label>Select Staff Power <span class="login-danger"></span></label>
+                                            <select name="power[]" class="form-control select "
+                                                id="power_allocate" multiple="multiple" style="width: 100%;">
+                                                <option value="1" @if (in_array('1', $staffPower)) selected @endif >New Admission</option>
+                                                <option value="2" @if (in_array('2', $staffPower)) selected @endif >Approve Admission</option>
+                                                <option value="3" @if (in_array('3', $staffPower)) selected @endif >Exam</option>
+                                                <option value="4"  @if (in_array('4', $staffPower)) selected @endif >Fees</option>
+                                                <option value="5" @if (in_array('5', $staffPower)) selected @endif >T.C</option>
+                                                <option value="6" @if (in_array('6', $staffPower)) selected @endif >C.C</option>
+                                                <option value="7" @if (in_array('7', $staffPower)) selected @endif >Libraian</option>
+                                                <option value="8" @if (in_array('8', $staffPower)) selected @endif >Promote Student</option>
+                                                <option value="9" @if (in_array('9', $staffPower)) selected @endif >Print</option>
+                                                <option value="10" @if (in_array('10', $staffPower)) selected @endif >S.R</option>
+                                                <option value="11" @if (in_array('11', $staffPower)) selected @endif >Staff</option>
+                                                <option value="12" @if (in_array('12', $staffPower)) selected @endif >All Student List</option>
+                                                <option value="13" @if (in_array('13', $staffPower)) selected @endif >Fees Deposite</option>
+                                                <option value="14" @if (in_array('14', $staffPower)) selected @endif >Pending Addmission</option>
+                                                <option value="15" @if (in_array('15', $staffPower)) selected @endif >Current Running Fees</option>
+                                                <option value="16" @if (in_array('16', $staffPower)) selected @endif >Promote Staff</option>
+                                                <option value="17"@if (in_array('17', $staffPower)) selected @endif >Attendance Student</option>
+                                                <option value="18"@if (in_array('18', $staffPower)) selected @endif >Attendance Staff</option>
+                                                <option value="19"@if (in_array('19', $staffPower)) selected @endif >Test Marks</option>
+                                                <option value="20"@if (in_array('20', $staffPower)) selected @endif >Results</option>
+                                                <option value="21"@if (in_array('21', $staffPower)) selected @endif >Add Results</option>
+                                                <option value="22"@if (in_array('22', $staffPower)) selected @endif >Home Work</option>
+                                                <option value="23"@if (in_array('23', $staffPower)) selected @endif >Time Table</option>
+                                                <option value="24"@if (in_array('24', $staffPower)) selected @endif >Absent Report Student</option>
+                                                <option value="25"@if (in_array('25', $staffPower)) selected @endif ></option>
+
+                                            </select>
+
+                                            {{-- <div class="row">
+                                                <div class="col-6 col-md-4 col-sm-2">
+                                                    <div class="form-group local-forms">
+                                                        <label style="margin-left: -14px;">New Admission</label>
+                                                        <input name="power_1" value="1" type="checkbox"
+                                                            class="form-check-input"
+                                                            style="font-size: 30px; margin-top:20px;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-4 col-sm-3">
+                                                    <div class="form-group local-forms">
+                                                        <label style="margin-left: -14px;">Approve Admission</label>
+                                                        <input name="power_2" value="2" type="checkbox"
+                                                            class="form-check-input"
+                                                            style="font-size: 30px; margin-top:20px;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-2 col-sm-2">
+                                                    <div class="form-group local-forms">
+                                                        <label style="margin-left: -14px;">Exam</label>
+                                                        <input name="power_3" value="3" type="checkbox"
+                                                            class="form-check-input"
+                                                            style="font-size: 30px; margin-top:20px;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 col-sm-2">
+                                                    <div class="form-group local-forms">
+                                                        <label style="margin-left: -14px;">Fees</label>
+                                                        <input name="power_4" value="4" type="checkbox"
+                                                            class="form-check-input"
+                                                            style="font-size: 30px; margin-top:20px;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 col-sm-2">
+                                                    <div class="form-group local-forms">
+                                                        <label style="margin-left: -14px;">T.C</label>
+                                                        <input name="power_5" value="5" type="checkbox"
+                                                            class="form-check-input"
+                                                            style="font-size: 30px; margin-top:20px;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 col-sm-2">
+                                                    <div class="form-group local-forms">
+                                                        <label style="margin-left: -14px;">C.C</label>
+                                                        <input name="power_6" value="6" type="checkbox"
+                                                            class="form-check-input"
+                                                            style="font-size: 30px; margin-top:20px;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 col-sm-2">
+                                                    <div class="form-group local-forms">
+                                                        <label style="margin-left: -14px;">Libraian</label>
+                                                        <input name="power_7" value="7" type="checkbox"
+                                                            class="form-check-input"
+                                                            style="font-size: 30px; margin-top:20px;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 col-sm-2">
+                                                    <div class="form-group local-forms">
+                                                        <label style="margin-left: -14px;">Promote</label>
+                                                        <input name="power_8" value="8" type="checkbox"
+                                                            class="form-check-input"
+                                                            style="font-size: 30px; margin-top:20px;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 col-sm-2">
+                                                    <div class="form-group local-forms">
+                                                        <label style="margin-left: -14px;">Print</label>
+                                                        <input name="power_9" value="9" type="checkbox"
+                                                            class="form-check-input"
+                                                            style="font-size: 30px; margin-top:20px;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 col-sm-2">
+                                                    <div class="form-group local-forms">
+                                                        <label style="margin-left: -14px;">S.R</label>
+                                                        <input name="power_10" value="10" type="checkbox"
+                                                            class="form-check-input"
+                                                            style="font-size: 30px; margin-top:20px;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 col-sm-2">
+                                                    <div class="form-group local-forms">
+                                                        <label style="margin-left: -14px;">Staff</label>
+                                                        <input name="power_11" value="11" type="checkbox"
+                                                            class="form-check-input"
+                                                            style="font-size: 30px; margin-top:20px;">
+                                                    </div>
+                                                </div>
+                                            </div> --}}
                                         </div>
-                                        <div class="row">
-                                            <div class="col-6 col-md-4 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">New Admission</label>
-                                                    <input @if (in_array('1', $staffPower)) checked @endif name="power_1"
-                                                        value="1" type="checkbox" class="form-check-input"
-                                                        style="font-size: 30px; margin-top:20px;"
-                                                        @isset($check)
-                                                @endisset>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-md-4 col-sm-3">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">Approve Admission</label>
-                                                    <input @if (in_array('2', $staffPower)) checked @endif name="power_2"
-                                                        value="2" type="checkbox" class="form-check-input"
-                                                        style="font-size: 30px; margin-top:20px;"
-                                                        @isset($check)
-                                                    disabled
-                                                @endisset>
-                                                </div>
-                                            </div>
-                                            <div class="col-2 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">Exam</label>
-                                                    <input @if (in_array('3', $staffPower)) checked @endif name="power_3"
-                                                        value="3" type="checkbox" class="form-check-input"
-                                                        style="font-size: 30px; margin-top:20px;"
-                                                        @isset($check)
-                                                    disabled
-                                                @endisset>
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">Fees</label>
-                                                    <input @if (in_array('4', $staffPower)) checked @endif
-                                                        name="power_4" value="4" type="checkbox"
-                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
-                                                        @isset($check)
-                                                    disabled
-                                                @endisset>
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">T.C</label>
-                                                    <input @if (in_array('5', $staffPower)) checked @endif
-                                                        name="power_5" value="5" type="checkbox"
-                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
-                                                        @isset($check)
-                                                    disabled
-                                                @endisset>
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">C.C</label>
-                                                    <input @if (in_array('6', $staffPower)) checked @endif
-                                                        name="power_6" value="6" type="checkbox"
-                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
-                                                        @isset($check)
-                                                    disabled
-                                                @endisset>
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">Libraian</label>
-                                                    <input @if (in_array('7', $staffPower)) checked @endif
-                                                        name="power_7" value="7" type="checkbox"
-                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
-                                                        @isset($check)
-                                                    disabled
-                                                @endisset>
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">Promote</label>
-                                                    <input @if (in_array('8', $staffPower)) checked @endif
-                                                        name="power_8" value="8" type="checkbox"
-                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
-                                                        @isset($check)
-                                                    disabled
-                                                @endisset>
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">Print</label>
-                                                    <input @if (in_array('9', $staffPower)) checked @endif
-                                                        name="power_9" value="9" type="checkbox"
-                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
-                                                        @isset($check)
-                                                    disabled
-                                                @endisset>
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">S.R</label>
-                                                    <input @if (in_array('10', $staffPower)) checked @endif
-                                                        name="power_10" value="10" type="checkbox"
-                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
-                                                        @isset($check)
-                                                    disabled
-                                                @endisset>
-                                                </div>
-                                            </div>
-                                            <div class="col-3 col-sm-2">
-                                                <div class="form-group local-forms">
-                                                    <label style="margin-left: -14px;">Staff</label>
-                                                    <input @if (in_array('11', $staffPower)) checked @endif
-                                                        name="power_11" value="11" type="checkbox"
-                                                        class="form-check-input" style="font-size: 30px; margin-top:20px;"
-                                                        @isset($check)
-                                                    disabled
-                                                @endisset>
-                                                </div>
-                                            </div>
-                                        </div>
+
 
                                     </div>
 
-                                    <div class="col-12 col-sm-4">
+                                    {{-- <div class="col-12 col-sm-4">
                                         <div
                                             class="  form-group students-up-files d-flex justify-content-center align-items-center flex-column">
                                             <img class="border m-3" id="preview_experience_certificate"
@@ -1042,7 +1033,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-md-6 col-sm-6">
                                         <div class="student-submit">
@@ -1170,11 +1161,10 @@
 
 
     <script>
-        new MultiSelectTag('test_class') // id
-    </script>
-
-    <script>
         $(document).ready(function() {
+
+            $('.allot_class').select2();
+            $('#power_allocate').select2();
 
 
             $("#appointment_position").change(function() {

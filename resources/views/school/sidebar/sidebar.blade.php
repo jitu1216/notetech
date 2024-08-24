@@ -129,8 +129,12 @@
                                          class="{{ set_active(['school/add-student']) }} popup"
                                             href="javascript:(0)" @endif>New
                                         Admission</a></li>
-                                <li><a class="{{ set_active(['school/pendinglist', 'school/search']) }} popup"
-                                        href="javascript:(0)">Pending Admission</a></li>
+                                <li><a
+                                        @if (in_array('14', Custom::getStaffPower())) class="{{ set_active(['school/studentlist', 'school/search']) }}"
+                                            href="{{ route('pendinglist') }}" @else
+                                            class="{{ set_active(['school/studentlist', 'school/search']) }} popup"
+                                                href="javascript:(0)" @endif>Pending
+                                        Admission</a></li>
                                 <li><a
                                         @if (in_array('2', Custom::getStaffPower())) class="{{ set_active(['school/studentlist', 'school/search']) }}"
                                         href="{{ route('studentlist', '2') }}" @else
@@ -141,8 +145,12 @@
                                         href="javascript:(0)">Rejected Admission</a></li>
                                 <li><a class="{{ set_active(['school/studentlist', 'school/search']) }} popup"
                                         href="javascript:(0)">Recover Student</a></li>
-                                <li><a class="{{ set_active(['school/studentlist', 'school/search']) }}"
-                                        href="{{ route('allstudentlist', '5') }}">All Student List</a></li>
+                                <li><a
+                                        @if (in_array('12', Custom::getStaffPower())) class="{{ set_active(['school/studentlist', 'school/search']) }}"
+                                                href="{{ route('allstudentlist', '5') }}" @else
+                                                class="{{ set_active(['school/studentlist', 'school/search']) }} popup"
+                                                    href="javascript:(0)" @endif>All
+                                        Student List</a></li>
                             @else
                                 <li><a class="{{ set_active(['school/add-student']) }}"
                                         href="{{ route('add-student') }}">New Admission</a></li>
@@ -187,12 +195,22 @@
                                             href="javascript:void(0)">Fees Setting</a></li>
                                     <li><a class="{{ set_active(['school/fee-edit-list', 'school/search']) }} popup"
                                             href="javascript:void(0)">Fee Edit</a></li>
-                                    <li><a class="{{ set_active(['school/fee-deposite-list', 'school/search']) }} popup"
-                                            href="javascript:void(0)">Fees Deposite</a></li>
+                                    <li><a
+                                            @if (in_array('13', Custom::getStaffPower())) class="{{ set_active(['school/fee-deposite-list', 'school/search']) }}"
+                                                href="{{ route('fee-deposite-list', '2') }}" @else
+                                                class="{{ set_active(['school/studentlist', 'school/search']) }} popup"
+                                                    href="javascript:(0)" @endif>Fees
+                                            Deposite</a></li>
+
                                     <li><a class="{{ set_active(['school/fees-report', 'school/search']) }} popup"
                                             href="javascript:void(0)">Fees Report</a></li>
-                                    <li><a class="{{ set_active(['school/fees-report', 'school/search']) }} popup"
-                                            href="javascript:void(0)">Pending Fees</a></li>
+
+                                    <li><a
+                                            @if (in_array('15', Custom::getStaffPower())) class="{{ set_active(['school/fees-report', 'school/search']) }}"
+                                                    href="{{ route('pending-fees', '2') }}" @else
+                                                    class="{{ set_active(['school/fees-report', 'school/search']) }} popup"
+                                                        href="javascript:(0)" @endif>Current
+                                            Running Fees</a></li>
                                 @endif
                             @else
                                 <li><a class="{{ set_active(['school/fesstypelist']) }}"
@@ -334,17 +352,18 @@
                         <ul class="js-staff-menu sub-menu">
 
                             @if (Custom::getUser()->role_name == 'Staff')
-                                @if (in_array('8', Custom::getStaffPower()))
-                                    <li><a class="{{ set_active(['school/staff-list']) }}"
-                                            href="{{ route('promote-list', '2') }}">Promote Student</a></li>
-                                    <li><a class="{{ set_active(['school/staff-list']) }} popup"
-                                            href="javascript:void(0)">Promote Staff</a></li>
-                                @else
-                                    <li><a class="{{ set_active(['school/staff-list']) }} popup"
-                                            href="javascript:void(0)">Promote Student</a></li>
-                                    <li><a class="{{ set_active(['school/staff-list']) }} popup"
-                                            href="javascript:void(0)">Promote Staff</a></li>
-                                @endif
+                                <li><a
+                                        @if (in_array('8', Custom::getStaffPower())) class="{{ set_active(['school/staff-list']) }}"
+                                            href="{{ route('promote-list', '2') }}" @else
+                                            class="{{ set_active(['school/staff-list']) }} popup"
+                                                href="javascript:(0)" @endif>Promote
+                                        Student</a></li>
+                                <li><a
+                                        @if (in_array('16', Custom::getStaffPower())) class="{{ set_active(['school/staff-list']) }}"
+                                                            href="{{ route('promote-staff-list') }}" @else
+                                                            class="{{ set_active(['school/staff-list']) }} popup"
+                                                                href="javascript:(0)" @endif>Promote
+                                        Staff</a></li>
                             @else
                                 <li><a class="{{ set_active(['school/staff-list']) }}"
                                         href="{{ route('promote-list', '2') }}">Promote Student</a></li>
