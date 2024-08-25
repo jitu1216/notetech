@@ -804,6 +804,9 @@
                                                 class="form-control select @error('experience_qualification') is-invalid @enderror"
                                                 name="experience_qualification">
                                                 <option selected disabled>Please Select Degree </option>
+                                                <option value="Nill Degree"
+                                                {{ $staffList->experience_qualification == 'Nill Degree' ? 'selected' : '' }}>
+                                                Nill Degree</option>
                                                 <option value="B.Ed."
                                                     {{ $staffList->experience_qualification == 'B.Ed.' ? 'selected' : '' }}>
                                                     B.Ed.</option>
@@ -904,7 +907,7 @@
                                                 <option value="12" @if (in_array('12', $staffPower)) selected @endif >All Student List</option>
                                                 <option value="13" @if (in_array('13', $staffPower)) selected @endif >Fees Deposite</option>
                                                 <option value="14" @if (in_array('14', $staffPower)) selected @endif >Pending Addmission</option>
-                                                <option value="15" @if (in_array('15', $staffPower)) selected @endif >Current Running Fees</option>
+                                                <option value="15" @if (in_array('15', $staffPower)) selected @endif >Pending Fees</option>
                                                 <option value="16" @if (in_array('16', $staffPower)) selected @endif >Promote Staff</option>
                                                 <option value="17"@if (in_array('17', $staffPower)) selected @endif >Attendance Student</option>
                                                 <option value="18"@if (in_array('18', $staffPower)) selected @endif >Attendance Staff</option>

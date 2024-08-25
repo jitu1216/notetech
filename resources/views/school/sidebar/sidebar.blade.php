@@ -184,10 +184,14 @@
                                             href="{{ route('fee-edit-list', '2') }}">Fee Edit</a></li>
                                     <li><a class="{{ set_active(['school/fee-deposite-list', 'school/search']) }}"
                                             href="{{ route('fee-deposite-list', '2') }}">Fees Deposite</a></li>
+                                    <li><a class="{{ set_active(['school/fees-card', 'school/search']) }}"
+                                            href="{{ route('fees-card', '2') }}">Fees Card</a></li>
                                     <li><a class="{{ set_active(['school/fees-report', 'school/search']) }}"
                                             href="{{ route('fees-report', '2') }}">Fees Report</a></li>
                                     <li><a class="{{ set_active(['school/pending-fees', 'school/search']) }}"
                                             href="{{ route('pending-fees', '2') }}">Pending Fees</a></li>
+                                    <li><a class="{{ set_active(['school/pending-fees', 'school/search']) }}"
+                                            href="{{ route('pending-fees', '2') }}">Current Running Fees</a></li>
                                 @else
                                     <li><a class="{{ set_active(['school/fesstypelist']) }} popup"
                                             href="javascript:void(0)">Fees Type</a></li>
@@ -201,16 +205,16 @@
                                                 class="{{ set_active(['school/studentlist', 'school/search']) }} popup"
                                                     href="javascript:(0)" @endif>Fees
                                             Deposite</a></li>
-
-                                    <li><a class="{{ set_active(['school/fees-report', 'school/search']) }} popup"
-                                            href="javascript:void(0)">Fees Report</a></li>
+                                    <li><a class="{{ set_active(['school/fee-edit-list', 'school/search']) }} popup" href="javascript:void(0)">Fee Card</a></li>
+                                    <li><a class="{{ set_active(['school/fees-report', 'school/search']) }} popup" href="javascript:void(0)">Fees Report</a></li>
 
                                     <li><a
                                             @if (in_array('15', Custom::getStaffPower())) class="{{ set_active(['school/fees-report', 'school/search']) }}"
                                                     href="{{ route('pending-fees', '2') }}" @else
                                                     class="{{ set_active(['school/fees-report', 'school/search']) }} popup"
-                                                        href="javascript:(0)" @endif>Current
-                                            Running Fees</a></li>
+                                                        href="javascript:(0)" @endif>Pending Fees</a></li>
+                                    <li><a class="{{ set_active(['school/fees-report', 'school/search']) }} popup" href="javascript:void(0)">Current Running Fees</a></li>
+
                                 @endif
                             @else
                                 <li><a class="{{ set_active(['school/fesstypelist']) }}"
@@ -231,7 +235,7 @@
                                 <li><a class="{{ set_active(['school/pending-fees', 'school/search']) }}"
                                         href="{{ route('pending-fees', '2') }}">Pending Fees</a></li>
                                 <li><a class="{{ set_active(['school/pending-fees', 'school/search']) }}"
-                                        href="{{ route('pending-fees', '2') }}">This Time Fees</a></li>
+                                        href="{{ route('pending-fees', '2') }}">Current Running Fees</a></li>
                             @endif
 
                             {{-- <li><a class="{{set_active(['school/studentlist', 'school/search'])}}" href="{{ route('studentlist','4') }}">Recover Student</a></li> --}}
