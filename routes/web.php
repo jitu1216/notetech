@@ -15,6 +15,8 @@ use App\Http\Controllers\SchoolDashboardController;
 use App\Http\Controllers\FeesController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\PromoteController;
+use App\Http\Controllers\StudentDashboardController;
+
 
 
 
@@ -234,6 +236,14 @@ Route::controller(StaffController::class)->group(function () {
     Route::post('school/search-promote-staff', 'searchPromoteStaff')->middleware('auth')->name('promotesearchStaff');
     Route::post('school/promoteStaff', 'promoteStaff')->middleware('auth')->name('promoteStaff');
 });
+
+
+// Student Dashboard Code Goes Here //
+
+Route::controller(StudentDashboardController::class)->group(function () {
+    Route::get('student-home', 'index')->middleware('auth')->name('student-home');
+});
+
 
 
 

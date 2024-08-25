@@ -60,10 +60,21 @@
         margin-right: 10px;
     }
 
+    .std_image img{
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
 
     @media print {
         .page-wrapper {
             margin-top: 0px !important;
+        }
+
+        .std_image{
+            display: none;
         }
 
         .table {
@@ -204,6 +215,7 @@
                         <thead class="table-success text-nowrap">
                             <tr style="">
                                 <th>S.No</th>
+                                <th class="std_image">Image</th>
                                 <th>Staff Code</th>
                                 <th>Staff Name</th>
                                 <th>Father/Husband Name</th>
@@ -221,6 +233,7 @@
                             @foreach ($staffList as $key => $data)
                                 <tr>
                                     <td>{{ ++$key }}</td>
+                                    <td class="std_image avatar-img rounded-circle"><img src="{{ URL::to('images') . '/' . $data->image }}"  sizes="height:25px; width:25px;"></td>
                                     <td>{{ $data->staff_code }}</td>
                                     <td>{{ $data->staff_name }}</td>
                                     <td>{{ $data->father_name }}</td>

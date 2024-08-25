@@ -277,7 +277,7 @@ class Custom{
             $class_fees = $class_fees + $totaldata;
         }
 
-        return $totaldata;
+        return $class_fees;
     }
 
     public static function classtotalpaidfees(){
@@ -291,7 +291,7 @@ class Custom{
             $class_fees = $class_fees + $totaldata;
         }
 
-        return $totaldata;
+        return $class_fees;
     }
 
     public static function schoototalpaidfees(){

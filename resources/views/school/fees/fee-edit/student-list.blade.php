@@ -18,6 +18,13 @@
         margin-top: 10px;
     }
 
+    .std_image img{
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
     .school {
         width: 100vw;
         display: flex;
@@ -68,6 +75,10 @@
 
         .table {
             font-size: 10px;
+        }
+
+        .std_image{
+            display: none;
         }
 
         .header {
@@ -254,6 +265,7 @@
                         <thead class="table-success text-nowrap">
                             <tr style="">
                                 <th>S.No</th>
+                                <th class="std_image">Image</th>
                                 @if ($mark == 2)
                                     <th>Student Id No.</th>
                                     <th>Roll No.</th>
@@ -283,6 +295,7 @@
                                         @if ($allot_class == $data->class_id)
                                             <tr>
                                                 <td>{{ ++$key }}</td>
+                                                <td class="std_image avatar-img rounded-circle"><img src="{{ URL::to('student-photos') . '/' . $data->image }}"  sizes="height:25px; width:25px;"></td>
                                                 @if ($mark == 2)
                                                     <td>{{ $data->student_id }}</td>
                                                     <td>{{ $data->roll_no }}</td>
@@ -337,6 +350,7 @@
                                 @foreach ($studentList as $key => $data)
                                     <tr>
                                         <td>{{ ++$key }}</td>
+                                        <td class="std_image avatar-img rounded-circle"><img src="{{ URL::to('student-photos') . '/' . $data->image }}"  sizes="height:25px; width:25px;"></td>
                                         @if ($mark == 2)
                                             <td>{{ $data->student_id }}</td>
                                             <td>{{ $data->roll_no }}</td>

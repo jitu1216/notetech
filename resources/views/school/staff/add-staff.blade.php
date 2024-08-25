@@ -755,9 +755,10 @@
                                                 class="form-control select @error('experience_qualification') is-invalid @enderror"
                                                 name="experience_qualification">
                                                 <option selected disabled>Please Select Degree </option>
-                                                <option value="No Degree"
-                                                    {{ old('experience_qualification') == 'No Degree' ? 'selected' : '' }}>
-                                                    B.Ed.</option>
+                                                <option value="Nill Degree"
+                                                {{ old('experience_qualification') == 'Nill Degree' ? 'selected' : '' }}>
+                                                Nill Degree</option>
+
                                                 <option value="B.Ed."
                                                     {{ old('experience_qualification') == 'B.Ed.' ? 'selected' : '' }}>
                                                     B.Ed.</option>
@@ -857,7 +858,7 @@
                                                 <option value="12">All Student List</option>
                                                 <option value="13">Fees Deposite</option>
                                                 <option value="14">Pending Addmission</option>
-                                                <option value="15">Current Running Fees</option>
+                                                <option value="15">Pending Fees</option>
                                                 <option value="16">Promote Staff</option>
                                                 <option value="17">Attendance Student</option>
                                                 <option value="18">Attendance Staff</option>
