@@ -267,7 +267,7 @@
 
 
         {{-- side bar --}}
-        {{-- @include('school.sidebar.sidebar') --}}
+        @include('studentDashboard.sidebar.sidebar')
         {{-- content page --}}
         @yield('content')
         <footer>
