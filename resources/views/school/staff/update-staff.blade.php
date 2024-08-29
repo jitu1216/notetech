@@ -242,7 +242,7 @@
                                                 <img id="preview"
                                                     src="{{ URL::to('images') . '/' . $staffList->image }}"
                                                     alt="Logo" width="125" height="150">
-                                                <label>Upload Student Photo</label>
+                                                <label>Upload Staff Photo</label>
                                                 <div class="uplod">
                                                     <label
                                                         class="file-upload image-upbtn mb-0 @error('upload') is-invalid @enderror">
@@ -917,7 +917,7 @@
                                                 <option value="22"@if (in_array('22', $staffPower)) selected @endif >Home Work</option>
                                                 <option value="23"@if (in_array('23', $staffPower)) selected @endif >Time Table</option>
                                                 <option value="24"@if (in_array('24', $staffPower)) selected @endif >Absent Report Student</option>
-                                                <option value="25"@if (in_array('25', $staffPower)) selected @endif ></option>
+                                                <option value="25"@if (in_array('25', $staffPower)) selected @endif >Current Running Fees</option>
 
                                             </select>
 

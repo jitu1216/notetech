@@ -37,7 +37,7 @@
                 <div class="row align-items-center">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">Add Students</h3>
+                            <h3 class="page-title">Add Staff</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('school') }}">Student</a></li>
                                 <li class="breadcrumb-item active">Add Students</li>
@@ -868,7 +868,7 @@
                                                 <option value="22">Home Work</option>
                                                 <option value="23">Time Table</option>
                                                 <option value="24">Absent Report Student</option>
-                                                <option value="25"></option>
+                                                <option value="25">Current Running Fees</option>
 
                                             </select>
 
