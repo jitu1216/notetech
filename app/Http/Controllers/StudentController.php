@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\StateCities;
 use App\Models\SchoolClass;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\School;
 use App\Models\Subject;
@@ -303,6 +304,7 @@ class StudentController extends Controller
             'occupation'  => 'required',
             'aadhar'      => 'required',
             'institute'  => 'required',
+            'password'  => 'required',
             'upload'        => 'required|image',
         ]);
 
@@ -375,6 +377,8 @@ class StudentController extends Controller
             $student->school_id           = Custom::getSchool()->id;
             $student->status        =  1;
             $student->image              = $upload_file;
+            $student->password         = Hash::make($request->password);
+            $student->show_pass         = $request->password;
             $student->save();
         }
 
@@ -609,6 +613,7 @@ class StudentController extends Controller
                 'sr_no' => 'required',
                 'roll_no' => 'required',
                 'fees_account' => 'required',
+                'password' => 'required',
             ]);
 
             $student = Student::where(['id' => $request->id])->first();
@@ -674,6 +679,8 @@ class StudentController extends Controller
             $student->status        =  2;
             $student->reject_reason   = null;
             $student->image         = $upload_file;
+            $student->password         = Hash::make($request->password);
+            $student->show_pass         = $request->password;
             $student->update();
 
             $result = (new FeesController)->updateStudentFees($request->class);
