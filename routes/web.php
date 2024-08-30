@@ -15,7 +15,9 @@ use App\Http\Controllers\SchoolDashboardController;
 use App\Http\Controllers\FeesController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\PromoteController;
+use App\Http\Controllers\StudentAuthController;
 use App\Http\Controllers\StudentDashboardController;
+
 
 
 
@@ -239,10 +241,19 @@ Route::controller(StaffController::class)->group(function () {
 
 
 // Student Dashboard Code Goes Here //
+
+Route::controller(StudentAuthController::class)->group(function () {
+    Route::get('student/login', 'login')->name('student-login')->middleware('guest.student');
+    Route::post('student/login', 'authenticate')->name('student-login');
+    Route::get('student/logout', 'logout')->name('student-logout');
+    Route::post('student/change/password', 'changePassword')->name('student/change/password');
+});
+
+
 // CODED WBY ANKIT //
 
 Route::controller(StudentDashboardController::class)->group(function () {
-    Route::get('student-home', 'index')->middleware('auth')->name('student-home');
+    Route::get('student', 'index')->middleware('auth.student')->name('student');
 });
 
 
