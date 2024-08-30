@@ -34,17 +34,17 @@
             <div class="header-left w-50">
                 <span class="user-img">
                     <a href="{{ route('school') }}" class="logo">
-                        <img class="rounded-circle" src="{{ URL::to('images') . '/' . Custom::getSchool()->Logo }}"
+                        <img class="rounded-circle" src="{{ URL::to('images') . '/' . Custom::getStudentSchool()->Logo }}"
                             alt="Logo">
                     </a>
                 </span>
                 <div class="row">
                     <div class="col-12">
-                        <h6 style="margin-left: 20px; margin-bottom:-12px;">{{ Custom::getSchool()->Name }}</h6>
+                        <h6 style="margin-left: 20px; margin-bottom:-12px;">{{ Custom::getStudentSchool()->Name }}</h6>
                     </div>
                     <div class="col-12">
                         <p style="margin-left: 20px; margin-top:10px; margin-bottom:-6px; font-size:12px;">
-                            {{ Custom::getSchool()->Address . ' ' . Custom::getSchool()->City . ' (' . Custom::getSchool()->State . ')' }}
+                            {{ Custom::getStudentSchool()->Address . ' ' . Custom::getStudentSchool()->City . ' (' . Custom::getStudentSchool()->State . ')' }}
                         </p>
                     </div>
                 </div>
@@ -73,25 +73,22 @@
                         <span class="user-img">
                             <div class="user-text">
                                 <h6>Session Year</h6>
+                                @php
+                                    Custom::academicSession();
+                                @endphp
                                 <p class="text-muted mb-0">{{ Session::get('academic_session') }}</p>
                             </div>
                         </span>
                     </a>
-                    <div class="dropdown-menu">
+                    {{-- <div class="dropdown-menu">
                         {{ Custom::academicSession() }}
                         @foreach (Session::get('all_academic_session') as $value)
                             <a class="dropdown-item"
                                 href="{{ route('changesession') . '/' . $value->session_date }}">{{ $value->session_date }}</a>
                         @endforeach
-                    </div>
+                    </div> --}}
                 </li>
-                @if (Custom::checkProfile(Custom::getUser()->id) == 1)
-                    @if (Route::current()->getName() != 'schoolprofile')
-                        <script>
-                            window.location.href = "{{ route('schoolprofile') }}";
-                        </script>
-                    @endif
-                @endif
+
 
 
                 {{-- <li class="nav-item dropdown noti-dropdown me-2">
@@ -179,88 +176,33 @@
 
                 <li class="nav-item dropdown has-arrow new-user-menus">
 
-                    @if (Custom::getUser()->role_name == 'School')
                         <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                             <span class="user-img">
                                 <img class="rounded-circle"
-                                    src="{{ URL::to('images') . '/' . Custom::getSchool()->Logo }}"
+                                    src="{{ URL::to('student-photos') . '/' .Auth::guard('student')->User()
+->image }}"
                                     width="31"alt="{{ Session::get('name') }}">
                                 <div class="user-text">
-                                    <h6>{{ Session::get('name') }}</h6>
-                                    <p class="text-muted mb-0">{{ Custom::getSchool()->Usertype }}</p>
+                                    <h6>{{ Auth::guard('student')->User()->student_name }}</h6>
+                                    <p class="text-muted mb-0">Student</p>
                                 </div>
                             </span>
                         </a>
                         <div class="dropdown-menu">
                             <div class="user-header">
                                 <div class="avatar avatar-sm">
-                                    <img src="{{ URL::to('images') . '/' . Custom::getSchool()->Logo }}"
+                                    <img src="{{ URL::to('images') . '/' . Custom::getStudentSchool()->Logo }}"
                                         alt="{{ Session::get('name') }}" class="avatar-img rounded-circle">
                                 </div>
                                 <div class="user-text">
-                                    <h6>{{ Session::get('name') }}</h6>
-                                    <p class="text-muted mb-0">{{ Custom::getSchool()->Usertype }}</p>
+                                    <h6>{{ Auth::guard('student')->User()->student_name }}</h6>
+                                    <p class="text-muted mb-0">Student</p>
                                 </div>
                             </div>
-                            <a class="dropdown-item" href="{{ route('schoolprofile') }}">My Profile</a>
+                            <a class="dropdown-item" href="">My Profile</a>
                             {{-- <a class="dropdown-item" href="inbox.html">Inbox</a> --}}
-                            <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+                            <a class="dropdown-item" href="{{ route('student-logout') }}">Logout</a>
                         </div>
-                    @elseif (Custom::getUser()->role_name == 'Super Admin')
-                        <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                            <span class="user-img">
-                                <img class="rounded-circle" src="{{ URL::to('assets/img/avtar.jpg') }}"
-                                    width="31"alt="{{ Session::get('name') }}">
-                                <div class="user-text">
-                                    <h6>{{ Session::get('name') }}</h6>
-                                    <p class="text-muted mb-0">{{ Session::get('role_name') }}</p>
-                                </div>
-                            </span>
-                        </a>
-                        <div class="dropdown-menu">
-                            <div class="user-header">
-                                <div class="avatar avatar-sm">
-                                    <img src="{{ URL::to('assets/img/avtar.jpg') }}" alt="{{ Session::get('name') }}"
-                                        class="avatar-img rounded-circle">
-                                </div>
-                                <div class="user-text">
-                                    <h6>{{ Session::get('name') }}</h6>
-                                    <p class="text-muted mb-0">{{ Session::get('role_name') }}</p>
-                                </div>
-                            </div>
-                            <a class="dropdown-item" href="{{ route('schoolprofile') }}">My Profile</a>
-                            {{-- <a class="dropdown-item" href="inbox.html">Inbox</a> --}}
-                            <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
-                        @elseif (Custom::getUser()->role_name == 'Staff')
-                            <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                                <span class="user-img">
-                                    <img class="rounded-circle"
-                                        src="{{ URL::to('images') . '/' . Custom::getStaffDetail()->image }}"
-                                        width="31"alt="{{ Session::get('name') }}">
-                                    <div class="user-text">
-                                        <h6>{{ Session::get('name') }}</h6>
-                                        <p class="text-muted mb-0">
-                                            {{ Custom::getStaffDetail()->appointment_position }}</p>
-                                    </div>
-                                </span>
-                            </a>
-                            <div class="dropdown-menu">
-                                <div class="user-header">
-                                    <div class="avatar avatar-sm">
-                                        <img src="{{ URL::to('images') . '/' . Custom::getStaffDetail()->image }}"
-                                            alt="{{ Session::get('name') }}" class="avatar-img rounded-circle">
-                                    </div>
-                                    <div class="user-text">
-                                        <h6>{{ Session::get('name') }}</h6>
-                                        <p class="text-muted mb-0">
-                                            {{ Custom::getStaffDetail()->appointment_position }}</p>
-                                    </div>
-                                </div>
-                                <a class="dropdown-item" href="{{ route('schoolprofile') }}">My Profile</a>
-                                {{-- <a class="dropdown-item" href="inbox.html">Inbox</a> --}}
-                                <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
-                    @endif
-
                 </li>
             </ul>
         </div>
