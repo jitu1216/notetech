@@ -526,6 +526,19 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>Student Password <span class="login-danger">*</span></label>
+                                            <input class="form-control @error('password') is-invalid @enderror"
+                                                type="text" name="password" placeholder="Enter Password"
+                                                value="{{ old('password') }}">
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                     <div class="col-12 col-sm-12 m-4 mt-0 ">
                                         <div class="row" id="subject">
                                             <h5 class="form-title"><span>Select Subjects</span></h5>
