@@ -556,7 +556,7 @@
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
-                                            <label>Enter Password <span class="login-danger">*</span></label>
+                                            <label>Enter Student Password <span class="login-danger">*</span></label>
                                             <input class="form-control @error('password') is-invalid @enderror"
                                                 type="text" name="password" placeholder="Enter Student Password"
                                                 value="{{ $student->show_pass }}">

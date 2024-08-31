@@ -31,23 +31,27 @@ class StudentAuthController extends Controller
     /** Handle login attempt */
     public function authenticate(Request $request)
     {
+        Custom::academicSession();
+        $academic = Session::get('academic_session');
 
         if ($request->mark == '2') {
             $request->validate([
                 'mobile' => 'required|max:10|min:10',
                 'password' => 'required|string',
             ]);
-            Custom::academicSession();
-            $academic = Session::get('academic_session');
-            $credentials = $request->only('mobile', 'password');
-            $students = Student::where(['mobile' => $request->mobile, 'show_pass' => $request->password, 'academic_session' => $academic])->get();
 
+            // $credentials = $request->only('mobile', 'password');
+            $students = Student::where(['mobile' => $request->mobile, 'show_pass' => $request->password, 'academic_session' => $academic])->get();
 
             if (count($students) > 1) {
                 $mark = '1';
                 return view('studentDashboard.login.login', compact('mark','students'));
             } elseif (count($students) == 1) {
-                if (Auth::guard('student')->attempt(['mobile' => $credentials['mobile'], 'password' => $credentials['password']])) {
+            // dd($students);
+
+            $student = Student::where('id', $students[0]['id'])->first();
+
+            if (Auth::guard('student')->login($student)) {
                     // Authentication passed, redirect to student home
                     Toastr::success('Login successfully :)', 'Success');
                     return redirect()->intended($this->redirectTo);
