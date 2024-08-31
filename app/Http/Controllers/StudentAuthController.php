@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Brian2694\Toastr\Facades\Toastr;
+use App\Models\AcademicSession;
+use Session;
+use Custom;
+
 
 class StudentAuthController extends Controller
 {
@@ -33,9 +37,10 @@ class StudentAuthController extends Controller
                 'mobile' => 'required|max:10|min:10',
                 'password' => 'required|string',
             ]);
-
+            Custom::academicSession();
+            $academic = Session::get('academic_session');
             $credentials = $request->only('mobile', 'password');
-            $students = Student::where(['mobile' => $request->mobile, 'show_pass' => $request->password])->get();
+            $students = Student::where(['mobile' => $request->mobile, 'show_pass' => $request->password, 'academic_session' => $academic])->get();
 
 
             if (count($students) > 1) {
