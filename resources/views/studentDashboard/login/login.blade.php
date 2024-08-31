@@ -49,6 +49,7 @@
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary btn-block" type="submit">Login</button>
+                <a class="btn btn-block btn-danger mt-3" href="{{ url('login')}}">Administration Login</a>
                     </div>
                 @else
                     <div class="row">
