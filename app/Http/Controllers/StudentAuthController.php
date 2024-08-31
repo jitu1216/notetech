@@ -37,6 +37,7 @@ class StudentAuthController extends Controller
             $credentials = $request->only('mobile', 'password');
             $students = Student::where(['mobile' => $request->mobile, 'show_pass' => $request->password])->get();
 
+
             if (count($students) > 1) {
                 $mark = '1';
                 return view('studentDashboard.login.login', compact('mark','students'));
@@ -59,11 +60,9 @@ class StudentAuthController extends Controller
         }else{
 
             // dd($request);
-
             $student = Student::where('id', $request->student_id)->first();
             // $credentials = $student->only('mobile', 'password');
             if (Auth::guard('student')->login($student)) {
-
                 Session::put('name', $student->student_name);
                 Session::put('email', $student->email);
                 Session::put('user_id', $student->id);
