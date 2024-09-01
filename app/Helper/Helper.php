@@ -225,6 +225,21 @@ class Custom{
             return $totaldata;
     }
 
+
+    public static function getStudentTotalFees(){
+        $user = Auth::guard('student')->User();
+        $academic = Session::get('academic_session');
+        $fees = StudentFees::where(['school_id' => $user->school_id,'academic_session' => $academic, 'student_id' => $user->id, 'status' => '1'])->sum('fees_amount');
+        return $fees;
+    }
+
+    public static function getStudentDepositeFees(){
+        $user = Auth::guard('student')->User();
+        $academic = Session::get('academic_session');
+        $fees = StudentFees::where(['school_id' => $user->school_id,'academic_session' => $academic, 'student_id' => $user->id, 'status' => '1'])->sum('fees_paid');
+        return $fees;
+    }
+
     public static function getApprovedStudent(){
         $school = Custom::getSchool();
         $academic = Session::get('academic_session');
