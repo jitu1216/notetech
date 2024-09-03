@@ -9,4 +9,8 @@ class StudentDashboardController extends Controller
     public function index(){
         return view('studentDashboard.student-home');
     }
+
+    public function feesdeposite(){
+        return view('studentDashboard.fees.feesdeposite');
+    }
 }

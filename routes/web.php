@@ -17,6 +17,7 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\PromoteController;
 use App\Http\Controllers\StudentAuthController;
 use App\Http\Controllers\StudentDashboardController;
+use App\Http\Controllers\AttendanceController;
 
 
 
@@ -254,7 +255,12 @@ Route::controller(StudentAuthController::class)->group(function () {
 
 Route::controller(StudentDashboardController::class)->group(function () {
     Route::get('student', 'index')->middleware('auth.student')->name('student');
+    Route::get('fees/feesdeposite', 'feesdeposite')->name('fees/feesdeposite');
 });
 
+
+Route::controller(AttendanceController::class)->group(function () {
+    Route::get('school/attendance/take_student_attendance', 'takestudentattendance')->name('attendance/take_student_attendance');
+});
 
 
