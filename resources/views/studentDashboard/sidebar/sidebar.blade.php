@@ -15,7 +15,7 @@
                     <ul class="htmlCss-sub-menu sub-menu">                     
                       <li><a href="" >Fees Info</a></li>
                       <li><a href="" >Fees Card</a></li>
-                      <li><a href="" >Online Fees Deposite</a></li>
+                      <li><a href="{{ route('fees/feesdeposite') }}" >Online Fees Deposite</a></li>
                     </ul>
                 </li>
                 <li>
