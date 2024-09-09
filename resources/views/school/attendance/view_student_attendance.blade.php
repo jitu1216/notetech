@@ -278,6 +278,16 @@
                 }
             });
 
+            $('#atddate').on('dp.show', function() {
+                $('.day').each(function() {
+                    var fullDate = moment($(this).attr('data-day'));
+                    if (fullDate.isValid() && fullDate.day() === 0) {
+                        $(this).addClass('disabled');
+                    }
+                });
+            });
+
+
             $('#atddate').on('dp.change', function(event) {
                 var selectedDate = event.date.format('DD-MM-YYYY');
                 var class_id = $('#class').children("option:selected").val();

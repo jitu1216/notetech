@@ -24,7 +24,8 @@
     <script src="{{ URL::to('assets/js/toastr_jquery.min.js') }}"></script>
     <script src="{{ URL::to('assets/js/toastr.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
 
 
 </head>
@@ -335,7 +336,7 @@
     <script src="{{ URL::to('assets/plugins/simple-calendar/jquery.simple-calendar.js') }}"></script>
     <script src="{{ URL::to('assets/js/calander.js') }}"></script>
     <script src="{{ URL::to('assets/js/circle-progress.min.js') }}"></script>
-    <script src="{{ URL::to('assets/plugins/moment/moment.min.js') }}"></script>
+
     <script src="{{ URL::to('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="{{ URL::to('assets/plugins/datatables/datatables.min.js') }}"></script>
     <script src="{{ URL::to('assets/plugins/select2/js/select2.min.js') }}"></script>

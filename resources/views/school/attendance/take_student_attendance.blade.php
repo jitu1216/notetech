@@ -96,7 +96,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <input class="form-control datetimepicker  @error('date') is-invalid @enderror" name="date"
-                                type="text" placeholder="DD-MM-YYYY" id="dob" value="{{ old('date') }}">
+                                type="text" placeholder="DD-MM-YYYY" id="sundaydate" value="{{ old('date') }}">
                             @error('date')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -255,6 +255,16 @@
         });
 
         $(document).ready(function() {
+
+
+            $('#sundaydate').on('dp.show', function() {
+                $('.day').each(function() {
+                    var fullDate = moment($(this).attr('data-day'));
+                    if (fullDate.isValid() && fullDate.day() === 0) {
+                        $(this).addClass('disabled');
+                    }
+                });
+            });
 
             // Find the option with the old value and change its color
             $('#attendance-dropdown option').each(function() {
