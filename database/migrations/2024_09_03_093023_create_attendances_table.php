@@ -17,22 +17,23 @@ return new class extends Migration
      *
      * @return void
      */
-  
+
 
 public function up()
 {
     Schema::create('attendance', function (Blueprint $table) {
         $table->id();
-        $table->integer('student_id');  
-        $table->integer('academic_session');
+        $table->integer('student_id');
+        $table->string('academic_session');
         $table->integer('school_id');
         $table->integer('class_id');
         $table->string('attendance_type');
+        $table->date('date');
         $table->timestamps();
     });
 }
 
     /** public function down()
-    
+
      */
 };

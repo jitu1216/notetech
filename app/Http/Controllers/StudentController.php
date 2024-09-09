@@ -127,6 +127,9 @@ class StudentController extends Controller
         if($id == 4){
             $mark = 4;
         }
+        if($id == 5){
+            $mark = 5;
+        }
 
         // dd($studentList);
         return view('school.student.student-list', compact('studentList', 'mark', 'finalarray'));
@@ -177,18 +180,6 @@ class StudentController extends Controller
             }
         }
 
-
-        if (!empty($request->Class)) {
-            $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(function ($query) use ($request) {
-                $query->where('application_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('sr_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('student_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('father_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('district', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('state', 'LIKE', "%" . $request->studentsearch . "%");
-            })->where('class_id', $request->Class)->where('students.status', $request->searchId)->get();
-
-        }else{
-            $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(function ($query) use ($request) {
-                $query->where('application_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('sr_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('student_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('father_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('district', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('state', 'LIKE', "%" . $request->studentsearch . "%");
-            })->where('students.status', $request->searchId)->get();
-        }
-
         if($request->searchId == 2) {
             $mark = 2;
         }
@@ -201,9 +192,30 @@ class StudentController extends Controller
         if($request->searchId == 4){
             $mark = 4;
         }
+        if($request->searchId == 5){
+            $mark = 2;
+        }
+
+        if (!empty($request->Class)) {
+            $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(function ($query) use ($request,$mark) {
+                $query->where('application_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('sr_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('student_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('father_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('district', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('state', 'LIKE', "%" . $request->studentsearch . "%");
+            })->where('class_id', $request->Class)->where('students.status', $mark)->get();
+
+        }else{
+            $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(function ($query) use ($request,$mark) {
+                $query->where('application_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('sr_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('student_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('father_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('district', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('state', 'LIKE', "%" . $request->studentsearch . "%");
+            })->where('students.status', $mark)->get();
+        }
+
+        if($request->searchId == 5){
+            $mark = 5;
+        }
+
+
 
         $studentsearch = $request->studentsearch;
         $class =  $request->Class;
+        // dd($class);
         return view('school.student.student-list', compact('studentList', 'mark', 'finalarray','studentsearch','class'));
 
 

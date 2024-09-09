@@ -24,6 +24,7 @@
     <script src="{{ URL::to('assets/js/toastr_jquery.min.js') }}"></script>
     <script src="{{ URL::to('assets/js/toastr.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 
 </head>
@@ -311,7 +312,7 @@
         @include('school.sidebar.sidebar')
         {{-- content page --}}
         @yield('content')
-        <footer>
+        <footer class="mt-4">
             <div class="d-flex flex-row justify-content-center align-items-center">
                 <div class="avatar avatar-sm subject">
                     <img src="{{ URL::to('assets/img/avtar.jpg') }}" alt="{{ Session::get('name') }}"
