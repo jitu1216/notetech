@@ -171,11 +171,15 @@
                             </thead>
                             <tbody class="text-nowrap">
                                 @if ($class != null)
+                                    @php
+                                        $x = 0;
+                                    @endphp
                                     @foreach ($studentlist as $key => $value)
                                         <tr class="{{ old('attendance.' . $key) == '' ? 'change' : 'normal' }}">
                                             <input type="number" hidden name="student[{{ $key }}]"
                                                 value="{{ $value->id }}">
-                                            <td>{{ ++$key }}</td>
+
+                                            <td>{{ ++$x }}</td>
                                             <td>{{ $value->student_name }}</td>
                                             <td>{{ $value->roll_no }}</td>
                                             <td>
