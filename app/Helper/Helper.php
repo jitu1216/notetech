@@ -8,12 +8,15 @@ use App\Models\School;
 use App\Models\FeesAmount;
 use App\Models\StudentFees;
 use App\Models\FeesType;
+use App\Models\Attendance;
 use App\Models\FeesTransaction;
 use App\Models\AcademicSession;
 use App\Models\Student;
 use App\Models\Staff;
+use App\Models\SchoolClass;
 use Session;
 use Auth;
+use Carbon\Carbon;
 
 class Custom{
      public static function academicSession(){
@@ -416,6 +419,74 @@ class Custom{
 
             return $totaldata;
     }
+
+    public static function getClass($id){
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '0', 'id' => $id])->first();
+        return $schoolclass;
+
+    }
+
+
+    public static function getDay($month, $day)
+    {
+        $sessionYear = Session::get('academic_session');
+        list($startYear, $endYear) = explode('-', $sessionYear);
+        $chunk = str_split($startYear, 2);
+        $endYear = $chunk[0] . $endYear;
+        if($month == '1' || $month == '2' || $month == '3'){
+            $date = Carbon::create($endYear, $month, $day);
+        }else{
+            $date = Carbon::create($startYear, $month, $day);
+        }
+        // dd($date);
+        $startDate = Carbon::create($startYear, 4, 1);
+        $endDate = Carbon::create($endYear, 3, 31);
+
+        if ($date->between($startDate, $endDate)) {
+            return $date->format('l');
+        } else {
+            return 'Date is out of session year range';
+        }
+
+    }
+
+    public static function getYear($month){
+        $sessionYear = Session::get('academic_session');
+        list($startYear, $endYear) = explode('-', $sessionYear);
+        $chunk = str_split($startYear, 2);
+        $endYear = $chunk[0] . $endYear;
+        if($month == '1' || $month == '2' || $month == '3'){
+          return $endYear;
+        }else{
+          return $startYear;
+        }
+    }
+
+    public static function getAttendanceSummary($id,$class,$month)
+{
+    $school = Custom::getSchool();
+    $academic = Session::get('academic_session');
+
+    // Get all attendance records for the student
+    $attendanceRecords = Attendance::where([
+        'school_id' => $school->id,
+        'academic_session' => $academic,
+        'class_id' => $class,
+        'student_id' => $id
+    ])->whereMonth('date', $month)->get();
+
+    $attendanceSummary = [
+        'present' => $attendanceRecords->where('attendance_type', 'P')->count(),
+        'absent' => $attendanceRecords->where('attendance_type', 'A')->count(),
+        'halfday' => $attendanceRecords->where('attendance_type', 'HF')->count(),
+        'leave' => $attendanceRecords->where('attendance_type', 'LA')->count(),
+    ];
+
+    return $attendanceSummary;
+}
 
 
 

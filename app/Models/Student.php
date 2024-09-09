@@ -11,4 +11,10 @@ class Student extends Model implements AuthenticatableContract
 {
     use HasFactory;
     use Authenticatable;
+
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
 }

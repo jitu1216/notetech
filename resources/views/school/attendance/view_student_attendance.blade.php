@@ -78,16 +78,14 @@
         }
     </style>
     <div class="page-wrapper">
-        <form action="{{ route('submitstudentattendance') }}" method="post">
+        <form action="{{ route('updatestudentattendance') }}" method="post">
             @csrf
             <div class="content container-fluid">
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col-sm-12">
                             <div class="page-sub-header">
-                                <h3 class="page-title">
-                                    Take Attendance
-                                </h3>
+
                             </div>
                         </div>
                     </div>
@@ -96,7 +94,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <input class="form-control datetimepicker  @error('date') is-invalid @enderror" name="date"
-                                type="text" placeholder="DD-MM-YYYY" id="dob" value="{{ old('date') }}">
+                                type="text" placeholder="DD-MM-YYYY" id="atddate" value="{{ $date }}">
                             @error('date')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -105,7 +103,9 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-
+                        <h3 class="page-title text-center">
+                            Update Attendance
+                        </h3>
                     </div>
                     <div class=" col-md-3">
                         <div class="form-group">
@@ -172,55 +172,67 @@
                             <tbody class="text-nowrap">
                                 @if ($class != null)
                                     @foreach ($studentlist as $key => $value)
-                                        <tr class="{{ old('attendance.' . $key) == '' ? 'change' : 'normal' }}">
-                                            <input type="number" hidden name="student[{{ $key }}]"
-                                                value="{{ $value->id }}">
-                                            <td>{{ ++$key }}</td>
-                                            <td>{{ $value->student_name }}</td>
-                                            <td>{{ $value->roll_no }}</td>
-                                            <td>
-                                                <select name="attendance[{{ $key }}]"
-                                                    class="form-control @error('attendance.' . $key) is-invalid @enderror"
-                                                    required>
-                                                    <option selected disabled>Select Attendance</option>
-                                                    <option value="P"
-                                                        {{ old('attendance.' . $key) == 'P' ? 'selected' : '' }}>Present
-                                                    </option>
-                                                    <option value="A"
-                                                        {{ old('attendance.' . $key) == 'A' ? 'selected' : '' }}>Absent
-                                                    </option>
-                                                    <option value="HF"
-                                                        {{ old('attendance.' . $key) == 'HF' ? 'selected' : '' }}>Half Day
-                                                    </option>
-                                                    <option value="LA"
-                                                        {{ old('attendance.' . $key) == 'LA' ? 'selected' : '' }}>Leave
-                                                        Application</option>
-                                                </select>
-                                                @error('attendance.' . $key)
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </td>
-                                        </tr>
+                                        @foreach ($attendance as $attend)
+                                            @if ($attend->student_id == $value->id)
+                                                <tr>
+                                                    <input type="number" hidden name="student[{{ $key }}]"
+                                                        value="{{ $value->id }}">
+                                                    <td>{{ ++$key }}</td>
+                                                    <td>{{ $value->student_name }}</td>
+                                                    <td>{{ $value->roll_no }}</td>
+                                                    <td>
+                                                        <select name="attendance[{{ $key }}]"
+                                                            class="form-control @error('attendance.' . $key) is-invalid @enderror"
+                                                            required>
+                                                            <option selected disabled>Select Attendance</option>
+                                                            <option value="P"
+                                                                {{ $attend->attendance_type == 'P' ? 'selected' : '' }}>
+                                                                Present
+                                                            </option>
+                                                            <option value="A"
+                                                                {{ $attend->attendance_type == 'A' ? 'selected' : '' }}>
+                                                                Absent
+                                                            </option>
+                                                            <option value="HF"
+                                                                {{ $attend->attendance_type == 'HF' ? 'selected' : '' }}>
+                                                                Half Day
+                                                            </option>
+                                                            <option value="LA"
+                                                                {{ $attend->attendance_type == 'LA' ? 'selected' : '' }}>
+                                                                Leave Application
+                                                            </option>
+
+                                                        </select>
+
+                                                        @error('attendance.' . $key)
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </td>
+                                                </tr>
+                                            @else
+                                            @endif
+                                        @endforeach
                                         <input type="number" hidden value="{{ $key }}" name="total">
                                     @endforeach
                                 @endif
-
                             </tbody>
                         </table>
                         @if ($class != null)
-                            <div class="row">
-                                <div class="col-md-9">
-
+                            @if ($attendance->count() === 0)
+                                <h3 class="text-center text-danger m-4"> No Attendance Record Found! </h3>
+                            @else
+                                <div class="row">
+                                    <div class="col-md-9">
+                                    </div>
+                                    <div class="col-md-3 search-student-btn">
+                                        <button type="submit" class="btn btn-primary w-75 me-4"
+                                            style="background-color:rgb(89, 89, 255)">Submit</button>
+                                    </div>
                                 </div>
-                                <div class="col-md-3 search-student-btn">
-                                    <button type="submit" class="btn btn-primary w-75 me-4"
-                                        style="background-color:rgb(89, 89, 255)">Submit</button>
-                                </div>
-                            </div>
+                            @endif
                         @endif
-
                     </div>
                 </div>
         </form>
@@ -244,10 +256,14 @@
         @endif
 
 
-
         $("#class").change(function() {
-            var class_id = $(this).children("option:selected").val();
-            window.location.href = '/school/take_student_attendance/' + class_id;
+            var atddate = $('#atddate').val();
+            if (atddate == '') {
+                alert('Please Select Date');
+            } else {
+                var class_id = $(this).children("option:selected").val();
+                window.location.href = '/school/view_student_attendance/' + class_id + '/' + atddate;
+            }
         });
 
         $(document).ready(function() {
@@ -258,6 +274,20 @@
                     $(this).css('color', 'red'); // Change color to red or any color you prefer
                 }
             });
+
+            $('#atddate').on('dp.change', function(event) {
+                var selectedDate = event.date.format('DD-MM-YYYY');
+                var class_id = $('#class').children("option:selected").val();
+                if (class_id == '') {
+                    alert('Please Select Class');
+                } else {
+                    window.location.href = '/school/view_student_attendance/' + class_id + '/' +
+                        selectedDate;
+
+                }
+            });
+
+
         });
     </script>
 @endsection
