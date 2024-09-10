@@ -112,7 +112,7 @@ class AttendanceController extends Controller
 
             $return_date = date('d-m-Y',strtotime($request->date));
 
-            return redirect()->route('attendance/view_student_attendance', [
+            return redirect()->route('school/view_student_attendance', [
                 'id' => $request->Class,
                 'date' => $return_date
             ])->with('Success', 'Attendance Taked Successfully!');
@@ -271,8 +271,8 @@ class AttendanceController extends Controller
             $daysInMonth = Carbon::now()->daysInMonth;
             $month = Carbon::now()->month;
         }
-
         $class = $id;
+
 
         if($class != null){
             $attendance = Student::with(['attendances' => function ($query) use ($month) {
@@ -284,15 +284,44 @@ class AttendanceController extends Controller
             ->where('status', '2')
             ->get();
         }else{
-            $attendance = Student::with(['attendances' => function ($query) use ($month) {
-                $query->whereMonth('date', $month);
-            }])
-            ->where('school_id', $school->id)
-            ->where('academic_session', $academic)
-            ->where('status', '2')
-            ->get();
+
+            if(Custom::getUser()->role_name == 'Staff'){
+                if(Custom::getStaffRole() == 'Assistant Teacher'){
+                    $allot_class = Custom::getTeacherClass();
+                    $attendance = Student::with(['attendances' => function ($query) use ($month) {
+                        $query->whereMonth('date', $month);
+                    },'schoolClass'])
+                    ->where('school_id', $school->id)
+                    ->where('academic_session', $academic)
+                    ->where('status', '2')
+                    ->whereIn('class_id', $allot_class)
+                    ->get();
+
+                    $attendance = $attendance->sortBy(function ($student) {
+                        return $student->schoolClass->classname;
+                    });
+
+                }else{
+                    $attendance = Student::with(['attendances' => function ($query) use ($month) {
+                        $query->whereMonth('date', $month);
+                    }])
+                    ->where('school_id', $school->id)
+                    ->where('academic_session', $academic)
+                    ->where('status', '2')
+                    ->get();
+                }
+            }else{
+                $attendance = Student::with(['attendances' => function ($query) use ($month) {
+                    $query->whereMonth('date', $month);
+                }])
+                ->where('school_id', $school->id)
+                ->where('academic_session', $academic)
+                ->where('status', '2')
+                ->get();
+            }
+
         }
-        // dd($attendance);
+        // dd($sortedAttendance);
 
         return view('school.attendance.student-attendance-record', compact('finalarray', 'class', 'attendance','month','daysInMonth'));
     }

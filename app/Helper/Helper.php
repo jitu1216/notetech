@@ -246,7 +246,15 @@ class Custom{
     public static function getApprovedStudent(){
         $school = Custom::getSchool();
         $academic = Session::get('academic_session');
-        $data = Student::where(['school_id' => $school->id , 'academic_session'=> $academic,'status' => 2])->count();
+        if(Custom::getUser()->role_name == 'Staff'){
+            if(Custom::getStaffRole() == 'Assistant Teacher'){
+                $allot_class = Custom::getTeacherClass();
+                $data = Student::where(['school_id' => $school->id , 'academic_session'=> $academic,'status' => 2])->whereIn('class_id', $allot_class)->count();
+            }
+        }else{
+            $data = Student::where(['school_id' => $school->id , 'academic_session'=> $academic,'status' => 2])->count();
+        }
+
         return $data;
     }
 
@@ -254,7 +262,15 @@ class Custom{
 
         $school = Custom::getSchool();
         $academic = Session::get('academic_session');
-        $data = Student::where(['school_id' => $school->id , 'academic_session'=> $academic,'status' => 1])->count();
+
+        if(Custom::getUser()->role_name == 'Staff'){
+            if(Custom::getStaffRole() == 'Assistant Teacher'){
+                $allot_class = Custom::getTeacherClass();
+                $data = Student::where(['school_id' => $school->id , 'academic_session'=> $academic,'status' => 1])->whereIn('class_id', $allot_class)->count();
+            }
+        }else{
+            $data = Student::where(['school_id' => $school->id , 'academic_session'=> $academic,'status' => 1])->count();
+        }
         return $data;
     }
 
@@ -262,7 +278,17 @@ class Custom{
 
         $school = Custom::getSchool();
         $academic = Session::get('academic_session');
-        $data = Student::where(['school_id' => $school->id , 'academic_session'=> $academic,'status' => 3])->count();
+
+
+        if(Custom::getUser()->role_name == 'Staff'){
+            if(Custom::getStaffRole() == 'Assistant Teacher'){
+                $allot_class = Custom::getTeacherClass();
+                $data = Student::where(['school_id' => $school->id , 'academic_session'=> $academic,'status' => 3])->whereIn('class_id', $allot_class)->count();
+            }
+        }else{
+            $data = Student::where(['school_id' => $school->id , 'academic_session'=> $academic,'status' => 3])->count();
+        }
+
         return $data;
     }
 
@@ -470,7 +496,6 @@ class Custom{
     $school = Custom::getSchool();
     $academic = Session::get('academic_session');
 
-    // Get all attendance records for the student
     $attendanceRecords = Attendance::where([
         'school_id' => $school->id,
         'academic_session' => $academic,
@@ -486,6 +511,15 @@ class Custom{
     ];
 
     return $attendanceSummary;
+}
+
+public static function getTodayAttendance(){
+    $school = Custom::getSchool();
+    $academic = Session::get('academic_session');
+    $date = Carbon::now()->format('Y-m-d');
+
+    $attendance = Attendance::where(['school_id' => $school->id,'academic_session' => $academic,'date' => $date])->get();
+    return $attendance;
 }
 
 

@@ -163,7 +163,70 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="col-xl-3 col-sm-4 col-12 d-flex">
+                    <div class="card bg-comman w-100"
+                        style="background-image: linear-gradient(to right, rgb(15, 240, 27), rgb(27, 116, 0));">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info">
+                                    <h6 style="color: yellow;">Total Student</h6>
+                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getApprovedStudent() }}</h3>
+                                </div>
+                                <div>
+                                    <i class="fas fa-user-graduate" style="font-size: 50px; color:white;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-4 col-12 d-flex">
+                    <div class="card bg-comman w-100"
+                        style="background-image: linear-gradient(to right, rgb(216, 195, 6), rgb(172, 154, 0));">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info">
+                                    <h6 style="color: rgb(255, 255, 10);">Today Present Students</h6>
+                                    <h3 style="color: rgb(255, 255, 255);">{{Custom::getTodayAttendance()->where('attendance_type', 'P')->count() }}</h3>
+                                </div>
+                                <div>
+                                    <i class="fas fa-users" style="font-size: 50px; color:white;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-4 col-12 d-flex">
+                    <div class="card bg-comman w-100"
+                        style="background-image: linear-gradient(to right, rgb(253, 67, 54), rgb(185, 6, 0));">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info">
+                                    <h6 style="color: yellow;">Today Absent Students</h6>
+                                    <h3 style="color: rgb(255, 255, 255);">{{Custom::getTodayAttendance()->where('attendance_type', 'A')->count() }}</h3>
+                                </div>
+                                <div>
+                                    <i class="fas fa-graduation-cap" style="font-size: 50px; color:white;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-4 col-12 d-flex">
+                    <div class="card bg-comman w-100"
+                        style="background-image: linear-gradient(to right, rgb(54, 253, 203), rgb(0, 132, 185));">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info">
+                                    <h6 style="color: yellow;">Today Student Attendance Pending</h6>
+                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getApprovedStudent() - Custom::getTodayAttendance()->count() }}</h3>
+                                </div>
+                                <div>
+                                    <i class="fas fa-user-graduate" style="font-size: 50px; color:white;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 

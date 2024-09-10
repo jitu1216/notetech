@@ -205,16 +205,19 @@
                                                 class="{{ set_active(['school/studentlist', 'school/search']) }} popup"
                                                     href="javascript:(0)" @endif>Fees
                                             Deposite</a></li>
-                                    <li><a class="{{ set_active(['school/fee-edit-list', 'school/search']) }} popup" href="javascript:void(0)">Fee Card</a></li>
-                                    <li><a class="{{ set_active(['school/fees-report', 'school/search']) }} popup" href="javascript:void(0)">Fees Report</a></li>
+                                    <li><a class="{{ set_active(['school/fee-edit-list', 'school/search']) }} popup"
+                                            href="javascript:void(0)">Fee Card</a></li>
+                                    <li><a class="{{ set_active(['school/fees-report', 'school/search']) }} popup"
+                                            href="javascript:void(0)">Fees Report</a></li>
 
                                     <li><a
                                             @if (in_array('15', Custom::getStaffPower())) class="{{ set_active(['school/fees-report', 'school/search']) }}"
                                                     href="{{ route('pending-fees', '2') }}" @else
                                                     class="{{ set_active(['school/fees-report', 'school/search']) }} popup"
-                                                        href="javascript:(0)" @endif>Pending Fees</a></li>
-                                    <li><a class="{{ set_active(['school/fees-report', 'school/search']) }} popup" href="javascript:void(0)">Current Running Fees</a></li>
-
+                                                        href="javascript:(0)" @endif>Pending
+                                            Fees</a></li>
+                                    <li><a class="{{ set_active(['school/fees-report', 'school/search']) }} popup"
+                                            href="javascript:void(0)">Current Running Fees</a></li>
                                 @endif
                             @else
                                 <li><a class="{{ set_active(['school/fesstypelist']) }}"
@@ -374,14 +377,48 @@
                                 <li><a class="{{ set_active(['school/staff-list']) }}"
                                         href="{{ route('promote-staff-list') }}">Promote Staff</a></li>
                             @endif
-
-
-                            {{-- <li><a href="add-department.html">Staff Attendance</a></li> --}}
-                            {{-- <li><a href="add-department.html">Staff Salary</a></li> --}}
-
                         </ul>
                     </li>
+                    <li class="{{ set_active(['school/add-staff', 'school/add-class']) }}">
+                        <a href="#"><i class="fas fa-pen"></i>
+                            <span>Attendance</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <i class='bx bxs-chevron-down js-staff arrow '></i>
+                        <ul class="js-staff-menu sub-menu">
 
+                            @if (Custom::getUser()->role_name == 'Staff')
+                                <li><a
+                                        @if (in_array('17', Custom::getStaffPower())) class="{{ set_active(['school/take_student_attendance']) }}"
+                                            href="{{ route('school/take_student_attendance') }}" @else
+                                            class="{{ set_active(['school/take_student_attendance-list']) }} popup"
+                                                href="javascript:(0)" @endif>Take
+                                        Student Attendance</a></li>
+                                <li><a
+                                        @if (in_array('17', Custom::getStaffPower())) class="{{ set_active(['school/view_student_attendance']) }}"
+                                                        href="{{ route('school/view_student_attendance') }}" @else
+                                                        class="{{ set_active(['school/view_student_attendance']) }} popup"
+                                                            href="javascript:(0)" @endif>Edit
+                                        Student Attendance</a></li>
+                                <li><a
+                                        @if (in_array('17', Custom::getStaffPower())) class="{{ set_active(['school/student-attendance-record']) }}"
+                                                            href="{{ route('school/student-attendance-record') }}" @else
+                                                            class="{{ set_active(['school/student-attendance-record']) }} popup"
+                                                                href="javascript:(0)" @endif>Student
+                                        Attendance Record</a></li>
+                            @else
+                                <li><a class="{{ set_active(['school/take_student_attendance']) }}"
+                                        href="{{ route('school/take_student_attendance') }}">Take Student
+                                        Attendance</a></li>
+                                <li><a class="{{ set_active(['school/view_student_attendance']) }}"
+                                        href="{{ route('school/view_student_attendance') }}">Edit Student
+                                        Attendance</a></li>
+                                <li><a class="{{ set_active(['school/student-attendance-record']) }}"
+                                        href="{{ route('school/student-attendance-record') }}">Student
+                                        Attendance Record</a></li>
+                            @endif
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div class="search-box">
@@ -444,15 +481,6 @@
         let searchBox = document.querySelector(".search-box .bx-search");
         // let searchBoxCancel = document.querySelector(".search-box .bx-x");
 
-        // searchBox.addEventListener("click", () => {
-        //     navbar.classList.toggle("showInput");
-        //     if (navbar.classList.contains("showInput")) {
-        //         searchBox.classList.replace("bx-search", "bx-x");
-        //     } else {
-        //         searchBox.classList.replace("bx-x", "bx-search");
-        //     }
-        // });
-
         // sidebar open close js code
         let navLinks = document.querySelector(".nav-links");
         let menuOpenBtn = document.querySelector(".navbar .bx-menu");
@@ -470,10 +498,7 @@
         htmlcssArrow.onclick = function() {
             navLinks.classList.toggle("show1");
         }
-        // let moreArrow = document.querySelector(".more-arrow");
-        // moreArrow.onclick = function() {
-        //     navLinks.classList.toggle("show2");
-        // }
+
         let jsArrow = document.querySelector(".js-arrow");
         jsArrow.onclick = function() {
             navLinks.classList.toggle("show3");
