@@ -260,11 +260,11 @@ Route::controller(StudentDashboardController::class)->group(function () {
 
 
 Route::controller(AttendanceController::class)->group(function () {
-    Route::get('school/take_student_attendance/{id?}', 'takestudentattendance')->name('attendance/take_student_attendance');
+    Route::get('school/take_student_attendance/{id?}', 'takestudentattendance')->name('school/take_student_attendance');
     Route::post('school/submitstudentattendance', 'saveStudentAttendance')->name('submitstudentattendance');
-    Route::get('school/view_student_attendance/{id?}/{date?}', 'viewstudentattendance')->name('attendance/view_student_attendance');
+    Route::get('school/view_student_attendance/{id?}/{date?}', 'viewstudentattendance')->name('school/view_student_attendance');
     Route::post('school/updatestudentattendance', 'updatestudentattendance')->name('updatestudentattendance');
-    Route::get('school/student-attendance-record/{id?}/{date?}', 'studentAttendanceRecord')->name('attendance/student-attendance-record');
+    Route::get('school/student-attendance-record/{id?}/{date?}', 'studentAttendanceRecord')->name('school/student-attendance-record');
 });
 
 

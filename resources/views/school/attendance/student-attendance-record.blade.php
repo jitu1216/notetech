@@ -187,7 +187,7 @@
                         <div class="form-group">
                             <div class="form-group ">
                                 <select class="form-control" name="Class" id="class">
-                                    <option selected value="">Select Class</option>
+                                    <option selected disabled value="">Select Class</option>
                                     @if (Custom::getStaffRole() == 'Assistant Teacher')
                                         @if (!empty($class))
                                             @foreach ($finalarray as $value)

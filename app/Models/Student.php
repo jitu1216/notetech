@@ -17,4 +17,9 @@ class Student extends Model implements AuthenticatableContract
     {
         return $this->hasMany(Attendance::class);
     }
+
+    public function schoolClass()
+    {
+        return $this->belongsTo(SchoolClass::class, 'class_id', 'id');
+    }
 }
