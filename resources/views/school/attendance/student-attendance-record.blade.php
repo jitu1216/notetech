@@ -249,6 +249,7 @@
                                     <th class="tb-bg">S.No</th>
                                     <th class="tb-bg">Student Name</th>
                                     <th class="tb-bg">Roll No</th>
+                                    <th class="tb-bg">Mobile No.</th>
                                     <th class="tb-bg">Class</th>
                                     @for ($i = 1; $i <= $daysInMonth; $i++)
                                         <th class="tb-bg"> {{ $i }}</th>
@@ -273,6 +274,7 @@
                                         <td>{{ ++$key }}</td>
                                         <td>{{ $value->student_name }}</td>
                                         <td>{{ $value->roll_no }}</td>
+                                        <td>{{ $value->mobile }}</td>
                                         <td>{{ Custom::getClass($value->class_id)->classname }}</td>
                                         @for ($i = 1; $i <= $daysInMonth; $i++)
                                             @if (Custom::getDay($month, $i) != 'Sunday')

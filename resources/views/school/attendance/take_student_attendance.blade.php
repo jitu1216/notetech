@@ -166,6 +166,7 @@
                                     <th>S.No</th>
                                     <th>Student Name</th>
                                     <th>Roll No</th>
+                                    <th>Mobile No.</th>
                                     <th>Attendance</th>
                                 </tr>
                             </thead>
@@ -182,6 +183,7 @@
                                             <td>{{ ++$x }}</td>
                                             <td>{{ $value->student_name }}</td>
                                             <td>{{ $value->roll_no }}</td>
+                                            <td>{{ $value->mobile }}</td>
                                             <td>
                                                 <select name="attendance[{{ $key }}]"
                                                     class="form-control @error('attendance.' . $key) is-invalid @enderror"
