@@ -81,23 +81,28 @@ class Custom
     {
         $user = Auth::User();
         $academic = Session::get('academic_session');
-        // dd($user);
-        if ($user->role_name == 'School') {
-            $school = School::where('Email', $user->email)->where('Name', $user->name)->first();
-        } elseif ($user->role_name == 'Super Admin') {
-
-            $admin_school = Session::get('admin_school');
-            if (!empty($admin_school)) {
-                // dd($admin_school);
-                $school = School::where('Email', $admin_school->Email)->where('Name', $admin_school->Name)->first();
-
-            } else {
-
+        if ($user) {
+            if ($user->role_name == 'School') {
                 $school = School::where('Email', $user->email)->where('Name', $user->name)->first();
+            } elseif ($user->role_name == 'Super Admin') {
+
+                $admin_school = Session::get('admin_school');
+                if (!empty($admin_school)) {
+                    // dd($admin_school);
+                    $school = School::where('Email', $admin_school->Email)->where('Name', $admin_school->Name)->first();
+
+                } else {
+
+                    $school = School::where('Email', $user->email)->where('Name', $user->name)->first();
+                }
+            } elseif ($user->role_name == 'Staff') {
+                $staff = Staff::where('email', $user->email)->where('academic_session', $academic)->first();
+                $school = School::where('id', $staff->school_id)->first();
             }
-        } elseif ($user->role_name == 'Staff') {
-            $staff = Staff::where('email', $user->email)->where('academic_session', $academic)->first();
-            $school = School::where('id', $staff->school_id)->first();
+        } else {
+            $user = Auth::guard('student')->User();
+            $academic = Session::get('academic_session');
+            $school = School::where('id', $user->school_id)->first();
         }
 
         return $school;
@@ -564,6 +569,33 @@ class Custom
         } else {
             $attendance = Attendance::where(['school_id' => $school->id, 'academic_session' => $academic, 'date' => $date])->get();
         }
+        return $attendance;
+    }
+
+    public static function getclassTeacher(){
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $student = Auth::guard('student')->User();
+        $teacher = [];
+        $staff = Staff::where(['school_id' => $school->id, 'academic_session' => $academic, 'appointment_position' => 'Assistant Teacher'])->get();
+        foreach($staff as $value){
+            $allot_Class = $value->allot_class;
+            $allot_Class = explode(',',$allot_Class);
+            foreach($allot_Class as $class){
+                if($class == $student->class_id){
+                    $teacher[] = $value->staff_name;
+                }
+            }
+        }
+        $teacherNames = implode(', ', $teacher);
+        return $teacherNames;
+    }
+
+    public static function getStudentAttendance(){
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $student = Auth::guard('student')->User();
+        $attendance = Attendance::where(['school_id' => $school->id,'class_id' => $student->class_id, 'academic_session' => $academic, 'student_id' => $student->id])->get();
         return $attendance;
     }
 
