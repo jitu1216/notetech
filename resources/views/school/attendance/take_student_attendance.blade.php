@@ -195,8 +195,8 @@
                                                     <option value="A"
                                                         {{ old('attendance.' . $key) == 'A' ? 'selected' : '' }}>Absent
                                                     </option>
-                                                    <option value="HF"
-                                                        {{ old('attendance.' . $key) == 'HF' ? 'selected' : '' }}>Half Day
+                                                    <option value="HD"
+                                                        {{ old('attendance.' . $key) == 'HD' ? 'selected' : '' }}>Half Day
                                                     </option>
                                                     <option value="LA"
                                                         {{ old('attendance.' . $key) == 'LA' ? 'selected' : '' }}>Leave

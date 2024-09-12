@@ -35,8 +35,8 @@
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
-                                    <h6 style="color: yellow;">Student Name & Class</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{-- Custom::getApprovedStudent() --}}</h3>
+                                    <h6 style="color: yellow;">Student Name</h6>
+                                    <h3 style="color: rgb(255, 255, 255);">{{ Auth::guard('student')->User()->student_name }}</h3>
                                 </div>
                                 <div>
                                     <i class="fas fa-user-graduate" style="font-size: 50px; color:white;"></i>
@@ -51,11 +51,27 @@
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
-                                    <h6 style="color: rgb(255, 255, 10);">Class Teacher</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{-- Custom::getpendingStudent() --}}</h3>
+                                    <h6 style="color: rgb(255, 255, 10);">Class</h6>
+                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getClass(Auth::guard('student')->User()->class_id)->classname  }}</h3>
                                 </div>
                                 <div>
-                                    <i class="fas fa-user-graduate" style="font-size: 50px; color:white;"></i>
+                                    <i class="fas fa-book-reader" style="font-size: 50px; color:white;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-4 col-12 d-flex">
+                    <div class="card bg-comman w-100"
+                        style="background-image: linear-gradient(to right, rgb(253, 67, 54), rgb(185, 6, 0));">
+                        <div class="card-body">
+                            <div class="db-widgets d-flex justify-content-between align-items-center">
+                                <div class="db-info">
+                                    <h6 style="color: yellow;">Class Teacher</h6>
+                                    <h3 style="color: rgb(255, 255, 255);">{{Custom::getclassTeacher() }}</h3>
+                                </div>
+                                <div>
+                                    <i class="fas fa-chalkboard-teacher" style="font-size: 50px; color:white;"></i>
                                 </div>
                             </div>
                         </div>
@@ -181,7 +197,7 @@
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Total Attendance</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{-- Custom::getStaff() --}}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">200</h3>
                                 </div>
                                 <div>
                                     <i class="fas fa-user-graduate" style="font-size: 50px; color:white;"></i>
@@ -198,7 +214,7 @@
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Total Present</h6>
 
-                                        <h3 style="color: rgb(255, 255, 255);">{{-- Custom::classtotalfees() --}}</h3>
+                                        <h3 style="color: rgb(255, 255, 255);">{{ Custom::getStudentAttendance()->where('attendance_type', 'P')->count() }}</h3>
 
                                         <h3 style="color: rgb(255, 255, 255);">{{-- Custom::schoototalfees() --}}</h3>
 
@@ -217,7 +233,7 @@
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Total Absent</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{-- Custom::todayfees() --}}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getStudentAttendance()->where('attendance_type', 'A')->count() }}</h3>
                                 </div>
                                 <div>
                                     <i class="fas fa-user-graduate" style="font-size: 50px; color:white;"></i>
@@ -235,7 +251,7 @@
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Total Pending Attendance</h6>
 
-                                        <h3 style="color: rgb(255, 255, 255);">{{-- Custom::classtotalpaidfees()--}}</h3>
+                                        <h3 style="color: rgb(255, 255, 255);">{{ 200 - Custom::getStudentAttendance()->count() }}</h3>
 
                                         <h3 style="color: rgb(255, 255, 255);">{{--Custom::schoototalpaidfees() --}}</h3>
 

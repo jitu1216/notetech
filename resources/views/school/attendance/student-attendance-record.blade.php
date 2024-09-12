@@ -28,6 +28,10 @@
             background-color: rgb(255, 250, 206) !important;
         }
 
+        .bg-firozi{
+            background-color: rgb(147, 242, 255) !important;
+        }
+
         .print-header h4 {
             text-align: center;
             margin-top: 10px;
@@ -239,7 +243,7 @@
                         <table class="table">
                             <thead class="table-success text-nowrap">
                                 <tr style="">
-                                    <th colspan="4">Month: {{ \Carbon\Carbon::create()->month($month)->format('F') }}
+                                    <th colspan="5">Month: {{ \Carbon\Carbon::create()->month($month)->format('F') }}
                                         {{ Custom::getYear($month) }}
                                     </th>
                                     <th colspan="{{ $daysInMonth }}">Attendance</th>
@@ -255,10 +259,10 @@
                                         <th class="tb-bg"> {{ $i }}</th>
                                     @endfor
                                     <th class="tb-bg">Days</th>
-                                    <th class="tb-bg">Present</th>
-                                    <th class="tb-bg">Absent</th>
-                                    <th class="tb-bg">Half Day</th>
-                                    <th class="tb-bg">Leave</th>
+                                    <th class="bg-success text-white">Present</th>
+                                    <th class="bg-danger text-white">Absent</th>
+                                    <th class="bg-info text-white">Half Day</th>
+                                    <th class="bg-firozi">Leave</th>
 
                                 </tr>
                             </thead>
@@ -286,7 +290,7 @@
                                                         <td
                                                             @if ($attend->attendance_type == 'P') class="present"
                                                         @elseif ($attend->attendance_type == 'A') class="absent"
-                                                        @elseif ($attend->attendance_type == 'HF') class="half"
+                                                        @elseif ($attend->attendance_type == 'HD') class="half"
                                                         @elseif ($attend->attendance_type == 'LA') class="leave" @endif>
                                                             {{ $attend->attendance_type }}</td>
                                                         @php
@@ -326,7 +330,7 @@
                         </table>
                         <div class="row">
                             <div class="col-6">
-                                <label>Symbols: P = "Present", A = "Absent", HF = "Half Day",
+                                <label>Symbols: P = "Present", A = "Absent", HD = "Half Day",
                                     LA = "Leave Application"</label>
                             </div>
                             <div class="col-6">

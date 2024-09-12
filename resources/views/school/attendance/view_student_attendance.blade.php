@@ -198,8 +198,8 @@
                                                                 {{ $attend->attendance_type == 'A' ? 'selected' : '' }}>
                                                                 Absent
                                                             </option>
-                                                            <option value="HF"
-                                                                {{ $attend->attendance_type == 'HF' ? 'selected' : '' }}>
+                                                            <option value="HD"
+                                                                {{ $attend->attendance_type == 'HD' ? 'selected' : '' }}>
                                                                 Half Day
                                                             </option>
                                                             <option value="LA"
