@@ -10,6 +10,9 @@
                 </div>
                 <ul class="links">
                 <li>
+                    <a href="{{ route('student') }}"><i class="fas fa-table"></i> <span>DASHBOARD</span></a>
+                </li>
+                <li>
                     <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>FEES</span></a>
                     <i class='bx bxs-chevron-down htmlcss-arrow arrow '></i>
                     <ul class="htmlCss-sub-menu sub-menu">                     
@@ -25,34 +28,56 @@
                     <a href="time-table.html"><i class="fas fa-table"></i> <span>NOTICE BOARD</span></a>
                 </li>
                 <li>
-                    <a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>EXAM SCHEME </span></a>
+                    <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>DOWNLOAD</span></a>
+                    <i class='bx bxs-chevron-down htmlcss-arrow arrow '></i>
+                    <ul class="htmlCss-sub-menu sub-menu">                     
+                      <li><a href="" >Id Card</a></li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="event.html"><i class="fas fa-calendar-day"></i> <span>I'D CARD</span></a>
+                    <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>Exam</span></a>
+                    <i class='bx bxs-chevron-down htmlcss-arrow arrow '></i>
+                    <ul class="htmlCss-sub-menu sub-menu">                     
+                      <li><a href="" >Exam Scheme</a></li>
+                      <li><a href="" >Slip</a></li>
+                      <li><a href="">Admit Card</a></li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="time-table.html"><i class="fas fa-table"></i> <span>ADMIT CARD</span></a>
+                    <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>RESULT</span></a>
+                    <i class='bx bxs-chevron-down htmlcss-arrow arrow '></i>
+                    <ul class="htmlCss-sub-menu sub-menu">                     
+                      <li><a href="" >Result</a></li>
+                      <li><a href="" >Test mark</a></li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="time-table.html"><i class="fas fa-table"></i> <span>DESK SLIP</span></a>
+                    <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>WORK</span></a>
+                    <i class='bx bxs-chevron-down htmlcss-arrow arrow '></i>
+                    <ul class="htmlCss-sub-menu sub-menu">                     
+                      <li><a href="" >Class work</a></li>
+                      <li><a href="" >Home work</a></li>
+                      <li><a href="">Online class</a></li>
+                      <li><a href="">Online coaching</a></li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="time-table.html"><i class="fas fa-table"></i> <span>RESULT</span></a>
+                    <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>INSTITUTE</span></a>
+                    <i class='bx bxs-chevron-down htmlcss-arrow arrow '></i>
+                    <ul class="htmlCss-sub-menu sub-menu">                     
+                      <li><a href="" >Profile</a></li>
+                      <li><a href="" >Gallery</a></li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="time-table.html"><i class="fas fa-table"></i> <span>ONLINE CLASS</span></a>
-                </li>
-                <li>
-                    <a href="time-table.html"><i class="fas fa-table"></i> <span>HOME WORK</span></a>
-                </li>
-                <li>
-                    <a href="time-table.html"><i class="fas fa-table"></i> <span>ONLINE COACHING</span></a>
-                </li>
-                <li>
-                    <a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>
-                </li>
-                <li>
-                    <a href="time-table.html"><i class="fas fa-table"></i> <span>COMPLAINT</span></a>
+                    <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>OTHERS</span></a>
+                    <i class='bx bxs-chevron-down htmlcss-arrow arrow '></i>
+                    <ul class="htmlCss-sub-menu sub-menu">                     
+                      <li><a href="" >Student Record</a></li>
+                      <li><a href="" >Complaint</a></li>
+                      <li><a href="">Contact</a></li>
+                      <li> <a href="library.html"><span>Library</span></a></li>
+                    </ul>
                 </li>
                
             </ul>
