@@ -52,9 +52,9 @@
                                                     </option>
                                                     <option value="K.G." {{ old('state') == 'K.G.' ? 'selected' : '' }}>K.G.
                                                     </option>
-                                                    <option value="L. K. G." {{ old('state') == 'L. K. G.'  ? 'selected' : '' }}>L. K. G.
+                                                    <option value="L.K.G." {{ old('state') == 'L.K.G.'  ? 'selected' : '' }}>L.K.G.
                                                     </option>
-                                                    <option value="U. K. G." {{ old('state') == 'U. K. G.'  ? 'selected' : '' }}>U. K. G.
+                                                    <option value="U.K.G." {{ old('state') == 'U.K.G.'  ? 'selected' : '' }}>U.K.G.
                                                     </option>
                                                     <option value="1" {{ old('state') == 1 ? 'selected' : '' }}>I
                                                     </option>

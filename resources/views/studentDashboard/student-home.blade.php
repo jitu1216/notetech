@@ -197,7 +197,7 @@
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Total Attendance</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">200</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">220</h3>
                                 </div>
                                 <div>
                                     <i class="fas fa-user-graduate" style="font-size: 50px; color:white;"></i>
@@ -251,7 +251,7 @@
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Total Pending Attendance</h6>
 
-                                        <h3 style="color: rgb(255, 255, 255);">{{ 200 - Custom::getStudentAttendance()->count() }}</h3>
+                                        <h3 style="color: rgb(255, 255, 255);">{{ 220 - Custom::getStudentAttendance()->count() }}</h3>
 
                                         <h3 style="color: rgb(255, 255, 255);">{{--Custom::schoototalpaidfees() --}}</h3>
 

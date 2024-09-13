@@ -117,6 +117,7 @@ class SchoolDashboardController extends Controller
             $number =  Custom::romanToInt($class->classname);
             $newClass[$class->id] = $number;
         }
+        // dd($schoolclass);
         $sortedArray = ['P.N.C.','N.C.','K.G.','L.K.G.','U.K.G.','I','II','III','IV','V','VI','VII','VIII','IX','X','XI (Art)','XI (Biology)','XI (Agriculture)','XI (Mathematics)','XI (Commerce)','XII (Art)','XII (Biology)','XII (Agriculture)','XII (Mathematics)','XII (Commerce)'];
         $newroman = [];
         sort($newClass);
