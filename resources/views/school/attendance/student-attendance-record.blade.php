@@ -7,6 +7,7 @@
 
         table {
             background-color: white;
+            width: 100%; /* Ensures table takes up full width */
         }
 
         table tr {
@@ -28,7 +29,7 @@
             background-color: rgb(255, 250, 206) !important;
         }
 
-        .bg-firozi{
+        .bg-firozi {
             background-color: rgb(147, 242, 255) !important;
         }
 
@@ -46,20 +47,52 @@
         td.merge-vertical {
             vertical-align: middle;
             text-align: center;
-            text-align: center;
             transform-origin: center;
             white-space: nowrap;
-            height: 100%;
-            width: 100%;
-            padding: 0px;
+            padding: 0;
             background-color: rgb(255, 227, 227);
+            overflow: hidden;
+            /* Prevents content from increasing the width */
+            max-width: 30px;
+            /* Set a maximum width for the cells */
         }
 
         td.merge-vertical h6 {
             transform: rotate(-90deg);
+            /* Rotate the text */
             font-weight: 600;
             color: rgb(192, 6, 0);
+            margin: 0;
+            line-height: 1;
+            /* Ensures the text fits within the cell */
+            white-space: nowrap;
         }
+
+        td.holiday-vertical {
+            vertical-align: middle;
+            text-align: center;
+            transform-origin: center;
+            white-space: nowrap;
+            padding: 0;
+            background-color: rgb(255, 200, 232);
+            overflow: hidden;
+            /* Prevents content from increasing the width */
+            max-width: 30px;
+            /* Set a maximum width for the cells */
+        }
+
+        td.holiday-vertical h6 {
+            transform: rotate(-90deg);
+            /* Rotate the text */
+            font-weight: 600;
+            color: rgb(185, 6, 170);
+            margin: 0;
+            line-height: 1;
+            /* Ensures the text fits within the cell */
+            white-space: nowrap;
+        }
+
+
 
         .present {
             color: rgb(5, 148, 0) !important;
@@ -280,19 +313,55 @@
                                         <td>{{ $value->roll_no }}</td>
                                         <td>{{ $value->mobile }}</td>
                                         <td>{{ Custom::getClass($value->class_id)->classname }}</td>
+
                                         @for ($i = 1; $i <= $daysInMonth; $i++)
-                                            @if (Custom::getDay($month, $i) != 'Sunday')
+                                            @php
+                                                $isHoliday = false;
+                                                $holidayName = '';
+                                            @endphp
+
+                                            {{-- Check if the day is a holiday --}}
+                                            @foreach ($holidays as $holiday)
+                                                @if (\Carbon\Carbon::parse($holiday->holidaydate)->day == $i)
+                                                    @php
+                                                        $isHoliday = true;
+                                                        $holidayName = $holiday->holidayname;
+                                                        break;
+                                                    @endphp
+                                                @endif
+                                            @endforeach
+
+                                            {{-- Check if the day is a Sunday or holiday --}}
+                                            @if (Custom::getDay($month, $i) == 'Sunday' || $isHoliday)
+                                                {{-- Merge Sundays and Holidays --}}
+                                                @if ($sunday == 0)
+                                                    <td rowspan="{{ $attendance->count() }}" class=" {{ $isHoliday ? 'holiday-vertical' : 'merge-vertical' }}">
+                                                        @if ($isHoliday && Custom::getDay($month, $i) == 'Sunday')
+                                                            <h6>Sunday & {{ $holidayName }}</h6>
+                                                        @elseif ($isHoliday)
+                                                            <h6>{{ $holidayName }}</h6>
+                                                        @else
+                                                            <h6>Sunday</h6>
+                                                        @endif
+                                                    </td>
+                                                @endif
+                                                @php
+                                                    $count++;
+                                                @endphp
+                                            @else
                                                 @php
                                                     $x = 0;
                                                 @endphp
+                                                {{-- Render attendance data --}}
                                                 @foreach ($value->attendances as $attend)
                                                     @if (\Carbon\Carbon::parse($attend->date)->day == $i)
                                                         <td
                                                             @if ($attend->attendance_type == 'P') class="present"
-                                                        @elseif ($attend->attendance_type == 'A') class="absent"
-                                                        @elseif ($attend->attendance_type == 'HD') class="half"
-                                                        @elseif ($attend->attendance_type == 'LA') class="leave" @endif>
-                                                            {{ $attend->attendance_type }}</td>
+                                                            @elseif ($attend->attendance_type == 'A') class="absent"
+                                                            @elseif ($attend->attendance_type == 'HD') class="half"
+                                                            @elseif ($attend->attendance_type == 'LA') class="leave" @endif>
+                                                            {{ $attend->attendance_type }}
+                                                        </td>
                                                         @php
                                                             $x = 1;
                                                         @endphp
@@ -301,21 +370,19 @@
                                                 @if ($x == 0)
                                                     <td> </td>
                                                 @endif
-                                            @else
-                                                @if ($sunday == 0)
-                                                    <td rowspan="{{ $attendance->count() }}" class="merge-vertical">
-                                                        <h6>Sunday</h6>
-                                                    </td>
-                                                @endif
-                                                @php
-                                                    $count++;
-                                                @endphp
                                             @endif
                                         @endfor
+
+                                        {{-- Calculate attendance summary --}}
                                         @php
-                                            $attd_sum = Custom::getAttendanceSummary($value->id,$value->class_id,$month);
+                                            $attd_sum = Custom::getAttendanceSummary(
+                                                $value->id,
+                                                $value->class_id,
+                                                $month,
+                                            );
                                         @endphp
-                                        <td>{{ $daysInMonth - $count}}</td>
+
+                                        <td>{{ $daysInMonth - $count }}</td>
                                         <td>{{ $attd_sum['present'] }}</td>
                                         <td>{{ $attd_sum['absent'] }}</td>
                                         <td>{{ $attd_sum['halfday'] }}</td>
@@ -327,6 +394,7 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+
                         </table>
                         <div class="row">
                             <div class="col-6">

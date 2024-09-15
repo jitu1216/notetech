@@ -918,6 +918,7 @@
                                                 <option value="23"@if (in_array('23', $staffPower)) selected @endif >Time Table</option>
                                                 <option value="24"@if (in_array('24', $staffPower)) selected @endif >Absent Report Student</option>
                                                 <option value="25"@if (in_array('25', $staffPower)) selected @endif >Current Running Fees</option>
+                                                <option value="26"@if (in_array('26', $staffPower)) selected @endif >Holiday</option>
 
                                             </select>
 

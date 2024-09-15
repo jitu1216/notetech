@@ -273,6 +273,8 @@ class Custom
             if (Custom::getStaffRole() == 'Assistant Teacher') {
                 $allot_class = Custom::getTeacherClass();
                 $data = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 2])->whereIn('class_id', $allot_class)->count();
+            } else {
+                $data = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 2])->count();
             }
         } else {
             $data = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 2])->count();
@@ -291,6 +293,8 @@ class Custom
             if (Custom::getStaffRole() == 'Assistant Teacher') {
                 $allot_class = Custom::getTeacherClass();
                 $data = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 1])->whereIn('class_id', $allot_class)->count();
+            }else{
+                $data = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 1])->count();
             }
         } else {
             $data = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 1])->count();
@@ -309,6 +313,8 @@ class Custom
             if (Custom::getStaffRole() == 'Assistant Teacher') {
                 $allot_class = Custom::getTeacherClass();
                 $data = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 3])->whereIn('class_id', $allot_class)->count();
+            }else{
+                $data = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 1])->count();
             }
         } else {
             $data = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 3])->count();
@@ -565,6 +571,8 @@ class Custom
             if (Custom::getStaffRole() == 'Assistant Teacher') {
                 $allot_class = Custom::getTeacherClass();
                 $attendance = Attendance::where(['school_id' => $school->id, 'academic_session' => $academic, 'date' => $date])->whereIn('class_id', $allot_class)->get();
+            }else{
+                $data = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 1])->count();
             }
         } else {
             $attendance = Attendance::where(['school_id' => $school->id, 'academic_session' => $academic, 'date' => $date])->get();
@@ -572,17 +580,18 @@ class Custom
         return $attendance;
     }
 
-    public static function getclassTeacher(){
+    public static function getclassTeacher()
+    {
         $school = Custom::getSchool();
         $academic = Session::get('academic_session');
         $student = Auth::guard('student')->User();
         $teacher = [];
         $staff = Staff::where(['school_id' => $school->id, 'academic_session' => $academic, 'appointment_position' => 'Assistant Teacher'])->get();
-        foreach($staff as $value){
+        foreach ($staff as $value) {
             $allot_Class = $value->allot_class;
-            $allot_Class = explode(',',$allot_Class);
-            foreach($allot_Class as $class){
-                if($class == $student->class_id){
+            $allot_Class = explode(',', $allot_Class);
+            foreach ($allot_Class as $class) {
+                if ($class == $student->class_id) {
                     $teacher[] = $value->staff_name;
                 }
             }
@@ -591,11 +600,12 @@ class Custom
         return $teacherNames;
     }
 
-    public static function getStudentAttendance(){
+    public static function getStudentAttendance()
+    {
         $school = Custom::getSchool();
         $academic = Session::get('academic_session');
         $student = Auth::guard('student')->User();
-        $attendance = Attendance::where(['school_id' => $school->id,'class_id' => $student->class_id, 'academic_session' => $academic, 'student_id' => $student->id])->get();
+        $attendance = Attendance::where(['school_id' => $school->id, 'class_id' => $student->class_id, 'academic_session' => $academic, 'student_id' => $student->id])->get();
         return $attendance;
     }
 

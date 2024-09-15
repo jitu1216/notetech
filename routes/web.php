@@ -265,6 +265,13 @@ Route::controller(AttendanceController::class)->group(function () {
     Route::get('school/view_student_attendance/{id?}/{date?}', 'viewstudentattendance')->name('school/view_student_attendance');
     Route::post('school/updatestudentattendance', 'updatestudentattendance')->name('updatestudentattendance');
     Route::get('school/student-attendance-record/{id?}/{date?}', 'studentAttendanceRecord')->name('school/student-attendance-record');
+    Route::get('school/holiday-list', 'viewHoliday')->name('school/holiday-list');
+    Route::get('school/add-holiday', 'viewAddHoliday')->name('add-holiday');
+    Route::post('school/save-holiday', 'saveHoliday')->name('save-holiday');
+    Route::get('school/remove-holiday/{id}', 'removeHoliday')->name('remove-holiday');
+    Route::get('school/edit-holiday/{id}', 'editHoliday')->name('edit-holiday');
+    Route::post('school/update-holiday', 'updateHoliday')->name('update-holiday');
+
 });
 
 
