@@ -572,7 +572,7 @@ class Custom
                 $allot_class = Custom::getTeacherClass();
                 $attendance = Attendance::where(['school_id' => $school->id, 'academic_session' => $academic, 'date' => $date])->whereIn('class_id', $allot_class)->get();
             }else{
-                $data = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 1])->count();
+                $attendance = Attendance::where(['school_id' => $school->id, 'academic_session' => $academic, 'date' => $date])->get();
             }
         } else {
             $attendance = Attendance::where(['school_id' => $school->id, 'academic_session' => $academic, 'date' => $date])->get();
