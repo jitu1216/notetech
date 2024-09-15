@@ -12,6 +12,7 @@ use App\Models\Student;
 use App\Models\StudentFees;
 use App\Models\SchoolClass;
 use App\Models\AcademicSession;
+use App\Models\Holiday;
 use Session;
 use Custom;
 use Auth;
@@ -66,9 +67,11 @@ class AttendanceController extends Controller
         } else {
             $studentlist = null;
         }
+
+        $holiday = Holiday::where(['academic_session' => $academic, 'school_id' => $school->id])->get();
         // dd($studentlist);
 
-        return view('school.attendance.take_student_attendance', compact('finalarray', 'class', 'studentlist'));
+        return view('school.attendance.take_student_attendance', compact('finalarray', 'class', 'studentlist', 'holiday'));
     }
 
     public function saveStudentAttendance(Request $request)
@@ -332,6 +335,78 @@ class AttendanceController extends Controller
         });
         $attendance = $sortedAttendance->values();
 
-        return view('school.attendance.student-attendance-record', compact('finalarray', 'class', 'attendance', 'month', 'daysInMonth'));
+        $holidays = Holiday::where(['academic_session' => $academic, 'school_id' => $school->id])->whereMonth('holidaydate', $month)->get();
+        // dd($holidays);
+        return view('school.attendance.student-attendance-record', compact('finalarray', 'class', 'attendance', 'month', 'daysInMonth','holidays'));
+    }
+
+    public function viewHoliday(){
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $holidays = Holiday::where(['school_id'=> $school->id, 'academic_session' => $academic])->get();
+        return view('school.attendance.holiday-list',compact('holidays'));
+
+    }
+
+    public function viewAddHoliday(){
+        $record = null;
+        return view('school.attendance.add-holiday',compact('record'));
+    }
+
+    public function saveHoliday(Request $request){
+
+        $request->validate([
+            'date' => 'required',
+            'holiday_name' => 'required'
+        ]);
+
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+
+        $holiday = new Holiday;
+        $holiday->academic_session = $academic;
+        $holiday->school_id = $school->id;
+        $holiday->academic_session = $academic;
+        $holiday->holidayname = $request->holiday_name;
+        $holiday->holidaydate = date('Y-m-d', strtotime($request->date));
+        $holiday->save();
+
+        return redirect()->route('school/holiday-list')->with('Success', 'Holiday Addedd Successfully!');
+        // dd($holiday);
+    }
+    public function removeHoliday($id){
+        $record = Holiday::find($id);
+
+        if ($record) {
+            $record->delete();
+            return redirect()->back()->with('Success', 'Holiday Deleted Successfully!');
+        } else {
+            return redirect()->back()->with('Error', 'Holiday Not Found!');
+        }
+    }
+
+    public function editHoliday($id){
+
+        $record = Holiday::find($id);
+        return view('school.attendance.add-holiday', compact('record'));
+    }
+
+    public function updateHoliday(Request $request){
+
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+
+        $record = Holiday::find($request->id);
+        $record->school_id = $school->id;
+        $record->academic_session = $academic;
+        $record->holidayname = $request->holiday_name;
+        $record->holidaydate = date('Y-m-d', strtotime($request->date));
+        $record->update();
+
+        return redirect()->route('school/holiday-list')->with('Success', 'Holiday Updated Successfully!');
+        // dd($holiday);
     }
 }

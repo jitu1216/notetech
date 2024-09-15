@@ -105,7 +105,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-
+                        <h5 class="text-danger text-center" style="display: none;" id="holidayline">Today is "<span id="holidaytext">Hello</span>" Holiday</h5>
                     </div>
                     <div class=" col-md-3">
                         <div class="form-group">
@@ -186,7 +186,7 @@
                                             <td>{{ $value->mobile }}</td>
                                             <td>
                                                 <select name="attendance[{{ $key }}]"
-                                                    class="form-control @error('attendance.' . $key) is-invalid @enderror"
+                                                    class="attendance form-control @error('attendance.' . $key) is-invalid @enderror"
                                                     required>
                                                     <option selected disabled>Select Attendance</option>
                                                     <option value="P"
@@ -222,7 +222,7 @@
                                 </div>
                                 <div class="col-md-3 search-student-btn">
                                     <button type="submit" class="btn btn-primary w-75 me-4"
-                                        style="background-color:rgb(89, 89, 255)">Submit</button>
+                                        style="background-color:rgb(89, 89, 255)" id="subbtn">Submit</button>
                                 </div>
                             </div>
                         @endif
@@ -258,6 +258,8 @@
 
         $(document).ready(function() {
 
+            var holidays = @json($holiday);
+
 
             $('#sundaydate').on('dp.show', function() {
                 $('.day').each(function() {
@@ -266,6 +268,28 @@
                         $(this).addClass('disabled');
                     }
                 });
+
+            });
+
+            $('#sundaydate').on('dp.change', function(event) {
+                var selectedDate = event.date.format('YYYY-MM-DD');
+
+                var holiday = holidays.find(function(h) {
+                    return h.holidaydate === selectedDate;
+                });
+
+                if (holiday) {
+                    $('.attendance').prop('disabled', true);
+                    $('#subbtn').prop('disabled', true);
+                    $('#holidaytext').text(holiday.holidayname);
+                    $('#holidayline').show();
+                } else {
+                    $('.attendance').prop('disabled', false);
+                    $('#subbtn').prop('disabled', false);
+                    $('#holidaytext').text('');
+                    $('#holidayline').hide();
+                }
+
             });
 
             // Find the option with the old value and change its color

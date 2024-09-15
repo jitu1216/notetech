@@ -1,101 +1,3 @@
-{{-- <div class="sidebar" id="sidebar">
-    <div class="sidebar-inner slimscroll">
-        <div id="sidebar-menu" class="sidebar-menu">
-            <ul>
-                <li class="menu-title">
-                    <span>Main Menu</span>
-                </li>
-                {{-- <li class="{{set_active(['setting/page'])}}">
-                    <a href="{{ route('setting/page') }}">
-                        <i class="fas fa-cog"></i>
-                        <span>Settings</span>
-                    </a>
-                </li> --}}
-{{-- <li class="{{set_active(['home'])}}">
-                    <a href="{{ route('home') }}"><i class="fas feather-grid"></i> <span>Dashboard</span></a>
-                </li> --}}
-{{-- <li class="submenu {{set_active(['home','teacher/dashboard','student/dashboard'])}}">
-                    <a href="#"><i class="feather-grid"></i>
-                        <span> Dashboard</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul>
-                        <li><a href="{{ route('home') }}" class="{{set_active(['home'])}}">Admin Dashboard</a></li>
-                        <li><a href="{{ route('teacher/dashboard') }}" class="{{set_active(['teacher/dashboard'])}}">Teacher Dashboard</a></li>
-                        <li><a href="{{ route('student/dashboard') }}" class="{{set_active(['student/dashboard'])}}">Student Dashboard</a></li>
-                    </ul>
-                </li> --}}
-
-
-{{-- {{-- <li class="submenu">
-                    <a href="#"><i class="fas fa-chalkboard-teacher"></i>
-                        <span> </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul>
-                        <li><a href="teachers.html">Teacher List</a></li>
-                        <li><a href="teacher-details.html">Teacher View</a></li>
-                        <li><a href="add-teacher.html">Teacher Add</a></li>
-                        <li><a href="edit-teacher.html">Teacher Edit</a></li>
-                    </ul>
-                </li> --}}
-{{-- <li class="submenu {{set_active(['school/add','school/list'])}}">
-                    <a href="#"><i class="fas fa-building"></i>
-                        <span>Schools</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul>
-                        <li ><a href="{{ route('add-school') }}" class="{{set_active(['school/add'])}}">Add School</a></li>
-                        <li ><a href="{{ route('schoollist') }}" class="{{set_active(['school/list', 'school/search'])}}">School List</a></li>
-                    </ul>
-                </li>
-                <li class="{{set_active(['school/OnlineRegistration'])}}">
-                    <a class="{{set_active(['school/OnlineRegistration'])}}" href="{{ route('onlineRegistration') }}"><i class="fas fa-book"></i> <span>Online Registrations</span></a>
-                </li>
-                <li class="menu-title">
-                    <span>Management</span>
-                </li>
-                <li class="submenu {{set_active(['school/sessionlist',''])}} ">
-                    <a href="#"><i class="fas fa-cog"></i>
-                        <span>Setting</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul>
-                        <li ><a href="{{ route('sessionlist') }}" class="{{set_active(['school/sessionlist'])}}">Session</a></li>
-                        <li><a href="departments.html">Add Occupation</a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="#"><i class="fas fa-user"></i>
-                        <span>Staff</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul>
-                        <li><a href="departments.html">Staff List</a></li>
-                        <li><a href="add-department.html">Add Staff</a></li>
-                        <li><a href="add-department.html">Staff Attendance</a></li>
-                        <li><a href="add-department.html">Staff Salary</a></li>
-                    </ul>
-                </li> --}}
-{{-- <li class="submenu">
-                    <a href="#"><i class="fas fa-book-reader"></i>
-                        <span></span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul>
-                        <li><a href="subjects.html">Subject List</a></li>
-                        <li><a href="add-subject.html">Subject Add</a></li>
-                        <li><a href="edit-subject.html">Subject Edit</a></li>
-                    </ul>
-                </li> --}}
-
-
-{{-- </ul>
-        </div>
-    </div>
-</div> --}}
-
-
 
 <body>
     <nav>
@@ -104,7 +6,7 @@
             <div class="logo"><a href="#"></a></div>
             <div class="nav-links">
                 <div class="sidebar-logo">
-                    {{-- <span class="logo-name">CodingLab</span> --}}
+                    {{-- <span class="logo-name">Gyanoday</span> --}}
                     <i class='bx bx-x'></i>
                 </div>
                 <ul class="links">
@@ -406,6 +308,11 @@
                                                             class="{{ set_active(['school/student-attendance-record']) }} popup"
                                                                 href="javascript:(0)" @endif>Student
                                         Attendance Record</a></li>
+                                <li><a
+                                        @if (in_array('26', Custom::getStaffPower())) class="{{ set_active(['school/holiday-list']) }}"
+                                                                href="{{ route('school/holiday-list') }}" @else
+                                                                class="{{ set_active(['school/holiday-list']) }} popup"
+                                                                    href="javascript:(0)" @endif>Holiday List</a></li>
                             @else
                                 <li><a class="{{ set_active(['school/take_student_attendance']) }}"
                                         href="{{ route('school/take_student_attendance') }}">Take Student
@@ -416,6 +323,8 @@
                                 <li><a class="{{ set_active(['school/student-attendance-record']) }}"
                                         href="{{ route('school/student-attendance-record') }}">Student
                                         Attendance Record</a></li>
+                                <li><a class="{{ set_active(['school/holiday-list']) }}"
+                                        href="{{ route('school/holiday-list') }}">Holiday List</a></li>
                             @endif
                         </ul>
                     </li>

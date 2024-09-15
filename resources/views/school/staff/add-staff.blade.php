@@ -869,7 +869,7 @@
                                                 <option value="23">Time Table</option>
                                                 <option value="24">Absent Report Student</option>
                                                 <option value="25">Current Running Fees</option>
-
+                                                <option value="26">Holiday</option>
                                             </select>
 
                                             {{-- <div class="row">
