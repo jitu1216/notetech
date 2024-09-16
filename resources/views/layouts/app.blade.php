@@ -30,12 +30,18 @@
     </style>
     <div class="main-wrapper login-body">
         <div class="login-wrapper">
-            <div class="container">
-                <div class="loginbox">
+            <div class="container" >
+                <div class="loginbox" style="display: none;">
                     <div class="login-left">
                         <img class="img-fluid" src="{{ URL::to('assets/img/login.png') }}" alt="Logo">
                     </div>
                     @yield('content')
+                </div>
+
+                <div class="main-container">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <h2 class="text-danger" id="msg"></h2>
+                    </div>
                 </div>
             </div>
         </div>
