@@ -199,7 +199,7 @@
                                     <p class="text-muted mb-0">Student</p>
                                 </div>
                             </div>
-                            <a class="dropdown-item" href="">My Profile</a>
+                            <a class="dropdown-item" href="{{ route('student_profile') }}">My Profile</a>
                             {{-- <a class="dropdown-item" href="inbox.html">Inbox</a> --}}
                             <a class="dropdown-item" href="{{ route('student-logout') }}">Logout</a>
                         </div>
