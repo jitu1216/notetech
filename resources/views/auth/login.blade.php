@@ -46,6 +46,7 @@
         </div> --}}
     </div>
 </div>
+
 <script>
     @if (Session::has('Success'))
         toastr.options = {

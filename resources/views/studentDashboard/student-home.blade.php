@@ -1,34 +1,89 @@
 @extends('studentDashboard.layouts.master')
 @section('content')
-    <div class="page-wrapper">
-        <div class="content container-fluid">
-        {{--<div class="row">
-                <div id="carouselExample" class="carousel slide">
-                    <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <img src="..." class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="student/images" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="..." class="d-block w-100" alt="...">
-                      </div>
+    <style>
+       .owl-carousel {
+            position: relative; /* To position arrows relative to the carousel */
+        }
+
+        /* Custom styles for navigation arrows */
+        .owl-nav {
+            position: absolute; /* Position arrows absolutely */
+            top: 55%; /* Center vertically */
+            width: 100%; /* Full width to position arrows */
+            display: flex; /* Flex container for positioning arrows */
+            justify-content: space-between; /* Space out arrows */
+            transform: translateY(-50%); /* Adjust for vertical centering */
+        }
+
+        .owl-nav .owl-prev, .owl-nav .owl-next {
+            background-color: #fff;
+            color: #ffffff;
+            line-height: 100px;
+            text-align: center;
+            border-radius: 50%;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 10;
+            transition: none;
+        }
+
+        .owl-nav .owl-prev, .owl-nav .owl-next:hover {
+            background-color: #fff; /* Arrow background color */
+
+        }
+
+        .owl-nav .owl-prev {
+            left: 10px; /* Position left arrow */
+        }
+
+        .owl-nav .owl-next {
+            right: 10px; /* Position right arrow */
+        }
+
+        .owl-nav .owl-next span, .owl-prev span{
+            font-size: 50px;
+            margin: 5px;
+        }
+
+        .background-image {
+            background-size: cover;
+            background-position: center;
+            height: 420px;
+            /* Full viewport height */
+            display: flex;
+            width: 100vw;
+            align-items: center;
+            /* Center vertically */
+            justify-content: center;
+            /* Center horizontally */
+        }
+
+        .content {
+            text-align: center;
+            color: white;
+            /* Adjust text color if needed */
+        }
+    </style>
+    <div class="owl-carousel owl-theme">
+        @for ($i = 0; $i < 3; $i++)
+            <div class="item">
+                <div class="background-image"
+                    style="background-image: url('https://picsum.photos/1280/1080?random={{ $i }}');">
+                    <div class="content">
+                        {{-- <h1 class="display-4">ty</h1>
+                    <h2 class="display-5">yfty</h2>
+                    <p class="lead">gyu</p> --}}
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
-                    </button>
-                  </div>
-            </div> --}}
+                </div>
+            </div>
+        @endfor
+    </div>
+    <div class="page-wrapper" style="margin: 0px; padding-top:10px;">
+        <div class="content container-fluid">
             <div class="row">
                 <div class="db-info">
                     <h4>Student Info</h4>
-                 </div>
+                </div>
                 <div class="col-xl-4 col-sm-4 col-12 d-flex">
                     <div class="card bg-comman w-100"
                         style="background-image: linear-gradient(to right, rgb(15, 240, 27), rgb(27, 116, 0));">
@@ -36,7 +91,8 @@
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Student Name</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{ Auth::guard('student')->User()->student_name }}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">
+                                        {{ Auth::guard('student')->User()->student_name }}</h3>
                                 </div>
                                 <div>
                                     <i class="fas fa-user-graduate" style="font-size: 50px; color:white;"></i>
@@ -52,7 +108,8 @@
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: rgb(255, 255, 10);">Class</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getClass(Auth::guard('student')->User()->class_id)->classname  }}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">
+                                        {{ Custom::getClass(Auth::guard('student')->User()->class_id)->classname }}</h3>
                                 </div>
                                 <div>
                                     <i class="fas fa-book-reader" style="font-size: 50px; color:white;"></i>
@@ -68,7 +125,7 @@
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Class Teacher</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{Custom::getclassTeacher() }}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getclassTeacher() }}</h3>
                                 </div>
                                 <div>
                                     <i class="fas fa-chalkboard-teacher" style="font-size: 50px; color:white;"></i>
@@ -80,7 +137,7 @@
             </div>
             <div class="row">
                 <div class="db-info">
-                   <h4>Fees Status</h4>
+                    <h4>Fees Status</h4>
                 </div>
                 <div class="col-xl-4 col-sm-4 col-12 d-flex">
                     <div class="card bg-comman w-100"
@@ -121,7 +178,8 @@
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Total Pending Fees</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{Custom::getStudentTotalFees() - Custom::getStudentDepositeFees() }}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">
+                                        {{ Custom::getStudentTotalFees() - Custom::getStudentDepositeFees() }}</h3>
                                 </div>
                                 <div>
                                     <i class="fas fa-rupee-sign" style="font-size: 50px; color:white;"></i>
@@ -214,9 +272,10 @@
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Total Present</h6>
 
-                                        <h3 style="color: rgb(255, 255, 255);">{{ Custom::getStudentAttendance()->where('attendance_type', 'P')->count() }}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">
+                                        {{ Custom::getStudentAttendance()->where('attendance_type', 'P')->count() }}</h3>
 
-                                        <h3 style="color: rgb(255, 255, 255);">{{-- Custom::schoototalfees() --}}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">{{-- Custom::schoototalfees() --}}</h3>
 
                                 </div>
                                 <div>
@@ -233,7 +292,8 @@
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Total Absent</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getStudentAttendance()->where('attendance_type', 'A')->count() }}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">
+                                        {{ Custom::getStudentAttendance()->where('attendance_type', 'A')->count() }}</h3>
                                 </div>
                                 <div>
                                     <i class="fas fa-user-graduate" style="font-size: 50px; color:white;"></i>
@@ -251,9 +311,10 @@
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Total Pending Attendance</h6>
 
-                                        <h3 style="color: rgb(255, 255, 255);">{{ 220 - Custom::getStudentAttendance()->count() }}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">
+                                        {{ 220 - Custom::getStudentAttendance()->count() }}</h3>
 
-                                        <h3 style="color: rgb(255, 255, 255);">{{--Custom::schoototalpaidfees() --}}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">{{-- Custom::schoototalpaidfees() --}}</h3>
 
                                 </div>
                                 <div>
@@ -266,7 +327,7 @@
             </div>
             <div class="row">
                 <div class="db-info">
-                      <div class="db-info">
+                    <div class="db-info">
                         <h4> More Information</h4>
                     </div>
                 </div>
@@ -311,9 +372,9 @@
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Intitute Rules</h6>
 
-                                        <h3 style="color: rgb(255, 255, 255);">{{-- Custom::classtotalpaidfees()--}}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">{{-- Custom::classtotalpaidfees() --}}</h3>
 
-                                        <h3 style="color: rgb(255, 255, 255);">{{--Custom::schoototalpaidfees() --}}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">{{-- Custom::schoototalpaidfees() --}}</h3>
 
                                 </div>
                                 <div>
@@ -331,9 +392,9 @@
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Transport Fees Info</h6>
 
-                                        <h3 style="color: rgb(255, 255, 255);">{{-- Custom::classtotalfees() --}}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">{{-- Custom::classtotalfees() --}}</h3>
 
-                                        <h3 style="color: rgb(255, 255, 255);">{{-- Custom::schoototalfees() --}}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">{{-- Custom::schoototalfees() --}}</h3>
 
                                 </div>
                                 <div>
@@ -361,6 +422,31 @@
                 </div>
             </div>
 
-         </div>
+        </div>
     </div>
+
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            dots: false,
+            // animateOut: 'fadeOut',
+            // animateIn: 'flipInX',
+            autoplay: true,
+            autoplayTimeout: 2000,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                1000: {
+                    items: 1
+                }
+            }
+        })
+    </script>
 @endsection

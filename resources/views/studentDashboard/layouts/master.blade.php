@@ -17,12 +17,19 @@
     <link rel="stylesheet" href="{{ URL::to('assets/plugins/select2/css/select2.min.css') }}">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{{ URL::to('assets/css/style.css') }}">
-    {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
+
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
     {{-- message toastr --}}
     <link rel="stylesheet" href="{{ URL::to('assets/css/toastr.min.css') }}">
     <script src="{{ URL::to('assets/js/toastr_jquery.min.js') }}"></script>
     <script src="{{ URL::to('assets/js/toastr.min.js') }}"></script>
+    <script src="{{ URL::to('assets/js/jquery-3.6.0.min.js') }}"></script>
+    <!-- Owl Carousel JS -->
+    <script src="{{ URL::to('assets/js/owl.carousel.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
@@ -34,8 +41,8 @@
             <div class="header-left w-50">
                 <span class="user-img">
                     <a href="{{ route('school') }}" class="logo">
-                        <img class="rounded-circle" src="{{ URL::to('images') . '/' . Custom::getStudentSchool()->Logo }}"
-                            alt="Logo">
+                        <img class="rounded-circle"
+                            src="{{ URL::to('images') . '/' . Custom::getStudentSchool()->Logo }}" alt="Logo">
                     </a>
                 </span>
                 <div class="row">
@@ -176,33 +183,32 @@
 
                 <li class="nav-item dropdown has-arrow new-user-menus">
 
-                        <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                            <span class="user-img">
-                                <img class="rounded-circle"
-                                    src="{{ URL::to('student-photos') . '/' .Auth::guard('student')->User()
-->image }}"
-                                    width="31"alt="{{ Session::get('name') }}">
-                                <div class="user-text">
-                                    <h6>{{ Auth::guard('student')->User()->student_name }}</h6>
-                                    <p class="text-muted mb-0">Student</p>
-                                </div>
-                            </span>
-                        </a>
-                        <div class="dropdown-menu">
-                            <div class="user-header">
-                                <div class="avatar avatar-sm">
-                                    <img src="{{ URL::to('images') . '/' . Custom::getStudentSchool()->Logo }}"
-                                        alt="{{ Session::get('name') }}" class="avatar-img rounded-circle">
-                                </div>
-                                <div class="user-text">
-                                    <h6>{{ Auth::guard('student')->User()->student_name }}</h6>
-                                    <p class="text-muted mb-0">Student</p>
-                                </div>
+                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                        <span class="user-img">
+                            <img class="rounded-circle"
+                                src="{{ URL::to('student-photos') . '/' . Auth::guard('student')->User()->image }}"
+                                width="31"alt="{{ Session::get('name') }}">
+                            <div class="user-text">
+                                <h6>{{ Auth::guard('student')->User()->student_name }}</h6>
+                                <p class="text-muted mb-0">Student</p>
                             </div>
-                            <a class="dropdown-item" href="{{ route('student_profile') }}">My Profile</a>
-                            {{-- <a class="dropdown-item" href="inbox.html">Inbox</a> --}}
-                            <a class="dropdown-item" href="{{ route('student-logout') }}">Logout</a>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="user-header">
+                            <div class="avatar avatar-sm">
+                                <img src="{{ URL::to('images') . '/' . Custom::getStudentSchool()->Logo }}"
+                                    alt="{{ Session::get('name') }}" class="avatar-img rounded-circle">
+                            </div>
+                            <div class="user-text">
+                                <h6>{{ Auth::guard('student')->User()->student_name }}</h6>
+                                <p class="text-muted mb-0">Student</p>
+                            </div>
                         </div>
+                        <a class="dropdown-item" href="{{ route('student_profile') }}">My Profile</a>
+                        {{-- <a class="dropdown-item" href="inbox.html">Inbox</a> --}}
+                        <a class="dropdown-item" href="{{ route('student-logout') }}">Logout</a>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -225,8 +231,6 @@
 
     </div>
 
-
-    <script src="{{ URL::to('assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ URL::to('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ URL::to('assets/js/feather.min.js') }}"></script>
     <script src="{{ URL::to('assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
@@ -240,6 +244,8 @@
     <script src="{{ URL::to('assets/plugins/datatables/datatables.min.js') }}"></script>
     <script src="{{ URL::to('assets/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ URL::to('assets/js/script.js') }}"></script>
+
+
     <script>
         $('.popup').on('click', function() {
             $('#popupbox').modal('show');
