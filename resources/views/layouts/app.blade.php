@@ -31,7 +31,7 @@
     <div class="main-wrapper login-body">
         <div class="login-wrapper">
             <div class="container" >
-                <div class="loginbox" style="display: none;">
+                <div class="loginbox">
                     <div class="login-left">
                         <img class="img-fluid" src="{{ URL::to('assets/img/login.png') }}" alt="Logo">
                     </div>

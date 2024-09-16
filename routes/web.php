@@ -273,7 +273,6 @@ Route::controller(AttendanceController::class)->group(function () {
     Route::get('school/remove-holiday/{id}', 'removeHoliday')->name('remove-holiday');
     Route::get('school/edit-holiday/{id}', 'editHoliday')->name('edit-holiday');
     Route::post('school/update-holiday', 'updateHoliday')->name('update-holiday');
-
 });
 
 
