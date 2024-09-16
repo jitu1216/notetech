@@ -34,6 +34,7 @@
                         <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>STUDENT</span></a>
                         <i class='bx bxs-chevron-down htmlcss-arrow arrow '></i>
                         <ul class="htmlCss-sub-menu sub-menu">
+                            <li><a href="{{ route('student_profile') }}">Profile</a></li>
                             <li><a href="">Time Table</a></li>
                             <li><a href="">Record</a></li>
                             <li><a href="">Result</a></li>
@@ -71,7 +72,6 @@
                         <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>INSTITUTE</span></a>
                         <i class='bx bxs-chevron-down htmlcss-arrow arrow '></i>
                         <ul class="htmlCss-sub-menu sub-menu">
-                            <li><a href="">Profile</a></li>
                             <li><a href="">Gallery</a></li>
                             <li><a href="">Library</a></li>
                             <li><a href="">Staff Info</a></li>

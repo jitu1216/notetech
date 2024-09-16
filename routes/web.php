@@ -256,6 +256,8 @@ Route::controller(StudentAuthController::class)->group(function () {
 Route::controller(StudentDashboardController::class)->group(function () {
     Route::get('student', 'index')->middleware('auth.student')->name('student');
     Route::get('fees/feesdeposite', 'feesdeposite')->name('fees/feesdeposite');
+    Route::get('student/student_profile', 'student_profile')->name('student_profile');
+
 });
 
 
