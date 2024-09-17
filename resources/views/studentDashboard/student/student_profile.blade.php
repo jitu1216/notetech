@@ -1,646 +1,440 @@
-
 @extends('studentDashboard.layouts.master')
+<style>
+    table {
+        background-color: white;
+    }
+
+    .print-header {
+        /* display: none; */
+        margin-top: -30px !important;
+    }
+
+    .print-header h4 {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .school {
+        width: auto;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .logo-container {
+        flex: 2;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: right;
+    }
+
+    .main-container {
+        flex: 8;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-left: -20px !important;
+    }
+
+    .main-container h3 {
+        font-weight: 800 !important;
+        margin-bottom: -2px;
+        color: rgb(219, 0, 0);
+
+    }
+
+    .main-container h6 {
+        margin-bottom: -2px;
+        font-weight: 600 !important;
+        color: blue;
+    }
+
+    .main-container span {
+        font-size: 12px;
+        color: black;
+        margin-right: 10px;
+    }
+
+    .top {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .content {
+        flex: 8;
+        margin-top: 25px !important;
+    }
+
+    .student-image {
+        flex: 2
+    }
+
+    .container-fluid {
+        max-width: 900px !important;
+    }
+
+    .header-section {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .header-section a {
+        width: 100px;
+        flex: 2;
+    }
+
+    #cancelbtn {
+        flex: 2;
+    }
+
+    #extra {
+        flex: 6;
+    }
+
+    #printbtn {
+        flex: 2;
+    }
+
+    .content p {
+        margin-left: 30px;
+        margin-right: 60px;
+    }
+
+    @media only screen and (max-width: 450px) {
+
+        .main-container {
+            flex: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-container h3 {
+            font-size: 16px;
+        }
+
+        .main-container h6 {
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .main-container p span {
+            font-size: 9px;
+        }
+
+        .content p {
+            font-size: 12px;
+            margin: 0;
+        }
+
+    }
+
+
+
+    @media print {
+
+        .header-section {
+            display: none !important;
+        }
+
+        .page-wrapper {
+            margin-top: -80px !important;
+        }
+
+        .table {
+            font-size: 10px;
+        }
+
+        .header {
+            display: none;
+        }
+
+        nav {
+            display: none;
+        }
+
+        .main-container h6 {
+            margin-bottom: -3px;
+            font-weight: 600 !important;
+            color: rgb(67, 169, 253);
+        }
+
+        .main-container h3 {
+            margin-bottom: -2px;
+        }
+
+        .print-header {
+            display: inline !important;
+        }
+
+        .page-header,
+        .action {
+            display: none;
+        }
+
+        footer {
+            display: none;
+        }
+
+    }
+</style>
 @section('content')
     <div class="page-wrapper">
-        <div class="content container-fluid">
 
-            <div class="page-header">
-                <div class="row align-items-center">
-                    <div class="col-sm-12">
-                        <div class="page-sub-header">
-                            <h3 class="page-title">Students Profile</h3>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('student') }}">Dahboard</a></li>
-                                <li class="breadcrumb-item active">Students Profile</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+        <div class="content container-fluid border border-primary ">
+            <div class="header-section">
+                <a id="cancelbtn" href="{{ route('pendinglist') }}" class=" btn btn-primary"
+                    style="margin-left:20px;">Cancel</a>
+                <a id="extra" href="" class="" style="margin-left:20px;"></a>
+                <a id="printbtn" href="" class=" btn btn-success" style="margin-left:20px;">Print</a>
             </div>
-            {{-- message --}}
-          
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card comman-shadow">
-                        <div class="card-body">
-                            <form action="{{ route('update-student') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h5 class="form-title student-info">Student Information
-                                            <span>
-                                                <a id="printbtn" href="{{  route('printstd', $student->id) }}"
-                                                    class=" btn btn-success" style="margin-left:20px;">Print</a>
 
-                                            </span>
-                                        </h5>
-                                    </div>
-                                    <div class="col-8 col-md-8 col-sm-8">
-                                        <div class="row">
-                                            <div class="col-12 col-sm-6">
-                                                <div class="form-group local-forms">
-                                                    <label>Student Name<span class="login-danger">*</span></label>
-                                                    <input  type="text" name="id" hidden value="{{ $student->id }}">
-                                                    <input disabled type="text"
-                                                        class="form-control @error('student_name') is-invalid @enderror"
-                                                        name="student_name" placeholder="Enter Student Name"
-                                                        value="{{$student->student_name }}" id="student_name">
-                                                    @error('student_name')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-sm-6">
-                                                <div class="form-group local-forms">
-                                                    <label>Father/Husband Name <span class="login-danger">*</span></label>
-                                                    <input disabled  type="text"
-                                                        class="form-control @error('father_name') is-invalid @enderror"
-                                                        name="father_name" placeholder="Enter Father Name"
-                                                        value="{{ $student->father_name }}" id="father_name">
-                                                    @error('father_name')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-sm-6">
-                                                <div class="form-group local-forms">
-                                                    <label>Mother Name<span class="login-danger">*</span></label>
-                                                    <input disabled type="text"
-                                                        class="form-control @error('mother_name') is-invalid @enderror"
-                                                        name="mother_name" placeholder="Enter Mother Name"
-                                                        value="{{ $student->mother_name }}" id="mother_name">
-                                                    @error('mother_name')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-sm-6">
-                                                <div class="form-group local-forms">
-                                                    <label>Class<span class="login-danger">*</span></label>
-                                                    <select disabled
-                                                        class="form-control select  @error('class') is-invalid @enderror"
-                                                        name="class" id="class">
-                                                        <option selected disabled>Select Class</option>
-                                                        @foreach ($finalarray as $value)
-                                                            <option value="{{ $value['id'] }}"
-                                                                {{ $student->class_id == $value['id'] ? 'selected' : '' }}>
-                                                                {{ $value['classname'] }}
-                                                            </option>
-                                                        @endforeach
+            <div class="print-header m-3">
+                <div class="school">
+                    <div class="logo-container">
+                        <img src="{{ URL::to('images/1680626594.jpg') }}" alt="" width="60" height="60">
+                    </div>
+                    <div class="main-container">
+                        <h3>{{ Custom::getSchool()->Name }}</h3>
+                        <h6>{{ Custom::getSchool()->Address }},{{ Custom::getSchool()->City }}
+                            ({{ Custom::getSchool()->State }})</h6>
+                        {{-- <h6>Kainchu Tanda, Amaria Distt. Pilibhit (U.P.)-262121 Mob. 9411484111</h5> --}}
+                        <p><span>Email.{{ Custom::getSchool()->Email }}</span> <span>Mobile No.
+                                {{ Custom::getSchool()->Mobile }}</span>
+                        </p>
 
-                                                    </select>
-                                                    @error('class')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{-- $message --}}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-sm-6">
-                                                <div class="form-group local-forms">
-                                                    <label>Gender <span class="login-danger">*</span></label>
-                                                    <select disabled
-                                                        class="form-control select  @error('gender') is-invalid @enderror"
-                                                        name="gender" id="gender">
-                                                        <option selected disabled>Select Gender</option>
-                                                        <option value="Female"
-                                                            {{$student->gender == 'Female' ? 'selected' : '' }}>Female
-                                                        </option>
-                                                        <option value="Male"
-                                                            {{$student->gender == 'Male' ? 'selected' : '' }}>Male
-                                                        </option>
-                                                        <option value="Others"
-                                                            {{ $student->gender == 'Others' ? 'selected' : '' }}>
-                                                            Others</option>
-                                                    </select>
-                                                    @error('gender')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12 col-sm-6">
-                                                <div class="form-group local-forms calendar-icon">
-                                                    <label>Date Of Birth <span class="login-danger">*</span></label>
-                                                    <input disabled
-                                                        class="form-control datetimepicker @error('date_of_birth') is-invalid @enderror"
-                                                        name="date_of_birth" type="text" placeholder="DD-MM-YYYY"
-                                                        value="{{ $student->dob }}" id="dob">
-                                                    @error('date_of_birth')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-md-4 col-sm-4 justify-content-center">
-                                        <div class="col-12 col-sm-4 w-100">
-                                            <div
-                                                class="form-group students-up-files d-flex justify-content-center align-items-center flex-column">
-                                                <img id="preview"
-                                                    src="{{ URL::to('student-photos') . '/' . $student->image }}"
-                                                    alt="Logo" width="120" height="150">
-                                                <label>Uploaded Student Photo</label>
-                                                <div class="uplod">
-                                                    {{-- <label
-                                                        class="file-upload image-upbtn mb-0 @error('upload') is-invalid @enderror">
-                                                        Choose File <input type="file" name="upload" id="image">
-                                                    </label> --}}
-                                                    @error('upload')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Religion <span class="login-danger">*</span></label>
-                                            <select disabled class="form-control select  @error('religion') is-invalid @enderror"
-                                                name="religion">
-                                                <option selected disabled>Select Religion</option>
-                                                <option value="Hindu"
-                                                    {{ $student->religion == 'Hindu' ? 'selected' : '' }}>
-                                                    Hindu</option>
-                                                <option value="Islam"
-                                                    {{ $student->religion == 'Islam' ? 'selected' : '' }}>
-                                                    Islam
-                                                </option>
-                                                <option value="Sikh"
-                                                    {{ $student->religion == 'Sikh' ? 'selected' : '' }}>
-                                                    Sikh</option>
-                                                <option value="Christian"
-                                                    {{ $student->religion == 'Christian' ? 'selected' : '' }}>
-                                                    Christian</option>
-                                                <option value="Buddhist"
-                                                    {{ $student->religion == 'Buddhist' ? 'selected' : '' }}>
-                                                    Buddhist</option>
-                                                <option value="Parsi"
-                                                    {{ $student->religion == 'Parsi' ? 'selected' : '' }}>
-                                                    Parsi</option>
-                                            </select>
-                                            @error('religion')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Category<span class="login-danger">*</span></label>
-                                            <select disabled class="form-control select  @error('category') is-invalid @enderror"
-                                                name="category">
-                                                <option selected disabled>Select Category</option>
-                                                <option value="General"
-                                                    {{ $student->category == 'General' ? 'selected' : 'General' }}>General
-                                                </option>
-                                                <option value="OBC"
-                                                    {{ $student->category == 'OBC' ? 'selected' : '' }}>
-                                                    OBC
-                                                </option>
-                                                <option value="SC" {{ $student->category == 'SC' ? 'selected' : '' }}>
-                                                    SC</option>
-                                                <option value="ST" {{ $student->category == 'ST' ? 'selected' : '' }}>
-                                                    ST</option>
-
-                                            </select>
-                                            @error('category')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Caste</label>
-                                            <input disabled class="form-control @error('caste') is-invalid @enderror"
-                                                type="text" name="caste" placeholder="Enter Caste"
-                                                value="{{ $student->caste }}">
-                                            @error('caste')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{-- $message --}}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-2">
-                                        <div class="form-group local-forms">
-                                            <label>Address Type<span class="login-danger">*</span></label>
-                                            <select disabled
-                                                class="form-control select @error('locality_type') is-invalid @enderror"
-                                                name="locality_type" id="locality_type">
-                                                <option disabled selected>Select Address Type</option>
-                                                <option value="Village"
-                                                    {{ $student->locality_type == 'Village' ? 'selected' : '' }}>
-                                                    Village</option>
-                                                <option value="Locality"
-                                                    {{ $student->locality_type == 'Locality' ? 'selected' : '' }}>
-                                                    Locality</option>
-                                            </select>
-                                            @error('locality_type')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Village/Locality</label>
-                                            <input disabled class="form-control @error('village') is-invalid @enderror"
-                                                type="text" name="village" placeholder="Enter Village"
-                                                value="{{ $student->village }}">
-                                            @error('village')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-2">
-                                        <div class="form-group local-forms">
-                                            <label>Area Type<span class="login-danger">*</span></label>
-                                            <select  disabled class="form-control select @error('post_type') is-invalid @enderror"
-                                                name="post_type" id="post_type">
-                                                <option disabled selected>Select Area Type</option>
-                                                <option value="Post"
-                                                    {{ $student->post_type == 'Post' ? 'selected' : '' }}>
-                                                    Post</option>
-                                                <option value="Town"
-                                                    {{ $student->post_type == 'Town' ? 'selected' : ''}}>
-                                                    Town</option>
-                                            </select>
-                                            @error('post_type')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Post/Town</label>
-                                            <input disabled class="form-control @error('town') is-invalid @enderror"
-                                                type="text" name="town" placeholder="Enter Town"
-                                                value="{{ $student->town }}">
-                                            @error('town')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Select State<span class="login-danger">*</span></label>
-                                            <select disabled class="form-control select @error('state') is-invalid @enderror"
-                                                name="state" id="state">
-                                                <option selected disabled>Please Select State </option>
-                                                @foreach ($state as $value)
-                                                    <option value="{{ $value }}"
-                                                        {{ $student->state == $value ? 'selected' : '' }}>
-                                                        {{ $value }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            @error('state')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Select City<span class="login-danger">*</span></label>
-                                            <select disabled class="form-control select @error('city') is-invalid @enderror"
-                                                name="city" id="city">
-                                                <option selected disabled>Please Select City </option>
-
-                                            </select>
-                                            @error('city')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Pincode</label>
-                                            <input disabled class="form-control @error('pincode') is-invalid @enderror"
-                                                type="number" name="pincode" placeholder="Enter Pincode"
-                                                value="{{ $student->pincode }}">
-                                            @error('pincode')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Mobile No.</label>
-                                            <input disabled class="form-control @error('mobile') is-invalid @enderror"
-                                                type="number" name="mobile" placeholder="Enter Pincode"
-                                                value="{{ $student->mobile }}" id="mobile">
-                                            @error('mobile')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Email</label>
-                                            <input disabled class="form-control @error('email') is-invalid @enderror"
-                                                type="text" name="email" placeholder="Enter Email"
-                                                value="{{ $student->email }}" id="email">
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Nationality</label>
-                                            <input disabled class="form-control @error('nationality') is-invalid @enderror"
-                                                type="text" name="nationality" placeholder="Enter Nationality"
-                                                value="{{ $student->nationality }}">
-                                            @error('nationality')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Transport Station</label>
-                                            <input disabled class="form-control @error('transport') is-invalid @enderror"
-                                                type="text" name="transport" placeholder="Enter Transport"
-                                                value="{{ $student->transport }}">
-                                            @error('transport')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Father Occupation <span class="login-danger">*</span></label>
-                                            <select disabled class="form-control select @error('occupation') is-invalid @enderror"
-                                                name="occupation">
-                                                <option selected disabled>Please Occupation </option>
-                                                <option value="Labour"
-                                                    {{ $student->father_occupation == 'Labour' ? 'selected' : '' }}>
-                                                    Labour</option>
-                                                <option value="Agriculture"
-                                                    {{ $student->father_occupation == 'Agriculture' ? 'selected' : '' }}>
-                                                    Agriculture
-                                                </option>
-                                                <option value="Grocery store"
-                                                    {{ $student->father_occupation == 'Grocery store' ? 'selected' : '' }}>
-                                                    Grocery store</option>
-                                                <option value="Ngo jobs"
-                                                    {{ $student->father_occupation == 'Ngo jobs' ? 'selected' : '' }}>Ngo
-                                                    jobs
-                                                </option>
-                                                <option value="Government Job"
-                                                    {{ $student->father_occupation == 'Government Job' ? 'selected' : '' }}>
-                                                    Government Job
-                                                </option>
-                                                <option value="Army"
-                                                    {{ $student->father_occupation == 'Army' ? 'selected' : '' }}>Army
-                                                </option>
-                                                <option value="Teacher"
-                                                    {{ $student->father_occupation == 'Teacher' ? 'selected' : '' }}>
-                                                    Teacher
-                                                </option>
-                                                <option value="Businessman"
-                                                    {{ $student->father_occupation == 'Businessman' ? 'selected' : '' }}>
-                                                    Businessman
-                                                </option>
-                                                <option value="Doctor"
-                                                    {{ $student->father_occupation == 'Doctor' ? 'selected' : '' }}>Doctor
-                                                </option>
-                                                <option value="Painter"
-                                                    {{ $student->father_occupation == 'Painter' ? 'selected' : '' }}>
-                                                    Painter
-                                                </option>
-                                                <option value="Driver"
-                                                    {{ $student->father_occupation == 'Driver' ? 'selected' : '' }}>Driver
-                                                </option>
-                                                <option value="Raj Mistri"
-                                                    {{ $student->father_occupation == 'Raj Mistri' ? 'selected' : '' }}>Raj
-                                                    Mistri
-                                                </option>
-                                                <option value="Carpenter"
-                                                    {{ $student->father_occupation == 'Carpenter' ? 'selected' : '' }}>
-                                                    Carpenter
-                                                </option>
-                                                <option value="Tailor"
-                                                    {{ $student->father_occupation == 'Tailor' ? 'selected' : '' }}>Tailor
-                                                </option>
-                                                <option value="Barber"
-                                                    {{ $student->father_occupation == 'Barber' ? 'selected' : '' }}>Barber
-                                                </option>
-                                                <option value="Hawker"
-                                                    {{ $student->father_occupation == 'Hawker' ? 'selected' : '' }}>Hawker
-                                                </option>
-                                                <option value="Coaching master"
-                                                    {{ $student->father_occupation == 'Coaching master' ? 'selected' : '' }}>
-                                                    Coaching
-                                                    master
-                                                </option>
-                                                <option value="Gardner"
-                                                    {{ $student->father_occupation == 'Gardner' ? 'selected' : '' }}>
-                                                    Gardner
-                                                </option>
-                                                <option value="Goldsmith"
-                                                    {{ $student->father_occupation == 'Goldsmith' ? 'selected' : '' }}>
-                                                    Goldsmith
-                                                </option>
-                                                <option value="Jouralist"
-                                                    {{ $student->father_occupation == 'Jouralist' ? 'selected' : '' }}>
-                                                    Jouralist
-                                                </option>
-                                                <option value="Sweeper"
-                                                    {{ $student->father_occupation == 'Sweeper' ? 'selected' : '' }}>
-                                                    Sweeper
-                                                </option>
-                                                <option value="Cook"
-                                                    {{ $student->father_occupation == 'Cook' ? 'selected' : '' }}>Cook
-                                                </option>
-                                                <option value="Confectioner"
-                                                    {{ $student->father_occupation == 'Confectioner' ? 'selected' : '' }}>
-                                                    Confectioner
-                                                </option>
-                                                <option value="Welding"
-                                                    {{ $student->father_occupation == 'Welding' ? 'selected' : '' }}>
-                                                    Welding
-                                                </option>
-                                                <option value="Contractor"
-                                                    {{ $student->father_occupation == 'Contractor' ? 'selected' : '' }}>
-                                                    Contractor
-                                                </option>
-                                                <option value="Electrician"
-                                                    {{ $student->father_occupation == 'Electrician' ? 'selected' : '' }}>
-                                                    Electrician
-                                                </option>
-                                                <option value="Material Seller"
-                                                    {{ $student->father_occupation == 'Material Seller' ? 'selected' : '' }}>
-                                                    Material
-                                                    Seller
-                                                </option>
-                                                <option value="Private  Job"
-                                                    {{ $student->father_occupation == 'Private  Job' ? 'selected' : '' }}>
-                                                    Private Job
-                                                </option>
-
-
-                                            </select>
-                                            @error('occupation')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Aadhar Number <span class="login-danger">*</span></label>
-                                            <input disabled class="form-control @error('aadhar') is-invalid @enderror"
-                                                type="number" name="aadhar" placeholder="Enter Aadhar No"
-                                                value="{{ $student->aadhar_no }}">
-                                            @error('aadhar')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Last Institute <span class="login-danger">*</span></label>
-                                            <input disabled class="form-control @error('institute') is-invalid @enderror"
-                                                type="text" name="institute" placeholder="Enter Last Institute Number"
-                                                value="{{ $student->last_institute }}">
-                                            @error('institute')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Enter Student Password <span class="login-danger">*</span></label>
-                                            <input disabled class="form-control @error('password') is-invalid @enderror"
-                                                type="text" name="password" placeholder="Enter Student Password"
-                                                value="{{ $student->show_pass }}">
-                                            @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-sm-12 m-4 mt-0 ">
-                                        <div class="row" id="subject">
-                                            <h5 class="form-title"><span>Select Subjects</span></h5>
-                                        </div>
-                                    </div>
-
-                                    <div class="row bg-light pt-3 pb-2 mb-4 m-1 mt-0">
-                                        <div class="col-12 col-sm-6">
-                                            <div class="form-group">
-                                                <label>Admission Date <span class="login-danger">*</span></label>
-                                                <input disabled
-                                                    class="form-control datetimepicker @error('admission_date') is-invalid @enderror"
-                                                    name="admission_date" type="text" placeholder="DD-MM-YYYY"
-                                                    value="{{ $student->admission_date }}" id="admission_date">
-                                                @error('admission_date')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <div class="form-group ">
-                                                <label>S.R. Number<span class="login-danger">*</span></label>
-                                                <input type="text" disabled
-                                                    class="form-control @error('sr_no') is-invalid @enderror"
-                                                    name="sr_no" placeholder="Enter S.R. Number"
-                                                    value="{{ $student->sr_no }}" id="sr_no">
-                                                @error('sr_no')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <div class="form-group ">
-                                                <label>Roll Number<span class="login-danger">*</span></label>
-                                                <input type="text" disabled
-                                                    class="form-control @error('roll_no') is-invalid @enderror"
-                                                    name="roll_no" placeholder="Enter Roll Number"
-                                                    value="{{ $student->roll_no }}" id="roll_no">
-                                                @error('roll_no')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <div class="form-group ">
-                                                <label>Fees Account<span class="login-danger">*</span></label>
-                                                <input type="text" disabled
-                                                    class="form-control @error('fees_account') is-invalid @enderror"
-                                                    name="fees_account" placeholder="Enter Fees Account No."
-                                                    value="{{ $student->fee_account }}" id="fees_account">
-                                                @error('fees_account')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
                     </div>
                 </div>
+                <div class="top">
+                    <div class="content">
+                        <span style="color:rgb(207, 4, 4);">The Principle</span>
+                        <h6>Madam/Sir,</h6>
+                        <p style="">
+                            I request you to admit my son/daughter/ to
+                            class...........{{ $schoolclass->classname }}.............
+                            of your school, The necessary particulars are given below.
+                        </p>
+
+
+                    </div>
+                    <div class="student-image" style="margin-top: 45px;">
+                        <img src="{{ URL::to('student-photos') . '/' . $student->image }}" alt="" width="100"
+                            height="130">
+                    </div>
+                </div>
+                <div class="middle-section">
+                    <div class="application" style="margin-top: -30px;">
+                        <div class="d-flex flex-row">
+                            <h6 class="col-3" style="margin-left:0px; margin-right:-70px;"><span
+                                    style="font-weight: 600;">Application No:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-2 text-center">
+                                {{ $student->application_no }}
+                            </h6>
+                            <h6 class="col-3" style="margin-left:25px; margin-right:-20px;"><span
+                                    style="font-weight: 600;">Application Date:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-2 text-center">
+                                {{ $student->application_date }}
+                            </h6>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <h6 class="col-2"><span style="font-weight: 600;" >Student Name:</span></h6>
+                            <h6 id="stdname" style="border-bottom:1px solid rgb(59, 59, 59); " class="col-7 text-center">
+                                {{ $student->student_name }}
+                            </h6>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <h6 class="col-3" style="margin-left: 0px; margin-right:-40px;"><span
+                                    style="font-weight: 600;">Class:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59); " class="col-3 text-center">
+                                {{ $schoolclass->classname }}
+                            </h6>
+                            <h6 class="col-3" style="margin-left: 30px; margin-right:-40px;"><span
+                                    style="font-weight: 600;">Roll No:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-3 text-center">
+                                {{ $student->roll_no }}
+                            </h6>
+
+                        </div>
+                        <div class="d-flex flex-row">
+                            <h6 class="col-3" style="margin-left:0px; margin-right:-70px;"><span
+                                    style="font-weight: 600;">Date of Birth:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-3 text-center">
+                                {{ $student->dob }}
+                            </h6>
+                            <h6 class="col-3" style="margin-left:25px; margin-right:0px;"><span
+                                    style="font-weight: 600;">Session Year:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-3 text-center">
+                                {{ Session::get('academic_session') }}
+                            </h6>
+                        </div>
+
+                    </div>
+                    <div class="content-name">
+                        <div class="d-flex flex-row">
+                            <h6 class="col-2"><span style="font-weight: 600;">Father Name:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59); " class="col-3 text-center">
+                                {{ $student->father_name }}
+                            </h6>
+                            <h6 class="col-2" style="margin-left:20px; margin-right:-20px;"><span
+                                    style="font-weight: 600;">Mother Name:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-5 text-center">
+                                {{ $student->mother_name }}
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="content-name">
+                        <div class="d-flex flex-row">
+                            <h6 class="col-2"><span style="font-weight: 600;">Aadhar No.:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59); " class="col-3 text-center">
+                                {{ $student->aadhar_no }}
+                            </h6>
+                            <h6 class="col-2" style="margin-left:20px; margin-right:-20px;"><span
+                                    style="font-weight: 600;">Gender:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-5 text-center">
+                                {{ $student->gender }}
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="content-name">
+                        <div class="d-flex flex-row">
+                            <h6 class="col-3"><span style="font-weight: 600;">Address: Vill. & Locality</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59); " class="col-3 text-center">
+                                {{ $student->village }}
+                            </h6>
+                            <h6 class="col-2" style="margin-left:20px; margin-right:-20px;"><span
+                                    style="font-weight: 600;">Post/Town:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-4 text-center">
+                                {{ $student->town }}
+                            </h6>
+                        </div>
+
+                        <div class="d-flex flex-row">
+                            <h6 class="col-1"><span style="font-weight: 600;">District</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59); " class="col-3 text-center">
+                                {{ $student->district }}
+                            </h6>
+                            <h6 class="col-1" style="margin-left: 0px; margin-right: -20px;"><span
+                                    style="font-weight: 600;">State:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-3 text-center">
+                                {{ $student->state }}
+                            </h6>
+                            <h6 class="col-1" style="margin-left:20px; margin-right:0px;"><span
+                                    style="font-weight: 600;">Pincode:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-3 text-center">
+                                {{ $student->pincode }}
+                            </h6>
+                        </div>
+
+                    </div>
+                    <div class="content-name">
+                        <div class="d-flex flex-row">
+                            <h6 class="col-1"><span style="font-weight: 600;">Nationality:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59); " class="col-3 text-center">
+                                {{ $student->nationality }}
+                            </h6>
+                            <h6 class="col-1" style="margin-left: 0px; margin-right: -20px;"><span
+                                    style="font-weight: 600;">Caste:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-3 text-center">
+                                {{ $student->caste }}
+                            </h6>
+                            <h6 class="col-1" style="margin-left:20px; margin-right:0px;"><span
+                                    style="font-weight: 600;">Religion:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-3 text-center">
+                                {{ $student->religion }}
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <h6 class="col-2" style="margin-left:0px; margin-right:-30px;"><span style="font-weight: 600;">Category:</span></h6>
+                        <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-2 text-center">
+                            {{ $student->category  }}
+                        </h6>
+                        <h6 class="col-4" style="margin-left: 25px; margin-right: 0px;"><span style="font-weight: 600;">Name of the last school attended:</span></h6>
+                        <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-4 text-center">
+                            {{ $student->last_institute }}
+                        </h6>
+                    </div>
+                    <div class="content-name mt-3">
+                        <h6 style="color: rgb(172, 0, 0) !important; padding:7px; background-color:rgb(189, 189, 189);">
+                            Father/Mother Particulars</h6>
+                    </div>
+                    <div class="content-name mt-3">
+                        <div class="d-flex flex-row">
+                            <h6 class="col-2" style="margin-left:0px; margin-right: 0px;"><span style="font-weight: 600;">Name:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-10 text-center">
+                                {{ $student->father_name  }}
+                            </h6>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <h6 class="col-2" style="margin-left:0px; margin-right: 0px;"><span style="font-weight: 600;">Profession:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-10 text-center">
+                                {{ $student->father_occupation  }}
+                            </h6>
+                        </div>
+
+                        <div class="d-flex flex-row">
+                            <h6 class="col-2"><span style="font-weight: 600;">Mobile No:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59); " class="col-3 text-center">
+                                {{ $student->mobile }}
+                            </h6>
+                            <h6 class="col-2" style="margin-left:20px; margin-right:-20px;"><span style="font-weight: 600;">Email:</span></h6>
+                            <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-5 text-center">
+                                {{ $student->email }}
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="content-name mt-2">
+                        <h6 style="color: rgb(172, 0, 0) !important; padding:7px; background-color:rgb(189, 189, 189);">
+                            Subjects</h6>
+                    </div>
+                    <div class="content-name mt-1">
+                        <h6 class="mt-2">
+                             @php
+                                $subject_array = (explode(",",$student->subject_id))
+                            @endphp
+                            @foreach ($subject as $key => $value)
+                                    @if (in_array($value->id, $subject_array ))
+                                    <span style="margin-right:40px;">({{ ++$key }}) {{ $value->subject_name }}</span>
+                                    @endif
+
+                            @endforeach
+                        </h6>
+                    </div>
+                    <div class="content-name mt-3">
+                        <h6><span style="font-weight: 600;">Declaration
+                            </span></h6>
+                        <p>I..............................Son/Daughter/Wife of..................................R/O.......................... .My
+                            Child.............................I swear by God. All the above information is true and I have
+                            not got my child admitted in any school. My Child will follow the rules. If any error is found
+                            in it.I will be resonsible for it.</p>
+                        <span>Your Faithfully
+                        </span>
+                    </div>
+                    <div class="content-name mt-3 pt-4">
+                        <h6 class="mt-4"><span style="margin-right:30px; color:rgb(207, 4, 4)">Signature of
+                                Parent/Guardian </span>
+                            <span style="margin-right:30px; color:rgb(207, 4, 4)">Student's Sign & Thamb</span>
+                            <span style="margin-right:30px; color:rgb(207, 4, 4)">Class Teacher</span>
+                            <span style="margin-right:20px; color:rgb(207, 4, 4)">Clerk</span>
+                            <span style="margin-left:30px; color:rgb(207, 4, 4)">Principal</span>
+
+
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </div>
+    <script>
+        $('#printbtn').on('click', function() {
+            event.preventDefault();
+            var name = $('#stdname').text();
+            document.title= name;
+            window.print()
+        });
+    </script>
 @endsection
-
-

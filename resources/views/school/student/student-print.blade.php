@@ -190,7 +190,6 @@
                     style="margin-left:20px;">Cancel</a>
                 <a id="extra" href="" class="" style="margin-left:20px;"></a>
                 <a id="printbtn" href="" class=" btn btn-success" style="margin-left:20px;">Print</a>
-
             </div>
 
             <div class="print-header m-3">
