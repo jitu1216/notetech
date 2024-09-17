@@ -45,7 +45,7 @@
                         <span class="checkmark"></span>
                     </label> --}}
                         </div>
-                        <a href="{{ url('forget-password') }}">Forgot Password?</a>
+                        {{-- <a href="{{ url('forget-password') }}">Forgot Password?</a> --}}
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary btn-block" type="submit">Login</button>
