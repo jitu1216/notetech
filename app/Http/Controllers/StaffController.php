@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
-use Custom;
-use Auth;
 use App\Models\Staff;
 use App\Models\User;
 use App\Models\StateCities;
 use App\Models\SchoolClass;
 use App\Models\AcademicSession;
 use Brian2694\Toastr\Facades\Toastr;
+use Session;
+use App\Helper\Custom;
+use Auth;
 
 
 class StaffController extends Controller
@@ -204,8 +204,6 @@ class StaffController extends Controller
 
     public function promoteStaff(Request $request)
     {
-
-
         $school = Custom::getSchool();
         $academic = $request->session;
         $staffdetail = Staff::where('id', $request->id)->first();

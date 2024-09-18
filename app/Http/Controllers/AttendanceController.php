@@ -84,7 +84,6 @@ class AttendanceController extends Controller
 
         if (!empty($request->attendance)) {
             for ($i = 0; $i <= $request->total; $i++) {
-                // Check if $i is a key in the associative array
                 if (!array_key_exists($i, $request->attendance)) {
                     return redirect()->back()->withInput();
                 }
