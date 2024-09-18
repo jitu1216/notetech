@@ -189,6 +189,8 @@
                                         href="{{ route('schoolsubject') }}">Subject List</a></li>
                                 <li><a class="{{ set_active(['school/add-subject']) }}"
                                         href="{{ route('add-subject') }}">Add Subject</a></li>
+                                <li><a class="{{ set_active(['school/slider']) }}"
+                                        href="{{ route('slider') }}">Slider</a></li>
                             @endif
 
 
