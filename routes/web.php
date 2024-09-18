@@ -18,6 +18,7 @@ use App\Http\Controllers\PromoteController;
 use App\Http\Controllers\StudentAuthController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\TimeTableController;
 
 
 
@@ -114,19 +115,6 @@ Route::controller(UserManagementController::class)->group(function () {
 Route::controller(Setting::class)->group(function () {
     Route::get('setting/page', 'index')->middleware('auth')->name('setting/page');
 });
-
-// ------------------------ student -------------------------------//
-// Route::controller(StudentController::class)->group(function () {
-//     Route::get('student/list', 'student')->middleware('auth')->name('student/list'); // list student
-//     Route::get('student/grid', 'studentGrid')->middleware('auth')->name('student/grid'); // grid student
-//     Route::get('student/add/page', 'studentAdd')->middleware('auth')->name('student/add/page'); // page student
-//     Route::post('student/add/save', 'studentSave')->name('student/add/save'); // save record student
-//     Route::get('student/edit/{id}', 'studentEdit'); // view for edit
-//     Route::post('student/update', 'studentUpdate')->name('student/update'); // update record student
-//     Route::post('student/delete', 'studentDelete')->name('student/delete'); // delete record student
-//     Route::get('student/profile/{id}', 'studentProfile')->middleware('auth'); // profile student
-
-// });
 
 // ------------------------ school -------------------------------//
 
@@ -261,7 +249,7 @@ Route::controller(StudentDashboardController::class)->group(function () {
 });
 
 
-Route::controller(AttendanceController::class)->group(function () {
+Route::middleware('auth')->controller(AttendanceController::class)->group(function () {
     Route::get('school/take_student_attendance/{id?}', 'takestudentattendance')->name('school/take_student_attendance');
     Route::post('school/submitstudentattendance', 'saveStudentAttendance')->name('submitstudentattendance');
     Route::get('school/view_student_attendance/{id?}/{date?}', 'viewstudentattendance')->name('school/view_student_attendance');
@@ -274,5 +262,17 @@ Route::controller(AttendanceController::class)->group(function () {
     Route::get('school/edit-holiday/{id}', 'editHoliday')->name('edit-holiday');
     Route::post('school/update-holiday', 'updateHoliday')->name('update-holiday');
 });
+
+
+
+Route::middleware('auth')->controller(TimeTableController::class)->group(function () {
+    Route::get('school/add-time-table', 'addTimeTable')->name('school/add-time-table');
+    Route::get('school/edit-time-table/{id?}', 'editTimeTable')->name('school/edit-time-table');
+    Route::post('school/save-time-table', 'saveTimeTable')->name('save-time-table');
+    Route::post('school/update-time-table', 'updateTimeTable')->name('update-time-table');
+    Route::get('school/view-time-table/{id?}', 'viewTimeTable')->name('school/view-time-table');
+
+});
+
 
 
