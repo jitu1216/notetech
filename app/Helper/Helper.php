@@ -293,7 +293,7 @@ class Custom
             if (Custom::getStaffRole() == 'Assistant Teacher') {
                 $allot_class = Custom::getTeacherClass();
                 $data = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 1])->whereIn('class_id', $allot_class)->count();
-            }else{
+            } else {
                 $data = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 1])->count();
             }
         } else {
@@ -313,7 +313,7 @@ class Custom
             if (Custom::getStaffRole() == 'Assistant Teacher') {
                 $allot_class = Custom::getTeacherClass();
                 $data = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 3])->whereIn('class_id', $allot_class)->count();
-            }else{
+            } else {
                 $data = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => 1])->count();
             }
         } else {
@@ -571,7 +571,7 @@ class Custom
             if (Custom::getStaffRole() == 'Assistant Teacher') {
                 $allot_class = Custom::getTeacherClass();
                 $attendance = Attendance::where(['school_id' => $school->id, 'academic_session' => $academic, 'date' => $date])->whereIn('class_id', $allot_class)->get();
-            }else{
+            } else {
                 $attendance = Attendance::where(['school_id' => $school->id, 'academic_session' => $academic, 'date' => $date])->get();
             }
         } else {
@@ -607,6 +607,53 @@ class Custom
         $student = Auth::guard('student')->User();
         $attendance = Attendance::where(['school_id' => $school->id, 'class_id' => $student->class_id, 'academic_session' => $academic, 'student_id' => $student->id])->get();
         return $attendance;
+    }
+
+    public static function getAllClass()
+    {
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '0'])->get();
+        // dd($schoolclass);
+        $newClass = [];
+        foreach ($schoolclass as $class) {
+            $number = Custom::romanToInt($class->classname);
+            $newClass[$class->id] = $number;
+        }
+        $sortedArray = ['P.N.C.', 'N.C.', 'K.G.', 'L.K.G.', 'U.K.G.', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI (Art)', 'XI (Biology)', 'XI (Agriculture)', 'XI (Mathematics)', 'XI (Commerce)', 'XII (Art)', 'XII (Biology)', 'XII (Agriculture)', 'XII (Mathematics)', 'XII (Commerce)'];
+        $newroman = [];
+        sort($newClass);
+        $newromanclass = [];
+
+        foreach ($sortedArray as $organize) {
+            if (in_array($organize, $newClass)) {
+                array_push($newromanclass, $organize);
+            }
+        }
+
+        foreach ($newromanclass as $sortClass) {
+            $newnumber = Custom::getRomanNumber($sortClass);
+            array_push($newroman, $newnumber);
+            // dd($newroman);
+        }
+        // dd($newroman);
+
+        $finalarray = array();
+
+
+        foreach ($newroman as $value) {
+            foreach ($schoolclass as $class) {
+                if ($class->classname == $value) {
+                    $x['classname'] = $class->classname;
+                    $x['id'] = $class->id;
+                    $finalarray[] = $x;
+                }
+                $x = [];
+            }
+        }
+
+        return $finalarray;
     }
 
 }

@@ -11,7 +11,7 @@ use App\Models\StateCities;
 use App\Models\AcademicSession;
 use App\Models\Staff;
 use Session;
-use Custom;
+use App\Helper\Custom;
 use Auth;
 
 class SchoolDashboardController extends Controller

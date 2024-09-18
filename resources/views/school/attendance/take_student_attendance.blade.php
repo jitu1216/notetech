@@ -260,7 +260,6 @@
 
             var holidays = @json($holiday);
 
-
             $('#sundaydate').on('dp.show', function() {
                 $('.day').each(function() {
                     var fullDate = moment($(this).attr('data-day'));
