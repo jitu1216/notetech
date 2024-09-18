@@ -18,6 +18,7 @@ use App\Http\Controllers\PromoteController;
 use App\Http\Controllers\StudentAuthController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\sliderController;
 
 
 
@@ -257,6 +258,19 @@ Route::controller(StudentDashboardController::class)->group(function () {
     Route::get('student', 'index')->middleware('auth.student')->name('student');
     Route::get('fees/feesdeposite', 'feesdeposite')->name('fees/feesdeposite');
     Route::get('student/student_profile', 'student_profile')->name('student_profile');
+
+});
+
+Route::controller(sliderController::class)->group(function () {
+
+    Route::get('school/slider', 'slider')->name('slider');
+    Route::get('school/addslider', 'create')->name('addslider');
+    Route::post('school/saveslider', 'saveslider')->middleware('auth')->name('saveslider');
+    Route::get('school/editslider/{id}', 'edit')->name('editslider');
+    Route::post('school/editslider/updateslider/{id}', 'updateslider')->middleware('auth')->name('updateslider');
+    Route::get('school/removeslider/{id}', 'removeslider')->name('removeslider');
+
+
 
 });
 
