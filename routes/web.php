@@ -18,6 +18,9 @@ use App\Http\Controllers\PromoteController;
 use App\Http\Controllers\StudentAuthController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\sliderController;
+use App\Http\Controllers\TimeTableController;
+
 
 
 
