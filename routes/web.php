@@ -18,7 +18,7 @@ use App\Http\Controllers\PromoteController;
 use App\Http\Controllers\StudentAuthController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\SliderController;
+use App\Http\Controllers\SlideController;
 use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\ExmaController;
 
@@ -262,7 +262,7 @@ Route::controller(StudentDashboardController::class)->group(function () {
 
 });
 
-Route::controller(SliderController::class)->group(function () {
+Route::controller(SlideController::class)->group(function () {
 
     Route::get('school/slider', 'slider')->name('slider');
     Route::get('school/addslider', 'create')->name('addslider');
