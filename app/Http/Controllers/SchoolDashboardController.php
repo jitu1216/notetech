@@ -13,10 +13,13 @@ use App\Models\Staff;
 use Session;
 use App\Helper\Custom;
 use Auth;
+use App\Models\slider;
 
 class SchoolDashboardController extends Controller
 {
+
     public function index(){
+        $slider = slider::get();
         if(!Session::get('academic_session')){
             $nextyear = substr(date("Y"), -2) + 1;
                 $year = date("Y").'-'.$nextyear;
@@ -25,7 +28,7 @@ class SchoolDashboardController extends Controller
 
         $data = AcademicSession::all();
         Session::put('all_academic_session', $data);
-        return view('school.school');
+        return view('school.school',compact('slider'));
     }
 
     public function profileView(){
