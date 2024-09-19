@@ -2,88 +2,133 @@
 @section('content')
     {{-- message --}}
     {!! Toastr::message() !!}
-     <style>
+    <style>
         .owl-carousel {
-             position: relative; /* To position arrows relative to the carousel */
-         }
- 
-         /* Custom styles for navigation arrows */
-         .owl-nav {
-             position: absolute; /* Position arrows absolutely */
-             top: 55%; /* Center vertically */
-             width: 100%; /* Full width to position arrows */
-             display: flex; /* Flex container for positioning arrows */
-             justify-content: space-between; /* Space out arrows */
-             transform: translateY(-50%); /* Adjust for vertical centering */
-         }
- 
-         .owl-nav .owl-prev, .owl-nav .owl-next {
-             background-color: #fff;
-             color: #ffffff;
-             line-height: 100px;
-             text-align: center;
-             border-radius: 50%;
-             font-size: 30px;
-             cursor: pointer;
-             z-index: 10;
-             transition: none;
-         }
- 
-         .owl-nav .owl-prev, .owl-nav .owl-next:hover {
-             background-color: #fff; /* Arrow background color */
- 
-         }
- 
-         .owl-nav .owl-prev {
-             left: 10px; /* Position left arrow */
-         }
- 
-         .owl-nav .owl-next {
-             right: 10px; /* Position right arrow */
-         }
- 
-         .owl-nav .owl-next span, .owl-prev span{
-             font-size: 50px;
-             margin: 5px;
-         }
- 
-         .background-image {
-             background-size: cover;
-             background-position: center;
-             height: 420px;
-             /* Full viewport height */
-             display: flex;
-             width: 100vw;
-             align-items: center;
-             /* Center vertically */
-             justify-content: center;
-             /* Center horizontally */
-         }
- 
-         .content {
-             text-align: center;
-             color: white;
-             /* Adjust text color if needed */
-         }
-     </style>
-     <div class="owl-carousel owl-theme">
-        
-         @foreach ($slider as $slideritem)
-             <div class="item ">
-                 
-                 <div class="background-image">
-                    <img src="{{asset('slider/'.$slideritem->upload )}}" alt="slider image">
-                     <div class="carousel-caption d-none d-md-block">
+            position: relative;
+            /* To position arrows relative to the carousel */
+        }
+
+        /* Custom styles for navigation arrows */
+        .owl-nav {
+            position: absolute;
+            /* Position arrows absolutely */
+            top: 55%;
+            /* Center vertically */
+            width: 100%;
+            /* Full width to position arrows */
+            display: flex;
+            /* Flex container for positioning arrows */
+            justify-content: space-between;
+            /* Space out arrows */
+            transform: translateY(-50%);
+            /* Adjust for vertical centering */
+        }
+
+        .owl-nav .owl-prev,
+        .owl-nav .owl-next {
+            background-color: #fff;
+            color: #ffffff;
+            line-height: 100px;
+            text-align: center;
+            border-radius: 50%;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 10;
+            transition: none;
+        }
+
+        .owl-nav .owl-prev,
+        .owl-nav .owl-next:hover {
+            background-color: #fff;
+            /* Arrow background color */
+
+        }
+
+        .owl-nav .owl-prev {
+            left: 10px;
+            /* Position left arrow */
+        }
+
+        .owl-nav .owl-next {
+            right: 10px;
+            /* Position right arrow */
+        }
+
+        .owl-nav .owl-next span,
+        .owl-prev span {
+            font-size: 50px;
+            margin: 5px;
+        }
+
+        .background-image {
+            background-size: cover;
+            background-position: center;
+            height: 620px;
+            /* Full viewport height */
+            display: flex;
+            width: 100vw;
+            align-items: center;
+            position: relative;
+            justify-content: center;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .background-image img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content {
+            text-align: center;
+            color: white;
+            /* Adjust text color if needed */
+        }
+    </style>
+    <div class="owl-carousel owl-theme">
+        @foreach ($slider as $slideritem)
+            <div class="item ">
+                <div class="background-image">
+                    <img src="{{ asset('slider/' . $slideritem->upload) }}" alt="slider image">
+                    {{-- <div class="carousel-caption d-none d-md-block">
                          <h1 class="text-white">{{ $slideritem->title}}</h1>
                          <h2 class="text-white">{{ $slideritem->subtitle}}</h2>
                          <p  class="text-white">{{ $slideritem->description}}</p>
-                     </div>
-                 </div>
-             </div>
-         @endforeach
-     </div>
-    <div class="page-wrapper" style="margin: 0px; padding-top:10px;">
+                     </div> --}}
+                </div>
+            </div>
+        @endforeach
+    </div>
+    <div class="page-wrapper m-0 p-0">
         <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-sub-header row">
+                            <h3 class="page-title {{ Custom::getStaffRole() == 'Assistant Teacher' ? 'col-4' : 'col-8' }} d-flex justify-content-start">Welcome {{ Session::get('name') }}
+                            </h3>
+                            @if (Auth::user()->role_name == 'Staff')
+                                @if (Custom::getStaffRole() == 'Assistant Teacher')
+                                    <h3 class="page-title  col-4">Class Teacher :- {{ Custom::getClassOfTeacher() }}</h3>
+                                @endif
+                            @endif
+                            <ul class="breadcrumb col-4 d-flex justify-content-end">
+                                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                                <li class="breadcrumb-item active">{{ Session::get('name') }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-xl-3 col-sm-4 col-12 d-flex">
                     <div class="card bg-comman w-100"
@@ -214,11 +259,11 @@
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Total Pending Fees</h6>
                                     @if (Custom::getStaffRole() == 'Assistant Teacher')
-                                    <h3 style="color: rgb(255, 255, 255);">
-                                    {{ Custom::classtotalfees() - Custom::classtotalpaidfees()}} </h3>
+                                        <h3 style="color: rgb(255, 255, 255);">
+                                            {{ Custom::classtotalfees() - Custom::classtotalpaidfees() }} </h3>
                                     @else
-                                    <h3 style="color: rgb(255, 255, 255);">
-                                        {{ Custom::schoototalfees() - Custom::schoototalpaidfees() }}</h3>
+                                        <h3 style="color: rgb(255, 255, 255);">
+                                            {{ Custom::schoototalfees() - Custom::schoototalpaidfees() }}</h3>
                                     @endif
 
                                 </div>
@@ -252,7 +297,8 @@
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: rgb(255, 255, 10);">Today Present Students</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{Custom::getTodayAttendance()->where('attendance_type', 'P')->count() }}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">
+                                        {{ Custom::getTodayAttendance()->where('attendance_type', 'P')->count() }}</h3>
                                 </div>
                                 <div>
                                     <i class="fas fa-users" style="font-size: 50px; color:white;"></i>
@@ -268,7 +314,8 @@
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Today Absent Students</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{Custom::getTodayAttendance()->where('attendance_type', 'A')->count() }}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">
+                                        {{ Custom::getTodayAttendance()->where('attendance_type', 'A')->count() }}</h3>
                                 </div>
                                 <div>
                                     <i class="fas fa-graduation-cap" style="font-size: 50px; color:white;"></i>
@@ -284,7 +331,8 @@
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6 style="color: yellow;">Today Student Attendance Pending</h6>
-                                    <h3 style="color: rgb(255, 255, 255);">{{ Custom::getApprovedStudent() - Custom::getTodayAttendance()->count() }}</h3>
+                                    <h3 style="color: rgb(255, 255, 255);">
+                                        {{ Custom::getApprovedStudent() - Custom::getTodayAttendance()->count() }}</h3>
                                 </div>
                                 <div>
                                     <i class="fas fa-user-graduate" style="font-size: 50px; color:white;"></i>
@@ -673,5 +721,4 @@
             }
         })
     </script>
-       
 @endsection

@@ -463,6 +463,24 @@ class Custom
         return $allot_class;
     }
 
+    public static function getClassOfTeacher()
+    {
+
+        $user = Auth::User();
+        $academic = Session::get('academic_session');
+
+        $staff = Staff::where('email', $user->email)->where('academic_session', $academic)->first();
+        $allot_class = explode(',', $staff->allot_class);
+        $totalclass = [];
+        foreach($allot_class as $value){
+            // dd($value);
+            $totalclass[] = Custom::getClass($value)->classname;
+        }
+
+        // dd($totalclass);
+        return implode(',',$totalclass);
+    }
+
     public static function getStaffRole()
     {
 

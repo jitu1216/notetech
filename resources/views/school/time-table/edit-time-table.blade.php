@@ -74,8 +74,6 @@
             border: 1px solid red;
         }
 
-
-
         .std_image img {
             height: 45px;
             width: 45px;
@@ -87,8 +85,8 @@
         @media print {
 
             .page-wrapper {
-            margin-top: -20px !important;
-        }
+                margin-top: -20px !important;
+            }
 
             .header {
                 display: none;
@@ -96,6 +94,7 @@
 
             .print-header {
                 display: inline !important;
+                margin-bottom: -50px;
             }
 
             nav {
@@ -112,8 +111,13 @@
 
             .table tr th,
             td {
-                border: solid black 1px;
-
+                border: solid rgb(158, 158, 158) 1px;
+                /* padding: 0; */
+            }
+            .table tr td{
+                padding: 0;
+                text-align: center; /* Centers horizontally */
+                vertical-align: middle; /* Centers vertically */
             }
 
             .form-control {
@@ -136,9 +140,17 @@
                 display: none;
             }
 
+            .content {
+                margin-top: -10px;
+            }
+
             .item-container {
                 background-color: white !important;
                 border-color: white !important;
+            }
+
+            footer{
+                display: none;
             }
         }
     </style>
@@ -198,13 +210,15 @@
                                 <input type="hidden" id="timetableStatus"
                                     value="{{ $timetable->isNotEmpty() ? 'true' : 'false' }}">
                                 <input type="text" name="id" value="{{ $id != null ? $id : '' }}" hidden>
-                                <select name="teacher" class="form-control @error('teacher') is-invalid @enderror"
+
+                                <select {{ $checkteacher ? 'disabled' : ''}} name="teacher" class="form-control @error('teacher') is-invalid @enderror"
                                     id="teacher">
                                     <option value="" selected> Select Teacher</option>
                                     @foreach ($staffList as $value)
                                         @if ($id)
                                             <option value="{{ $value->id }}"{{ $id == $value->id ? 'selected' : '' }}>
-                                                {{ $value->staff_name }} ({{ $value->staff_code }})</option>
+                                                {{ $check ? 'Teacher Name :- ' : '' }} {{ $value->staff_name }}
+                                                ({{ $value->staff_code }})</option>
                                         @else
                                             <option
                                                 value="{{ $value->id }}"{{ old('teacher') == $value->id ? 'selected' : '' }}>
@@ -245,7 +259,7 @@
                                         @if ($i == 5)
                                             <tr>
                                                 <td colspan="4" class="text-center bg-primary">
-                                                    <h4>Interval</h4>
+                                                    <h4 class="mt-2">Interval</h4>
                                                 </td>
                                             </tr>
                                             @php
