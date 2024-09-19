@@ -86,7 +86,7 @@ class TimeTableController extends Controller
             }
         }
         ;
-        return redirect()->back()->with('Success', 'Time Table Added Successfully!');
+        return redirect()->route('view-time-table', $request->teacher)->with('Success', 'Time Table Added Successfully!');
     }
 
     public function editTimeTable($id = null)
@@ -190,12 +190,15 @@ class TimeTableController extends Controller
         $subject = Subject::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '1'])->get();
 
         $user = Auth::User();
+        $checkteacher = false;
         // dd($user);
         if ($user->role_name == 'Staff') {
             if (Custom::getStaffRole() == 'Assistant Teacher') {
                 $staff = Staff::where(['staff_name' => $user->name, 'email' => $user->email])->first();
                 $timetable = TimeTable::where(['school_id' => $school->id, 'academic_session' => $academic, 'staff_id' => $staff->id])->get();
                 $id = $staff->id;
+                $checkteacher = true;
+
             } else {
                 if ($id) {
                     $timetable = TimeTable::where(['school_id' => $school->id, 'academic_session' => $academic, 'staff_id' => $id])->get();
@@ -203,6 +206,7 @@ class TimeTableController extends Controller
                     $timetable = null;
                     $timetable = collect($timetable);
                 }
+                $checkteacher = false;
             }
         } else {
             if ($id) {
@@ -211,9 +215,10 @@ class TimeTableController extends Controller
                 $timetable = null;
                 $timetable = collect($timetable);
             }
+            $checkteacher = false;
         }
         $check = true;
 
-        return view('school.time-table.edit-time-table', compact('finalarray', 'staffList', 'subject', 'id', 'timetable','check'));
+        return view('school.time-table.edit-time-table', compact('finalarray', 'staffList', 'subject', 'id', 'timetable','check','checkteacher'));
     }
 }
