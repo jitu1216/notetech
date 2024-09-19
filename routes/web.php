@@ -43,8 +43,9 @@ use App\Http\Controllers\ExmaController;
 
 
 /** for side bar menu active */
-function set_active( $route ) {
-    if( is_array( $route ) ){
+function set_active($route)
+{
+    if (is_array($route)) {
         return in_array(Request::path(), $route) ? 'active' : '';
     }
     return Request::path() == $route ? 'active' : '';
@@ -54,19 +55,29 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::group(['middleware'=>'auth'],function()
-{
-    Route::get('home',function()
-    {
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('home', function () {
         return view('home');
     });
-    Route::get('home',function()
-    {
+    Route::get('home', function () {
         return view('home');
     });
 });
 
 Auth::routes();
+
+
+
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/clear', function () {
+        Artisan::call('config:clear');
+        Artisan::call('route:clear');
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        return 'All Config cache cleared!';
+    });
+});
 
 
 // ----------------------------Forgot Password ------------------------------//
@@ -90,7 +101,7 @@ Route::controller(LoginController::class)->group(function () {
 // ----------------------------- register -------------------------//
 Route::controller(RegisterController::class)->group(function () {
     Route::get('/register', 'register')->name('register');
-    Route::post('/register','storeUser')->name('register');
+    Route::post('/register', 'storeUser')->name('register');
 });
 
 // -------------------------- main dashboard ----------------------//
@@ -165,8 +176,8 @@ Route::controller(StudentController::class)->group(function () {
     Route::get('school/getschoolsubject', 'getSubject')->middleware('auth')->name('getschoolsubject');
     Route::get('school/pendinglist', 'pendingList')->middleware('auth')->name('pendinglist');
     Route::get('school/print/{id}', 'studentPrint')->middleware('auth')->name('printstudent');
-    Route::get('school/update-student/{id}','updateStudent')->middleware('auth')->name('updateStudent');
-    Route::post('school/update','updateStudentrecord')->middleware('auth')->name('update-student');
+    Route::get('school/update-student/{id}', 'updateStudent')->middleware('auth')->name('updateStudent');
+    Route::post('school/update', 'updateStudentrecord')->middleware('auth')->name('update-student');
     Route::get('school/studentlist/{id}', 'studentList')->middleware('auth')->name('studentlist');
     Route::get('school/printstudent/{id}', 'studentPrintmain')->middleware('auth')->name('printstd');
     Route::post('school/student-delete', 'deleteStudent')->middleware('auth')->name('deletestudent');
@@ -177,7 +188,7 @@ Route::controller(StudentController::class)->group(function () {
 });
 
 
-  // Fess //
+// Fess //
 
 Route::controller(FeesController::class)->group(function () {
 
@@ -267,7 +278,7 @@ Route::controller(ExmaController::class)->group(function () {
     Route::post('school/savescheme', 'savescheme')->middleware('auth')->name('savescheme');
     Route::get('school/edit-scheme/{id}', 'editscheme')->middleware('auth')->name('edit-scheme');
     Route::post('school/updatescheme', 'updatescheme')->middleware('auth')->name('updatescheme');
-    Route::get('school/removescheme/{id}','removescheme')->middleware('auth')->name('removescheme');
+    Route::get('school/removescheme/{id}', 'removescheme')->middleware('auth')->name('removescheme');
     Route::get('school/view-scheme/{text}', 'viewscheme')->middleware('auth')->name('view-scheme');
 
 });

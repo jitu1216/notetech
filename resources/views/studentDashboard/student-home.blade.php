@@ -1,21 +1,29 @@
 @extends('studentDashboard.layouts.master')
 @section('content')
     <style>
-       .owl-carousel {
-            position: relative; /* To position arrows relative to the carousel */
+        .owl-carousel {
+            position: relative;
+            /* To position arrows relative to the carousel */
         }
 
         /* Custom styles for navigation arrows */
         .owl-nav {
-            position: absolute; /* Position arrows absolutely */
-            top: 55%; /* Center vertically */
-            width: 100%; /* Full width to position arrows */
-            display: flex; /* Flex container for positioning arrows */
-            justify-content: space-between; /* Space out arrows */
-            transform: translateY(-50%); /* Adjust for vertical centering */
+            position: absolute;
+            /* Position arrows absolutely */
+            top: 55%;
+            /* Center vertically */
+            width: 100%;
+            /* Full width to position arrows */
+            display: flex;
+            /* Flex container for positioning arrows */
+            justify-content: space-between;
+            /* Space out arrows */
+            transform: translateY(-50%);
+            /* Adjust for vertical centering */
         }
 
-        .owl-nav .owl-prev, .owl-nav .owl-next {
+        .owl-nav .owl-prev,
+        .owl-nav .owl-next {
             background-color: #fff;
             color: #ffffff;
             line-height: 100px;
@@ -27,20 +35,25 @@
             transition: none;
         }
 
-        .owl-nav .owl-prev, .owl-nav .owl-next:hover {
-            background-color: #fff; /* Arrow background color */
+        .owl-nav .owl-prev,
+        .owl-nav .owl-next:hover {
+            background-color: #fff;
+            /* Arrow background color */
 
         }
 
         .owl-nav .owl-prev {
-            left: 10px; /* Position left arrow */
+            left: 10px;
+            /* Position left arrow */
         }
 
         .owl-nav .owl-next {
-            right: 10px; /* Position right arrow */
+            right: 10px;
+            /* Position right arrow */
         }
 
-        .owl-nav .owl-next span, .owl-prev span{
+        .owl-nav .owl-next span,
+        .owl-prev span {
             font-size: 50px;
             margin: 5px;
         }
@@ -48,14 +61,28 @@
         .background-image {
             background-size: cover;
             background-position: center;
-            height: 420px;
+            height: 620px;
             /* Full viewport height */
             display: flex;
             width: 100vw;
             align-items: center;
-            /* Center vertically */
+            position: relative;
             justify-content: center;
-            /* Center horizontally */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .background-image img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .content {
@@ -65,17 +92,16 @@
         }
     </style>
     <div class="owl-carousel owl-theme">
-       
+
         @foreach ($slider as $slideritem)
             <div class="item ">
-                
                 <div class="background-image">
-                    <img src="{{asset('slider/'.$slideritem->upload )}}" alt="slider image">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h1 class="text-white">{{ $slideritem->title}}</h1>
-                        <h2 class="text-white">{{ $slideritem->subtitle}}</h2>
-                        <p  class="text-white">{{ $slideritem->description}}</p>
-                    </div>
+                    <img src="{{ asset('slider/' . $slideritem->upload) }}" alt="slider image">
+                    {{-- <div class="carousel-caption d-none d-md-block">
+                        <h1 class="text-white">{{ $slideritem->title }}</h1>
+                        <h2 class="text-white">{{ $slideritem->subtitle }}</h2>
+                        <p class="text-white">{{ $slideritem->description }}</p>
+                    </div> --}}
                 </div>
             </div>
         @endforeach
