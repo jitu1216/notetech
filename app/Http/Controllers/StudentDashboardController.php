@@ -15,6 +15,7 @@ use App\Models\School;
 use App\Models\Subject;
 use App\Models\StudentFees;
 use App\Models\AcademicSession;
+use App\Models\slider;
 use Session;
 use Custom;
 use Auth;
@@ -22,7 +23,8 @@ use Auth;
 class StudentDashboardController extends Controller
 {
     public function index(){
-        return view('studentDashboard.student-home');
+        $slider = slider::get();
+        return view('studentDashboard.student-home',compact('slider'));
     }
 
     public function feesdeposite(){

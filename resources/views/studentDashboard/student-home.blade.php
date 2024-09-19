@@ -65,18 +65,20 @@
         }
     </style>
     <div class="owl-carousel owl-theme">
-        @for ($i = 0; $i < 3; $i++)
-            <div class="item">
-                <div class="background-image"
-                    style="background-image: url('https://picsum.photos/1280/1080?random={{ $i }}');">
-                    <div class="content">
-                        {{-- <h1 class="display-4">ty</h1>
-                    <h2 class="display-5">yfty</h2>
-                    <p class="lead">gyu</p> --}}
+       
+        @foreach ($slider as $slideritem)
+            <div class="item ">
+                
+                <div class="background-image">
+                    <img src="{{asset('slider/'.$slideritem->upload )}}" alt="slider image">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1 class="text-white">{{ $slideritem->title}}</h1>
+                        <h2 class="text-white">{{ $slideritem->subtitle}}</h2>
+                        <p  class="text-white">{{ $slideritem->description}}</p>
                     </div>
                 </div>
             </div>
-        @endfor
+        @endforeach
     </div>
     <div class="page-wrapper" style="margin: 0px; padding-top:10px;">
         <div class="content container-fluid">

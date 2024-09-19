@@ -20,6 +20,7 @@ use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\TimeTableController;
+use App\Http\Controllers\ExmaController;
 
 
 
@@ -258,10 +259,19 @@ Route::controller(SliderController::class)->group(function () {
     Route::get('school/editslider/{id}', 'edit')->name('editslider');
     Route::post('school/editslider/updateslider/{id}', 'updateslider')->middleware('auth')->name('updateslider');
     Route::get('school/removeslider/{id}', 'removeslider')->name('removeslider');
+});
 
-
+Route::controller(ExmaController::class)->group(function () {
+    Route::get('school/exam_list', 'exam_list')->middleware('auth')->name('exam_list');
+    Route::get('school/add-scheme', 'addscheme')->middleware('auth')->name('add-scheme');
+    Route::post('school/savescheme', 'savescheme')->middleware('auth')->name('savescheme');
+    Route::get('school/edit-scheme/{id}', 'editscheme')->middleware('auth')->name('edit-scheme');
+    Route::post('school/updatescheme', 'updatescheme')->middleware('auth')->name('updatescheme');
+    Route::get('school/removescheme/{id}','removescheme')->middleware('auth')->name('removescheme');
+    Route::get('school/view-scheme/{text}', 'viewscheme')->middleware('auth')->name('view-scheme');
 
 });
+
 
 
 Route::middleware('auth')->controller(AttendanceController::class)->group(function () {

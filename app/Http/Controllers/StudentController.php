@@ -18,6 +18,7 @@ use Session;
 use Custom;
 use Auth;
 
+
 class StudentController extends Controller
 {
     // index page student list
