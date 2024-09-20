@@ -302,11 +302,11 @@ Route::middleware('auth')->controller(AttendanceController::class)->group(functi
 
 
 Route::middleware('auth')->controller(TimeTableController::class)->group(function () {
-    Route::get('school/add-time-table', 'addTimeTable')->name('school/add-time-table');
-    Route::get('school/edit-time-table/{id?}', 'editTimeTable')->name('school/edit-time-table');
+    Route::get('school/add-time-table', 'addTimeTable')->name('add-time-table');
+    Route::get('school/edit-time-table/{id?}', 'editTimeTable')->name('edit-time-table');
     Route::post('school/save-time-table', 'saveTimeTable')->name('save-time-table');
     Route::post('school/update-time-table', 'updateTimeTable')->name('update-time-table');
-    Route::get('school/view-time-table/{id?}', 'viewTimeTable')->name('school/view-time-table');
+    Route::get('school/view-time-table/{id?}', 'viewTimeTable')->name('view-time-table');
 
 });
 

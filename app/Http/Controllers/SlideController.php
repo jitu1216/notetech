@@ -18,14 +18,16 @@ use App\Models\StudentFees;
 use App\Models\AcademicSession;
 use App\Models\slider;
 use Session;
-use Custom;
+use App\Helper\Custom;
 use Auth;
 
 class SlideController extends Controller
 {
     public function slider()
     {
-        $slider = slider::all();
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $slider = slider::where(['academic_session' => $academic, 'school_id' => $school->id])->get();
         return view('school.slider.slider', compact('slider'));
     }
     public function create()
