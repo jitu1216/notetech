@@ -18,16 +18,16 @@
                     <div class="card common-shadow">
                         <div class="card-header">
                             <h3 class="Info">
-                                 <a href="{{ 'exam_list' }}" class="btn btn-primary">
+                                <a href="{{ route('exam_list') }}" class="btn btn-primary">
                                     <i class="fas fa-back"></i>Back</a>
                             </h3>
                             @if (session('status'))
-                            <h5 class="alert alert-success">{{ session('status') }}</h5>
-                        @endif
+                                <h5 class="alert alert-success">{{ session('status') }}</h5>
+                            @endif
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <form action="{{ route ('savescheme')}}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('savescheme') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="col-12">
                                         <div class="row">
@@ -38,8 +38,21 @@
                                                         class="form-control select  @error('exam_type') is-invalid @enderror"
                                                         name="exam_type">
                                                         <option selected disabled>Select Exam Type </option>
-                                                        <option value="Half Yearly" {{ old('exam_type') == 'Half Yearly' ? 'selected' : '' }}>Half Yearly Exam</option>
-                                                        <option value="Annual"  {{ old('exam_type') == 'Annual' ? 'selected' : '' }}>Annual Exam</option>
+                                                        <option value="Text Exam"
+                                                            {{ old('exam_type') == 'Text Exam' ? 'selected' : '' }}>Test
+                                                            Exam</option>
+                                                        <option value="Monthly Exam"
+                                                            {{ old('exam_type') == 'Monthly Exam' ? 'selected' : '' }}>
+                                                            Monthly Exam</option>
+                                                        <option value="Quarterly Exam"
+                                                            {{ old('exam_type') == 'Quarterly Exam' ? 'selected' : '' }}>
+                                                            Quarterly Exam</option>
+                                                        <option value="Half Yearly"
+                                                            {{ old('exam_type') == 'Half Yearly' ? 'selected' : '' }}>Half
+                                                            Yearly Exam</option>
+                                                        <option value="Annual"
+                                                            {{ old('exam_type') == 'Annual' ? 'selected' : '' }}>Annual Exam
+                                                        </option>
                                                     </select>
                                                     @error('exam_type')
                                                         <span class="invalid-feedback" role="alert">
@@ -54,10 +67,13 @@
                                                     <select
                                                         class="form-control select  @error('exam_class') is-invalid @enderror"
                                                         name="exam_class">
-                                                        <option selected disabled>Select Class </option>
-                                                        <option value="N.C. To K.G." {{ old('exam_class') == 'N.C. To K.G.' ? 'selected' : '' }}>Class N.C. to K.G.</option>
-                                                        <option value="1 To 10" {{ old('exam_class') == '1 To 10' ? 'selected' : '' }}>Class 1 to 10</option>
-                                                        <option value="11 To 12" {{ old('exam_class') == '11 To 12' ? 'selected' : '' }}>Class 11 to 12</option>
+                                                        <option selected disabled >Select Class </option>
+                                                        @foreach ($scheme_header as $value)
+                                                            <option value="{{ $value['exam_header'] }}"
+                                                                {{ old('exam_class') == $value['exam_header'] ? 'selected' : '' }}>
+                                                                {{ $value['exam_header'] }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                     @error('exam_class')
                                                         <span class="invalid-feedback" role="alert">
@@ -72,7 +88,7 @@
                                                     <input type="text"
                                                         class="form-control datetimepicker @error('exam_date') is-invalid @enderror"
                                                         placeholder="DD-MM-YYYY" name="exam_date"
-                                                        value="{{ old('exam_date')}}">
+                                                        value="{{ old('exam_date') }}">
                                                     @error('exam_date')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -83,8 +99,10 @@
                                             <div class="col-12 col-sm-6">
                                                 <div class="form-group local-forms">
                                                     <label>Subject<span class="login-danger">*</span></label>
-                                                    <input type="text" class="form-control @error('exam_subject') is-invalid @enderror" name="exam_subject"
-                                                        placeholder="Enter Subject Name" value="{{ old('exam_subject')}}" id="">
+                                                    <input type="text"
+                                                        class="form-control @error('exam_subject') is-invalid @enderror"
+                                                        name="exam_subject" placeholder="Enter Subject Name"
+                                                        value="{{ old('exam_subject') }}" id="">
                                                     @error('exam_subject')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>

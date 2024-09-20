@@ -20,7 +20,7 @@
                         <a href="{{ route('student') }}"><i class="fas fa-table"></i> <span>DASHBOARD</span></a>
                     </li>
                     <li>
-                        <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>FEES</span></a>
+                        <a href="#"><i class="fas fa-holly-berry"></i> <span>FEES</span></a>
                         <i class='bx bxs-chevron-down htmlcss-arrow arrow '></i>
                         <ul class="htmlCss-sub-menu sub-menu">
                             <li><a href="">Fees Info</a></li>
@@ -31,7 +31,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>STUDENT</span></a>
+                        <a href="#"><i class="fas fa-holly-berry"></i> <span>STUDENT</span></a>
                         <i class='bx bxs-chevron-down htmlcss-arrow arrow '></i>
                         <ul class="htmlCss-sub-menu sub-menu">
                             <li><a href="{{ route('student_profile') }}">Profile</a></li>
@@ -48,7 +48,7 @@
                         <a href="time-table.html"><i class="fas fa-table"></i> <span>NOTICE BOARD</span></a>
                     </li>
                     <li>
-                        <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>DOWNLOAD</span></a>
+                        <a href="#"><i class="fas fa-holly-berry"></i> <span>DOWNLOAD</span></a>
                         <i class='bx bxs-chevron-down htmlcss-arrow arrow '></i>
                         <ul class="htmlCss-sub-menu sub-menu">
                             <li><a href="">Id Card</a></li>
@@ -58,7 +58,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>WORK</span></a>
+                        <a href="#"><i class="fas fa-holly-berry"></i> <span>WORK</span></a>
                         <i class='bx bxs-chevron-down htmlcss-arrow arrow '></i>
                         <ul class="htmlCss-sub-menu sub-menu">
                             <li><a href="">Class work</a></li>
@@ -69,7 +69,7 @@
                     </li>
                     <li>
                     <li>
-                        <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>INSTITUTE</span></a>
+                        <a href="#"><i class="fas fa-holly-berry"></i> <span>INSTITUTE</span></a>
                         <i class='bx bxs-chevron-down htmlcss-arrow arrow '></i>
                         <ul class="htmlCss-sub-menu sub-menu">
                             <li><a href="">Gallery</a></li>

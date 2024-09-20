@@ -13,6 +13,7 @@ use App\Models\StudentFees;
 use App\Models\SchoolClass;
 use App\Models\AcademicSession;
 use App\Models\ExamScheme;
+use App\Models\SchemeHeader;
 use Session;
 use Custom;
 use Auth;
@@ -26,7 +27,10 @@ class ExmaController extends Controller
 
     public function addscheme()
     {
-        return view('school.exam-scheme.add-scheme');
+        $school = Custom::getschool();
+        $academic = Session::get('academic_session');
+        $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->get();
+        return view('school.exam-scheme.add-scheme', compact('scheme_header'));
     }
     public function savescheme(Request $request){
       
@@ -97,12 +101,13 @@ class ExmaController extends Controller
     }
 
 
-    public function viewscheme($text){
-
+    public function viewtestscheme($text){
+        // dd($request);
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
         $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->get();
+        $scheme = ExamScheme::find($text);
+        return view('school.exam-scheme.view-test-scheme',compact('scheme'));
         
-        dd($scheme);
     }
 }

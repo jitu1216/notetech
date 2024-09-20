@@ -21,6 +21,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\SlideController;
 use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\ExmaController;
+use App\Http\Controllers\SchemeHeaderController;
 
 
 
@@ -279,7 +280,16 @@ Route::controller(ExmaController::class)->group(function () {
     Route::get('school/edit-scheme/{id}', 'editscheme')->middleware('auth')->name('edit-scheme');
     Route::post('school/updatescheme', 'updatescheme')->middleware('auth')->name('updatescheme');
     Route::get('school/removescheme/{id}', 'removescheme')->middleware('auth')->name('removescheme');
-    Route::get('school/view-scheme/{text}', 'viewscheme')->middleware('auth')->name('view-scheme');
+    Route::get('school/view-test-scheme/{text}', 'viewtestscheme')->middleware('auth')->name('view-test-scheme');
+
+});
+Route::controller(SchemeHeaderController::class)->group(function () {
+    Route::get('school/scheme-class-list', 'scheme_list')->middleware('auth')->name('scheme_list');
+    Route::get('school/add-scheme-class', 'addclass')->middleware('auth')->name('add-class');
+    Route::post('school/saveclass', 'saveclass')->middleware('auth')->name('saveclass');
+    Route::get('school/edit-scheme-class/{id}', 'editclass')->middleware('auth')->name('edit-class');
+    Route::post('school/updateclass', 'updateclass')->middleware('auth')->name('updateclass');
+    Route::get('school/removeclass/{id}', 'removeclass')->middleware('auth')->name('removeclass');
 
 });
 

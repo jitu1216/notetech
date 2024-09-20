@@ -37,8 +37,11 @@
                                                         <label>Exam Type<span class="login-danger">*</span></label>
                                                         <select
                                                             class="form-control select  @error('exam_type') is-invalid @enderror"
-                                                            name="exam_type" value="{{-- $item->exam_type --}}">
+                                                            name="exam_type">
                                                             <option selected disabled>Select Exam Type </option>
+                                                            <option value="Text Exam"  {{ $item->exam_type == 'Text Exam' ? 'selected' : '' }}>Test Exam</option>
+                                                            <option value="Monthly Exam"  {{ $item->exam_type == 'Monthly Exam' ? 'selected' : '' }}>Monthly Exam</option>
+                                                            <option value="Quarterly Exam"  {{ $item->exam_type == 'Quarterly Exam' ? 'selected' : '' }}>Quarterly Exam</option>
                                                             <option value="Half Yearly" {{ $item->exam_type == 'Half Yearly' ? 'selected' : '' }}>Half Yearly Exam</option>
                                                             <option value="Annual"  {{ $item->exam_type == 'Annual' ? 'selected' : '' }}>Annual Exam</option>
                                                         </select>
@@ -56,10 +59,10 @@
                                                             class="form-control
                                                             select @error('exam_class') is-invalid @enderror"
                                                             name="exam_class">
-                                                            <option selected disabled>Select Class </option>
-                                                            <option value="N.C. To K.G." {{ $item->exam_class == 'N.C. To K.G.' ? 'selected' : '' }}>Class N.C. to K.G.</option>
-                                                            <option value="1 To 10" {{ $item->exam_class == '1 To 10' ? 'selected' : '' }}>Class 1 to 10</option>
-                                                            <option value="11 To 12" {{ $item->exam_class == '11 To 12' ? 'selected' : '' }}>Class 11 to 12</option>
+                                                            {{-- <option selected disabled>Select Class </option> --}}
+                                                            <option value="{{ $item->exam_class == $item['exam_class'] ? 'selected' : '' }}" >
+                                                            {{ $item->exam_class }}
+                                                        </option>
                                                         </select>
                                                         @error('exam_class')
                                                             <span class="invalid-feedback" role="alert">

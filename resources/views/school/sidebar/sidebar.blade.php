@@ -191,8 +191,7 @@
                                         href="{{ route('add-subject') }}">Add Subject</a></li>
                                 <li><a class="{{ set_active(['school/slider']) }}"
                                         href="{{ route('slider') }}">Slider</a></li>
-                                <li><a class="{{ set_active(['school/slider']) }}"
-                                        href="{{ route('exam_list') }}">Exam Scheme</a></li>
+                             
                             @endif
 
 
@@ -329,6 +328,54 @@
                                         Attendance Record</a></li>
                                 <li><a class="{{ set_active(['school/holiday-list']) }}"
                                         href="{{ route('school/holiday-list') }}">Holiday List</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                    <li class="{{ set_active(['school/class', 'school/add-class']) }}">
+                        <a href="#"><i class="fas fa-building"></i>
+                            <span>EXAM</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <i class='bx bxs-chevron-down htmlcss-arrow arrow '></i>
+                        <ul class="htmlCss-sub-menu sub-menu">
+                            @if (Custom::getUser()->role_name == 'Staff')
+                                {{-- @if (in_array('115', Custom::getStaffPower()))
+                                    <li><a class="{{ set_active(['school/class']) }}"
+                                            href="{{ route('schoolClass') }}">Class
+                                            List</a></li>
+                                    <li><a class="{{ set_active(['school/add-class']) }}"
+                                            href="{{ route('add-class') }}">Add
+                                            Class</a></li>
+                                    <li><a class="{{ set_active(['school/subject']) }}"
+                                            href="{{ route('schoolsubject') }}">Subject List</a></li>
+                                    <li><a class="{{ set_active(['school/add-subject']) }}"
+                                            href="{{ route('add-subject') }}">Add Subject</a></li>
+                                @else
+                                    <li><a class="{{ set_active(['school/class']) }} popup"
+                                            href="javascript:void(0)">Class
+                                            List</a></li>
+                                    <li><a class="{{ set_active(['school/add-class']) }} popup"
+                                            href="javascript:void(0)">Add
+                                            Class</a></li>
+                                    <li><a class="{{ set_active(['school/subject']) }} popup"
+                                            href="javascript:void(0)">Subject List</a></li>
+                                    <li><a class="{{ set_active(['school/add-subject']) }} popup"
+                                            href="javascript:void(0)">Add Subject</a></li>
+                                @endif --}}
+                            @else
+                            <li><a class="{{-- set_active(['school/exam_list']) --}}"
+                                href="{{ route('scheme_list') }}">Add Exam scheme
+                                Class</a></li>
+                                <li><a class="{{-- set_active(['school/exam_list']) --}}"
+                                href="{{ route('exam_list') }}">Add Exam Scheme</a></li>
+                                {{-- <li><a class="{{-- set_active(['school/subject']) }}"
+                                        href="{{ route('schoolsubject') }}">Test Scheme</a></li>
+                                <li><a class="{{-- set_active(['school/add-subject']) }}"
+                                        href="{{ route('add-subject') }}">Monthly Scheme</a></li>
+                                <li><a class="{{ set_active(['school/slider']) }}"
+                                        href="{{ route('slider') }}">Quaterly Scheme</a></li>
+                                <li><a class="{{ set_active(['school/slider']) }}"
+                                        href="{{ route('exam_list') }}">Half Yearly Exam Scheme</a></li> --}}
                             @endif
                         </ul>
                     </li>
