@@ -35,7 +35,7 @@
                                 </div>
 
                                 <div class="form-group local-from">
-                                    <label for="">Slider Image Upload<span class="login-danger">*</span></label>
+                                    <label for="">Upload Slider Image ( W=1280px X H=520px)<span class="login-danger">*</span></label>
                                     <input type="file" name="upload"
                                         class="form-control @error('upload') is-invalid @enderror" placeholder="Enter text"
                                         id="">

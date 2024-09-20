@@ -61,10 +61,8 @@
         .background-image {
             background-size: cover;
             background-position: center;
-            height: 620px;
-            /* Full viewport height */
+            aspect-ratio: 16 / 6.5 !important;
             display: flex;
-            width: 100vw;
             align-items: center;
             position: relative;
             justify-content: center;

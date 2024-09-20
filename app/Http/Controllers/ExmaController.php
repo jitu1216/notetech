@@ -14,13 +14,16 @@ use App\Models\SchoolClass;
 use App\Models\AcademicSession;
 use App\Models\ExamScheme;
 use Session;
-use Custom;
+use App\Helper\Custom;
 use Auth;
 use Carbon\Carbon;
 class ExmaController extends Controller
 {
     public function exam_list(){
-        $scheme = ExamScheme::all();
+
+        $school = Custom::getschool();
+        $academic = Session::get('academic_session');
+        $scheme = ExamScheme::where(['academic_session' => $academic, 'school_id' => $school->id])->get();;
         return view('school.exam-scheme.exam_list', compact('scheme'));
     }
 
@@ -29,7 +32,7 @@ class ExmaController extends Controller
         return view('school.exam-scheme.add-scheme');
     }
     public function savescheme(Request $request){
-      
+
         // dd($request);
         $request->validate([
             'exam_date' => 'required',
@@ -59,8 +62,8 @@ class ExmaController extends Controller
     }
 
     public function updatescheme(Request $request){
-      
-       
+
+
         $request->validate([
             'exam_date' => 'required',
             'exam_type' => 'required',
@@ -87,7 +90,7 @@ class ExmaController extends Controller
     }
     public function removescheme($id){
         $record = ExamScheme::find($id);
-    
+
         if ($record) {
             $record->delete();
             return redirect()->route('exam_list')->with('Success', 'Scheme Deleted Successfully!');
@@ -102,7 +105,7 @@ class ExmaController extends Controller
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
         $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->get();
-        
+
         dd($scheme);
     }
 }

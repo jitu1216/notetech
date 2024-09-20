@@ -114,10 +114,13 @@
                 border: solid rgb(158, 158, 158) 1px;
                 /* padding: 0; */
             }
-            .table tr td{
+
+            .table tr td {
                 padding: 0;
-                text-align: center; /* Centers horizontally */
-                vertical-align: middle; /* Centers vertically */
+                text-align: center;
+                /* Centers horizontally */
+                vertical-align: middle;
+                /* Centers vertically */
             }
 
             .form-control {
@@ -149,7 +152,15 @@
                 border-color: white !important;
             }
 
-            footer{
+            footer {
+                display: none;
+            }
+
+            .page-header {
+                margin-top: -60px;
+            }
+
+            #printbtn {
                 display: none;
             }
         }
@@ -192,12 +203,14 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
+                        @if ($check)
+                            <a id="printbtn" href="" class=" btn btn-primary" style="margin-left:20px;">Print</a>
+                        @endif
                         <div class="form-group">
                             <h3 class="page-title text-center">
                                 @if (!$check)
                                     Add Time Table
                                 @endif
-
                             </h3>
                         </div>
                     </div>
@@ -211,14 +224,15 @@
                                     value="{{ $timetable->isNotEmpty() ? 'true' : 'false' }}">
                                 <input type="text" name="id" value="{{ $id != null ? $id : '' }}" hidden>
 
-                                <select {{ $checkteacher ? 'disabled' : ''}} name="teacher" class="form-control @error('teacher') is-invalid @enderror"
-                                    id="teacher">
+                                <select {{ $checkteacher ? 'disabled' : '' }} name="teacher"
+                                    class="form-control @error('teacher') is-invalid @enderror" id="teacher">
                                     <option value="" selected> Select Teacher</option>
                                     @foreach ($staffList as $value)
                                         @if ($id)
                                             <option value="{{ $value->id }}"{{ $id == $value->id ? 'selected' : '' }}>
                                                 {{ $check ? 'Teacher Name :- ' : '' }} {{ $value->staff_name }}
-                                                ({{ $value->staff_code }})</option>
+                                                ({{ $value->staff_code }})
+                                            </option>
                                         @else
                                             <option
                                                 value="{{ $value->id }}"{{ old('teacher') == $value->id ? 'selected' : '' }}>
@@ -441,6 +455,11 @@
 
 
             }
+
+            $('#printbtn').on('click', function() {
+                event.preventDefault();
+                window.print()
+            });
 
             $('td.is-invalid').each(function() {
                 console.log('Get');

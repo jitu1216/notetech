@@ -29,13 +29,19 @@ class TimeTableController extends Controller
     public function saveTimeTable(Request $request)
     {
 
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+
 
         $request->validate([
             'teacher' => 'required'
         ]);
 
-        $school = Custom::getSchool();
-        $academic = Session::get('academic_session');
+        $gettimetable = TimeTable::where(['school_id' => $school->id, 'academic_session'=> $academic, 'staff_id' => $request->teacher])->get();
+
+        if($gettimetable->isNotEmpty()){
+            return redirect()->route('edit-time-table', $request->teacher);
+        }
 
         // dd($request);
         if (!empty($request->subject) || !empty($request->class) || !empty($request->time)) {
@@ -46,12 +52,16 @@ class TimeTableController extends Controller
                             // return redirect()->back()->withInput();
                             $errors['subject.' . $i] = 'Subject is required' . ($i + 1);
                         }
+                    }else{
+                        $errors['subject.' . $i] = 'Subject is required' . ($i + 1);
                     }
                     if (!empty($request->class)) {
                         if (!array_key_exists($i, $request->class)) {
                             // return redirect()->back()->withInput();
                             $errors['class.' . $i] = 'Class is required' . ($i + 1);
                         }
+                    }else{
+                        $errors['class.' . $i] = 'Subject is required' . ($i + 1);
                     }
                     if (!$request->time[$i]) {
                         $errors['time.' . $i] = 'Time is required' . ($i + 1);
@@ -66,6 +76,7 @@ class TimeTableController extends Controller
             return redirect()->back()->withInput();
         }
 
+        // dd($request);
         $classess = [];
         $subject = [];
 
@@ -105,9 +116,10 @@ class TimeTableController extends Controller
         }
         // dd($timetable);
         $check = false;
+        $checkteacher = false;
 
 
-        return view('school.time-table.edit-time-table', compact('finalarray', 'staffList', 'subject', 'id', 'timetable','check'));
+        return view('school.time-table.edit-time-table', compact('finalarray', 'staffList', 'subject', 'id', 'timetable','check','checkteacher'));
     }
 
     public function updateTimeTable(Request $request)
@@ -129,12 +141,16 @@ class TimeTableController extends Controller
                             // return redirect()->back()->withInput();
                             $errors['subject.' . $i] = 'Subject is required' . ($i + 1);
                         }
+                    }else{
+                        $errors['subject.' . $i] = 'Subject is required' . ($i + 1);
                     }
                     if (!empty($request->class)) {
                         if (!array_key_exists($i, $request->class)) {
                             // return redirect()->back()->withInput();
                             $errors['class.' . $i] = 'Class is required' . ($i + 1);
                         }
+                    }else{
+                        $errors['class.' . $i] = 'Subject is required' . ($i + 1);
                     }
                     if (!$request->time[$i]) {
                         $errors['time.' . $i] = 'Time is required' . ($i + 1);

@@ -19,7 +19,10 @@ class SchoolDashboardController extends Controller
 {
 
     public function index(){
-        $slider = slider::get();
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $slider = slider::where(['academic_session' => $academic, 'school_id' => $school->id])->get();
         if(!Session::get('academic_session')){
             $nextyear = substr(date("Y"), -2) + 1;
                 $year = date("Y").'-'.$nextyear;
