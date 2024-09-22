@@ -133,11 +133,11 @@
         display: block;
     }
 
-    #menu .open{
+    #menu .open {
         display: block;
     }
 
-    #menu .sub-menu .open{
+    #menu .sub-menu .open {
         display: block;
     }
 
@@ -448,7 +448,7 @@
     }
 
     @media print {
-        #menu{
+        #menu {
             display: none;
         }
     }
@@ -705,8 +705,8 @@
                                         href="javascript:void(0)">Add Time Table</a></li>
                                 <li><a class="{{ set_active(['school/add-time-table']) }} popup"
                                         href="javascript:void(0)">Edit Time Table</a></li>
-                                <li><a class="{{ set_active(['school/add-time-table']) }} popup"
-                                        href="javascript:void(0)">Print Time Table</a></li>
+                                <li><a class="{{ set_active(['school/add-time-table']) }}"
+                                        href="{{ route('view-time-table') }}">Print Time Table</a></li>
                             </ul>
                         </li>
                     @endif

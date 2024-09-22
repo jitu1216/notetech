@@ -15,6 +15,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
 use App\Rules\MatchOldPassword;
+use App\Helper\Custom;
 
 class LoginController extends Controller
 {
@@ -67,7 +68,10 @@ class LoginController extends Controller
 
         $remember_me = $request->has('remember_me') ? true : false;
 
-        // dd($request);
+        $academic = Session::get('academic_session');
+        if($academic == null){
+            $academic = Custom::academicSession();
+        }
 
         DB::beginTransaction();
         try {
