@@ -261,8 +261,10 @@
                                 @if ($timetable->isNotEmpty())
                                     @php
                                         $k = 0;
+                                        $count = $timetable->count();
+                                        $count = $count + 1;
                                     @endphp
-                                    @for ($i = 1; $i <= $timetable->count(); $i++)
+                                    @for ($i = 1; $i <= $count; $i++)
                                             @php
                                                 $time = $timetable[$k];
                                                 $k++;
@@ -381,6 +383,7 @@
             var isNotEmpty = $('#timetableStatus').val();
             // alert(isNotEmpty);
             if (isNotEmpty != 'false') {
+                var isNotEmpty = isNotEmpty + 1;
                 for (let i = 1; i <= isNotEmpty; i++) {
                     if (i != 5) {
                         new MultiSelectTag('subject_' + i, {
