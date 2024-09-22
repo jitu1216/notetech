@@ -7,6 +7,7 @@ use App\Models\Staff;
 use App\Helper\Custom;
 use App\Models\Subject;
 use App\Models\TimeTable;
+use App\Models\School;
 use Session;
 use Auth;
 
@@ -33,8 +34,10 @@ class TimeTableController extends Controller
         $academic = Session::get('academic_session');
 
 
+        // dd($request);
         $request->validate([
-            'teacher' => 'required'
+            'teacher' => 'required',
+            'interval' => 'required'
         ]);
 
         $gettimetable = TimeTable::where(['school_id' => $school->id, 'academic_session'=> $academic, 'staff_id' => $request->teacher])->get();
@@ -94,9 +97,12 @@ class TimeTableController extends Controller
                 $time->class_id = $classess;
                 $time->subjects = $subject;
                 $time->save();
+            }else{
+                $getSchool = School::find($school->id);
+                $getSchool->interval_time = $request->interval;
+                $getSchool->update();
             }
-        }
-        ;
+        };
         return redirect()->route('view-time-table', $request->teacher)->with('Success', 'Time Table Added Successfully!');
     }
 
@@ -109,7 +115,7 @@ class TimeTableController extends Controller
 
         $subject = Subject::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '1'])->get();
         if ($id) {
-            $timetable = TimeTable::where(['school_id' => $school->id, 'academic_session' => $academic, 'staff_id' => $id])->get();
+            $timetable = TimeTable::where(['school_id' => $school->id, 'academic_session' => $academic, 'staff_id' => $id])->orderBy('id', 'ASC')->get();
         } else {
             $timetable = null;
             $timetable = collect($timetable);
@@ -119,14 +125,15 @@ class TimeTableController extends Controller
         $checkteacher = false;
 
 
-        return view('school.time-table.edit-time-table', compact('finalarray', 'staffList', 'subject', 'id', 'timetable','check','checkteacher'));
+        return view('school.time-table.edit-time-table', compact('finalarray', 'staffList', 'subject', 'id', 'timetable','check','checkteacher','school'));
     }
 
     public function updateTimeTable(Request $request)
     {
 
         $request->validate([
-            'teacher' => 'required'
+            'teacher' => 'required',
+            'interval' => 'required'
         ]);
 
         $school = Custom::getSchool();
@@ -171,7 +178,7 @@ class TimeTableController extends Controller
         // dd($request);
 
 
-        for ($i = 1; $i <= 9; $i++) {
+        for ($i = 1; $i <= $request->total; $i++) {
 
             if ($i != 5) {
                 $time = TimeTable::find($request->row[$i]);
@@ -187,6 +194,10 @@ class TimeTableController extends Controller
                 $time->subjects = $subject;
                 // dd($time);
                 $time->update();
+            }else{
+                $getSchool = School::find($school->id);
+                $getSchool->interval_time = $request->interval;
+                $getSchool->update();
             }
         }
         ;
@@ -211,13 +222,13 @@ class TimeTableController extends Controller
         if ($user->role_name == 'Staff') {
             if (Custom::getStaffRole() == 'Assistant Teacher') {
                 $staff = Staff::where(['staff_name' => $user->name, 'email' => $user->email])->first();
-                $timetable = TimeTable::where(['school_id' => $school->id, 'academic_session' => $academic, 'staff_id' => $staff->id])->get();
+                $timetable = TimeTable::where(['school_id' => $school->id, 'academic_session' => $academic, 'staff_id' => $staff->id])->orderBy('id', 'ASC')->get();
                 $id = $staff->id;
                 $checkteacher = true;
 
             } else {
                 if ($id) {
-                    $timetable = TimeTable::where(['school_id' => $school->id, 'academic_session' => $academic, 'staff_id' => $id])->get();
+                    $timetable = TimeTable::where(['school_id' => $school->id, 'academic_session' => $academic, 'staff_id' => $id])->orderBy('id', 'ASC')->get();
                 } else {
                     $timetable = null;
                     $timetable = collect($timetable);
@@ -226,7 +237,7 @@ class TimeTableController extends Controller
             }
         } else {
             if ($id) {
-                $timetable = TimeTable::where(['school_id' => $school->id, 'academic_session' => $academic, 'staff_id' => $id])->get();
+                $timetable = TimeTable::where(['school_id' => $school->id, 'academic_session' => $academic, 'staff_id' => $id])->orderBy('id', 'ASC')->get();
             } else {
                 $timetable = null;
                 $timetable = collect($timetable);
@@ -235,6 +246,6 @@ class TimeTableController extends Controller
         }
         $check = true;
 
-        return view('school.time-table.edit-time-table', compact('finalarray', 'staffList', 'subject', 'id', 'timetable','check','checkteacher'));
+        return view('school.time-table.edit-time-table', compact('finalarray', 'staffList', 'subject', 'id', 'timetable','check','checkteacher','school'));
     }
 }

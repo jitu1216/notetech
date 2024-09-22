@@ -1,6 +1,41 @@
 @extends('school.layouts.master')
 @section('content')
     <style>
+        .form-control.datetimepicker-input.timepicker {
+            position: relative;
+            padding-right: 50px;
+            padding-left: 10px;
+            font-size: 14px;
+            height: 38px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            box-shadow: none;
+            background-color: #fff;
+        }
+
+        /* Style for the clock icon (if you're using one) */
+        .form-control.datetimepicker-input.timepicker::after {
+            content: '\f017' !important;
+            font-family: "FontAwesome";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #6c757d;
+            pointer-events: none;
+        }
+
+        .form-control.datetimepicker-input.timepicker:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+        }
+
+        .form-control.datetimepicker-input.timepicker::placeholder {
+            color: #6c757d;
+            opacity: 1;
+        }
+
+
+
         body {
             overflow: scroll !important;
         }
@@ -49,7 +84,7 @@
 
         }
 
-        .need{
+        .need {
             border: solid red 1px;
         }
 
@@ -140,21 +175,43 @@
                                 @for ($i = 1; $i <= 10; $i++)
                                     @if ($i == 5)
                                         <tr>
-                                            <td colspan="4" class="text-center bg-primary">
-                                                <h4>Interval</h4>
+                                            <td colspan="4" class="text-center" style="background-color: #d1e7dd">
+                                                <div
+                                                    class="w-100 d-flex flex-column align-items-center justify-content-center  mb-2">
+                                                    <label>Enter Interval Time</label>
+                                                    <input
+                                                        class=" w-25 form-control @error('interval') is-invalid @enderror"
+                                                        name="interval" type="text" placeholder="12:00 To 01:00"
+                                                        id="sundaydate" value="{{ old('interval') }}">
+                                                    @error('interval')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                {{-- <h4>Interval</h4> --}}
                                             </td>
                                         </tr>
                                     @else
                                         <tr>
                                             <td>{{ $i }}</td>
                                             <td><input
-                                                    class="form-control {{ $errors->has('time.' . $i) ? 'is-invalid' : '' }} "
+                                                    class="form-control datetimepicker-input timepicker {{ $errors->has('time.' . $i) ? 'is-invalid' : '' }} "
                                                     type="text" name="time[{{ $i }}]"
-                                                    value="{{ old('time.' . $i) }}" placeholder="Enter Time"></td>
+                                                    value="{{ old('time.' . $i) }}" placeholder="Enter Time" data-toggle="datetimepicker" data-target=".timepicker">
+                                                </td>
                                             <td class="{{ $errors->has('class.' . $i) ? 'is-invalid' : '' }}"> <select
                                                     class="form-control" name="class[{{ $i }}][]" multiple
                                                     id="classlist_{{ $i }}">
 
+                                                    <option value="New Class"
+                                                        {{ collect(old('class.' . $i, []))->contains('New Class') ? 'selected' : '' }}>
+                                                        {{ 'New Class' }}
+                                                    </option>
+                                                    <option value="Nill"
+                                                        {{ collect(old('class.' . $i, []))->contains('Nill') ? 'selected' : '' }}>
+                                                        {{ 'Nill' }}
+                                                    </option>
                                                     @foreach ($finalarray as $value)
                                                         <option value="{{ $value['id'] }}"
                                                             {{ collect(old('class.' . $i, []))->contains($value['id']) ? 'selected' : '' }}>
@@ -167,7 +224,22 @@
                                                     class="form-control {{ $errors->has('subject.' . $i) ? 'is-invalid' : '' }}"
                                                     name="subject[{{ $i }}][]" id="subject_{{ $i }}"
                                                     multiple="multiple">
-
+                                                    <option value="Practical"
+                                                        {{ collect(old('class.' . $i, []))->contains('Practical') ? 'selected' : '' }}>
+                                                        {{ 'Practical' }}
+                                                    </option>
+                                                    <option value="Activities"
+                                                        {{ collect(old('class.' . $i, []))->contains('Activities') ? 'selected' : '' }}>
+                                                        {{ 'Activities' }}
+                                                    </option>
+                                                    <option value="Holiday"
+                                                        {{ collect(old('class.' . $i, []))->contains('Holiday') ? 'selected' : '' }}>
+                                                        {{ 'Holiday' }}
+                                                    </option>
+                                                    <option value="Nill"
+                                                        {{ collect(old('class.' . $i, []))->contains('Nill') ? 'selected' : '' }}>
+                                                        {{ 'Nill' }}
+                                                    </option>
                                                     @foreach ($subject as $value)
                                                         <option value="{{ $value->id }}"
                                                             {{ collect(old('subject.' . $i, []))->contains($value->id) ? 'selected' : '' }}>
@@ -219,6 +291,17 @@
 
         $(document).ready(function() {
 
+
+            $('.timepicker').datetimepicker({
+                format: 'LT',
+                icons: {
+                    up: 'fa fa-chevron-up',
+                    down: 'fa fa-chevron-down',
+                    // other icon options
+                },
+                // useCurrent: false
+            });
+
             for (let i = 1; i <= 10; i++) {
                 if (i != 5) {
                     new MultiSelectTag('classlist_' + i, {
@@ -253,7 +336,7 @@
 
 
             $('td.is-invalid').each(function() {
-               console.log('Get');
+                console.log('Get');
                 $(this).find('.mult-select-tag').addClass('need');
             });
 

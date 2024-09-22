@@ -1,6 +1,43 @@
 @extends('school.layouts.master')
 @section('content')
+
+
     <style>
+        /* Target the timepicker input field */
+        .form-control.datetimepicker-input.timepicker {
+            position: relative;
+            padding-right: 50px;
+            padding-left: 10px;
+            font-size: 14px;
+            height: 38px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            box-shadow: none;
+            background-color: #fff;
+        }
+
+        /* Style for the clock icon (if you're using one) */
+        .form-control.datetimepicker-input.timepicker::after {
+            content: '\f017' !important;
+            font-family: "FontAwesome";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #6c757d;
+            pointer-events: none;
+        }
+
+        .form-control.datetimepicker-input.timepicker:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+        }
+
+        .form-control.datetimepicker-input.timepicker::placeholder {
+            color: #6c757d;
+            opacity: 1;
+        }
+
+
         body {
             overflow: scroll !important;
         }
@@ -82,85 +119,104 @@
         }
 
 
-        @media print {
+        /* @if ($check)
+        */ .page-wrapper {
+            margin-top: -20px !important;
+            padding-bottom: 30px;
+        }
 
-            .page-wrapper {
-                margin-top: -20px !important;
-            }
+        .print-header {
+            display: inline !important;
+            margin-bottom: -50px;
+        }
 
-            .header {
+        nav {
+            display: none;
+        }
+
+        .page-title {
+            margin-top: -40px;
+        }
+
+        table tr {
+            text-align: center;
+        }
+
+        .table tr th,
+        td {
+            border: solid rgb(158, 158, 158) 1px;
+            /* padding: 0; */
+        }
+
+        .table tr td {
+            padding: 0;
+            text-align: center;
+            /* Centers horizontally */
+            vertical-align: middle;
+            /* Centers vertically */
+        }
+
+        .form-control {
+            border-color: white;
+        }
+
+        .mult-select-tag .body {
+            border: none
+        }
+
+        .mult-select-tag .btn-container {
+            border: none;
+        }
+
+        .mult-select-tag .item-close-svg {
+            display: none;
+        }
+
+        .mult-select-tag svg {
+            display: none;
+        }
+
+        .content {
+            margin-top: -10px;
+        }
+
+        .item-container {
+            background-color: white !important;
+            border-color: white !important;
+        }
+
+        footer {
+            display: none;
+        }
+
+        .page-header {
+            margin-top: -60px;
+        }
+
+        #printcontent {
+            margin-bottom: 20px;
+        }
+
+        /* @endif
+        */ @media print {
+            #menu {
                 display: none;
-            }
-
-            .print-header {
-                display: inline !important;
-                margin-bottom: -50px;
-            }
-
-            nav {
-                display: none;
-            }
-
-            .page-title {
-                margin-top: -40px;
-            }
-
-            table tr {
-                text-align: center;
-            }
-
-            .table tr th,
-            td {
-                border: solid rgb(158, 158, 158) 1px;
-                /* padding: 0; */
-            }
-
-            .table tr td {
-                padding: 0;
-                text-align: center;
-                /* Centers horizontally */
-                vertical-align: middle;
-                /* Centers vertically */
-            }
-
-            .form-control {
-                border-color: white;
-            }
-
-            .mult-select-tag .body {
-                border: none
-            }
-
-            .mult-select-tag .btn-container {
-                border: none;
-            }
-
-            .mult-select-tag .item-close-svg {
-                display: none;
-            }
-
-            .mult-select-tag svg {
-                display: none;
-            }
-
-            .content {
-                margin-top: -10px;
-            }
-
-            .item-container {
-                background-color: white !important;
-                border-color: white !important;
-            }
-
-            footer {
-                display: none;
-            }
-
-            .page-header {
-                margin-top: -60px;
             }
 
             #printbtn {
+                display: none;
+            }
+
+            .page-wrapper {
+                margin-top: -20px !important;
+                padding-bottom: 0px;
+            }
+
+            #menu {
+                display: none;
+            }
+
+            .header {
                 display: none;
             }
         }
@@ -273,7 +329,24 @@
                                         @if ($i == 5)
                                             <tr>
                                                 <td colspan="4" class="text-center bg-primary">
-                                                    <h4 class="mt-2">Interval</h4>
+                                                    @if (!$check)
+                                                        <div
+                                                            class="w-100 d-flex flex-column align-items-center justify-content-center  mb-2">
+                                                            <label>Enter Interval Time</label>
+                                                            <input
+                                                                class=" w-25 form-control @error('interval') is-invalid @enderror"
+                                                                name="interval" type="text" placeholder="12:00 To 01:00"
+                                                                id="sundaydate" value="{{ $school->interval_time }}">
+                                                            @error('interval')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    @else
+                                                        <h5 class="mt-2 mb-0">( {{ $school->interval_time }} )</h5>
+                                                        <h5 class="mb-2 mt-0">Interval Time</h5>
+                                                    @endif
                                                 </td>
                                             </tr>
                                             @php
@@ -283,11 +356,14 @@
                                             <tr>
                                                 <td>{{ $i }}</td>
                                                 <td hidden><input type="text" name="row[{{ $i }}]"
-                                                        value="{{ $timetables->id }}"></td>
+                                                        value="{{ $timetables->id }}">
+                                                </td>
                                                 <td><input
-                                                        class="form-control {{ $errors->has('time.' . $i) ? 'is-invalid' : '' }} "
+                                                        class="form-control datetimepicker-input timepicker {{ $errors->has('time.' . $i) ? 'is-invalid' : '' }}"
                                                         type="text" name="time[{{ $i }}]"
-                                                        value="{{ $timetables->time }}" placeholder="Enter Time"></td>
+                                                        value="{{ $timetables->time }}" placeholder="Enter Time"
+                                                        data-toggle="datetimepicker" data-target=".timepicker">
+                                                </td>
                                                 <td class="{{ $errors->has('class.' . $i) ? 'is-invalid' : '' }}"> <select
                                                         class="form-control" name="class[{{ $i }}][]" multiple
                                                         id="classlist_{{ $i }}">
@@ -295,6 +371,14 @@
                                                             $classlist = [];
                                                             $classlist = explode(',', $timetables->class_id);
                                                         @endphp
+                                                        <option value="New Class"
+                                                            {{ collect($classlist)->contains('New Class') ? 'selected' : '' }}>
+                                                            {{ 'New Class' }}
+                                                        </option>
+                                                        <option value="Nill"
+                                                            {{ collect($classlist)->contains('Nill') ? 'selected' : '' }}>
+                                                            {{ 'Nill' }}
+                                                        </option>
                                                         @foreach ($finalarray as $value)
                                                             <option value="{{ $value['id'] }}"
                                                                 {{ collect($classlist)->contains($value['id']) ? 'selected' : '' }}>
@@ -312,6 +396,24 @@
                                                             $subjectlist = [];
                                                             $subjectlist = explode(',', $timetables->subjects);
                                                         @endphp
+
+                                                        <option value="Practical"
+                                                            {{ collect($subjectlist)->contains('Practical') ? 'selected' : '' }}>
+                                                            {{ 'Practical' }}
+                                                        </option>
+                                                        <option value="Activities"
+                                                            {{ collect($subjectlist)->contains('Activities') ? 'selected' : '' }}>
+                                                            {{ 'Activities' }}
+                                                        </option>
+                                                        <option value="Holiday"
+                                                            {{ collect($subjectlist)->contains('Holiday') ? 'selected' : '' }}>
+                                                            {{ 'Holiday' }}
+                                                        </option>
+                                                        <option value="Nill"
+                                                            {{ collect($subjectlist)->contains('Nill') ? 'selected' : '' }}>
+                                                            {{ 'Nill' }}
+                                                        </option>
+
                                                         @foreach ($subject as $value)
                                                             <option value="{{ $value->id }}"
                                                                 {{ collect($subjectlist)->contains($value->id) ? 'selected' : '' }}>
@@ -416,7 +518,19 @@
             toastr.error("{{ session('Error') }}");
         @endif
 
+
         $(document).ready(function() {
+
+            $('.timepicker').datetimepicker({
+                format: 'LT',
+                icons: {
+                    up: 'fa fa-chevron-up',
+                    down: 'fa fa-chevron-down',
+                    // other icon options
+                },
+                // useCurrent: false
+            });
+
 
 
             var isNotEmpty = $('#timetableStatus').val();
@@ -452,8 +566,6 @@
 
                     }
                 }
-
-
             }
 
             $('#printbtn').on('click', function() {
