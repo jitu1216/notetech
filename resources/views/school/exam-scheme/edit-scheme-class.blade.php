@@ -34,6 +34,7 @@
                                             <div class="col-12 col-sm-6">
                                                 <div class="form-group local-forms">
                                                     <label>Class<span class="login-danger">*</span></label>
+                                                    <input type="text" name="id" hidden value="{{ $item->id }}">
                                                     <input type="text" class="form-control @error('exam_header') is-invalid @enderror" name="exam_header"
                                                         placeholder="Enter Class" value="{{ $item->exam_header }}">
                                                     @error('exam_header')

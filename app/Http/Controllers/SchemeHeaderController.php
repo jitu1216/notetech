@@ -69,11 +69,9 @@ class SchemeHeaderController extends Controller
 
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
-        if($academic == null){
-            $academic = Custom::academicSession();
-            }
-        dd($request);
+        
         $scheme_header = SchemeHeader::find($request->id);
+        
         $scheme_header->academic_session = $academic;
         $scheme_header->school_id = $school->id;
         $scheme_header->exam_header= $request->exam_header;

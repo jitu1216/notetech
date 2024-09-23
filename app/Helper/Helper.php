@@ -14,6 +14,7 @@ use App\Models\AcademicSession;
 use App\Models\Student;
 use App\Models\Staff;
 use App\Models\SchoolClass;
+use App\Models\ExamScheme;
 use Session;
 use Auth;
 use Carbon\Carbon;
@@ -682,6 +683,20 @@ class Custom
         }
 
         return $finalarray;
+    }
+
+    public static function getExamSubject($class,$date){
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+
+        // return $date;
+        $subject = ExamScheme::where(['school_id' => $school->id , 'academic_session' => $academic, 'exam_class' => $class, 'exam_date' =>  $date])->first();
+        if($subject != null){
+        return $subject->exam_subject;
+        }else{
+            return 'No Exam';
+        }
     }
 
 }

@@ -762,8 +762,26 @@
                         {{-- <input type="checkbox" id="sm2"> --}}
                         <ul class="sub-sub-menu">
                             <li><a class="{{ set_active(['school/slider']) }}"
+                                href="{{ route('scheme_list') }}">Add
+                                Exam class</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
                                     href="{{ route('exam_list') }}">Exam
-                                    Scheme</a></li>
+                                    Scheme List</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
+                                    href="{{ route('view-scheme', 'Test Exam') }}">Test
+                                    Exam Scheme</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
+                                    href="{{ route('view-scheme', 'Monthly Exam') }}">Monthly
+                                    Exam Scheme</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
+                                    href="{{ route('view-scheme', 'Quarterly Exam') }}">Quarterly
+                                    Exam Scheme</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
+                                    href="{{ route('view-scheme', 'Half Yearly') }}">Half Yearly
+                                    Exam Scheme</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
+                                    href="{{ route('view-scheme', 'Annual') }}">Annual
+                                    Exam Scheme</a></li>
                         </ul>
                     </li>
                     <li><a href="#">Time Table
@@ -812,92 +830,85 @@
             </ul>
         </li>
 
-                    <li class="{{ set_active(['school/add-staff', 'school/add-class']) }}">
-                        <a href="#"><i class="fas fa-pen"></i>
-                            <span>Data Entry</span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <i class='bx bxs-chevron-down js-staff arrow '></i>
-                        <ul class="js-staff-menu sub-menu">
-
-                            @if (Custom::getUser()->role_name == 'Staff')
-                                <li><a
-                                        @if (in_array('8', Custom::getStaffPower())) class="{{ set_active(['school/staff-list']) }}"
-                                            href="{{ route('promote-list', '2') }}" @else
+        <li><a class="" href="javascript:void(0)"><i class="fas fa-pen"></i>
+                <span>Data Entry</span>
+                <label title="Toggle Drop-down" class="drop-icon" for="sm1"> <i
+                        class='bx bxs-chevron-down'></i></label>
+            </a>
+            {{-- <input type="checkbox" id="sm1"> --}}
+            <ul class="sub-menu">
+                @if (Custom::getUser()->role_name == 'Staff')
+                    <li><a
+                            @if (in_array('8', Custom::getStaffPower())) class="{{ set_active(['school/staff-list']) }}"
+                            href="{{ route('promote-list', '2') }}" @else
+                            class="{{ set_active(['school/staff-list']) }} popup"
+                                href="javascript:(0)" @endif>Promote
+                            Student</a></li>
+                    <li><a
+                            @if (in_array('16', Custom::getStaffPower())) class="{{ set_active(['school/staff-list']) }}"
+                                            href="{{ route('promote-staff-list') }}" @else
                                             class="{{ set_active(['school/staff-list']) }} popup"
                                                 href="javascript:(0)" @endif>Promote
-                                        Student</a></li>
-                                <li><a
-                                        @if (in_array('16', Custom::getStaffPower())) class="{{ set_active(['school/staff-list']) }}"
-                                                            href="{{ route('promote-staff-list') }}" @else
-                                                            class="{{ set_active(['school/staff-list']) }} popup"
-                                                                href="javascript:(0)" @endif>Promote
-                                        Staff</a></li>
-                            @else
-                                <li><a class="{{ set_active(['school/staff-list']) }}"
-                                        href="{{ route('promote-list', '2') }}">Promote Student</a></li>
-                                <li><a class="{{ set_active(['school/staff-list']) }}"
-                                        href="{{ route('promote-staff-list') }}">Promote Staff</a></li>
-                            @endif
-                        </ul>
-                    </li>
-                    <li class="{{ set_active(['school/add-staff', 'school/add-class']) }}">
-                        <a href="#"><i class="fas fa-pen"></i>
-                            <span>Attendance</span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <i class='bx bxs-chevron-down js-staff arrow '></i>
-                        <ul class="js-staff-menu sub-menu">
+                            Staff</a></li>
+                @else
+                    <li><a class="{{ set_active(['school/staff-list']) }}"
+                            href="{{ route('promote-list', '2') }}">Promote Student</a></li>
+                    <li><a class="{{ set_active(['school/staff-list']) }}"
+                            href="{{ route('promote-staff-list') }}">Promote Staff</a></li>
+                @endif
+            </ul>
+        </li>
 
-                            @if (Custom::getUser()->role_name == 'Staff')
-                                <li><a
-                                        @if (in_array('17', Custom::getStaffPower())) class="{{ set_active(['school/take_student_attendance']) }}"
-                                            href="{{ route('school/take_student_attendance') }}" @else
-                                            class="{{ set_active(['school/take_student_attendance-list']) }} popup"
-                                                href="javascript:(0)" @endif>Take
-                                        Student Attendance</a></li>
-                                <li><a
-                                        @if (in_array('17', Custom::getStaffPower())) class="{{ set_active(['school/view_student_attendance']) }}"
-                                                        href="{{ route('school/view_student_attendance') }}" @else
-                                                        class="{{ set_active(['school/view_student_attendance']) }} popup"
-                                                            href="javascript:(0)" @endif>Edit
-                                        Student Attendance</a></li>
-                                <li><a
-                                        @if (in_array('17', Custom::getStaffPower())) class="{{ set_active(['school/student-attendance-record']) }}"
-                                                            href="{{ route('school/student-attendance-record') }}" @else
-                                                            class="{{ set_active(['school/student-attendance-record']) }} popup"
-                                                                href="javascript:(0)" @endif>Student
-                                        Attendance Record</a></li>
-                                <li><a
-                                        @if (in_array('26', Custom::getStaffPower())) class="{{ set_active(['school/holiday-list']) }}"
-                                                                href="{{ route('school/holiday-list') }}" @else
-                                                                class="{{ set_active(['school/holiday-list']) }} popup"
-                                                                    href="javascript:(0)" @endif>Holiday List</a></li>
-                            @else
-                                <li><a class="{{ set_active(['school/take_student_attendance']) }}"
-                                        href="{{ route('school/take_student_attendance') }}">Take Student
-                                        Attendance</a></li>
-                                <li><a class="{{ set_active(['school/view_student_attendance']) }}"
-                                        href="{{ route('school/view_student_attendance') }}">Edit Student
-                                        Attendance</a></li>
-                                <li><a class="{{ set_active(['school/student-attendance-record']) }}"
-                                        href="{{ route('school/student-attendance-record') }}">Student
-                                        Attendance Record</a></li>
-                                <li><a class="{{ set_active(['school/holiday-list']) }}"
-                                        href="{{ route('school/holiday-list') }}">Holiday List</a></li>
-                            @endif
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="search-box">
-                {{-- <i class='bx bx-search'></i> --}}
-                <div class="input-box">
-                    <input type="text" placeholder="Search...">
-                </div>
-            </div>
-        </div>
-    </nav>
+        <li><a class="" href="javascript:void(0)"><i class="fas fa-pen"></i>
+                <span>Attendance</span>
+                <label title="Toggle Drop-down" class="drop-icon" for="sm1"> <i
+                        class='bx bxs-chevron-down'></i></label>
+            </a>
+            {{-- <input type="checkbox" id="sm1"> --}}
+            <ul class="sub-menu">
+                @if (Custom::getUser()->role_name == 'Staff')
+                    <li><a
+                            @if (in_array('17', Custom::getStaffPower())) class="{{ set_active(['school/take_student_attendance']) }}"
+                            href="{{ route('school/take_student_attendance') }}" @else
+                            class="{{ set_active(['school/take_student_attendance-list']) }} popup"
+                                href="javascript:(0)" @endif>Take
+                            Student Attendance</a></li>
+                    <li><a
+                            @if (in_array('17', Custom::getStaffPower())) class="{{ set_active(['school/view_student_attendance']) }}"
+                                        href="{{ route('school/view_student_attendance') }}" @else
+                                        class="{{ set_active(['school/view_student_attendance']) }} popup"
+                                            href="javascript:(0)" @endif>Edit
+                            Student Attendance</a></li>
+                    <li><a
+                            @if (in_array('17', Custom::getStaffPower())) class="{{ set_active(['school/student-attendance-record']) }}"
+                                            href="{{ route('school/student-attendance-record') }}" @else
+                                            class="{{ set_active(['school/student-attendance-record']) }} popup"
+                                                href="javascript:(0)" @endif>Student
+                            Attendance Record</a></li>
+                    <li><a
+                            @if (in_array('26', Custom::getStaffPower())) class="{{ set_active(['school/holiday-list']) }}"
+                                                href="{{ route('school/holiday-list') }}" @else
+                                                class="{{ set_active(['school/holiday-list']) }} popup"
+                                                    href="javascript:(0)" @endif>Holiday
+                            List</a></li>
+                @else
+                    <li><a class="{{ set_active(['school/take_student_attendance']) }}"
+                            href="{{ route('school/take_student_attendance') }}">Take Student
+                            Attendance</a></li>
+                    <li><a class="{{ set_active(['school/view_student_attendance']) }}"
+                            href="{{ route('school/view_student_attendance') }}">Edit Student
+                            Attendance</a></li>
+                    <li><a class="{{ set_active(['school/student-attendance-record']) }}"
+                            href="{{ route('school/student-attendance-record') }}">Student
+                            Attendance Record</a></li>
+                    <li><a class="{{ set_active(['school/holiday-list']) }}"
+                            href="{{ route('school/holiday-list') }}">Holiday List</a></li>
+                @endif
+            </ul>
+        </li>
+
+    </ul>
+</nav>
 
 
 <div class="modal fade contentmodal" id="popupbox" tabindex="-3" aria-hidden="true">

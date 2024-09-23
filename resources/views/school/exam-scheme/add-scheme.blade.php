@@ -38,7 +38,7 @@
                                                         class="form-control select  @error('exam_type') is-invalid @enderror"
                                                         name="exam_type">
                                                         <option selected disabled>Select Exam Type </option>
-                                                        <option value="Text Exam"
+                                                        <option value="Test Exam"
                                                             {{ old('exam_type') == 'Text Exam' ? 'selected' : '' }}>Test
                                                             Exam</option>
                                                         <option value="Monthly Exam"

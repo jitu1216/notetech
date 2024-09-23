@@ -1,6 +1,7 @@
 @extends('school.layouts.master')
 @section('content')
     <style>
+        
         table {
             background-color: white;
         }
@@ -27,6 +28,8 @@
             flex-direction: row;
             justify-content: flex-end;
             align-items: right;
+            padding-top: 50px;
+
         }
 
         .main-container {
@@ -36,6 +39,8 @@
             justify-content: center;
             align-items: center;
             margin-left: -60px !important;
+            padding-top: 50px;
+            padding-bottom: 5px;
         }
 
         .main-container h3 {
@@ -103,6 +108,16 @@
             margin-right: 60px;
         }
 
+        table tr {
+            text-align: center;
+        }
+
+        .table tr th,
+        td {
+            border: solid black 1px;
+
+        }
+
         @media only screen and (max-width: 450px) {
 
             .main-container {
@@ -137,6 +152,13 @@
 
         @media print {
 
+            .container{
+                padding: 0px;
+                margin: 0px;
+                max-width: 100%;
+                width: 100%;
+            }
+
             .header-section {
                 display: none !important;
             }
@@ -161,6 +183,7 @@
                 margin-bottom: -3px;
                 font-weight: 600 !important;
                 color: rgb(67, 169, 253);
+
             }
 
             .main-container h3 {
@@ -199,7 +222,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="printpage">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
@@ -215,9 +238,12 @@
                                     <p><span>Email.{{ Custom::getSchool()->Email }}</span> <span>Mobile No.
                                             {{ Custom::getSchool()->Mobile }}</span>
                                     </p>
-                                    <p style="margin-top: -22px"><span>Session 2024-2025{{-- Session::()->academic_session --}}</span> <span>
-                                            Test Exam Scheme{{-- $item->exam_type --}}</span>
-                                    </p>
+                                   
+                                </div>
+                            </div>
+                            <div class="row mt-4 mb-0">
+                                <div class="col-12 d-flex justify-content-center align-items-center">
+                                    <h5>{{ $text }} Scheme ( Session {{ Session::get('academic_session')  }} )</h5>
                                 </div>
                             </div>
 
@@ -229,9 +255,11 @@
                                                 <th>Sr.No.</th>
                                                 <th>Date</th>
                                                 <th>Day</th>
-                                                <th>Class N.C. To K.G.</th>
-                                                <th>Class 1 To 10</th>
-                                                <th>Class 11 To 12</th>
+                                                @foreach ($scheme_header as $header)
+                                                    <th>{{ $header->exam_header }}</th>
+                                                @endforeach
+
+
                                             </tr>
                                         </thead>
                                         <tbody class=" no-wrap text-center">
@@ -239,10 +267,10 @@
                                                 <tr>
                                                     <td>{{ ++$key }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($item->exam_date)->format('d-m-Y') }}</td>
-                                                    <td></td>
-                                                    <td>{{ $item->exam_subject }}</td>
-                                                    <td>{{ $item->exam_subject }}</td>
-                                                    <td>{{ $item->exam_subject }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($item->exam_date)->format('l') }}</td>
+                                                    @foreach ($scheme_header as $value)
+                                                       <td>{{ Custom::getExamSubject($value->exam_header, $item->exam_date ) }}</td>
+                                                    @endforeach
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -271,5 +299,11 @@
                 }
                 toastr.error("{{ session('Error') }}");
             @endif
+
+            $('#printbtn').on('click', function() {
+                event.preventDefault();
+                window.print()
+            });
+
         </script>
     @endsection

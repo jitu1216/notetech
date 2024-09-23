@@ -281,7 +281,8 @@ Route::controller(ExmaController::class)->group(function () {
     Route::get('school/edit-scheme/{id}', 'editscheme')->middleware('auth')->name('edit-scheme');
     Route::post('school/updatescheme', 'updatescheme')->middleware('auth')->name('updatescheme');
     Route::get('school/removescheme/{id}', 'removescheme')->middleware('auth')->name('removescheme');
-    Route::get('school/view-test-scheme/{text}', 'viewtestscheme')->middleware('auth')->name('view-test-scheme');
+    Route::get('school/view-scheme/{text}', 'viewtestscheme')->middleware('auth')->name('view-scheme');
+    
 
 });
 Route::controller(SchemeHeaderController::class)->group(function () {

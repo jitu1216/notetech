@@ -18,7 +18,7 @@
                     <div class="card common-shadow">
                         <div class="card-header">
                             <h3 class="Info">
-                                <a href="{{ 'exam_list' }}" class="btn btn-primary">
+                                <a href="{{ route('exam_list') }}" class="btn btn-primary">
                                     <i class="fas fa-back"></i>Back</a>
                             </h3>
                             @if (session('status'))
@@ -39,7 +39,7 @@
                                                             class="form-control select  @error('exam_type') is-invalid @enderror"
                                                             name="exam_type">
                                                             <option selected disabled>Select Exam Type </option>
-                                                            <option value="Text Exam"  {{ $item->exam_type == 'Text Exam' ? 'selected' : '' }}>Test Exam</option>
+                                                            <option value="Test Exam"  {{ $item->exam_type == 'Text Exam' ? 'selected' : '' }}>Test Exam</option>
                                                             <option value="Monthly Exam"  {{ $item->exam_type == 'Monthly Exam' ? 'selected' : '' }}>Monthly Exam</option>
                                                             <option value="Quarterly Exam"  {{ $item->exam_type == 'Quarterly Exam' ? 'selected' : '' }}>Quarterly Exam</option>
                                                             <option value="Half Yearly" {{ $item->exam_type == 'Half Yearly' ? 'selected' : '' }}>Half Yearly Exam</option>
@@ -59,10 +59,13 @@
                                                             class="form-control
                                                             select @error('exam_class') is-invalid @enderror"
                                                             name="exam_class">
-                                                            {{-- <option selected disabled>Select Class </option> --}}
-                                                            <option value="{{ $item->exam_class == $item['exam_class'] ? 'selected' : '' }}" >
-                                                            {{ $item->exam_class }}
-                                                        </option>
+                                                            <option selected disabled>Select Exam Class</option>
+                                                            @foreach ($scheme_header as $value)
+                                                            <option value="{{ $value['exam_header'] }}"
+                                                                {{ $item->exam_class == $value['exam_header'] ? 'selected' : '' }}>
+                                                                {{ $value['exam_header'] }}
+                                                            </option>
+                                                        @endforeach
                                                         </select>
                                                         @error('exam_class')
                                                             <span class="invalid-feedback" role="alert">
