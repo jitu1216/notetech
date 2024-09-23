@@ -1,5 +1,13 @@
 @extends('school.layouts.master')
 @section('content')
+<style>
+    .container{
+             padding: 20px;
+             margin: 0px;
+             max-width: 100%;
+             width: 100%;
+         }
+</style>
     <div class="page-wrapper">
         <div class="container mt-5">
             <div class="page-header">
@@ -55,7 +63,7 @@
                                                 <div class="col-12 col-sm-6">
                                                     <div class="form-group local-forms">
                                                         <label>Class<span class="login-danger">*</span></label>
-                                                        <select 
+                                                        <select
                                                             class="form-control
                                                             select @error('exam_class') is-invalid @enderror"
                                                             name="exam_class">
@@ -101,7 +109,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                          
+
                                             <div class="col-12 col-sm-6">
                                                 <div class="submit">
                                                     <button type="submit" class="btn btn-primary">Submit</button>

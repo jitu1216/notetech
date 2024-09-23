@@ -26,14 +26,14 @@ class SchemeHeaderController extends Controller
 
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
-        $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->get();
+        $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->orderBy('updated_at', 'asc')->get();
         return view('school.exam-scheme.scheme-class-list', compact('scheme_header'));
     }
 
     public function addclass(){
         return view('school.exam-scheme.add-scheme-class');
     }
-    
+
     public function saveclass(Request $request){
         // dd($request);
         $request->validate([
@@ -49,7 +49,7 @@ class SchemeHeaderController extends Controller
         $scheme_header->school_id = $school->id;
         $scheme_header->exam_header= $request->exam_header;
         $scheme_header->save();
-        
+
         return redirect()->route('scheme_list')->with('Success','Class Added Successfully');
 
     }
@@ -57,7 +57,7 @@ class SchemeHeaderController extends Controller
     public function editclass($id){
 
         $item = SchemeHeader::find($id);
-        
+
         return view('school.exam-scheme.edit-scheme-class', compact('item'));
     }
 
@@ -69,20 +69,20 @@ class SchemeHeaderController extends Controller
 
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
-        
+
         $scheme_header = SchemeHeader::find($request->id);
-        
+
         $scheme_header->academic_session = $academic;
         $scheme_header->school_id = $school->id;
         $scheme_header->exam_header= $request->exam_header;
         $scheme_header->save();
-        
+
         return redirect()->route('scheme_list')->with('Success','Class Edit Successfully');
 
     }
 
     public function removeclass($id){
-        
+
         $record = SchemeHeader::find($id);
 
         if($record){

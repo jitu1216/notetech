@@ -1,5 +1,13 @@
 @extends('school.layouts.master')
 @section('content')
+<style>
+    .container{
+             padding: 20px;
+             margin: 0px;
+             max-width: 100%;
+             width: 100%;
+         }
+</style>
     <div class="page-wrapper">
         <div class="container mt-5">
             <div class="page-header">

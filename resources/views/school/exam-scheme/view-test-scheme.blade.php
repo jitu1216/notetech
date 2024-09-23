@@ -1,7 +1,6 @@
 @extends('school.layouts.master')
 @section('content')
     <style>
-        
         table {
             background-color: white;
         }
@@ -148,11 +147,18 @@
 
         }
 
+        .container {
+            padding: 20px;
+            margin: 0px;
+            max-width: 100%;
+            width: 100%;
+        }
+
 
 
         @media print {
 
-            .container{
+            .container {
                 padding: 0px;
                 margin: 0px;
                 max-width: 100%;
@@ -211,7 +217,7 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">Test Exam Scheme</h3>
+                        <h3 class="page-title">{{ $text }} Scheme</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('school') }}">Dashboard</a></li>
                             <li class="breadcrumb-item active">Scheme</li>
@@ -238,12 +244,12 @@
                                     <p><span>Email.{{ Custom::getSchool()->Email }}</span> <span>Mobile No.
                                             {{ Custom::getSchool()->Mobile }}</span>
                                     </p>
-                                   
+
                                 </div>
                             </div>
                             <div class="row mt-4 mb-0">
                                 <div class="col-12 d-flex justify-content-center align-items-center">
-                                    <h5>{{ $text }} Scheme ( Session {{ Session::get('academic_session')  }} )</h5>
+                                    <h5>{{ $text }} Scheme ( Session {{ Session::get('academic_session') }} )</h5>
                                 </div>
                             </div>
 
@@ -269,7 +275,8 @@
                                                     <td>{{ \Carbon\Carbon::parse($item->exam_date)->format('d-m-Y') }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($item->exam_date)->format('l') }}</td>
                                                     @foreach ($scheme_header as $value)
-                                                       <td>{{ Custom::getExamSubject($value->exam_header, $item->exam_date ) }}</td>
+                                                        <td>{{ Custom::getExamSubject($value->exam_header, $item->exam_date) }}
+                                                        </td>
                                                     @endforeach
                                                 </tr>
                                             @endforeach
@@ -304,6 +311,5 @@
                 event.preventDefault();
                 window.print()
             });
-
         </script>
     @endsection
