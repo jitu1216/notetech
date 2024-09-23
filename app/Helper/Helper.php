@@ -81,6 +81,14 @@ class Custom
     {
         $user = Auth::User();
         $academic = Session::get('academic_session');
+
+        // dd($academic);
+        if($academic == null){
+            $academic = Custom::academicSession();
+        }
+
+        // dd($academic);
+
         if ($user) {
             if ($user->role_name == 'School') {
                 $school = School::where('Email', $user->email)->where('Name', $user->name)->first();
@@ -96,7 +104,9 @@ class Custom
                     $school = School::where('Email', $user->email)->where('Name', $user->name)->first();
                 }
             } elseif ($user->role_name == 'Staff') {
+                // dd($academic);
                 $staff = Staff::where('email', $user->email)->where('academic_session', $academic)->first();
+                // dd($staff);
                 $school = School::where('id', $staff->school_id)->first();
             }
         } else {

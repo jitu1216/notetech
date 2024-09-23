@@ -5,7 +5,7 @@
     <style>
         .owl-carousel {
             position: relative;
-            /* To position arrows relative to the carousel */
+            margin-top: 105px;
         }
 
         /* Custom styles for navigation arrows */
@@ -61,16 +61,14 @@
         }
 
         .background-image {
+            aspect-ratio: 16 / 6.5 !important;
             background-size: cover;
             background-position: center;
-            height: 620px;
-            /* Full viewport height */
             display: flex;
-            width: 100vw;
+            /* width: 100%; */
             align-items: center;
             position: relative;
             justify-content: center;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -92,6 +90,8 @@
             color: white;
             /* Adjust text color if needed */
         }
+
+
     </style>
     <div class="owl-carousel owl-theme">
         @foreach ($slider as $slideritem)
@@ -107,13 +107,15 @@
             </div>
         @endforeach
     </div>
-    <div class="page-wrapper m-0 p-0">
+    <div class="page-wrapper {{ $slider->isNotEmpty() ? 'm-0 p-0' : '' }} ">
         <div class="content container-fluid">
             <div class="page-header">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-sub-header row">
-                            <h3 class="page-title {{ Custom::getStaffRole() == 'Assistant Teacher' ? 'col-4' : 'col-8' }} d-flex justify-content-start">Welcome {{ Session::get('name') }}
+                            <h3
+                                class="page-title {{ Custom::getStaffRole() == 'Assistant Teacher' ? 'col-4' : 'col-8' }} d-flex justify-content-start">
+                                Welcome {{ Session::get('name') }}
                             </h3>
                             @if (Auth::user()->role_name == 'Staff')
                                 @if (Custom::getStaffRole() == 'Assistant Teacher')

@@ -23,7 +23,9 @@ use Auth;
 class StudentDashboardController extends Controller
 {
     public function index(){
-        $slider = slider::get();
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $slider = slider::where(['academic_session' => $academic, 'school_id' => $school->id])->get();
         return view('studentDashboard.student-home',compact('slider'));
     }
 

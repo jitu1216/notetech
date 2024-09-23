@@ -26,7 +26,6 @@ class StudentController extends Controller
     {
 
         $school = Custom::getSchool();
-
         $academic = Session::get('academic_session');
 
         $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '0'])->get();
