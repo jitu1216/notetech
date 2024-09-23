@@ -197,6 +197,19 @@
             margin-bottom: 20px;
         }
 
+        .timepicker:disabled {
+            background-color: #e9ecef;
+            /* Light grey color */
+            color: #6c757d;
+            /* Optional: Change the text color */
+            cursor: not-allowed;
+            /* Optional: Change the cursor */
+        }
+
+        .form-control.datetimepicker-input.timepicker{
+            border: none;
+        }
+
         /* @endif
         */ @media print {
             #menu {
@@ -320,11 +333,13 @@
                                 @if ($timetable->isNotEmpty())
                                     @php
                                         $k = 0;
+                                        $c = 0;
                                     @endphp
                                     @for ($i = 1; $i <= 10; $i++)
                                         @php
                                             $timetables = $timetable[$k];
                                             $k++;
+                                            ++$c;
                                         @endphp
                                         @if ($i == 5)
                                             <tr>
@@ -351,14 +366,15 @@
                                             </tr>
                                             @php
                                                 --$k;
+                                                --$c;
                                             @endphp
                                         @else
                                             <tr>
-                                                <td>{{ $i }}</td>
+                                                <td>{{ $c }}</td>
                                                 <td hidden><input type="text" name="row[{{ $i }}]"
                                                         value="{{ $timetables->id }}">
                                                 </td>
-                                                <td><input
+                                                <td><input {{ $check ? 'disabled' : ''}}
                                                         class="form-control datetimepicker-input timepicker {{ $errors->has('time.' . $i) ? 'is-invalid' : '' }}"
                                                         type="text" name="time[{{ $i }}]"
                                                         value="{{ $timetables->time }}" placeholder="Enter Time"
