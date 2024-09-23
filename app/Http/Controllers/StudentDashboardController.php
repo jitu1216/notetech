@@ -16,93 +16,30 @@ use App\Models\Subject;
 use App\Models\StudentFees;
 use App\Models\AcademicSession;
 use App\Models\slider;
+use App\Models\Staff;
+use App\Models\TimeTable;
 use Session;
 use Custom;
 use Auth;
 
 class StudentDashboardController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $school = Custom::getSchool();
         $academic = Session::get('academic_session');
         $slider = slider::where(['academic_session' => $academic, 'school_id' => $school->id])->get();
-        return view('studentDashboard.student-home',compact('slider'));
+        return view('studentDashboard.student-home', compact('slider'));
     }
 
-    public function feesdeposite(){
+    public function feesdeposite()
+    {
         return view('studentDashboard.fees.feesdeposite');
     }
 
-    // public function student_profile()
-    // {
 
-    //     $id = Auth::guard('student')->User()->id;
-    //     $student = Student::where('id', $id)->first();
-
-    //     $schoolclass = SchoolClass::where('id', $student->class_id)->first();
-    //     $subjectList = explode(",", $student->subject_id);
-
-    //     foreach ($subjectList as $value) {
-    //         $data = Subject::where('id', $value)->first();
-    //         $subject[] = $data->subject_name;
-    //     }
-
-    //     $data = StateCities::all()->toarray();
-    //     $state =  [];
-    //     $city = [];
-    //     foreach ($data as $value) {
-    //         if (!in_array($value['state'], $state)) {
-    //             array_push($state, $value['state']);
-    //         }
-    //     }
-
-    //     $school = Custom::getSchool();
-    //     $academic = Session::get('academic_session');
-    //     $scclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '0'])->get();
-
-
-    //     foreach ($scclass as $class) {
-    //         $number =  Custom::romanToInt($class->classname);
-    //         $newClass[$class->id] = $number;
-    //     }
-
-    //     $sortedArray = ['P.N.C.','N.C.','K.G.','L.K.G.','U.K.G.','I','II','III','IV','V','VI','VII','VIII','IX','X','XI (Art)','XI (Biology)','XI (Agriculture)','XI (Mathematics)','XI (Commerce)','XII (Art)','XII (Biology)','XII (Agriculture)','XII (Mathematics)','XII (Commerce)'];
-    //     $newroman = [];
-    //     sort($newClass);
-    //     $newromanclass = [];
-
-    //     foreach($sortedArray as $organize){
-    //         if(in_array($organize,$newClass)){
-    //             array_push($newromanclass, $organize);
-    //         }
-    //     }
-
-    //     foreach ($newromanclass as $sortClass) {
-    //         $newnumber = Custom::getRomanNumber($sortClass);
-    //         array_push($newroman, $newnumber);
-    //         // dd($newroman);
-    //     }
-    //     // dd($newroman);
-
-    //     $finalarray = array();
-
-
-    //     foreach ($newroman as $value) {
-    //         foreach ($scclass as $class) {
-    //             if ($class->classname == $value) {
-    //                 $x['classname'] = $class->classname;
-    //                 $x['id'] = $class->id;
-    //                 $finalarray[] = $x;
-    //             }
-    //             $x = [];
-    //         }
-    //     }
-
-    //         return view('studentDashboard.student.student_profile', compact('student', 'schoolclass', 'subject', 'state', 'finalarray'));
-
-    // }
-
-    public function student_profile(){
+    public function student_profile()
+    {
 
         $id = Auth::guard('student')->User()->id;
         $student = Student::where('id', $id)->first();
@@ -114,5 +51,24 @@ class StudentDashboardController extends Controller
             $subject[] = $data;
         }
         return view('studentDashboard.student.student_profile', compact('student', 'schoolclass', 'subject'));
+    }
+
+    public function timeTable()
+    {
+        $user = Auth::guard('student')->User();
+        $finalarray = Custom::getAllClass();
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $subject = Subject::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '1'])->get();
+        $checkteacher = false;
+
+        $timetable = TimeTable::whereRaw('FIND_IN_SET(?, class_id)', [$user->class_id])
+            ->where(['school_id' => $school->id, 'academic_session' => $academic])
+            ->orderByRaw("STR_TO_DATE(time, '%l:%i %p') ASC")
+            ->with('staff') // Eager load staff data
+            ->get();
+        $check = true;
+        // dd($timetable);
+        return view('studentDashboard.time-table.view-time-table', compact('finalarray', 'subject', 'user', 'timetable', 'check', 'checkteacher', 'school'));
     }
 }
