@@ -762,8 +762,26 @@
                         {{-- <input type="checkbox" id="sm2"> --}}
                         <ul class="sub-sub-menu">
                             <li><a class="{{ set_active(['school/slider']) }}"
+                                href="{{ route('scheme_list') }}">Add
+                                Exam class</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
                                     href="{{ route('exam_list') }}">Exam
-                                    Scheme</a></li>
+                                    Scheme List</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
+                                    href="{{ route('view-scheme', 'Test Exam') }}">Test
+                                    Exam Scheme</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
+                                    href="{{ route('view-scheme', 'Monthly Exam') }}">Monthly
+                                    Exam Scheme</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
+                                    href="{{ route('view-scheme', 'Quarterly Exam') }}">Quarterly
+                                    Exam Scheme</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
+                                    href="{{ route('view-scheme', 'Half Yearly') }}">Half Yearly
+                                    Exam Scheme</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
+                                    href="{{ route('view-scheme', 'Annual') }}">Annual
+                                    Exam Scheme</a></li>
                         </ul>
                     </li>
                     <li><a href="#">Time Table

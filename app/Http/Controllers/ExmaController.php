@@ -13,6 +13,7 @@ use App\Models\StudentFees;
 use App\Models\SchoolClass;
 use App\Models\AcademicSession;
 use App\Models\ExamScheme;
+use App\Models\SchemeHeader;
 use Session;
 use App\Helper\Custom;
 use Auth;
@@ -23,13 +24,16 @@ class ExmaController extends Controller
 
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
-        $scheme = ExamScheme::where(['academic_session' => $academic, 'school_id' => $school->id])->get();;
+        $scheme = ExamScheme::where(['academic_session' => $academic, 'school_id' => $school->id])->get();
         return view('school.exam-scheme.exam_list', compact('scheme'));
     }
 
     public function addscheme()
     {
-        return view('school.exam-scheme.add-scheme');
+        $school = Custom::getschool();
+        $academic = Session::get('academic_session');
+        $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->get();
+        return view('school.exam-scheme.add-scheme', compact('scheme_header'));
     }
     public function savescheme(Request $request){
 
@@ -50,7 +54,7 @@ class ExmaController extends Controller
         $exam_scheme->exam_type = $request->exam_type;
         $exam_scheme->exam_class = $request->exam_class;
         $exam_scheme->exam_subject = $request->exam_subject;
-        $exam_scheme->exam_date = date('Y-m-d', strtotime($request->date));
+        $exam_scheme->exam_date = date('Y-m-d', strtotime($request->exam_date));
         $exam_scheme->save();
 
         return redirect()->route('exam_list')->with('Success','Scheme Added successfull ');
@@ -58,7 +62,10 @@ class ExmaController extends Controller
 
     public function editscheme($id){
         $item = ExamScheme::find($id);
-        return view('school.exam-scheme.edit-scheme', compact('item'));
+        $school = Custom::getschool();
+        $academic = Session::get('academic_session');
+        $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->get();
+        return view('school.exam-scheme.edit-scheme', compact('item','scheme_header'));
     }
 
     public function updatescheme(Request $request){
@@ -83,7 +90,7 @@ class ExmaController extends Controller
         $exam_scheme->exam_type = $request->exam_type;
         $exam_scheme->exam_class = $request->exam_class;
         $exam_scheme->exam_subject = $request->exam_subject;
-        $exam_scheme->exam_date = date('Y-m-d', strtotime($request->date));
+        $exam_scheme->exam_date = date('Y-m-d', strtotime($request->exam_date));
         $exam_scheme->save();
 
         return redirect()->route('exam_list')->with('sucess','Scheme added successfull ');
@@ -100,12 +107,15 @@ class ExmaController extends Controller
     }
 
 
-    public function viewscheme($text){
-
+    public function viewtestscheme($text){
+        // dd($request);
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
         $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->get();
-
-        dd($scheme);
+        $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->get();
+        // dd($scheme);
+        // $scheme = ExamScheme::find($text);
+        return view('school.exam-scheme.view-test-scheme',compact('scheme','scheme_header','text'));
+    
     }
 }
