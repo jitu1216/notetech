@@ -261,98 +261,97 @@
                                 @if ($timetable->isNotEmpty())
                                     @php
                                         $k = 0;
+                                        $c = 0;
                                         $count = $timetable->count();
                                         $count = $count + 1;
                                     @endphp
                                     @for ($i = 1; $i <= $count; $i++)
+                                        @php
+                                            $time = $timetable[$k];
+                                            $k++;
+                                            ++$c;
+                                        @endphp
+                                        @if ($i == 5)
+                                            <tr>
+                                                <td colspan="4" class="text-center bg-primary">
+                                                    @if (!$check)
+                                                        <div
+                                                            class="w-100 d-flex flex-column align-items-center justify-content-center  mb-2">
+                                                            <label>Enter Interval Time</label>
+                                                            <input
+                                                                class=" w-25 form-control @error('interval') is-invalid @enderror"
+                                                                name="interval" type="text" placeholder="12:00 To 01:00"
+                                                                id="sundaydate" value="{{ $school->interval_time }}">
+                                                            @error('interval')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    @else
+                                                        <h5 class="mt-2 mb-0">( {{ $school->interval_time }} )</h5>
+                                                        <h5 class="mb-2 mt-0">Interval Time</h5>
+                                                    @endif
+                                                </td>
+                                            </tr>
                                             @php
-                                                $time = $timetable[$k];
-                                                $k++;
+                                                --$k;
+                                                --$c;
                                             @endphp
-                                            @if ($i == 5)
-                                                <tr>
-                                                    <td colspan="4" class="text-center bg-primary">
-                                                        @if (!$check)
-                                                            <div
-                                                                class="w-100 d-flex flex-column align-items-center justify-content-center  mb-2">
-                                                                <label>Enter Interval Time</label>
-                                                                <input
-                                                                    class=" w-25 form-control @error('interval') is-invalid @enderror"
-                                                                    name="interval" type="text"
-                                                                    placeholder="12:00 To 01:00" id="sundaydate"
-                                                                    value="{{ $school->interval_time }}">
-                                                                @error('interval')
-                                                                    <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $message }}</strong>
-                                                                    </span>
-                                                                @enderror
-                                                            </div>
-                                                        @else
-                                                            <h5 class="mt-2 mb-0">( {{ $school->interval_time }} )</h5>
-                                                            <h5 class="mb-2 mt-0">Interval Time</h5>
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                                @php
-                                                    --$k;
-                                                @endphp
-                                            @else
-                                                <tr>
-                                                    <td>{{ $i }}</td>
-                                                    <td><input
-                                                            class="form-control {{ $errors->has('time.' . $i) ? 'is-invalid' : '' }} "
-                                                            type="text" name="time[{{ $i }}]"
-                                                            value="{{ $time->time }}" placeholder="Enter Time"></td>
-                                                    <td class="{{ $errors->has('subject.' . $i) ? 'is-invalid' : '' }}">
-                                                        <select
-                                                            class="form-control {{ $errors->has('subject.' . $i) ? 'is-invalid' : '' }}"
-                                                            name="subject[{{ $i }}][]"
-                                                            id="subject_{{ $i }}" multiple="multiple">
+                                        @else
+                                            <tr>
+                                                <td>{{ $c }}</td>
+                                                <td><p class="mt-2">{{ $time->time }}</p></td>
+                                                <td class="{{ $errors->has('subject.' . $i) ? 'is-invalid' : '' }}">
+                                                    <select
+                                                        class="form-control {{ $errors->has('subject.' . $i) ? 'is-invalid' : '' }}"
+                                                        name="subject[{{ $i }}][]"
+                                                        id="subject_{{ $i }}" multiple="multiple">
 
-                                                            @php
-                                                                $subjectlist = [];
-                                                                $subjectlist = explode(',', $time->subjects);
-                                                            @endphp
+                                                        @php
+                                                            $subjectlist = [];
+                                                            $subjectlist = explode(',', $time->subjects);
+                                                        @endphp
 
-                                                            <option value="Practical"
-                                                                {{ collect($subjectlist)->contains('Practical') ? 'selected' : '' }}>
-                                                                {{ 'Practical' }}
-                                                            </option>
-                                                            <option value="Activities"
-                                                                {{ collect($subjectlist)->contains('Activities') ? 'selected' : '' }}>
-                                                                {{ 'Activities' }}
-                                                            </option>
-                                                            <option value="Holiday"
-                                                                {{ collect($subjectlist)->contains('Holiday') ? 'selected' : '' }}>
-                                                                {{ 'Holiday' }}
-                                                            </option>
-                                                            <option value="Nill"
-                                                                {{ collect($subjectlist)->contains('Nill') ? 'selected' : '' }}>
-                                                                {{ 'Nill' }}
-                                                            </option>
+                                                        <option value="Practical"
+                                                            {{ collect($subjectlist)->contains('Practical') ? 'selected' : '' }}>
+                                                            {{ 'Practical' }}
+                                                        </option>
+                                                        <option value="Activities"
+                                                            {{ collect($subjectlist)->contains('Activities') ? 'selected' : '' }}>
+                                                            {{ 'Activities' }}
+                                                        </option>
+                                                        <option value="Holiday"
+                                                            {{ collect($subjectlist)->contains('Holiday') ? 'selected' : '' }}>
+                                                            {{ 'Holiday' }}
+                                                        </option>
+                                                        <option value="Nill"
+                                                            {{ collect($subjectlist)->contains('Nill') ? 'selected' : '' }}>
+                                                            {{ 'Nill' }}
+                                                        </option>
 
-                                                            @foreach ($subject as $value)
-                                                                <option value="{{ $value->id }}"
-                                                                    {{ collect($subjectlist)->contains($value->id) ? 'selected' : '' }}>
-                                                                    {{ $value->subject_name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        {{ $time->staff->staff_name }}
-                                                    </td>
-                                                </tr>
-                                            @endif
-                                        @endfor
-                                    @else
-                                        <tr>
-                                            <td colspan="4">
-                                                <h2 class="text-center w-100 text-danger text fs-lg-3">No Data Available
-                                                </h2>
-                                            </td>
-                                        </tr>
-                                    @endif
+                                                        @foreach ($subject as $value)
+                                                            <option value="{{ $value->id }}"
+                                                                {{ collect($subjectlist)->contains($value->id) ? 'selected' : '' }}>
+                                                                {{ $value->subject_name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    {{ $time->staff->staff_name }}
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endfor
+                                @else
+                                    <tr>
+                                        <td colspan="4">
+                                            <h2 class="text-center w-100 text-danger text fs-lg-3">No Data Available
+                                            </h2>
+                                        </td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -378,6 +377,12 @@
         @endif
 
         $(document).ready(function() {
+            $('#printbtn').on('click', function() {
+                event.preventDefault();
+                window.print()
+            });
+
+            $('input').prop(false);
 
 
             var isNotEmpty = $('#timetableStatus').val();
@@ -403,10 +408,7 @@
                 }
             }
 
-            $('#printbtn').on('click', function() {
-                event.preventDefault();
-                window.print()
-            });
+
 
             $('td.is-invalid').each(function() {
                 console.log('Get');
@@ -415,19 +417,6 @@
 
             var phpVar = "{{ $check }}";
 
-            // $("#teacher").change(function() {
-            //     var teacher = $(this).val();
-            //     if (teacher == '') {
-            //         alert('Please Select Teacher');
-            //     } else {
-            //         if (phpVar) {
-            //             window.location.href = '/school/view-time-table/' + teacher;
-
-            //         } else {
-            //             window.location.href = '/school/edit-time-table/' + teacher;
-            //         }
-            //     }
-            // });
         });
     </script>
 @endsection

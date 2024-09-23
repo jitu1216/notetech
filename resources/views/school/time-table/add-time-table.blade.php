@@ -172,7 +172,13 @@
                                 </tr>
                             </thead>
                             <tbody class="text-nowrap">
+                                @php
+                                    $c = 0;
+                                @endphp
                                 @for ($i = 1; $i <= 10; $i++)
+                                @php
+                                    ++$c;
+                                @endphp
                                     @if ($i == 5)
                                         <tr>
                                             <td colspan="4" class="text-center" style="background-color: #d1e7dd">
@@ -192,9 +198,12 @@
                                                 {{-- <h4>Interval</h4> --}}
                                             </td>
                                         </tr>
+                                        @php
+                                            --$c;
+                                        @endphp
                                     @else
                                         <tr>
-                                            <td>{{ $i }}</td>
+                                            <td>{{ $c }}</td>
                                             <td><input
                                                     class="form-control datetimepicker-input timepicker {{ $errors->has('time.' . $i) ? 'is-invalid' : '' }} "
                                                     type="text" name="time[{{ $i }}]"
