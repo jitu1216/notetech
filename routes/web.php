@@ -261,6 +261,9 @@ Route::controller(StudentDashboardController::class)->group(function () {
     Route::get('time-table', 'timeTable')->middleware('auth.student')->name('time-table');
     Route::get('fees/feesdeposite', 'feesdeposite')->name('fees/feesdeposite');
     Route::get('student/student_profile', 'student_profile')->name('student_profile');
+    Route::get('student/fees-info', 'feesInfo')->name('fees-info');
+    Route::get('student/fees-card', 'feesCard')->name('fees-card');
+
 
 });
 
@@ -282,7 +285,7 @@ Route::controller(ExmaController::class)->group(function () {
     Route::post('school/updatescheme', 'updatescheme')->middleware('auth')->name('updatescheme');
     Route::get('school/removescheme/{id}', 'removescheme')->middleware('auth')->name('removescheme');
     Route::get('school/view-scheme/{text}', 'viewtestscheme')->middleware('auth')->name('view-scheme');
-    
+
 
 });
 Route::controller(SchemeHeaderController::class)->group(function () {

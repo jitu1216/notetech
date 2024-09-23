@@ -10,6 +10,14 @@
     .card-table .card-body .table>thead>tr>th{
         border: solid rgb(196, 196, 196) 1px;
     }
+
+       .container{
+                padding: 20px;
+                margin: 0px;
+                max-width: 100%;
+                width: 100%;
+            }
+
 </style>
 <div class="page-wrapper">
     <div class="container mt-5">
@@ -38,7 +46,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table 
+                            <table
                             class="table border-0 star-student table-hover table-center mb-0 table-striped">
                                 <thead class="no-wrap text-center">
                                      <tr>
@@ -61,7 +69,7 @@
                                                     <i class="feather-trash"></i></a>
                                             </td>
                                         </tr>
-                                    @endforeach 
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

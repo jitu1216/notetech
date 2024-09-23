@@ -32,7 +32,7 @@ class ExmaController extends Controller
     {
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
-        $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->get();
+        $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->orderBy('updated_at', 'asc')->get();
         return view('school.exam-scheme.add-scheme', compact('scheme_header'));
     }
     public function savescheme(Request $request){
@@ -64,7 +64,7 @@ class ExmaController extends Controller
         $item = ExamScheme::find($id);
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
-        $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->get();
+        $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->orderBy('updated_at', 'asc')->get();
         return view('school.exam-scheme.edit-scheme', compact('item','scheme_header'));
     }
 
@@ -108,14 +108,13 @@ class ExmaController extends Controller
 
 
     public function viewtestscheme($text){
-        // dd($request);
+
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
-        $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->get();
-        $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->get();
-        // dd($scheme);
-        // $scheme = ExamScheme::find($text);
+        $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->select('exam_date')->distinct('exam_date')->get();
+        $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->orderBy('updated_at', 'asc')->get();
+
         return view('school.exam-scheme.view-test-scheme',compact('scheme','scheme_header','text'));
-    
+
     }
 }
