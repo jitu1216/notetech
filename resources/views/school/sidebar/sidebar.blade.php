@@ -762,8 +762,8 @@
                         {{-- <input type="checkbox" id="sm2"> --}}
                         <ul class="sub-sub-menu">
                             <li><a class="{{ set_active(['school/slider']) }}"
-                                href="{{ route('scheme_list') }}">Add
-                                Exam class</a></li>
+                                    href="{{ route('scheme_list') }}">Add
+                                    Exam class</a></li>
                             <li><a class="{{ set_active(['school/slider']) }}"
                                     href="{{ route('exam_list') }}">Exam
                                     Scheme List</a></li>
@@ -856,6 +856,35 @@
                     <li><a class="{{ set_active(['school/staff-list']) }}"
                             href="{{ route('promote-staff-list') }}">Promote Staff</a></li>
                 @endif
+            </ul>
+        </li>
+
+        <li><a class="" href="javascript:void(0)"><i class="fas fa-pen"></i>
+                <span>Download</span>
+                <label title="Toggle Drop-down" class="drop-icon" for="sm1"> <i
+                        class='bx bxs-chevron-down'></i></label>
+            </a>
+            {{-- <input type="checkbox" id="sm1"> --}}
+            <ul class="sub-menu">
+                {{-- @if (Custom::getUser()->role_name == 'Staff')
+                    <li><a
+                            @if (in_array('8', Custom::getStaffPower())) class="{{ set_active(['school/staff-list']) }}"
+                        href="{{ route('promote-list', '2') }}" @else
+                        class="{{ set_active(['school/staff-list']) }} popup"
+                            href="javascript:(0)" @endif>Promote
+                            Studen</a></li>
+                    <li><a
+                            @if (in_array('16', Custom::getStaffPower())) class="{{ set_active(['school/staff-list']) }}"
+                                        href="{{ route('promote-staff-list') }}" @else
+                                        class="{{ set_active(['school/staff-list']) }} popup"
+                                            href="javascript:(0)" @endif>Promote
+                            Staff</a></li>
+                @else --}}
+                    <li><a class="{{ set_active(['school/staff-list']) }}"
+                            href="{{ route('id-card') }}">Id Card</a></li>
+                    <li><a class="{{-- set_active(['school/staff-list']) --}}"
+                            href="{{-- route('promote-staff-list') --}}">Admit Card</a></li>
+                {{-- @endif --}}
             </ul>
         </li>
 
