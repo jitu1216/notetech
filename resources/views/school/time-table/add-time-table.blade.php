@@ -175,11 +175,11 @@
                                 @php
                                     $c = 0;
                                 @endphp
-                                @for ($i = 1; $i <= 10; $i++)
+                                @for ($i = 1; $i <= 11; $i++)
                                 @php
                                     ++$c;
                                 @endphp
-                                    @if ($i == 5)
+                                    @if ($i == 6)
                                         <tr>
                                             <td colspan="4" class="text-center" style="background-color: #d1e7dd">
                                                 <div
@@ -311,8 +311,8 @@
                 // useCurrent: false
             });
 
-            for (let i = 1; i <= 10; i++) {
-                if (i != 5) {
+            for (let i = 1; i <= 11; i++) {
+                if (i != 6) {
                     new MultiSelectTag('classlist_' + i, {
                         rounded: true, // default true
                         shadow: false, // default false
