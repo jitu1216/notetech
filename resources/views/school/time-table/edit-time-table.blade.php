@@ -206,7 +206,7 @@
             /* Optional: Change the cursor */
         }
 
-        .form-control.datetimepicker-input.timepicker{
+        .form-control.datetimepicker-input.timepicker {
             border: none;
         }
 
@@ -223,6 +223,10 @@
             .page-wrapper {
                 margin-top: -20px !important;
                 padding-bottom: 0px;
+            }
+
+            .page-title{
+                margin-bottom: 60px;
             }
 
             #menu {
@@ -275,7 +279,7 @@
                         @if ($check)
                             <a id="printbtn" href="" class=" btn btn-primary" style="margin-left:20px;">Print</a>
                         @endif
-                        <div class="form-group">
+                        <div class="form-group mb-4">
                             <h3 class="page-title text-center">
                                 @if (!$check)
                                     Add Time Table
@@ -283,10 +287,10 @@
                             </h3>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
 
                     </div>
-                    <div class=" col-md-3">
+                    <div class=" col-md-4">
                         <div class="form-group">
                             <div class="form-group ">
                                 <input type="hidden" id="timetableStatus"
@@ -335,13 +339,20 @@
                                         $k = 0;
                                         $c = 0;
                                     @endphp
-                                    @for ($i = 1; $i <= 10; $i++)
+                                    @for ($i = 1; $i <= 11; $i++)
                                         @php
-                                            $timetables = $timetable[$k];
+                                            $timetables = isset($timetable[$k])
+                                                ? $timetable[$k]
+                                                : (object) [
+                                                    'id' => '',
+                                                    'time' => '',
+                                                    'class_id' => '',
+                                                    'subjects' => '',
+                                                ];
                                             $k++;
                                             ++$c;
                                         @endphp
-                                        @if ($i == 5)
+                                        @if ($i == 6)
                                             <tr>
                                                 <td colspan="4" class="text-center bg-primary">
                                                     @if (!$check)
@@ -374,7 +385,7 @@
                                                 <td hidden><input type="text" name="row[{{ $i }}]"
                                                         value="{{ $timetables->id }}">
                                                 </td>
-                                                <td><input {{ $check ? 'disabled' : ''}}
+                                                <td><input {{ $check ? 'disabled' : '' }}
                                                         class="form-control datetimepicker-input timepicker {{ $errors->has('time.' . $i) ? 'is-invalid' : '' }}"
                                                         type="text" name="time[{{ $i }}]"
                                                         value="{{ $timetables->time }}" placeholder="Enter Time"
@@ -551,8 +562,8 @@
 
             var isNotEmpty = $('#timetableStatus').val();
             if (isNotEmpty === 'true') {
-                for (let i = 1; i <= 10; i++) {
-                    if (i != 5) {
+                for (let i = 1; i <= 11; i++) {
+                    if (i != 6) {
                         new MultiSelectTag('classlist_' + i, {
                             rounded: true, // default true
                             shadow: false, // default false

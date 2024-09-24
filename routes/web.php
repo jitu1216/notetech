@@ -23,12 +23,6 @@ use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\ExmaController;
 use App\Http\Controllers\SchemeHeaderController;
 
-
-
-
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -290,8 +284,8 @@ Route::controller(ExmaController::class)->group(function () {
 });
 Route::controller(SchemeHeaderController::class)->group(function () {
     Route::get('school/scheme-class-list', 'scheme_list')->middleware('auth')->name('scheme_list');
-    Route::get('school/add-scheme-class', 'addclass')->middleware('auth')->name('add-class');
-    Route::post('school/saveclass', 'saveclass')->middleware('auth')->name('saveclass');
+    Route::get('school/add-scheme-class', 'addclass')->middleware('auth')->name('add-scheme-class');
+    Route::post('school/saveclass', 'saveSchemeclass')->middleware('auth')->name('saveclass');
     Route::get('school/edit-scheme-class/{id}', 'editclass')->middleware('auth')->name('edit-class');
     Route::post('school/updateclass', 'updateclass')->middleware('auth')->name('updateclass');
     Route::get('school/removeclass/{id}', 'removeclass')->middleware('auth')->name('removeclass');

@@ -34,7 +34,7 @@ class SchemeHeaderController extends Controller
         return view('school.exam-scheme.add-scheme-class');
     }
 
-    public function saveclass(Request $request){
+    public function saveSchemeclass(Request $request){
         // dd($request);
         $request->validate([
             'exam_header' => 'required',
