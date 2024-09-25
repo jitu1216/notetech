@@ -297,10 +297,7 @@ Route::controller(SchemeHeaderController::class)->group(function () {
     Route::get('school/edit-scheme-class/{id}', 'editclass')->middleware('auth')->name('edit-class');
     Route::post('school/updateclass', 'updateclass')->middleware('auth')->name('updateclass');
     Route::get('school/removeclass/{id}', 'removeclass')->middleware('auth')->name('removeclass');
-
 });
-
-
 
 Route::middleware('auth')->controller(AttendanceController::class)->group(function () {
     Route::get('school/take_student_attendance/{id?}', 'takestudentattendance')->name('school/take_student_attendance');

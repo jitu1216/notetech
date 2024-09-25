@@ -9,6 +9,16 @@
             /* */
         }
 
+        .main-detail {
+            margin-top: -75px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .main-detail div {
+            margin-bottom: 3px;
+        }
+
         .main-row {
             display: flex;
             flex-direction: row;
@@ -49,18 +59,20 @@
             white-space: nowrap;
             display: flex;
             justify-content: space-between;
+            margin-top: -7px;
         }
 
         .content p {
-            font-weight: 800 !important;
-            font-size: 17px;
+            font-weight: 600 !important;
+            font-size: 14px;
             margin-bottom: -2px;
             color: rgb(219, 0, 0);
+            margin-top: 5px;
         }
 
         .content-2 p {
-            font-weight: 800 !important;
-            font-size: 17px;
+            font-weight: 600 !important;
+            font-size: 14px;
             margin-bottom: -2px;
             color: black;
             margin-top: -4px;
@@ -84,7 +96,6 @@
             color: black;
             margin-left: 12px;
         }
-
         .student-info {
             white-space: nowrap;
             text-align: left;
@@ -93,23 +104,15 @@
         .student-image {
             display: flex;
             justify-content: right;
-
+            
         }
 
         .studentcontent {
             margin-top: -60px;
 
         }
-
-        /* .col6 {
-            margin-left: -40px;
-        } */
-
-        .sign {
-            white-space: nowrap;
-            display: flex;
-            justify-content: space-between;
-            margin-top: 12px;
+        .col6{
+            margin-right: -40px;
         }
 
         @media print {
@@ -126,11 +129,22 @@
                 margin-bottom: -10px;
             }
 
+            .main-detail {
+                margin-top: -75px;
+                font-size: 12px;
+                margin-bottom: 10px;
+            }
+
+            .main-detail div {
+                margin-bottom: 1px;
+            }
+
+
             /* .main-card:nth-child(9n),
-                                    .main-card:nth-child(9n + 1),
-                                    .main-card:nth-child(9n + 2) {
-                                        margin-top: 50px;
-                                    } */
+                            .main-card:nth-child(9n + 1),
+                            .main-card:nth-child(9n + 2) {
+                                margin-top: 50px;
+                            } */
 
             .id-card {
                 background-color: white;
@@ -156,25 +170,62 @@
                 margin-top: -42px
             }
 
-            .content-2 {
-                margin-top: -15px;
-            }
+        .content,
+        .content-2 {
+            white-space: nowrap;
+            display: flex;
+            justify-content: space-between;
+        }
 
-            .student-info {
-                white-space: nowrap;
-                text-align: ;
-            }
+        .content p {
+            font-weight: 800 !important;
+            font-size: 15px;
+            margin-bottom: -2px;
+            color: rgb(219, 0, 0);
+        }
 
-            .student-image {
-                display: flex;
-                justify-content: right;
+        .content-2 p {
+            font-weight: 800 !important;
+            font-size: 15px;
+            margin-bottom: -2px;
+            color: black;
+            margin-top: -4px;
+        }
 
-            }
+        .main-container h5 {
+            font-weight: 800 !important;
+            font-size: 18px;
+            margin-bottom: -2px;
+            color: rgb(219, 0, 0);
+        }
 
-            .sign {
-                          margin-top: 12px;
-            }
+        .main-container p {
+            font-size: 10px;
+            color: blue;
+            margin-right: 5px;
+        }
 
+        .main-container p span {
+            font-size: 10px;
+            color: black;
+            margin-left: 12px;
+        }
+        .student-info {
+            white-space: nowrap;
+            text-align: left;
+        }
+        .student-image{
+            display: flex;
+            justify-content: right;
+            
+        }
+        .studentcontent{
+          margin-top: -60px;
+
+        }
+        .col6{
+            margin-right: -40px;
+        }
             .header-section {
                 display: none !important;
             }
@@ -356,36 +407,38 @@
                                                 <img src="{{ URL::to('student-photos') . '/' . $item->image }}"
                                                     width="80" height="70" alt="student image">
                                             </div>
-                                            <div>
+                                            <div class="main-detail">
                                                 <div class="row studentcontent">
-                                                    <div class="col-6">Exam Centre Name</div>
-                                                    <div class="col-6 col6"> {{ Custom::getSchool()->Name }}</div>
+                                                    <div class="col-4">Exam Centre Name</div>
+                                                    <div class="col-8"> {{ Custom::getSchool()->Name }}</div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-6">Student Name</div>
-                                                    <div class="col-6 col6">{{ $item->student_name }}
+                                                    <div class="col-4">Student Name</div>
+                                                    <div class="col-8">{{ $item->student_name }}
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-6">Father Name</div>
-                                                    <div class="col-6 col6">{{ $item->father_name }}</div>
+                                                    <div class="col-4">Father Name</div>
+                                                    <div class="col-8">{{ $item->father_name }}</div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-6">Mother Name</div>
-                                                    <div class="col-6 col6">{{ $item->mother_name }}</div>
+                                                    <div class="col-4">Mother Name</div>
+                                                    <div class="col-8">{{ $item->mother_name }}</div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-6">D.O.B.</div>
-                                                    <div class="col-6 col6">{{ $item->dob }}</div>
+                                                    <div class="col-4">D.O.B.</div>
+                                                    <div class="col-8">{{ $item->dob }}</div>
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-6">Subject</div>
-                                                    {{-- @foreach ($scheme as $value)
-                                                    <td>{{ Custom::getAdmitSubject($value->exam_type, $item->exam_date) }}
-                                                    </td>
-                                                @endforeach
-                                                     <div class="col-6 col6">{{ $item->subject }}</div> --}}
+                                                    <div class="col-4">Exam Subject</div>
+                                                    <div class="col-8 subject">
+                                                        @foreach (Custom::getAdmitCardSubject($item->class_id) as $value)
+                                                            <span>{{ $value->exam_subject }}
+                                                                ({{ \Carbon\Carbon::parse($value->exam_date)->format('d/m/y') }})
+                                                                ,</span>
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="sign ">
