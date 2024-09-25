@@ -712,4 +712,12 @@ class Custom
         }
     }
 
+    public static function getAdmitCardSubject($class){
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $subject = ExamScheme::where(['school_id' => $school->id , 'academic_session' => $academic])->whereRaw("FIND_IN_SET(?, class_group)", [$class])->get();
+        return $subject;
+    }
+
 }
