@@ -39,7 +39,7 @@
                                     @csrf
                                     <div class="col-12">
                                         <div class="row">
-                                            <div class="col-12 col-sm-6">
+                                            <div class="col-12 col-sm-4">
                                                 <div class="form-group local-forms">
                                                     <label>Exam Type<span class="login-danger">*</span></label>
                                                     <select
@@ -69,7 +69,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-sm-6">
+                                            <div class="col-12 col-sm-4">
                                                 <div class="form-group local-forms">
                                                     <label>Class<span class="login-danger">*</span></label>
                                                     <select
@@ -84,6 +84,25 @@
                                                         @endforeach
                                                     </select>
                                                     @error('exam_class')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-4">
+                                                <div class="form-group local-forms">
+                                                    <label>Select Class For Group<span class="login-danger">*</span></label>
+                                                    <select class="form-control  @error('class_group') is-invalid @enderror" name="class_group[]"
+                                                        multiple id="class_group">
+                                                        @foreach ($finalarray as $value)
+                                                            <option value="{{ $value['id'] }}"
+                                                                {{ collect(old('class_group'))->contains($value['id']) ? 'selected' : '' }}>
+                                                                {{ $value['classname'] }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('class_group')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
@@ -133,4 +152,21 @@
             </div>
         </div>
     </div>
+
+    <script>
+        new MultiSelectTag('class_group', {
+            rounded: true, // default true
+            shadow: false, // default false
+            placeholder: 'Search', // default Search...
+            tagColor: {
+                textColor: '#red',
+                borderColor: '#92e681',
+                bgColor: '#eaffe6',
+            },
+            onChange: function(values) {
+                console.log(values)
+            }
+        })
+    </script>
+
 @endsection

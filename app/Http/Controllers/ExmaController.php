@@ -20,7 +20,8 @@ use Auth;
 use Carbon\Carbon;
 class ExmaController extends Controller
 {
-    public function exam_list(){
+    public function exam_list()
+    {
 
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
@@ -32,10 +33,13 @@ class ExmaController extends Controller
     {
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
-        $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->orderBy('updated_at', 'asc')->get();
-        return view('school.exam-scheme.add-scheme', compact('scheme_header'));
+        $finalarray = Custom::getAllClass();
+
+        $scheme_header = SchemeHeader::where(['school_id' => $school->id, 'academic_session' => $academic])->orderBy('updated_at', 'asc')->get();
+        return view('school.exam-scheme.add-scheme', compact('scheme_header','finalarray'));
     }
-    public function savescheme(Request $request){
+    public function savescheme(Request $request)
+    {
 
         // dd($request);
         $request->validate([
@@ -43,32 +47,38 @@ class ExmaController extends Controller
             'exam_type' => 'required',
             'exam_class' => 'required',
             'exam_subject' => 'required',
+            'class_group' => 'required',
         ]);
 
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
+        $classess = implode(",", $request->class_group);
 
         $exam_scheme = new ExamScheme;
         $exam_scheme->academic_session = $academic;
         $exam_scheme->school_id = $school->id;
         $exam_scheme->exam_type = $request->exam_type;
         $exam_scheme->exam_class = $request->exam_class;
+        $exam_scheme->class_group = $classess;
         $exam_scheme->exam_subject = $request->exam_subject;
         $exam_scheme->exam_date = date('Y-m-d', strtotime($request->exam_date));
         $exam_scheme->save();
 
-        return redirect()->route('exam_list')->with('Success','Scheme Added successfull ');
+        return redirect()->route('exam_list')->with('Success', 'Scheme Added successfull ');
     }
 
-    public function editscheme($id){
+    public function editscheme($id)
+    {
         $item = ExamScheme::find($id);
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
-        $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->orderBy('updated_at', 'asc')->get();
-        return view('school.exam-scheme.edit-scheme', compact('item','scheme_header'));
+        $finalarray = Custom::getAllClass();
+        $scheme_header = SchemeHeader::where(['school_id' => $school->id, 'academic_session' => $academic])->orderBy('updated_at', 'asc')->get();
+        return view('school.exam-scheme.edit-scheme', compact('item', 'scheme_header', 'finalarray'));
     }
 
-    public function updatescheme(Request $request){
+    public function updatescheme(Request $request)
+    {
 
 
         $request->validate([
@@ -76,26 +86,30 @@ class ExmaController extends Controller
             'exam_type' => 'required',
             'exam_class' => 'required',
             'exam_subject' => 'required',
+            'class_group' => 'required',
         ]);
-
-        // dd($request);
 
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
 
         $exam_scheme = ExamScheme::find($request->id);
+        $classess = implode(",", $request->class_group);
+
+        // dd($classess);
 
         $exam_scheme->academic_session = $academic;
         $exam_scheme->school_id = $school->id;
         $exam_scheme->exam_type = $request->exam_type;
         $exam_scheme->exam_class = $request->exam_class;
         $exam_scheme->exam_subject = $request->exam_subject;
+        $exam_scheme->class_group = $classess;
         $exam_scheme->exam_date = date('Y-m-d', strtotime($request->exam_date));
         $exam_scheme->save();
 
-        return redirect()->route('exam_list')->with('sucess','Scheme added successfull ');
+        return redirect()->route('exam_list')->with('sucess', 'Scheme added successfull ');
     }
-    public function removescheme($id){
+    public function removescheme($id)
+    {
         $record = ExamScheme::find($id);
 
         if ($record) {
@@ -107,14 +121,15 @@ class ExmaController extends Controller
     }
 
 
-    public function viewtestscheme($text){
+    public function viewtestscheme($text)
+    {
 
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
         $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->select('exam_date')->distinct('exam_date')->get();
-        $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->orderBy('updated_at', 'asc')->get();
+        $scheme_header = SchemeHeader::where(['school_id' => $school->id, 'academic_session' => $academic])->orderBy('updated_at', 'asc')->get();
 
-        return view('school.exam-scheme.view-test-scheme',compact('scheme','scheme_header','text'));
+        return view('school.exam-scheme.view-test-scheme', compact('scheme', 'scheme_header', 'text'));
 
     }
 
