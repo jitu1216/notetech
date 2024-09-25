@@ -287,6 +287,8 @@ Route::controller(DownloadController::class)->group(function () {
     Route::get('school/search-id-card', 'searchIdcard')->middleware('auth')->name('searchidcard');
     Route::get('school/admit-card', 'admitcard')->middleware('auth')->name('admit-card');
     Route::get('school/search-admit-card', 'searchadmitcard')->middleware('auth')->name('searchadmitcard');
+    Route::get('school/tc', 'tc')->middleware('auth')->name('tc');
+    Route::get('school/search-tc', 'searchtc')->middleware('auth')->name('searchtc');
 });
 Route::controller(SchemeHeaderController::class)->group(function () {
     Route::get('school/scheme-class-list', 'scheme_list')->middleware('auth')->name('scheme_list');

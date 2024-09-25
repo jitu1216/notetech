@@ -133,12 +133,15 @@
 
             .content {
                 margin-top: -25px;
-                margin-left: -25px;
+                padding-right: 40px;
             }
             .student-info{
                 white-space: nowrap;
                 margin-top: -14px;
                 margin-left: -40px;
+            }
+            .studentcontent{
+                font-size: 14px
             }
             
             .header-section {
@@ -293,7 +296,7 @@
                                         <div class="school">
                                             <div class="logo-container">
                                                 <img src="{{ URL::to('images/1680626594.jpg') }}" alt=""
-                                                    width="45" height="40">
+                                                    width="35" height="35">
                                             </div>
                                             <div class="main-container">
                                                 <h5>{{ Custom::getSchool()->Name }}</h5>
