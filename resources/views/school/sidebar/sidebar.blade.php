@@ -906,9 +906,12 @@
                                             href="javascript:(0)" @endif>Promote
                             Staff</a></li>
                 @else --}}
-                <li><a class="{{ set_active(['school/staff-list']) }}" href="{{ route('id-card') }}">Id Card</a>
-                </li>
-                <li><a class="{{-- set_active(['school/staff-list']) --}}" href="{{ route('admit-card') }}">Admit Card</a></li>
+                    <li><a class="{{ set_active(['school/staff-list']) }}"
+                            href="{{ route('id-card') }}">Id Card</a></li>
+                    <li><a class="{{-- set_active(['school/staff-list']) --}}"
+                            href="{{ route('admit-card') }}">Admit Card</a></li>
+                            <li><a class="{{-- set_active(['school/staff-list']) --}}"
+                                href="{{ route('tc') }}">T.C.</a></li>
                 {{-- @endif --}}
             </ul>
         </li>

@@ -96,20 +96,6 @@
             color: black;
             margin-left: 12px;
         }
-
-        .subject {
-            display: flex !important;
-            flex-wrap: wrap !important;
-            gap: 10px !important;
-            line-height: 0.9;
-        }
-
-        .subject span {
-            font-size: 13px;
-            /* margin-right: 15px; */
-            white-space: nowrap;
-        }
-
         .student-info {
             white-space: nowrap;
             text-align: left;
@@ -118,16 +104,14 @@
         .student-image {
             display: flex;
             justify-content: right;
-            margin-top: 15px;
-
+            
         }
 
         .studentcontent {
             margin-top: -60px;
 
         }
-
-        .col6 {
+        .col6{
             margin-right: -40px;
         }
 
@@ -157,10 +141,10 @@
 
 
             /* .main-card:nth-child(9n),
-                                        .main-card:nth-child(9n + 1),
-                                        .main-card:nth-child(9n + 2) {
-                                            margin-top: 50px;
-                                        } */
+                            .main-card:nth-child(9n + 1),
+                            .main-card:nth-child(9n + 2) {
+                                margin-top: 50px;
+                            } */
 
             .id-card {
                 background-color: white;
@@ -168,7 +152,7 @@
                 border-radius: 8px;
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
                 width: 7in;
-                height: 3in;
+                height: 3.5in;
 
             }
 
@@ -186,69 +170,62 @@
                 margin-top: -42px
             }
 
-            .content,
-            .content-2 {
-                white-space: nowrap;
-                display: flex;
-                justify-content: space-between;
-            }
+        .content,
+        .content-2 {
+            white-space: nowrap;
+            display: flex;
+            justify-content: space-between;
+        }
 
-            .content p {
-                font-weight: 600 !important;
-                font-size: 14px;
-                margin-bottom: -2px;
-                color: rgb(219, 0, 0);
-                margin-top: 5px;
-            }
+        .content p {
+            font-weight: 800 !important;
+            font-size: 15px;
+            margin-bottom: -2px;
+            color: rgb(219, 0, 0);
+        }
 
-            .content-2 p {
-                font-weight: 600 !important;
-                font-size: 14px;
-                margin-bottom: -2px;
-                color: black;
-                margin-top: -4px;
-            }
+        .content-2 p {
+            font-weight: 800 !important;
+            font-size: 15px;
+            margin-bottom: -2px;
+            color: black;
+            margin-top: -4px;
+        }
 
-            .main-container h5 {
-                font-weight: 800 !important;
-                font-size: 18px;
-                margin-bottom: -2px;
-                color: rgb(219, 0, 0);
-            }
+        .main-container h5 {
+            font-weight: 800 !important;
+            font-size: 18px;
+            margin-bottom: -2px;
+            color: rgb(219, 0, 0);
+        }
 
-            .main-container p {
-                font-size: 10px;
-                color: blue;
-                margin-right: 5px;
-            }
+        .main-container p {
+            font-size: 10px;
+            color: blue;
+            margin-right: 5px;
+        }
 
-            .main-container p span {
-                font-size: 10px;
-                color: black;
-                margin-left: 12px;
-            }
+        .main-container p span {
+            font-size: 10px;
+            color: black;
+            margin-left: 12px;
+        }
+        .student-info {
+            white-space: nowrap;
+            text-align: left;
+        }
+        .student-image{
+            display: flex;
+            justify-content: right;
+            
+        }
+        .studentcontent{
+          margin-top: -60px;
 
-            .student-info {
-                white-space: nowrap;
-                text-align: left;
-            }
-
-            .student-image {
-                display: flex;
-                justify-content: right;
-                margin-top: 15px;
-
-            }
-
-            .studentcontent {
-                margin-top: -60px;
-
-            }
-
-            .col6 {
-                margin-right: -40px;
-            }
-
+        }
+        .col6{
+            margin-right: -40px;
+        }
             .header-section {
                 display: none !important;
             }
@@ -295,7 +272,7 @@
             <div class="page-header">
                 <div class="row p-4 align-item-center m-3">
                     <div class="col">
-                        <h3>Admit CARD</h3>
+                        <h3>Admit Card</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('school') }}">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="{{-- route('') --}}">Admit Card List</a></li>
@@ -407,8 +384,8 @@
                                                 <h5>{{ Custom::getSchool()->Name }}</h5>
                                                 <p>{{ Custom::getSchool()->Address }}, {{ Custom::getSchool()->City }}
                                                     ({{ Custom::getSchool()->State }})
-                                                    <br><span>Mobile No.
-                                                        {{ Custom::getSchool()->Mobile }}</span>
+                                                    {{-- <br><span>Mobile No.
+                                                        {{ Custom::getSchool()->Mobile }}</span> --}}
                                                 </p>
 
                                             </div>
@@ -419,7 +396,7 @@
                                             </div>
                                             <hr style="margin-top: 2px;">
                                             <div class="content-2 ">
-                                                <p>SERIAL NO- {{ $item->sr_no }} </p>
+                                                <p>S.R. NO.- {{ $item->sr_no }} </p>
                                                 <p>STUDENT ID- {{ $item->student_id }} </p>
                                                 <p>ROLL NO- {{ $item->roll_no }} </p>
                                             </div>
@@ -463,6 +440,11 @@
                                                         @endforeach
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="sign ">
+
+                                                <p>PRINCIPLE SIGN</p>
+                                                <p>STUDENT SIGN </p>
                                             </div>
                                         </div>
                                     </div>
