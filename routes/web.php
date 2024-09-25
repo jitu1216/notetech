@@ -22,6 +22,7 @@ use App\Http\Controllers\SlideController;
 use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\ExmaController;
 use App\Http\Controllers\SchemeHeaderController;
+use App\Http\Controllers\DownloadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -279,11 +280,13 @@ Route::controller(ExmaController::class)->group(function () {
     Route::post('school/updatescheme', 'updatescheme')->middleware('auth')->name('updatescheme');
     Route::get('school/removescheme/{id}', 'removescheme')->middleware('auth')->name('removescheme');
     Route::get('school/view-scheme/{text}', 'viewtestscheme')->middleware('auth')->name('view-scheme');
+});
+
+Route::controller(DownloadController::class)->group(function () {
     Route::get('school/id-card', 'idcard')->middleware('auth')->name('id-card');
     Route::get('school/search-id-card', 'searchIdcard')->middleware('auth')->name('searchidcard');
-
-
-
+    Route::get('school/admit-card', 'admitcard')->middleware('auth')->name('admit-card');
+    Route::get('school/search-admit-card', 'searchadmitcard')->middleware('auth')->name('searchadmitcard');
 });
 Route::controller(SchemeHeaderController::class)->group(function () {
     Route::get('school/scheme-class-list', 'scheme_list')->middleware('auth')->name('scheme_list');

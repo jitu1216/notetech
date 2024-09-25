@@ -37,6 +37,7 @@
 
         .school {
             text-align: center;
+
         }
 
         .main-container h5 {
@@ -57,6 +58,10 @@
             color: black;
             margin-left: 12px;
         }
+        .student-info{
+                white-space: nowrap;
+                
+            }
 
         @media print {
 
@@ -73,10 +78,10 @@
             }
 
             /* .main-card:nth-child(9n),
-            .main-card:nth-child(9n + 1),
-            .main-card:nth-child(9n + 2) {
-                margin-top: 50px;
-            } */
+                .main-card:nth-child(9n + 1),
+                .main-card:nth-child(9n + 2) {
+                    margin-top: 50px;
+                } */
 
             .id-card {
                 background-color: white;
@@ -88,19 +93,54 @@
 
             }
 
+            .id-card-body {
+                margin-top: -20px;
+            }
+
+
+            .school {
+                text-align: none;
+                margin-left: -18px;
+            }
+
+            .main-container {
+                margin-right: -40px;
+            }
+
+            .logo-container {
+                width: 1px;
+                height: 2px;
+            }
+
             .main-container h5 {
                 font-weight: 800 !important;
-                font-size: 12px;
+                font-size: 10px;
                 margin-bottom: -2px;
+                margin-right: -20px;
                 color: rgb(219, 0, 0);
             }
 
-            .main-container p span {
-                font-size: 7px;
-                color: black;
-                margin-left: 8px;
+            .main-container p {
+                margin-right: -20px;
             }
 
+            .main-container p span {
+                font-size: 1px;
+                color: black;
+                margin-left: -25px;
+
+            }
+
+            .content {
+                margin-top: -25px;
+                margin-left: -25px;
+            }
+            .student-info{
+                white-space: nowrap;
+                margin-top: -14px;
+                margin-left: -40px;
+            }
+            
             .header-section {
                 display: none !important;
             }
@@ -161,19 +201,20 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input @if (!empty($studentsearch)) value="{{ $studentsearch }}" @endif type="text" 
-                                        class="form-control" name="studentsearch" placeholder="Search Student ...">
+                                    <input @if (!empty($studentsearch)) value="{{ $studentsearch }}" @endif
+                                        type="text" class="form-control" name="studentsearch"
+                                        placeholder="Search Student ...">
                                     <input value="{{ $mark }}" type="text" class="form-control" name="searchId"
                                         hidden>
                                 </div>
-                                
+
                             </div>
                             <div class=" col-md-4">
                                 <div class="form-group">
                                     <div class="form-group ">
                                         <select class="form-control select  @error('category') is-invalid @enderror"
                                             name="Class">
-    
+
                                             <option selected value="">All Class</option>
                                             @if (Custom::getStaffRole() == 'Assistant Teacher')
                                                 @if (!empty($class))
@@ -216,7 +257,7 @@
                                                     @endforeach
                                                 @endif
                                             @endif
-    
+
                                         </select>
                                     </div>
                                 </div>
@@ -227,13 +268,14 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                            
-                                <div class="search-student-btn">
-                                    <a id="printbtn" href="" class=" btn btn-primary" style="margin-left:0px;">Print</a>
-                                </div>
-                                 
 
-                            
+                                <div class="search-student-btn">
+                                    <a id="printbtn" href="" class=" btn btn-primary"
+                                        style="margin-left:0px;">Print</a>
+                                </div>
+
+
+
                             </div>
                         </div>
                     </form>
@@ -243,39 +285,42 @@
             <div class="content container-fluid">
                 <div class="main-row">
                     @foreach ($studentList as $item)
-                    {{-- @for ($i = 1; $i <= 51; $i++) --}}
+                        {{-- @for ($i = 1; $i <= 51; $i++) --}}
                         <div class="main-card">
                             <div class="card bg-common id-card" style="background-color: white;">
                                 <div class="card-body">
-                                    <div class="">
+                                    <div class="id-card-body">
                                         <div class="school">
                                             <div class="logo-container">
                                                 <img src="{{ URL::to('images/1680626594.jpg') }}" alt=""
-                                                    width="60" height="60">
+                                                    width="45" height="40">
                                             </div>
                                             <div class="main-container">
                                                 <h5>{{ Custom::getSchool()->Name }}</h5>
-                                                <p>{{ Custom::getSchool()->Address }},{{ Custom::getSchool()->City }}
+                                                <p>{{ Custom::getSchool()->Address }},<br> {{ Custom::getSchool()->City }}
                                                     ({{ Custom::getSchool()->State }})
                                                     <br><span>Mobile No.
                                                         {{ Custom::getSchool()->Mobile }}</span>
                                                     <span> Session {{ Session::get('academic_session') }}</span>
                                                 </p>
-                                                <h6>ID CARD</h6>
+                                                <h6 class="content">ID CARD</h6>
                                             </div>
                                             <div class="student-image">
-                                                <img src="{{ URL::to('student-photos') . '/' . $item->image }}" width="60" height="70" style="margin-bottom: 5px;"alt="student image">
+                                                <img src="{{ URL::to('student-photos') . '/' . $item->image }}"
+                                                    width="50" height="65"
+                                                    style="margin-bottom: 5px;"alt="student image">
                                                 <h6>{{ $item->student_name }}</h6>
                                             </div>
                                         </div>
                                         <div class="student-info row  d-flex justify-content-center">
-                                            <div class="row">
+                                            <div class="row studentcontent">
                                                 <div class="col-6">Father Name</div>
                                                 <div class="col-6">{{ $item->father_name }}</div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">Class</div>
-                                                <div class="col-6">{{ Custom::getClass($item->class_id)->classname }}</div>
+                                                <div class="col-6">{{ Custom::getClass($item->class_id)->classname }}
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">Id No.</div>
@@ -288,10 +333,10 @@
                                             <div class="row">
                                                 <div class="col-6">Address</div>
                                                 {{-- <div class="col-6">{{ $item->locality_type . ' ' . $item->village . ',' . $item->post_type . ' ' . $item->town . ' (' . $item->district . '),' . $item->pincode . ' ' . $item->state }}</div> --}}
-                                                <div class="col-6">{{ $item->locality_type . ' ' . $item->village }}</div>
+                                                <div class="col-6">{{ $item->village }}</div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-6">Mobile Number</div>
+                                                <div class="col-6">Mobile No.</div>
                                                 <div class="col-6">{{ $item->mobile }}</div>
                                             </div>
                                         </div>
@@ -299,7 +344,7 @@
                                 </div>
                             </div>
                         </div>
-                    {{-- @endfor --}}
+                        {{-- @endfor --}}
                     @endforeach
                 </div>
 
