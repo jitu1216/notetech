@@ -883,7 +883,7 @@
                     <li><a class="{{ set_active(['school/staff-list']) }}"
                             href="{{ route('id-card') }}">Id Card</a></li>
                     <li><a class="{{-- set_active(['school/staff-list']) --}}"
-                            href="{{-- route('promote-staff-list') --}}">Admit Card</a></li>
+                            href="{{ route('admit-card') }}">Admit Card</a></li>
                 {{-- @endif --}}
             </ul>
         </li>
