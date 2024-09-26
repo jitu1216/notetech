@@ -281,13 +281,14 @@ class DownloadController extends Controller
         if ($request->searchId == 5) {
             $mark = 5;
         }
+        $text = $request->text;
 
 
 
         $studentsearch = $request->studentsearch;
         $class = $request->Class;
         // dd($class);
-        return view('school.download.admit-card', compact('studentList', 'mark', 'finalarray', 'studentsearch', 'class'));
+        return view('school.download.admit-card', compact('studentList', 'mark', 'finalarray', 'studentsearch', 'class','text'));
 
     }
 
@@ -553,13 +554,13 @@ class DownloadController extends Controller
         if($request->searchId == 5){
             $mark = 5;
         }
-
+        $text = $request->text;
 
 
         $studentsearch = $request->studentsearch;
         $class =  $request->Class;
         // dd($class);
-        return view('school.download.desk-slip', compact('studentList', 'mark', 'finalarray','studentsearch','class'));
+        return view('school.download.desk-slip', compact('studentList', 'mark', 'finalarray','studentsearch','class','text'));
 
     }
 

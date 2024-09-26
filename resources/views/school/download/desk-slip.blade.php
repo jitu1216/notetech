@@ -333,6 +333,8 @@
                                         placeholder="Search Student ...">
                                     <input value="{{ $mark }}" type="text" class="form-control" name="searchId"
                                         hidden>
+                                        <input value="{{ $text }}" type="text" class="form-control" name="text"
+                                        hidden>
                                 </div>
 
                             </div>
