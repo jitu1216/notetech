@@ -56,11 +56,11 @@
                                                         <option value="Quarterly Exam"
                                                             {{ $item->exam_type == 'Quarterly Exam' ? 'selected' : '' }}>
                                                             Quarterly Exam</option>
-                                                        <option value="Half Yearly"
-                                                            {{ $item->exam_type == 'Half Yearly' ? 'selected' : '' }}>Half
+                                                        <option value="Half Yearly Exam"
+                                                            {{ $item->exam_type == 'Half Yearly Exam' ? 'selected' : '' }}>Half
                                                             Yearly Exam</option>
-                                                        <option value="Annual"
-                                                            {{ $item->exam_type == 'Annual' ? 'selected' : '' }}>Annual
+                                                        <option value="Annual Exam"
+                                                            {{ $item->exam_type == 'Annual Exam' ? 'selected' : '' }}>Annual
                                                             Exam</option>
                                                     </select>
                                                     @error('exam_type')
