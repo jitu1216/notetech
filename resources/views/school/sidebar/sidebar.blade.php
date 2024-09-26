@@ -697,6 +697,11 @@
                                         @if (in_array('3', Custom::getStaffPower())) class="{{ set_active(['school/slider']) }}" href="{{ route('exam_list') }}" @else class="{{ set_active(['school/slider']) }} popup"
                                     href="javascript:void(0)" @endif>Exam
                                         Scheme List</a></li>
+                                <li><a
+                                        @if (in_array('3', Custom::getStaffPower())) class="{{ set_active(['school/slider']) }}" href="{{ route('exam-time') }}" @else class="{{ set_active(['school/slider']) }} popup"
+                                        href="javascript:void(0)" @endif>Add
+                                        Exam Timing
+                                        Scheme List</a></li>
                                 <li><a class="{{ set_active(['school/slider']) }}"
                                         href="{{ route('view-scheme', 'Test Exam') }}">Test
                                         Exam Scheme</a></li>
@@ -789,6 +794,8 @@
                         </a>
                         {{-- <input type="checkbox" id="sm2"> --}}
                         <ul class="sub-sub-menu">
+                            <li><a class="{{ set_active(['school/slider']) }}" href="{{ route('exam-time') }}">Add
+                                    Exam Timing</a></li>
                             <li><a class="{{ set_active(['school/slider']) }}"
                                     href="{{ route('scheme_list') }}">Add
                                     Exam class</a></li>
@@ -805,10 +812,10 @@
                                     href="{{ route('view-scheme', 'Quarterly Exam') }}">Quarterly
                                     Exam Scheme</a></li>
                             <li><a class="{{ set_active(['school/slider']) }}"
-                                    href="{{ route('view-scheme', 'Half Yearly') }}">Half Yearly
+                                    href="{{ route('view-scheme', 'Half Yearly Exam') }}">Half Yearly
                                     Exam Scheme</a></li>
                             <li><a class="{{ set_active(['school/slider']) }}"
-                                    href="{{ route('view-scheme', 'Annual') }}">Annual
+                                    href="{{ route('view-scheme', 'Annual Exam') }}">Annual
                                     Exam Scheme</a></li>
                         </ul>
                     </li>
@@ -894,26 +901,105 @@
             </a>
             {{-- <input type="checkbox" id="sm1"> --}}
             <ul class="sub-menu">
-                {{-- @if (Custom::getUser()->role_name == 'Staff')
-                    <li><a
-                            @if (in_array('8', Custom::getStaffPower())) class="{{ set_active(['school/staff-list']) }}"
-                        href="{{ route('promote-list', '2') }}" @else
-                        class="{{ set_active(['school/staff-list']) }} popup"
-                            href="javascript:(0)" @endif>Promote
-                            Studen</a></li>
-                    <li><a
-                            @if (in_array('16', Custom::getStaffPower())) class="{{ set_active(['school/staff-list']) }}"
-                                        href="{{ route('promote-staff-list') }}" @else
-                                        class="{{ set_active(['school/staff-list']) }} popup"
-                                            href="javascript:(0)" @endif>Promote
-                            Staff</a></li>
-                @else --}}
-                <li><a class="{{ set_active(['school/staff-list']) }}" href="{{ route('id-card') }}">Id Card</a></li>
-                <li><a class="{{-- set_active(['school/staff-list']) --}}" href="{{ route('admit-card') }}">Admit Card</a></li>
-                <li><a class="{{-- set_active(['school/staff-list']) --}}" href="{{ route('desk-slip') }}">Desk Slip</a></li>
-                <li><a class="{{-- set_active(['school/staff-list']) --}}" href="{{ route('tc') }}">T.C.</a></li>
-                <li><a class="{{-- set_active(['school/staff-list']) --}}" href="{{ route('cc') }}">C.C.</a></li>
-                {{-- @endif --}}
+                @if (Custom::getUser()->role_name == 'Staff')
+                    <li><a class="popup {{ set_active(['school/staff-list']) }}" href="javascript:void(0)">Id
+                            Card</a>
+                    </li>
+
+                    <li><a href="#">Admit Card
+                            <label title="Toggle Drop-down" class="drop-icon" for="sm2"> <i
+                                    class='bx bxs-chevron-down'></i></label>
+                        </a>
+                        <ul class="sub-sub-menu">
+                            <li><a class=" popup {{ set_active(['school/add-time-table']) }}"
+                                    href="javascript:void(0)">Test Exam Admit Card</a></li>
+                            <li><a class="popup {{ set_active(['school/add-time-table']) }}"
+                                    href="javascript:void(0)">Monthly Exam Admit Card</a></li>
+                            <li><a class="popup {{ set_active(['school/add-time-table']) }}"
+                                    href="javascript:void(0)">Quarterly Exam Admit Card</a>
+                            </li>
+                            <li><a class="popup {{ set_active(['school/add-time-table']) }}"
+                                    href="javascript:void(0)">Half Yearly Exam Admit
+                                    Card</a></li>
+                            <li><a class="popup {{ set_active(['school/add-time-table']) }}"
+                                    href="javascript:void(0)">Annual Exam Admit Card</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="#">Desk Slip
+                            <label title="Toggle Drop-down" class="drop-icon" for="sm2"> <i
+                                    class='bx bxs-chevron-down'></i></label>
+                        </a>
+                        <ul class="sub-sub-menu">
+                            <li><a class=" popup {{ set_active(['school/add-time-table']) }}"
+                                    href="javascript:void(0)">Test Exam Desk Slip</a></li>
+                            <li><a class=" popup {{ set_active(['school/add-time-table']) }}"
+                                    href="javascript:void(0)">Monthly Exam Desk Slip</a></li>
+                            <li><a class=" popup {{ set_active(['school/add-time-table']) }}"
+                                    href="javascript:void(0)">Quarterly Exam Desk Slip</a>
+                            </li>
+                            <li><a class=" popup {{ set_active(['school/add-time-table']) }}"
+                                    href="javascript:void(0)">Half Yearly Exam Desk
+                                    Slip</a></li>
+                            <li><a class=" popup {{ set_active(['school/add-time-table']) }}"
+                                    href="javascript:void(0)">Annual Exam Desk Slip</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a class="popup {{ set_active(['school/staff-list']) }}" href="javascript:void(0)">T.C. </a>
+                    </li>
+                    <li><a class="popup {{ set_active(['school/staff-list']) }}" href="javascript:void(0)">C.C.</a>
+                    </li>
+                @else
+                    <li><a class="{{ set_active(['school/staff-list']) }}" href="{{ route('id-card') }}">Id
+                            Card</a>
+                    </li>
+
+                    <li><a href="#">Admit Card
+                            <label title="Toggle Drop-down" class="drop-icon" for="sm2"> <i
+                                    class='bx bxs-chevron-down'></i></label>
+                        </a>
+                        <ul class="sub-sub-menu">
+                            <li><a class="{{ set_active(['school/add-time-table']) }}"
+                                    href="{{ route('admit-card', 'Test Exam') }}">Test Exam Admit Card</a></li>
+                            <li><a class="{{ set_active(['school/add-time-table']) }}"
+                                    href="{{ route('admit-card', 'Monthly Exam') }}">Monthly Exam Admit Card</a></li>
+                            <li><a class="{{ set_active(['school/add-time-table']) }}"
+                                    href="{{ route('admit-card', 'Quarterly Exam') }}">Quarterly Exam Admit Card</a>
+                            </li>
+                            <li><a class="{{ set_active(['school/add-time-table']) }}"
+                                    href="{{ route('admit-card', 'Half Yearly Exam') }}">Half Yearly Exam Admit
+                                    Card</a></li>
+                            <li><a class="{{ set_active(['school/add-time-table']) }}"
+                                    href="{{ route('admit-card', 'Annual Exam') }}">Annual Exam Admit Card</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="#">Desk Slip
+                            <label title="Toggle Drop-down" class="drop-icon" for="sm2"> <i
+                                    class='bx bxs-chevron-down'></i></label>
+                        </a>
+                        <ul class="sub-sub-menu">
+                            <li><a class="{{ set_active(['school/add-time-table']) }}"
+                                    href="{{ route('desk-slip', 'Test Exam') }}">Test Exam Desk Slip</a></li>
+                            <li><a class="{{ set_active(['school/add-time-table']) }}"
+                                    href="{{ route('desk-slip', 'Monthly Exam') }}">Monthly Exam Desk Slip</a></li>
+                            <li><a class="{{ set_active(['school/add-time-table']) }}"
+                                    href="{{ route('desk-slip', 'Quarterly Exam') }}">Quarterly Exam Desk Slip</a>
+                            </li>
+                            <li><a class="{{ set_active(['school/add-time-table']) }}"
+                                    href="{{ route('desk-slip', 'Half Yearly Exam') }}">Half Yearly Exam Desk
+                                    Slip</a></li>
+                            <li><a class="{{ set_active(['school/add-time-table']) }}"
+                                    href="{{ route('desk-slip', 'Annual Exam') }}">Annual Exam Desk Slip</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a class="{{ set_active(['school/staff-list']) }}" href="{{ route('tc') }}">T.C. </a>
+                    </li>
+                    <li><a class="{{ set_active(['school/staff-list']) }}" href="{{ route('cc') }}">C.C.</a>
+                    </li>
+                @endif
             </ul>
         </li>
 

@@ -15,7 +15,7 @@ use App\Models\AcademicSession;
 use App\Models\ExamScheme;
 use App\Models\SchemeHeader;
 use Session;
-use Custom;
+use App\Helper\Custom;
 use Auth;
 use Carbon\Carbon;
 
@@ -92,5 +92,37 @@ class SchemeHeaderController extends Controller
         else {
             return redirect()->back()->with('Success','Class Not Found');
         }
+    }
+
+    public function examTime(){
+
+        $school = Custom::getschool();
+        $data = School::find($school->id);
+        return view('school.exam-scheme.exam_time',compact('data'));
+    }
+
+    public function saveExamTime(Request $request){
+
+        $request->validate([
+            'test_exam_time' => 'required',
+            'monthly_exam_time' => 'required',
+            'quaterly_exam_time' => 'required',
+            'half_exam_time' => 'required',
+            'annual_exam_time' => 'required'
+        ]);
+
+        $school = Custom::getschool();
+        $academic = Session::get('academic_session');
+
+        $school = School::find($school->id);
+        $school->test_exam_time = $request->test_exam_time;
+        $school->monthly_scheme_time = $request->monthly_exam_time;
+        $school->quarter_scheme_time = $request->quaterly_exam_time;
+        $school->half_scheme_time = $request->half_exam_time;
+        $school->annual_scheme_time = $request->annual_exam_time;
+        $school->update();
+
+        return redirect()->back()->with('Success','Time Updated Successfully');
+
     }
 }

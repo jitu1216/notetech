@@ -131,7 +131,7 @@
         justify-content: right;
         margin-top: 45px
 
-    } 
+    }
 
     .studentcontent {
         margin-top: -60px;
@@ -257,7 +257,7 @@
         justify-content: right;
         margin-top: 45px
 
-    } 
+    }
 
         .studentcontent {
             margin-top: -60px;
@@ -433,7 +433,7 @@
                                             </div>
                                             <div class="content ">
                                                 <p>CLASS {{ Custom::getClass($item->class_id)->classname }} </p>
-                                                <p> {{-- $text --}}DESK SLIP</p>
+                                                <p> {{ $text }} Desk Slip</p>
                                                 <p>Session {{ Session::get('academic_session') }}</p>
                                             </div>
                                             <hr style="margin-top: 2px;">
@@ -488,7 +488,7 @@
                                                     <div class="col-12 text-end">Principal</div>
                                                 </div>
                                             </div>
-                                    
+
                                         </div>
                                     </div>
                                 </div>

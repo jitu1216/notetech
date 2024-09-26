@@ -34,6 +34,9 @@
             z-index: 10;
             transition: none;
         }
+        .slider{
+            margin-top: 110px;
+        }
 
         .owl-nav .owl-prev,
         .owl-nav .owl-next:hover {
@@ -89,8 +92,7 @@
             /* Adjust text color if needed */
         }
     </style>
-    <div class="owl-carousel owl-theme">
-
+    <div class="owl-carousel owl-theme slider">
         @foreach ($slider as $slideritem)
             <div class="item ">
                 <div class="background-image">
