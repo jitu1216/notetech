@@ -154,7 +154,7 @@ class DownloadController extends Controller
 
     }
 
-    public function admitcard()
+    public function admitcard($text)
     {
 
         $school = Custom::getschool();
@@ -201,7 +201,7 @@ class DownloadController extends Controller
             // $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->select('exam_date')->distinct('exam_date')->get();
             // $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->orderBy('updated_at', 'asc')->get();
 
-            return view('school.download.admit-card',compact('finalarray','schoolclass','mark','studentList'));
+            return view('school.download.admit-card',compact('finalarray','schoolclass','mark','studentList','text'));
     }
 
 
@@ -341,7 +341,7 @@ class DownloadController extends Controller
             return view('school.download.tc',compact('finalarray','schoolclass','mark','studentList'));
     }
 
-    
+
     public function searchtc(Request $request)
     {
 
@@ -427,7 +427,7 @@ class DownloadController extends Controller
 
     }
 
-    public function deskslip(){
+    public function deskslip($text){
 
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
@@ -474,10 +474,10 @@ class DownloadController extends Controller
 
             // $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->select('exam_date')->distinct('exam_date')->get();
             // $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->orderBy('updated_at', 'asc')->get();
-            return view('school.download.desk-slip',compact('finalarray','schoolclass','mark','studentList'));
+            return view('school.download.desk-slip',compact('finalarray','schoolclass','mark','studentList','text'));
     }
 
-    
+
     public function searchdeskslip(Request $request)
     {
 
@@ -613,7 +613,7 @@ class DownloadController extends Controller
             return view('school.download.cc',compact('finalarray','schoolclass','mark','studentList'));
     }
 
-    
+
     public function searchcc(Request $request)
     {
 

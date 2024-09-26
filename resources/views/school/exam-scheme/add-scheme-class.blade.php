@@ -1,14 +1,13 @@
 @extends('school.layouts.master')
 @section('content')
-
-<style>
-       .container{
-                padding: 20px;
-                margin: 0px;
-                max-width: 100%;
-                width: 100%;
-            }
-</style>
+    <style>
+        .container {
+            padding: 20px;
+            margin: 0px;
+            max-width: 100%;
+            width: 100%;
+        }
+    </style>
     <div class="page-wrapper">
         <div class="container mt-5">
             <div class="page-header">
@@ -27,24 +26,26 @@
                     <div class="card common-shadow">
                         <div class="card-header">
                             <h3 class="Info">
-                                 <a href="{{ route('scheme_list') }}" class="btn btn-primary">
+                                <a href="{{ route('scheme_list') }}" class="btn btn-primary">
                                     <i class="fas fa-back"></i>Back</a>
                             </h3>
                             @if (session('status'))
-                            <h5 class="alert alert-success">{{ session('status') }}</h5>
-                        @endif
+                                <h5 class="alert alert-success">{{ session('status') }}</h5>
+                            @endif
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <form action="{{ route ('saveclass') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('saveclass') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-12 col-sm-6">
                                                 <div class="form-group local-forms">
                                                     <label>Class<span class="login-danger">*</span></label>
-                                                    <input type="text" class="form-control @error('exam_header') is-invalid @enderror" name="exam_header"
-                                                        placeholder="Enter Class" value="{{ old('exam_header')}}" id="">
+                                                    <input type="text"
+                                                        class="form-control @error('exam_header') is-invalid @enderror"
+                                                        name="exam_header" placeholder="Enter Class"
+                                                        value="{{ old('exam_header') }}" id="">
                                                     @error('exam_header')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>

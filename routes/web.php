@@ -285,11 +285,11 @@ Route::controller(ExmaController::class)->group(function () {
 Route::controller(DownloadController::class)->group(function () {
     Route::get('school/id-card', 'idcard')->middleware('auth')->name('id-card');
     Route::get('school/search-id-card', 'searchIdcard')->middleware('auth')->name('searchidcard');
-    Route::get('school/admit-card', 'admitcard')->middleware('auth')->name('admit-card');
+    Route::get('school/admit-card/{text}', 'admitcard')->middleware('auth')->name('admit-card');
     Route::get('school/search-admit-card', 'searchadmitcard')->middleware('auth')->name('searchadmitcard');
     Route::get('school/tc', 'tc')->middleware('auth')->name('tc');
     Route::get('school/search-tc', 'searchtc')->middleware('auth')->name('searchtc');
-    Route::get('school/desk-slip', 'deskslip')->middleware('auth')->name('desk-slip');
+    Route::get('school/desk-slip/{text}', 'deskslip')->middleware('auth')->name('desk-slip');
     Route::get('school/search-desk-slip', 'searchdeskslip')->middleware('auth')->name('searchdeskslip');
     Route::get('school/cc', 'cc')->middleware('auth')->name('cc');
     Route::get('school/search-cc', 'searchcc')->middleware('auth')->name('search-cc');
@@ -301,6 +301,8 @@ Route::controller(SchemeHeaderController::class)->group(function () {
     Route::get('school/edit-scheme-class/{id}', 'editclass')->middleware('auth')->name('edit-class');
     Route::post('school/updateclass', 'updateclass')->middleware('auth')->name('updateclass');
     Route::get('school/removeclass/{id}', 'removeclass')->middleware('auth')->name('removeclass');
+    Route::get('school/exam-time', 'examTime')->middleware('auth')->name('exam-time');
+    Route::post('school/save-exam-time', 'saveExamTime')->middleware('auth')->name('save-exam-time');
 });
 
 Route::middleware('auth')->controller(AttendanceController::class)->group(function () {

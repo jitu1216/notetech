@@ -49,6 +49,13 @@
 
         }
 
+        .timing {
+            padding: 5px 20px 5px 20px;
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+        }
+
         .main-container h6 {
             margin-bottom: -2px;
             font-weight: 600 !important;
@@ -205,6 +212,12 @@
                 display: none;
             }
 
+            .timing {
+                padding: 5px 20px 5px 20px;
+                color:black;
+                border-radius: 5px;
+            }
+
             footer {
                 display: none;
             }
@@ -248,8 +261,22 @@
                                 </div>
                             </div>
                             <div class="row mt-4 mb-0">
-                                <div class="col-12 d-flex justify-content-center align-items-center">
+                                <div class="col-12 d-flex flex-column justify-content-center align-items-center">
                                     <h5>{{ $text }} Scheme ( Session {{ Session::get('academic_session') }} )</h5>
+                                    @if ($text == 'Test Exam')
+                                        <h5 class="timing"> Exam Timing : {{ Custom::getSchool()->test_exam_time }}</h5>
+                                    @elseif ($text == 'Monthly Exam')
+                                        <h5 class="timing"> Exam Timing : {{ Custom::getSchool()->monthly_scheme_time }}
+                                        </h5>
+                                    @elseif ($text == 'Quarterly Exam')
+                                        <h5 class="timing"> Exam Timing : {{ Custom::getSchool()->quarter_scheme_time }}
+                                        </h5>
+                                    @elseif ($text == 'Half Yearly Exam')
+                                        <h5 class="timing"> Exam Timing : {{ Custom::getSchool()->half_scheme_time }}</h5>
+                                    @elseif ($text == 'Annual Exam')
+                                        <h5 class="timing"> Exam Timing : {{ Custom::getSchool()->annual_scheme_time }}
+                                        </h5>
+                                    @endif
                                 </div>
                             </div>
 

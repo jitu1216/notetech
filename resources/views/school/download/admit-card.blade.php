@@ -426,7 +426,7 @@
                                             </div>
                                             <div class="content ">
                                                 <p>CLASS {{ Custom::getClass($item->class_id)->classname }} </p>
-                                                <p> {{-- $text --}}HALF YEARLY(ADMIT CARD)</p>
+                                                <p> {{ $text }} (ADMIT CARD)</p>
                                                 <p>Session {{ Session::get('academic_session') }}</p>
                                             </div>
                                             <hr style="margin-top: 1px;">
