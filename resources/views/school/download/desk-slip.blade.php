@@ -476,6 +476,38 @@
                                                     <div class="col-8">{{ $item->dob }}</div>
                                                 </div>
 
+                                                @if ($text == 'Test Exam')
+                                                <div class="row">
+                                                    <div class="col-4">Exam Timing</div>
+                                                    <div class="col-8"> {{ Custom::getSchool()->test_exam_time }}
+                                                    </div>
+                                                </div>
+                                            @elseif ($text == 'Monthly Exam')
+                                                <div class="row">
+                                                    <div class="col-4">Exam Timing</div>
+                                                    <div class="col-8"> {{ Custom::getSchool()->monthly_scheme_time }}
+                                                    </div>
+                                                </div>
+                                            @elseif ($text == 'Quarterly Exam')
+                                                <div class="row">
+                                                    <div class="col-4">Exam Timing</div>
+                                                    <div class="col-8"> {{ Custom::getSchool()->quarter_scheme_time }}
+                                                    </div>
+                                                </div>
+                                            @elseif ($text == 'Half Yearly Exam')
+                                                <div class="row">
+                                                    <div class="col-4">Exam Timing</div>
+                                                    <div class="col-8"> {{ Custom::getSchool()->half_scheme_time }}
+                                                    </div>
+                                                </div>
+                                            @elseif ($text == 'Annual Exam')
+                                                <div class="row">
+                                                    <div class="col-4">Exam Timing</div>
+                                                    <div class="col-8"> {{ Custom::getSchool()->annual_scheme_time }}
+                                                    </div>
+                                                </div>
+                                            @endif
+
                                                 <div class="row">
                                                     <div class="col-4">Exam Subject</div>
                                                     <div class="col-8 subject">
