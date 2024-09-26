@@ -166,7 +166,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             width: 7.5in;
-            height: 3.5in;
+            height: 5.4in;
             margin-top: -5px;
 
         }
