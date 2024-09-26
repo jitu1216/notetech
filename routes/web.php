@@ -289,6 +289,10 @@ Route::controller(DownloadController::class)->group(function () {
     Route::get('school/search-admit-card', 'searchadmitcard')->middleware('auth')->name('searchadmitcard');
     Route::get('school/tc', 'tc')->middleware('auth')->name('tc');
     Route::get('school/search-tc', 'searchtc')->middleware('auth')->name('searchtc');
+    Route::get('school/desk-slip', 'deskslip')->middleware('auth')->name('desk-slip');
+    Route::get('school/search-desk-slip', 'searchdeskslip')->middleware('auth')->name('searchdeskslip');
+    Route::get('school/cc', 'cc')->middleware('auth')->name('cc');
+    Route::get('school/search-cc', 'searchcc')->middleware('auth')->name('search-cc');
 });
 Route::controller(SchemeHeaderController::class)->group(function () {
     Route::get('school/scheme-class-list', 'scheme_list')->middleware('auth')->name('scheme_list');

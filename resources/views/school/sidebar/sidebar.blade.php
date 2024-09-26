@@ -689,11 +689,13 @@
                                         class='bx bxs-chevron-down'></i></label>
                             </a>
                             <ul class="sub-sub-menu">
-                                <li><a @if (in_array('3', Custom::getStaffPower())) class="{{ set_active(['school/slider']) }}" href="{{ route('scheme_list') }}" @else class="{{ set_active(['school/slider']) }} popup"
+                                <li><a
+                                        @if (in_array('3', Custom::getStaffPower())) class="{{ set_active(['school/slider']) }}" href="{{ route('scheme_list') }}" @else class="{{ set_active(['school/slider']) }} popup"
                                         href="javascript:void(0)" @endif>Add
                                         Exam class</a></li>
-                                <li><a @if (in_array('3', Custom::getStaffPower())) class="{{ set_active(['school/slider']) }}" href="{{ route('exam_list')  }}" @else class="{{ set_active(['school/slider']) }} popup"
-                                    href="javascript:void(0)" @endif >Exam
+                                <li><a
+                                        @if (in_array('3', Custom::getStaffPower())) class="{{ set_active(['school/slider']) }}" href="{{ route('exam_list') }}" @else class="{{ set_active(['school/slider']) }} popup"
+                                    href="javascript:void(0)" @endif>Exam
                                         Scheme List</a></li>
                                 <li><a class="{{ set_active(['school/slider']) }}"
                                         href="{{ route('view-scheme', 'Test Exam') }}">Test
@@ -718,19 +720,19 @@
                             </a>
                             {{-- <input type="checkbox" id="sm2"> --}}
                             <ul class="sub-sub-menu">
-                                <li><a @if (in_array('23', Custom::getStaffPower()))
-                                     class="{{ set_active(['school/add-time-table']) }}"
+                                <li><a
+                                        @if (in_array('23', Custom::getStaffPower())) class="{{ set_active(['school/add-time-table']) }}"
                                     href="{{ route('add-time-table') }}" @else
                                 class="{{ set_active(['school/add-time-table']) }} popup"
-                                        href="javascript:void(0)"
-                                @endif >Add Time Table</a></li>
+                                        href="javascript:void(0)" @endif>Add
+                                        Time Table</a></li>
 
-                                <li><a  @if (in_array('23', Custom::getStaffPower()))
-                                    class="{{ set_active(['school/add-time-table']) }}"
-                                   href="{{route('edit-time-table') }}" @else
+                                <li><a
+                                        @if (in_array('23', Custom::getStaffPower())) class="{{ set_active(['school/add-time-table']) }}"
+                                   href="{{ route('edit-time-table') }}" @else
                                class="{{ set_active(['school/add-time-table']) }} popup"
-                                       href="javascript:void(0)"
-                               @endif>Edit Time Table</a></li>
+                                       href="javascript:void(0)" @endif>Edit
+                                        Time Table</a></li>
                                 <li><a class="{{ set_active(['school/add-time-table']) }}"
                                         href="{{ route('view-time-table') }}">Print Time Table</a></li>
                             </ul>
@@ -906,12 +908,11 @@
                                             href="javascript:(0)" @endif>Promote
                             Staff</a></li>
                 @else --}}
-                    <li><a class="{{ set_active(['school/staff-list']) }}"
-                            href="{{ route('id-card') }}">Id Card</a></li>
-                    <li><a class="{{-- set_active(['school/staff-list']) --}}"
-                            href="{{ route('admit-card') }}">Admit Card</a></li>
-                            <li><a class="{{-- set_active(['school/staff-list']) --}}"
-                                href="{{ route('tc') }}">T.C.</a></li>
+                <li><a class="{{ set_active(['school/staff-list']) }}" href="{{ route('id-card') }}">Id Card</a></li>
+                <li><a class="{{-- set_active(['school/staff-list']) --}}" href="{{ route('admit-card') }}">Admit Card</a></li>
+                <li><a class="{{-- set_active(['school/staff-list']) --}}" href="{{ route('desk-slip') }}">Desk Slip</a></li>
+                <li><a class="{{-- set_active(['school/staff-list']) --}}" href="{{ route('tc') }}">T.C.</a></li>
+                <li><a class="{{-- set_active(['school/staff-list']) --}}" href="{{ route('cc') }}">C.C.</a></li>
                 {{-- @endif --}}
             </ul>
         </li>

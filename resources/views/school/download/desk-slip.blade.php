@@ -1,54 +1,194 @@
 @extends('school.layouts.master')
 @section('content')
-    <style>
-        .container {
-            padding: 20px;
-            margin: 0px;
-            max-width: 100%;
-            width: 100%;
-            /* */
-        }
+<style>
+    .container {
+        padding: 20px;
+        margin: 0px;
+        max-width: 100%;
+        width: 100%;
+        /* */
+    }
 
-        .main-detail {
-            margin-top: -75px;
-            font-size: 13px;
-            margin-bottom: 20px;
-        }
+    .main-detail {
+        margin-top: -75px;
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
 
-        .main-detail div {
-            margin-bottom: 3px;
-        }
+    .main-detail div {
+        margin-bottom: 3px;
+    }
 
-        .main-row {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            padding: 0px;
-        }
+    .main-row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 0px;
+    }
 
-        .main-card {
-            margin: 10px;
+    .main-card {
+        margin: 10px;
+        margin-bottom: 10px;
+    }
+
+    .sign{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .page-header {
+        background-color: white;
+        padding-bottom: 10px
+    }
+
+    .id-card {
+        background-color: white;
+        border: solid red;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        width: 600px;
+
+    }
+
+    .school {
+        margin-top: -15px;
+    }
+
+    .main-container {
+        text-align: center;
+        margin-top: -42px
+    }
+
+    .content,
+    .content-2 {
+        white-space: nowrap;
+        display: flex;
+        justify-content: space-between;
+        margin-top: -7px;
+    }
+
+    .content p {
+        font-weight: 600 !important;
+        font-size: 14px;
+        margin-bottom: -2px;
+        color: rgb(219, 0, 0);
+        margin-top: 5px;
+    }
+
+    .content-2 p {
+        font-weight: 600 !important;
+        font-size: 14px;
+        margin-bottom: -2px;
+        color: black;
+        margin-top: -4px;
+    }
+
+    .main-container h5 {
+        font-weight: 800 !important;
+        font-size: 22px;
+        margin-bottom: -2px;
+        color: rgb(219, 0, 0);
+    }
+
+    .main-container p {
+        font-size: 12px;
+        color: blue;
+        margin-right: 5px;
+    }
+
+    .main-container p span {
+        font-size: 10px;
+        color: black;
+        margin-left: 12px;
+    }
+
+    .subject {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        line-height: 0.9;
+    }
+
+    .subject span {
+        font-size: 13px;
+        /* margin-right: 15px; */
+        white-space: nowrap;
+    }
+
+    .student-info {
+        white-space: nowrap;
+        text-align: left;
+        margin-top: -30px;
+    }
+    .main-detail {
+            margin-top: -105px;
+            font-size: 12px;
             margin-bottom: 10px;
         }
 
-        .sign {
-            display: flex;
-            justify-content: space-between;
+    .student-image {
+        display: flex;
+        justify-content: right;
+        margin-top: 45px
+
+    } 
+
+    .studentcontent {
+        margin-top: -60px;
+
+    }
+
+    .col6 {
+        margin-right: -40px;
+    }
+
+    @media print {
+
+        .container {
+            padding: 0px;
+            margin: 0px;
+            max-width: 100%;
+            width: 100%;
         }
 
-        .page-header {
-            background-color: white;
-            padding-bottom: 10px
+        .main-card {
+            margin: 15px;
+            margin-bottom: -10px;
         }
+
+        /* .main-detail {
+            margin-top: -75px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        } */
+
+        .main-detail div {
+            margin-bottom: 1px;
+        }
+
+
+        /* .main-card:nth-child(9n),
+                                    .main-card:nth-child(9n + 1),
+                                    .main-card:nth-child(9n + 2) {
+                                        margin-top: 50px;
+                                    } */
 
         .id-card {
             background-color: white;
             border: solid red;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 600px;
+            width: 5in;
+            height: 3in;
 
         }
+
+        .id-card-body {
+            margin-top: 0px;
+            padding: 0px;
+            margin-bottom: 0px;
+        }
+
 
         .school {
             margin-top: -15px;
@@ -64,7 +204,6 @@
             white-space: nowrap;
             display: flex;
             justify-content: space-between;
-            margin-top: -7px;
         }
 
         .content p {
@@ -85,13 +224,13 @@
 
         .main-container h5 {
             font-weight: 800 !important;
-            font-size: 22px;
+            font-size: 18px;
             margin-bottom: -2px;
             color: rgb(219, 0, 0);
         }
 
         .main-container p {
-            font-size: 12px;
+            font-size: 10px;
             color: blue;
             margin-right: 5px;
         }
@@ -102,23 +241,9 @@
             margin-left: 12px;
         }
 
-        .subject {
-            display: flex !important;
-            flex-wrap: wrap !important;
-            gap: 10px !important;
-            line-height: 0.9;
-        }
-
-        .subject span {
-            font-size: 13px;
-            /* margin-right: 15px; */
-            white-space: nowrap;
-        }
-
         .student-info {
             white-space: nowrap;
             text-align: left;
-            margin-top: -30px;
         }
 
         .main-detail {
@@ -127,11 +252,12 @@
             margin-bottom: 10px;
         }
 
-        .student-image {
-            display: flex;
-            justify-content: right;
-            margin-top: 45px
-        }
+    .student-image {
+        display: flex;
+        justify-content: right;
+        margin-top: 45px
+
+    } 
 
         .studentcontent {
             margin-top: -60px;
@@ -142,181 +268,62 @@
             margin-right: -40px;
         }
 
-        @media print {
-
-            .container {
-                padding: 0px;
-                margin: 0px;
-                max-width: 100%;
-                width: 100%;
-            }
-
-            .main-card {
-                margin: 15px;
-                margin-bottom: -10px;
-            }
-
-            .main-detail {
-                margin-top: -105px;
-                font-size: 12px;
-                margin-bottom: 10px;
-            }
-
-
-
-            .main-detail div {
-                margin-bottom: 1px;
-            }
-
-
-            /* .main-card:nth-child(9n),
-                                        .main-card:nth-child(9n + 1),
-                                        .main-card:nth-child(9n + 2) {
-                                            margin-top: 50px;
-                                        } */
-
-            .id-card {
-                background-color: white;
-                border: solid red;
-                border-radius: 8px;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                width: 7in;
-                height: 3in;
-
-            }
-
-            .id-card-body {
-                margin-top: 0px;
-            }
-
-
-            .school {
-                margin-top: -15px;
-            }
-
-            .main-container {
-                text-align: center;
-                margin-top: -42px
-            }
-
-            .content,
-            .content-2 {
-                white-space: nowrap;
-                display: flex;
-                justify-content: space-between;
-            }
-
-            .content p {
-                font-weight: 600 !important;
-                font-size: 14px;
-                margin-bottom: -2px;
-                color: rgb(219, 0, 0);
-                margin-top: 5px;
-            }
-
-            .content-2 p {
-                font-weight: 600 !important;
-                font-size: 14px;
-                margin-bottom: -2px;
-                color: black;
-                margin-top: -4px;
-            }
-
-            .main-container h5 {
-                font-weight: 800 !important;
-                font-size: 18px;
-                margin-bottom: -2px;
-                color: rgb(219, 0, 0);
-            }
-
-            .main-container p {
-                font-size: 10px;
-                color: blue;
-                margin-right: 5px;
-            }
-
-            .main-container p span {
-                font-size: 10px;
-                color: black;
-                margin-left: 12px;
-            }
-
-            .student-info {
-                white-space: nowrap;
-                text-align: left;
-            }
-
-            .student-image {
-                display: flex;
-                justify-content: right;
-                margin-top: 45px
-            }
-
-            .studentcontent {
-                margin-top: -60px;
-
-            }
-
-            .col6 {
-                margin-right: -40px;
-            }
-
-            .header-section {
-                display: none !important;
-            }
-
-            .page-wrapper {
-                margin-top: -80px !important;
-            }
-
-            .table {
-                font-size: 10px;
-            }
-
-            .header {
-                display: none;
-            }
-
-            nav {
-                display: none;
-            }
-
-            .card-main {
-                margin: 0px;
-                padding: 0px;
-            }
-
-
-            .print-header {
-                display: inline !important;
-            }
-
-            .page-header,
-            .action {
-                display: none;
-            }
-
-            footer {
-                display: none;
-            }
-
+        .header-section {
+            display: none !important;
         }
-    </style>
+
+        .page-wrapper {
+            margin-top: -80px !important;
+        }
+
+        .table {
+            font-size: 10px;
+        }
+
+        .header {
+            display: none;
+        }
+
+        nav {
+            display: none;
+        }
+
+        .card-main {
+            margin: 0px;
+            padding: 0px;
+        }
+
+
+        .print-header {
+            display: inline !important;
+        }
+
+        .page-header,
+        .action {
+            display: none;
+        }
+
+        footer {
+            display: none;
+        }
+
+    }
+</style>
     <div class="page-wrapper">
         <div class="container mt-5">
             <div class="page-header">
                 <div class="row p-4 align-item-center m-3">
                     <div class="col">
-                        <h3>Admit Card</h3>
+                        <h3>Desk Slip</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('school') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="{{-- route('') --}}">Admit Card List</a></li>
+                            <li class="breadcrumb-item"><a href="{{-- route('') --}}">Desk Slip List</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="student-group-form p-4" id="searchlist">
-                    <form action="{{ route('searchadmitcard') }}" method="get">
+                    <form action="{{ route('searchdeskslip') }}" method="get">
                         @csrf
                         <div class="row">
                             <div class="col-md-4">
@@ -426,14 +433,14 @@
                                             </div>
                                             <div class="content ">
                                                 <p>CLASS {{ Custom::getClass($item->class_id)->classname }} </p>
-                                                <p> {{-- $text --}}HALF YEARLY(ADMIT CARD)</p>
+                                                <p> {{-- $text --}}DESK SLIP</p>
                                                 <p>Session {{ Session::get('academic_session') }}</p>
                                             </div>
-                                            <hr style="margin-top: 1px;">
+                                            <hr style="margin-top: 2px;">
                                             <div class="content-2 ">
-                                                <p>S.R. NO.- {{ $item->sr_no }} </p>
+                                                <p>SERIAL NO.- {{ $item->sr_no }} </p>
                                                 <p>STUDENT ID- {{ $item->student_id }} </p>
-                                                <p>ROLL NO- {{ $item->roll_no }} </p>
+                                                <p>ROLL NO-{{ $item->roll_no }} </p>
                                             </div>
 
                                         </div>
@@ -477,11 +484,11 @@
                                                         @endforeach
                                                     </div>
                                                 </div>
+                                                <div class="row" style="margin-bottom: -20px; font-weight: bold;">
+                                                    <div class="col-12 text-end">Principal</div>
+                                                </div>
                                             </div>
-                                            <div class="sign ">
-                                                <p>PRINCIPAL SIGN</p>
-                                                <p>STUDENT SIGN </p>
-                                            </div>
+                                    
                                         </div>
                                     </div>
                                 </div>

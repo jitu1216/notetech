@@ -227,12 +227,14 @@
                                     <thead class=" no-wrap text-center justify-content-between">
                                         <tr>
                                             <th>Addmission File No. </th>
-                                            <th> withdrawl File No.</th>
+                                            <th>Withdrawl File No.</th>
                                             <th>Transfer certificate No.</th>
+                                            <th>Register No.</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr class="no-wrap text-center">
+                                            <td>001122</td>
                                             <td>001122</td>
                                             <td>001122</td>
                                             <td>001122</td>
@@ -269,22 +271,22 @@
                                 <div class="col-6 border border-secondary">Student Mother Name</div>
                             </div>
                             <div class="row content">
-                                <div class="col-12 border border-secondary">Date Of Birth in words</div>
+                                <div class="col-12 border border-secondary">Date of Birth in Words</div>
                             </div>
                             <div class="table-responsive background-white">
                                 <table class="table pd-5 bordered ">
                                     <thead class="text-center">
                                         <tr>
                                             <th>Class</th>
-                                            <th>Date Of Admission</th>
+                                            <th>Date of Admission</th>
                                             <th>Date of Promotion </th>
                                             <th>Date of removal</th>
                                             <th>Causes of Romval eg. nonpayment
                                                 <br> transfer of family expulsion etc.
                                             </th>
-                                            <th>year</th>
-                                            <th>conduct</th>
-                                            <th>work</th>
+                                            <th>Year</th>
+                                            <th>Conduct</th>
+                                            <th>Work</th>
                                             <th>Sign</th>
                                         </tr>
                                     </thead>
@@ -318,10 +320,10 @@
                             <div class="row content ">
                                 <div class="col-4">Prepared By</div>
                                 <div class="col-4">Date </div>
-                                <div class="col-4">Head of intitution</div>
+                                <div class="col-4">Head of Intitution</div>
                             </div>
                             <div class="row content">
-                                <div class="col">Note- If syudent has been among firs five,
+                                <div class="col">Note- If student has been among firs five,
                                     this fact should be mentioned in the column of "work".</div>
                             </div>
 
