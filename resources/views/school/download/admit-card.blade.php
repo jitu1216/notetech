@@ -170,10 +170,10 @@
 
 
             /* .main-card:nth-child(9n),
-                                        .main-card:nth-child(9n + 1),
-                                        .main-card:nth-child(9n + 2) {
-                                            margin-top: 50px;
-                                        } */
+                                                .main-card:nth-child(9n + 1),
+                                                .main-card:nth-child(9n + 2) {
+                                                    margin-top: 50px;
+                                                } */
 
             .id-card {
                 background-color: white;
@@ -326,6 +326,8 @@
                                         placeholder="Search Student ...">
                                     <input value="{{ $mark }}" type="text" class="form-control" name="searchId"
                                         hidden>
+                                    <input value="{{ $text }}" type="text" class="form-control" name="text"
+                                        hidden>
                                 </div>
 
                             </div>
@@ -393,9 +395,6 @@
                                     <a id="printbtn" href="" class=" btn btn-primary"
                                         style="margin-left:0px;">Print</a>
                                 </div>
-
-
-
                             </div>
                         </div>
                     </form>
@@ -447,7 +446,7 @@
                                                     <div class="col-4">Exam Centre Name</div>
                                                     <div class="col-8"> {{ Custom::getSchool()->Name }}<br>
                                                         {{ Custom::getSchool()->Address }},
-                                                         {{ Custom::getSchool()->City }}</div>
+                                                        {{ Custom::getSchool()->City }}</div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-4">Student Name</div>
@@ -466,6 +465,37 @@
                                                     <div class="col-4">D.O.B.</div>
                                                     <div class="col-8">{{ $item->dob }}</div>
                                                 </div>
+                                                @if ($text == 'Test Exam')
+                                                    <div class="row">
+                                                        <div class="col-4">Exam Timing</div>
+                                                        <div class="col-8"> {{ Custom::getSchool()->test_exam_time }}
+                                                        </div>
+                                                    </div>
+                                                @elseif ($text == 'Monthly Exam')
+                                                    <div class="row">
+                                                        <div class="col-4">Exam Timing</div>
+                                                        <div class="col-8"> {{ Custom::getSchool()->monthly_scheme_time }}
+                                                        </div>
+                                                    </div>
+                                                @elseif ($text == 'Quarterly Exam')
+                                                    <div class="row">
+                                                        <div class="col-4">Exam Timing</div>
+                                                        <div class="col-8"> {{ Custom::getSchool()->quarter_scheme_time }}
+                                                        </div>
+                                                    </div>
+                                                @elseif ($text == 'Half Yearly Exam')
+                                                    <div class="row">
+                                                        <div class="col-4">Exam Timing</div>
+                                                        <div class="col-8"> {{ Custom::getSchool()->half_scheme_time }}
+                                                        </div>
+                                                    </div>
+                                                @elseif ($text == 'Annual Exam')
+                                                    <div class="row">
+                                                        <div class="col-4">Exam Timing</div>
+                                                        <div class="col-8"> {{ Custom::getSchool()->annual_scheme_time }}
+                                                        </div>
+                                                    </div>
+                                                @endif
 
                                                 <div class="row">
                                                     <div class="col-4">Exam Subject</div>
