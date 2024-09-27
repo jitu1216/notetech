@@ -11,7 +11,7 @@ use App\Models\Subject;
 use App\Models\FeesTransaction;
 use App\Models\Staff;
 use Session;
-use Custom;
+use App\Helper\Custom;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -559,147 +559,7 @@ class FeesController extends Controller
 
     }
 
-    // public function feeDepositeList($id)
-    // {
-    //     $school = Custom::getSchool();
-    //     $academic = Session::get('academic_session');
 
-    //     $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '0'])->get();
-
-    //     $newClass = [];
-    //     foreach ($schoolclass as $class) {
-    //         $number =  Custom::romanToInt($class->classname);
-    //         $newClass[$class->id] = $number;
-    //     }
-
-
-    //       $sortedArray = ['P.N.C.','N.C.','K.G.','L.K.G.','U.K.G.','I','II','III','IV','V','VI','VII','VIII','IX','X','XI (Art)','XI (Biology)','XI (Agriculture)','XI (Mathematics)','XI (Commerce)','XII (Art)','XII (Biology)','XII (Agriculture)','XII (Mathematics)','XII (Commerce)'];
-
-    //     $newroman = [];
-    //     sort($newClass);
-    //     $newromanclass = [];
-
-    //     foreach($sortedArray as $organize){
-    //         if(in_array($organize,$newClass)){
-    //             array_push($newromanclass, $organize);
-    //         }
-    //     }
-
-    //     foreach ($newromanclass as $sortClass) {
-    //         $newnumber = Custom::getRomanNumber($sortClass);
-    //         array_push($newroman, $newnumber);
-    //         // dd($newroman);
-    //     }
-
-    //     $finalarray = array();
-
-
-    //     foreach ($newroman as $value) {
-    //         foreach ($schoolclass as $class) {
-    //             if ($class->classname == $value) {
-    //                 $x['classname'] = $class->classname;
-    //                 $x['id'] = $class->id;
-    //                 $finalarray[] = $x;
-    //             }
-    //             $x = [];
-    //         }
-    //     }
-
-    //     $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(['students.status' => $id, 'students.school_id' => $school->id, 'students.academic_session' => $academic])->get();
-
-    //     if ($id == 2) {
-    //         $mark = 2;
-    //     }
-    //     if ($id == 1) {
-    //         $mark = 1;
-    //     }
-    //     if ($id == 3) {
-    //         $mark = 3;
-    //     }
-    //     if ($id == 4) {
-    //         $mark = 4;
-    //     }
-
-    //     // dd($finalarray);
-    //     return view('school.fees.fees-deposite.student-list', compact('studentList', 'mark', 'finalarray'));
-    // }
-
-    // public function feedepositeSearchStudent(Request $request)
-    // {
-
-    //     $school = Custom::getSchool();
-    //     $academic = Session::get('academic_session');
-
-    //     $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '0'])->get();
-
-    //     $newClass = [];
-    //     foreach ($schoolclass as $class) {
-    //         $number =  Custom::romanToInt($class->classname);
-    //         $newClass[$class->id] = $number;
-    //     }
-
-    //   $sortedArray = ['P.N.C.','N.C.','K.G.','L.K.G.','U.K.G.','I','II','III','IV','V','VI','VII','VIII','IX','X','XI (Art)','XI (Biology)','XI (Agriculture)','XI (Mathematics)','XI (Commerce)','XII (Art)','XII (Biology)','XII (Agriculture)','XII (Mathematics)','XII (Commerce)'];
-
-    //     $newroman = [];
-    //     sort($newClass);
-    //     $newromanclass = [];
-
-    //     foreach($sortedArray as $organize){
-    //         if(in_array($organize,$newClass)){
-    //             array_push($newromanclass, $organize);
-    //         }
-    //     }
-
-    //     foreach ($newromanclass as $sortClass) {
-    //         $newnumber = Custom::getRomanNumber($sortClass);
-    //         array_push($newroman, $newnumber);
-    //         // dd($newroman);
-    //     }
-
-    //     $finalarray = array();
-
-
-    //     foreach ($newroman as $value) {
-    //         foreach ($schoolclass as $class) {
-    //             if ($class->classname == $value) {
-    //                 $x['classname'] = $class->classname;
-    //                 $x['id'] = $class->id;
-    //                 $finalarray[] = $x;
-    //             }
-    //             $x = [];
-    //         }
-    //     }
-
-
-    //     if (!empty($request->Class)) {
-    //         $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(function ($query) use ($request) {
-    //             $query->where('application_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('sr_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('student_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('father_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('district', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('state', 'LIKE', "%" . $request->studentsearch . "%");
-    //         })->where('class_id', $request->Class)->where('students.status', $request->searchId)->get();
-    //     } else {
-    //         $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(function ($query) use ($request) {
-    //             $query->where('application_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('sr_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('student_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('father_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('district', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('state', 'LIKE', "%" . $request->studentsearch . "%");
-    //         })->where('students.status', $request->searchId)->get();
-    //     }
-
-    //     if ($request->searchId == 2) {
-    //         $mark = 2;
-    //     }
-    //     if ($request->searchId == 1) {
-    //         $mark = 1;
-    //     }
-    //     if ($request->searchId == 3) {
-    //         $mark = 3;
-    //     }
-    //     if ($request->searchId == 4) {
-    //         $mark = 4;
-    //     }
-
-    //     $studentsearch = $request->studentsearch;
-    //     $class =  $request->Class;
-    //     return view('school.fees.fees-deposite.student-list', compact('studentList', 'mark', 'finalarray', 'studentsearch', 'class'));
-    // }
-
-//change start
     public function feeDepositeList($id)
     {
 
@@ -999,7 +859,7 @@ class FeesController extends Controller
             'payemnt' => 'required',
             'date' => 'required',
         ]);
-        // dd($request);
+        // dd($request->deposor);
         $school = Custom::getSchool();
         $academic = Session::get('academic_session');
 
@@ -1067,11 +927,12 @@ class FeesController extends Controller
         $feesTransaction = FeesType::join('student_fees','student_fees.fees_type_id','=','fees_types.id')->join('fees_transactions', 'student_fees.fees_type_id','=','fees_transactions.fees_type_id')->where(['fees_transactions.school_id' => $school->id, 'fees_transactions.academic_session' => $academic,'fees_transactions.online_receipt_no' => $id, 'fees_transactions.student_id'=>$studentId])->where(['student_fees.school_id' => $school->id, 'student_fees.academic_session' => $academic, 'student_fees.student_id'=>$studentId])->get();
 
         // dd($feesTransaction);
+        // dd($id);
 
         $student = Student::where('id', $studentId)->first();
         $schoolclass = SchoolClass::where('id', $student->class_id)->first();
 
-        $feesdetails = FeesTransaction::where('online_receipt_no',$id)->first();
+        $feesdetails = FeesTransaction::where(['online_receipt_no'=> $id,'school_id' => $school->id, 'academic_session' => $academic])->orderBy('id', direction: 'desc')->first();
         // dd($feesdetails);
 
         return view('school.fees.fees-deposite.reciept-print',compact('student','schoolclass','feesTransaction','feesdetails'));

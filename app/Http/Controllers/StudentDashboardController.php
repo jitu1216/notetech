@@ -154,7 +154,7 @@ class StudentDashboardController extends Controller
             if(!empty($unique->toArray())){
                 return view('studentDashboard.fees.fees-report',compact('student','schoolclass','unique'));
             }else{
-                return redirect()->back()->with('Warning', 'No Fees Receipt Found!');
+                return redirect()->back()->with('Error', value: 'No Receipt Found!');
             }
 
         }
