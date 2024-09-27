@@ -467,8 +467,8 @@
                         class='bx bxs-chevron-down'></i></label>
             </a>
             <ul class="sub-menu">
-                <li><a href="">Fees Info</a></li>
-                <li><a href="">Fees Card</a></li>
+                <li><a href="{{ route('fees-info')}}">Fees Info</a></li>
+                <li><a href="{{ route('fees-card')}}">Fees Card</a></li>
                 <li><a href="{{ route('fees/feesdeposite') }}">Online Fees Deposite</a></li>
                 <li><a href="">Transport Fees Info</a></li>
                 <li><a href="">Hostel Fees Info</a></li>

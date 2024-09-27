@@ -162,26 +162,17 @@
                 margin-bottom: 10px;
             }
 
-
-
             .main-detail div {
                 margin-bottom: 1px;
             }
-
-
-            /* .main-card:nth-child(9n),
-                                                .main-card:nth-child(9n + 1),
-                                                .main-card:nth-child(9n + 2) {
-                                                    margin-top: 50px;
-                                                } */
 
             .id-card {
                 background-color: white;
                 border: solid red;
                 border-radius: 8px;
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                width: 7in;
-                height: 3in;
+                width: 7.5in;
+                height: 5.4in;
 
             }
 

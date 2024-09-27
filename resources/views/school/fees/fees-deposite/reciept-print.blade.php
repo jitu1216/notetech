@@ -54,7 +54,7 @@
     }
 
     .main-container span {
-       
+
         color: black;
         margin-right: 10px;
         font-size: 9px;
@@ -295,7 +295,7 @@
                                 <h6 class="col-2" style="margin-left:20px; margin-right:-20px;"><span
                                         style="font-weight: 600;">Date:</span></h6>
                                 <h6 style="border-bottom:1px solid rgb(59, 59, 59);" class="col-5 text-center">
-                                    {{ $feesdetails->date }}
+                                    {{ \Carbon\Carbon::parse($feesdetails->date)->format('d/m/y') }}
                                 </h6>
                             </div>
                             <div class="d-flex flex-row">

@@ -129,8 +129,6 @@ class ExmaController extends Controller
         $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->select('exam_date')->distinct('exam_date')->get();
         $scheme_header = SchemeHeader::where(['school_id' => $school->id, 'academic_session' => $academic])->orderBy('updated_at', 'asc')->get();
 
-        // dd($scheme);
-
         return view('school.exam-scheme.view-test-scheme', compact('scheme', 'scheme_header', 'text'));
 
     }

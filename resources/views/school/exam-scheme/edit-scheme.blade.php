@@ -121,7 +121,7 @@
                                                     <input type="text"
                                                         class="form-control datetimepicker @error('exam_date') is-invalid @enderror"
                                                         placeholder="DD-MM-YYYY" name="exam_date"
-                                                        value="{{ \Carbon\Carbon::parse($item->exam_date)->format('Y-m-d') }}">
+                                                        value="{{ \Carbon\Carbon::parse($item->exam_date)->format('d-m-Y') }}">
                                                     @error('exam_date')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>

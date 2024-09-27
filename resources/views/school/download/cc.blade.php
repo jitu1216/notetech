@@ -23,21 +23,24 @@
         .main-card {
             margin: 10px;
             margin-bottom: 10px;
-           
+
             background: white;
-            width: 500px;      
+            width: 500px;
         }
-        .main-body{
-             border: solid blue; 
+
+        .main-body {
+            border: solid blue;
         }
-        .head{
+
+        .head {
             /* margin-top: 10px; */
             margin: 8px;
             text-align: center;
         }
-        .title{
+
+        .title {
             font-weight: bold;
-            font-size: 18px; 
+            font-size: 18px;
             text-align: center;
             margin-top: -15px;
         }
@@ -54,13 +57,22 @@
             color: blue;
             margin-right: 5px;
         }
-        .content{
+
+        .content {
             margin-top: -25px;
             font-weight: 600;
             font-size: 13px;
-            /* text-align: left; */
             padding: 10px;
-            
+        }
+
+        .content .row {
+            margin: 3px 0px;
+        }
+
+        .content .row span {
+            border: none;
+            border-bottom: dotted black 1px;
+
         }
 
         @media print {
@@ -92,10 +104,11 @@
                 border: solid blue 2px;
                 border-radius: 8px;
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                width: 5.3in;
-                height: 3in;
+                width: 7.3in;
+                height: 3.3in;
 
             }
+
             .main-container {
                 text-align: center;
                 margin-top: -42px
@@ -119,6 +132,10 @@
 
             nav {
                 display: none;
+            }
+
+            .main-box{
+                margin-top: -20px;
             }
 
             .card-main {
@@ -265,58 +282,75 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="">
+                                <div class="main-box">
                                     <div class="row content">
-                                        <div class="col-12">
-                                            S.R. No.- {{ $item->sr_no}}
+                                        <div class="col-12 mb-2">
+                                            S.R. No.- {{ $item->sr_no }}
                                         </div>
-                                        <div class="col-12" style="padding-left: 65px;">This is certified that 
-                                            <span style="padding-left: 35px; font-weight: bold;
-                                            font-size: 14px; ">{{ $item->student_name}}</span></div>
-                                        <div class="row">
-                                            <div class="col-5">
-                                                S/o/D/o <span style="padding-left: 35px;font-weight: bold;
-                                                font-size: 14px;">Mr. {{ $item->father_name}}</span>
-                                            </div>
-                                            <div class="col-7">
-                                            village-   <span style="padding-left: 35px;font-weight: bold;
-                                            font-size: 14px;">{{ $item->village}}</span>
-                                            </div>
+                                        <div class="col-12" style="padding-left: 65px;">This is certified that
+                                            <span
+                                                style="padding-left: 25px; font-weight: bold;
+                                            font-size: 14px;padding-right: 25px; ">{{ $item->student_name }}</span>
                                         </div>
                                         <div class="row">
-                                            <div class="col-5">
-                                                Post-  <span style="padding-left: 35px;font-weight: bold;
-                                                font-size: 15px;"> {{ $item->town}}  </span>
+                                            <div class="col-6">
+                                                S/o/D/o <span
+                                                    style="padding-left: 10px; padding-right: 10px; font-weight: bold;
+                                                font-size: 14px;">Mr.
+                                                    {{ $item->father_name }}</span>
                                             </div>
-                                            <div class="col-7">
-                                            District-   <span style="padding-left: 35px; font-weight: bold;
-                                            font-size: 14px;">{{ $item->district}}</span>
+                                            <div class="col-6">
+                                                village- <span
+                                                    style="padding-left: 10px; padding-right: 10px;  font-weight: bold;
+                                            font-size: 14px;">{{ $item->village }}</span>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-3">
-                                                Class <span style="padding-left: 35px;font-weight: bold;
+                                            <div class="col-4">
+                                                Post- <span
+                                                    style="padding-left: 10px;font-weight: bold;
+                                                font-size: 15px;">
+                                                    {{ $item->town }} </span>
+                                            </div>
+                                            <div class="col-4">
+                                                District- <span
+                                                    style="padding-left: 10px; font-weight: bold;
+                                            font-size: 14px;">{{ $item->district }}</span>
+                                            </div>
+                                            <div class="col-4">
+                                                Class <span
+                                                    style="padding-left: 10px;font-weight: bold;
                                                 font-size: 14px;">
-                                                {{ Custom::getClass($item->class_id)->classname }}</span>
+                                                    {{ Custom::getClass($item->class_id)->classname }}</span>
                                             </div>
+
+                                        </div>
+                                        {{-- <div class="row">
+
+                                        </div> --}}
+                                        <div class="row">
                                             <div class="col-5">
-                                            Date ----------- at School.
+                                                Year ............ at School.
+                                            </div>
+                                            <div class="col-7" style="padding-left: 10px;">Student date of Birth
+                                                <span
+                                                    style="padding-left: 15px;font-weight: bold;
+                                        font-size: 14px;">{{ $item->dob }}</span>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">According to record..............</div>
+                                            <div class="col-6" style="padding-left: 25px;">His conduct.................
                                             </div>
                                         </div>
-                                        <div class="row">
-                                        <div class="col-8" style="padding-left: 65px;">student date of Birth  
-                                        <span style="padding-left: 35px;font-weight: bold;
-                                        font-size: 14px;">{{ $item->dob }}</span></div>
-                                        <div class="col-4"> according to record</div>
-                                        </div>
-                                        <div class="col-12" style="padding-left: 25px;">his conduct is _____________________</div>
-                                        <div class="col-12" style="padding-left: 65px;">I will hope gold future</div>
-                                        <div class="row">
+
+                                        <div class="row mt-4">
                                             <div class="col-9">
                                                 Date
                                             </div>
                                             <div class="col-3" style="padding-left: 15px;">
-                                            Principal
+                                                Principal
                                             </div>
                                         </div>
                                     </div>

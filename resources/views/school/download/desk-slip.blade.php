@@ -1,163 +1,44 @@
 @extends('school.layouts.master')
 @section('content')
-<style>
-    .container {
-        padding: 20px;
-        margin: 0px;
-        max-width: 100%;
-        width: 100%;
-        /* */
-    }
-
-    .main-detail {
-        margin-top: -75px;
-        font-size: 13px;
-        margin-bottom: 20px;
-    }
-
-    .main-detail div {
-        margin-bottom: 3px;
-    }
-
-    .main-row {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        padding: 0px;
-    }
-
-    .main-card {
-        margin: 10px;
-        margin-bottom: 10px;
-    }
-
-    .sign{
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .page-header {
-        background-color: white;
-        padding-bottom: 10px
-    }
-
-    .id-card {
-        background-color: white;
-        border: solid red;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        width: 600px;
-
-    }
-
-    .school {
-        margin-top: -15px;
-    }
-
-    .main-container {
-        text-align: center;
-        margin-top: -42px
-    }
-
-    .content,
-    .content-2 {
-        white-space: nowrap;
-        display: flex;
-        justify-content: space-between;
-        margin-top: -7px;
-    }
-
-    .content p {
-        font-weight: 600 !important;
-        font-size: 14px;
-        margin-bottom: -2px;
-        color: rgb(219, 0, 0);
-        margin-top: 5px;
-    }
-
-    .content-2 p {
-        font-weight: 600 !important;
-        font-size: 14px;
-        margin-bottom: -2px;
-        color: black;
-        margin-top: -4px;
-    }
-
-    .main-container h5 {
-        font-weight: 800 !important;
-        font-size: 22px;
-        margin-bottom: -2px;
-        color: rgb(219, 0, 0);
-    }
-
-    .main-container p {
-        font-size: 12px;
-        color: blue;
-        margin-right: 5px;
-    }
-
-    .main-container p span {
-        font-size: 10px;
-        color: black;
-        margin-left: 12px;
-    }
-
-    .subject {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        gap: 10px !important;
-        line-height: 0.9;
-    }
-
-    .subject span {
-        font-size: 13px;
-        /* margin-right: 15px; */
-        white-space: nowrap;
-    }
-
-    .student-info {
-        white-space: nowrap;
-        text-align: left;
-        margin-top: -30px;
-    }
-    .main-detail {
-            margin-top: -105px;
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
-
-    .student-image {
-        display: flex;
-        justify-content: right;
-        margin-top: 45px
-
-    }
-
-    .studentcontent {
-        margin-top: -60px;
-
-    }
-
-    .col6 {
-        margin-right: -40px;
-    }
-
-    @media print {
-
+    <style>
         .container {
-            padding: 0px;
+            padding: 20px;
             margin: 0px;
             max-width: 100%;
             width: 100%;
+            /* */
         }
 
-        .main-card {
-            margin: 15px;
-            margin-bottom: -10px;
+        .main-detail {
+            margin-top: -75px;
+            font-size: 13px;
+            margin-bottom: 20px;
         }
 
         .main-detail div {
-            margin-bottom: 1px;
+            margin-bottom: 3px;
+        }
+
+        .main-row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            padding: 0px;
+        }
+
+        .main-card {
+            margin: 10px;
+            margin-bottom: 10px;
+        }
+
+        .sign {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .page-header {
+            background-color: white;
+            padding-bottom: 10px
         }
 
         .id-card {
@@ -165,18 +46,9 @@
             border: solid red;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 7.5in;
-            height: 5.4in;
-            margin-top: -5px;
+            width: 600px;
 
         }
-
-        .id-card-body {
-            margin-top: 0px;
-            padding: 0px;
-            margin-bottom: 0px;
-        }
-
 
         .school {
             margin-top: -15px;
@@ -192,6 +64,7 @@
             white-space: nowrap;
             display: flex;
             justify-content: space-between;
+            margin-top: -7px;
         }
 
         .content p {
@@ -212,13 +85,13 @@
 
         .main-container h5 {
             font-weight: 800 !important;
-            font-size: 18px;
+            font-size: 22px;
             margin-bottom: -2px;
             color: rgb(219, 0, 0);
         }
 
         .main-container p {
-            font-size: 10px;
+            font-size: 12px;
             color: blue;
             margin-right: 5px;
         }
@@ -229,9 +102,23 @@
             margin-left: 12px;
         }
 
+        .subject {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            line-height: 0.9;
+        }
+
+        .subject span {
+            font-size: 13px;
+            /* margin-right: 15px; */
+            white-space: nowrap;
+        }
+
         .student-info {
             white-space: nowrap;
             text-align: left;
+            margin-top: -30px;
         }
 
         .main-detail {
@@ -240,12 +127,11 @@
             margin-bottom: 10px;
         }
 
-    .student-image {
-        display: flex;
-        justify-content: right;
-        margin-top: 45px
-
-    }
+        .student-image {
+            display: flex;
+            justify-content: right;
+            margin-top: 45px
+        }
 
         .studentcontent {
             margin-top: -60px;
@@ -256,47 +142,159 @@
             margin-right: -40px;
         }
 
-        .header-section {
-            display: none !important;
+        @media print {
+
+            .container {
+                padding: 0px;
+                margin: 0px;
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .main-card {
+                margin: 15px;
+                margin-bottom: -10px;
+            }
+
+            .main-detail div {
+                margin-bottom: 1px;
+            }
+
+            .id-card {
+                background-color: white;
+                border: solid red;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                width: 7.5in;
+                height: 5.4in;
+
+            }
+
+            .id-card-body {
+                margin-top: 0px;
+                padding: 0px;
+                margin-bottom: 0px;
+            }
+
+
+            .school {
+                margin-top: -15px;
+            }
+
+            .main-container {
+                text-align: center;
+                margin-top: -42px
+            }
+
+            .content,
+            .content-2 {
+                white-space: nowrap;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .content p {
+                font-weight: 600 !important;
+                font-size: 14px;
+                margin-bottom: -2px;
+                color: rgb(219, 0, 0);
+                margin-top: 5px;
+            }
+
+            .content-2 p {
+                font-weight: 600 !important;
+                font-size: 14px;
+                margin-bottom: -2px;
+                color: black;
+                margin-top: -4px;
+            }
+
+            .main-container h5 {
+                font-weight: 800 !important;
+                font-size: 18px;
+                margin-bottom: -2px;
+                color: rgb(219, 0, 0);
+            }
+
+            .main-container p {
+                font-size: 10px;
+                color: blue;
+                margin-right: 5px;
+            }
+
+            .main-container p span {
+                font-size: 10px;
+                color: black;
+                margin-left: 12px;
+            }
+
+            .student-info {
+                white-space: nowrap;
+                text-align: left;
+            }
+
+            .main-detail {
+                margin-top: -105px;
+                font-size: 12px;
+                margin-bottom: 10px;
+            }
+
+            .student-image {
+                display: flex;
+                justify-content: right;
+                margin-top: 45px
+            }
+
+            .studentcontent {
+                margin-top: -60px;
+
+            }
+
+            .col6 {
+                margin-right: -40px;
+            }
+
+            .header-section {
+                display: none !important;
+            }
+
+            .page-wrapper {
+                margin-top: -80px !important;
+            }
+
+            .table {
+                font-size: 10px;
+            }
+
+            .header {
+                display: none;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .card-main {
+                margin: 0px;
+                padding: 0px;
+            }
+
+
+            .print-header {
+                display: inline !important;
+            }
+
+            .page-header,
+            .action {
+                display: none;
+            }
+
+            footer {
+                display: none;
+            }
+
         }
-
-        .page-wrapper {
-            margin-top: -80px !important;
-        }
-
-        .table {
-            font-size: 10px;
-        }
-
-        .header {
-            display: none;
-        }
-
-        nav {
-            display: none;
-        }
-
-        .card-main {
-            margin: 0px;
-            padding: 0px;
-        }
-
-
-        .print-header {
-            display: inline !important;
-        }
-
-        .page-header,
-        .action {
-            display: none;
-        }
-
-        footer {
-            display: none;
-        }
-
-    }
-</style>
+    </style>
     <div class="page-wrapper">
         <div class="container mt-5">
             <div class="page-header">
@@ -321,7 +319,7 @@
                                         placeholder="Search Student ...">
                                     <input value="{{ $mark }}" type="text" class="form-control" name="searchId"
                                         hidden>
-                                        <input value="{{ $text }}" type="text" class="form-control" name="text"
+                                    <input value="{{ $text }}" type="text" class="form-control" name="text"
                                         hidden>
                                 </div>
 
@@ -444,7 +442,7 @@
                                                     <div class="col-3">Exam Centre Name</div>
                                                     <div class="col-9"> {{ Custom::getSchool()->Name }}<br>
                                                         {{ Custom::getSchool()->Address }},
-                                                         {{ Custom::getSchool()->City }}</div>
+                                                        {{ Custom::getSchool()->City }}</div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-3">Student Name</div>
@@ -465,36 +463,36 @@
                                                 </div>
 
                                                 @if ($text == 'Test Exam')
-                                                <div class="row">
-                                                    <div class="col-3">Exam Timing</div>
-                                                    <div class="col-9"> {{ Custom::getSchool()->test_exam_time }}
+                                                    <div class="row">
+                                                        <div class="col-3">Exam Timing</div>
+                                                        <div class="col-9"> {{ Custom::getSchool()->test_exam_time }}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @elseif ($text == 'Monthly Exam')
-                                                <div class="row">
-                                                    <div class="col-3">Exam Timing</div>
-                                                    <div class="col-9"> {{ Custom::getSchool()->monthly_scheme_time }}
+                                                @elseif ($text == 'Monthly Exam')
+                                                    <div class="row">
+                                                        <div class="col-3">Exam Timing</div>
+                                                        <div class="col-9"> {{ Custom::getSchool()->monthly_scheme_time }}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @elseif ($text == 'Quarterly Exam')
-                                                <div class="row">
-                                                    <div class="col-3">Exam Timing</div>
-                                                    <div class="col-9"> {{ Custom::getSchool()->quarter_scheme_time }}
+                                                @elseif ($text == 'Quarterly Exam')
+                                                    <div class="row">
+                                                        <div class="col-3">Exam Timing</div>
+                                                        <div class="col-9"> {{ Custom::getSchool()->quarter_scheme_time }}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @elseif ($text == 'Half Yearly Exam')
-                                                <div class="row">
-                                                    <div class="col-3">Exam Timing</div>
-                                                    <div class="col-9"> {{ Custom::getSchool()->half_scheme_time }}
+                                                @elseif ($text == 'Half Yearly Exam')
+                                                    <div class="row">
+                                                        <div class="col-3">Exam Timing</div>
+                                                        <div class="col-9"> {{ Custom::getSchool()->half_scheme_time }}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @elseif ($text == 'Annual Exam')
-                                                <div class="row">
-                                                    <div class="col-3">Exam Timing</div>
-                                                    <div class="col-9"> {{ Custom::getSchool()->annual_scheme_time }}
+                                                @elseif ($text == 'Annual Exam')
+                                                    <div class="row">
+                                                        <div class="col-3">Exam Timing</div>
+                                                        <div class="col-9"> {{ Custom::getSchool()->annual_scheme_time }}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endif
+                                                @endif
 
                                                 <div class="row">
                                                     <div class="col-3">Exam Subject</div>
