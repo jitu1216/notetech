@@ -471,6 +471,7 @@
                 <li><a href="{{ route('fees-card')}}">Fees Card</a></li>
                 <li><a href="{{ route('fees/feesdeposite') }}">Online Fees Deposite</a></li>
                 <li><a href="{{-- route('fees/feesdeposite') --}}">Current Running Fees </a></li>
+                <li><a href="">N.O.C. Fees</a></li>
                 <li><a href="">Transport Fees Info</a></li>
                 <li><a href="">Hostel Fees Info</a></li>
             </ul>
@@ -540,10 +541,10 @@
                         class='bx bxs-chevron-down'></i></label>
             </a>
             <ul class="sub-menu">
-                <li><a href="">Class work</a></li>
-                <li><a href="">Home work</a></li>
-                <li><a href="">Online class</a></li>
-                <li><a href="">Online coaching</a></li>
+                <li><a href="">Class Work</a></li>
+                <li><a href="">Home Work</a></li>
+                <li><a href="">Online Class</a></li>
+                <li><a href="">Online Coaching</a></li>
                 <li><a href="">Online Class Room</a></li>
             </ul>
         </li>

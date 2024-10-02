@@ -62,6 +62,7 @@
         }
 
         @media print {
+      
 
             .container {
                 padding: 0px;
@@ -120,12 +121,12 @@
     <div class="page-wrapper">
         <div class="container mt-5">
             <div class="page-header">
-                <div class="row p-4 align-item-center m-3">
+                <div class="row p-4 align-item-center">
                     <div class="col ">
                         <h3>Transfer Certificate</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('school') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="{{-- route('') --}}">T.C. List</a></li>
+                            <li class="breadcrumb-item"><a href="{{-- route('') --}}">T.C.</a></li>
                         </ul>
                     </div>
                 </div>
@@ -135,10 +136,9 @@
                     </div>
                 </div>
             </div>
-            </form>
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid cn" style="margin-top: -200px;">
         <div class="main-row">
             <div class="main-card">
                 <div class="card bg-common main-body">
@@ -182,25 +182,27 @@
                             </thead>
                             <tbody>
                                 <tr class="no-wrap text-center">
-                                    <td> <span>{{ $studentList->student_name}}</span>
-                                        <span>{{ $studentList->nationality}},</span>
-                                        <span style="padding-left: 5px;">{{ $studentList->caste}},</span>
+                                    <td> <span>{{ $studentList->student_name }},</span>
+                                        <span>{{ $studentList->nationality }},</span>
+                                        <span style="padding-left: 5px;">{{ $studentList->caste }}</span>
                                     </td>
-                                    <td>{{ $studentList->father_name}},
-                                        <span>{{ $studentList->village}} {{ $studentList->town}},</span>
-                                        <span style="padding-left: 5px;">{{ $studentList->father_occupation}},</span>
+                                    <td>{{ $studentList->father_name }},
+                                        <span>{{ $studentList->village }} {{ $studentList->town }},</span>
+                                        <span style="padding-left: 5px;">{{ $studentList->father_occupation }},</span>
                                     </td>
-                                    <td>{{ $studentList->dob}}</td>
+                                    <td>{{ $studentList->dob }}</td>
                                     <td>
-                                      {{ $studentList->last_institute}}
-                                     </td>
+                                        {{ $studentList->last_institute }}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="row content">
-                        <div class="col-6 border border-secondary">Studnet Aadhar No. <span style="padding-left: 25px;">{{ $studentList->aadhar_no}}</span></div> 
-                        <div class="col-6 border border-secondary">Student Mother Name <span style="padding-left: 25px;">{{ $studentList->mother_name}}</span> </div>
+                        <div class="col-6 border border-secondary">Student Aadhar No. <span
+                                style="padding-left: 25px;">{{ $studentList->aadhar_no }}</span></div>
+                        <div class="col-6 border border-secondary">Student Mother Name <span
+                                style="padding-left: 25px;">{{ $studentList->mother_name }}</span> </div>
                     </div>
                     <div class="row content">
                         <div class="col-12 border border-secondary">Date of Birth in Words</div>

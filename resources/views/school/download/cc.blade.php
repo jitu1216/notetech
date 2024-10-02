@@ -167,7 +167,7 @@
                         <h3>Character Certificate</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('school') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="{{-- route('') --}}">C.C. List</a></li>
+                            <li class="breadcrumb-item"><a href="{{-- route('') --}}">C.C.</a></li>
                         </ul>
                     </div>
                 </div>
@@ -181,7 +181,7 @@
                         </div>
                     </div>
                 </div>
-                </form>
+                
             </div>
         </div>
 
