@@ -19,8 +19,10 @@ use App\Models\slider;
 use App\Models\Staff;
 use App\Models\FeesTransaction;
 use App\Models\TimeTable;
+use App\Models\ExamScheme;
+use App\Models\SchemeHeader;
 use Session;
-use Custom;
+use App\Helper\Custom;
 use Auth;
 
 class StudentDashboardController extends Controller
@@ -85,18 +87,18 @@ class StudentDashboardController extends Controller
 
 
         foreach ($scclass as $class) {
-            $number =  Custom::romanToInt($class->classname);
+            $number = Custom::romanToInt($class->classname);
             $newClass[$class->id] = $number;
         }
 
-        $sortedArray = ['P.N.C.','N.C.','K.G.','L.K.G.','U.K.G.','I','II','III','IV','V','VI','VII','VIII','IX','X','XI (Art)','XI (Biology)','XI (Agriculture)','XI (Mathematics)','XI (Commerce)','XII (Art)','XII (Biology)','XII (Agriculture)','XII (Mathematics)','XII (Commerce)'];
+        $sortedArray = ['P.N.C.', 'N.C.', 'K.G.', 'L.K.G.', 'U.K.G.', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI (Art)', 'XI (Biology)', 'XI (Agriculture)', 'XI (Mathematics)', 'XI (Commerce)', 'XII (Art)', 'XII (Biology)', 'XII (Agriculture)', 'XII (Mathematics)', 'XII (Commerce)'];
 
         $newroman = [];
         sort($newClass);
         $newromanclass = [];
 
-        foreach($sortedArray as $organize){
-            if(in_array($organize,$newClass)){
+        foreach ($sortedArray as $organize) {
+            if (in_array($organize, $newClass)) {
                 array_push($newromanclass, $organize);
             }
         }
@@ -119,12 +121,12 @@ class StudentDashboardController extends Controller
             }
         }
 
-        $data = FeesTransaction::where(['school_id'=> $school->id, 'academic_session' => $academic])->orderBy('id', 'DESC')->first();
+        $data = FeesTransaction::where(['school_id' => $school->id, 'academic_session' => $academic])->orderBy('id', 'DESC')->first();
 
-        if(!empty($data)){
-            $online_receipt_no = (int)$data->online_receipt_no + 1;
-        }else{
-            $online_receipt_no = (int)$school->fees_no + 1;
+        if (!empty($data)) {
+            $online_receipt_no = (int) $data->online_receipt_no + 1;
+        } else {
+            $online_receipt_no = (int) $school->fees_no + 1;
         }
 
         $classId = $studentEdit->class_id;
@@ -134,13 +136,14 @@ class StudentDashboardController extends Controller
 
         $stafflist = Staff::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '1'])->get();
 
-        $feestype = StudentFees::join('fees_types', 'fees_types.id','=','student_fees.fees_type_id')->where(['student_fees.school_id' => $school->id, 'student_fees.academic_session' => $academic, 'student_fees.status' => 1, 'student_fees.class_id' => $classId, 'student_fees.student_id'=>$id])->get();
+        $feestype = StudentFees::join('fees_types', 'fees_types.id', '=', 'student_fees.fees_type_id')->where(['student_fees.school_id' => $school->id, 'student_fees.academic_session' => $academic, 'student_fees.status' => 1, 'student_fees.class_id' => $classId, 'student_fees.student_id' => $id])->get();
 
-        return view('studentDashboard.fees.feesdeposite', compact('feestype', 'finalarray', 'classId', 'studentEdit','stafflist','online_receipt_no'));
+        return view('studentDashboard.fees.feesdeposite', compact('feestype', 'finalarray', 'classId', 'studentEdit', 'stafflist', 'online_receipt_no'));
     }
 
 
-    public function feesCard(){
+    public function feesCard()
+    {
 
         $user = Auth::guard('student')->User();
         $id = $user->id;
@@ -148,18 +151,26 @@ class StudentDashboardController extends Controller
         $academic = Session::get('academic_session');
         $student = Student::where('id', $id)->first();
         $schoolclass = SchoolClass::where('id', $student->class_id)->first();
-        $data = FeesTransaction::where(['school_id' => $school->id, 'academic_session' => $academic,'class_id'=>$student->class_id,'student_id' => $id])->get();
+        $data = FeesTransaction::where(['school_id' => $school->id, 'academic_session' => $academic, 'class_id' => $student->class_id, 'student_id' => $id])->get();
         $unique = $data->unique('reciept_no');
         // dd($unique);
-            if(!empty($unique->toArray())){
-                return view('studentDashboard.fees.fees-report',compact('student','schoolclass','unique'));
-            }else{
-                return redirect()->back()->with('Error', value: 'No Receipt Found!');
-            }
+        if (!empty($unique->toArray())) {
+            return view('studentDashboard.fees.fees-report', compact('student', 'schoolclass', 'unique'));
+        } else {
+            return redirect()->back()->with('Error', value: 'No Receipt Found!');
+        }
 
     }
 
-    public function topperstudent(){
-        return view('studentDashboard.student.topper-student');
+    public function viewstudentscheme($text)
+    {
+
+        $school = Custom::getschool();
+        $academic = Session::get('academic_session');
+        $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->select('exam_date')->distinct('exam_date')->get();
+        $scheme_header = SchemeHeader::where(['school_id' => $school->id, 'academic_session' => $academic])->orderBy('updated_at', 'asc')->get();
+
+        return view('studentDashboard.exam-scheme.view-test-scheme', compact('scheme', 'scheme_header', 'text'));
+
     }
 }
