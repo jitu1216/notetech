@@ -134,7 +134,7 @@
                 display: none;
             }
 
-            .main-box{
+            .main-box {
                 margin-top: -20px;
             }
 
@@ -173,201 +173,122 @@
                 </div>
 
                 <div class="student-group-form p-4" id="searchlist">
-                    <form action="{{ route('search-cc') }}" method="get">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input @if (!empty($studentsearch)) value="{{ $studentsearch }}" @endif
-                                        type="text" class="form-control" name="studentsearch"
-                                        placeholder="Search Student ...">
-                                    <input value="{{ $mark }}" type="text" class="form-control" name="searchId"
-                                        hidden>
-                                </div>
 
-                            </div>
-                            <div class=" col-md-4">
-                                <div class="form-group">
-                                    <div class="form-group ">
-                                        <select class="form-control select  @error('category') is-invalid @enderror"
-                                            name="Class">
+                    <div class="col-md-2">
 
-                                            <option selected value="">All Class</option>
-                                            @if (Custom::getStaffRole() == 'Assistant Teacher')
-                                                @if (!empty($class))
-                                                    @foreach ($finalarray as $value)
-                                                        @foreach (Custom::getTeacherClass() as $allot_class)
-                                                            @if ($allot_class == $value['id'])
-                                                                <option value="{{ $value['id'] }}"
-                                                                    {{ $value['id'] == $class ? 'selected' : '' }}>
-                                                                    {{ $value['classname'] }}
-                                                                </option>
-                                                            @endif
-                                                        @endforeach
-                                                    @endforeach
-                                                @else
-                                                    @foreach ($finalarray as $value)
-                                                        @foreach (Custom::getTeacherClass() as $allot_class)
-                                                            @if ($allot_class == $value['id'])
-                                                                <option value="{{ $value['id'] }}"
-                                                                    {{ old('Class') == 'I' ? 'selected' : '' }}>
-                                                                    {{ $value['classname'] }}
-                                                                </option>
-                                                            @endif
-                                                        @endforeach
-                                                    @endforeach
-                                                @endif
-                                            @else
-                                                @if (!empty($class))
-                                                    @foreach ($finalarray as $value)
-                                                        <option value="{{ $value['id'] }}"
-                                                            {{ $value['id'] == $class ? 'selected' : '' }}>
-                                                            {{ $value['classname'] }}
-                                                        </option>
-                                                    @endforeach
-                                                @else
-                                                    @foreach ($finalarray as $value)
-                                                        <option value="{{ $value['id'] }}"
-                                                            {{ old('Class') == 'I' ? 'selected' : '' }}>
-                                                            {{ $value['classname'] }}
-                                                        </option>
-                                                    @endforeach
-                                                @endif
-                                            @endif
-
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="search-student-btn">
-                                    <button type="submit" class="btn btn-primary">Search</button>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-
-                                <div class="search-student-btn">
-                                    <a id="printbtn" href="" class=" btn btn-primary"
-                                        style="margin-left:0px;">Print</a>
-                                </div>
-
-
-
-                            </div>
+                        <div class="search-student-btn">
+                            <a id="printbtn" href="" class=" btn btn-primary" style="margin-left:0px;">Print</a>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-
-            <div class="content container-fluid">
-                <div class="main-row">
-                    @foreach ($studentList as $item)
-                        {{-- @for ($i = 1; $i <= 51; $i++) --}}
-                        <div class="main-card">
-                            <div class="card bg-common main-body">
-                                <div class="head">
-                                    <div class="row">
-                                        <div class="col-2">
-                                            <img src="{{ URL::to('images/1680626594.jpg') }}" alt="" width="45"
-                                                height="40">
-                                        </div>
-                                        <div class="col-10">
-                                            <h5>{{ Custom::getSchool()->Name }}</h5>
-                                            <p>{{ Custom::getSchool()->Address }}, {{ Custom::getSchool()->City }}
-                                                ({{ Custom::getSchool()->State }})
-                                                {{-- <br><span>Mobile No.
-                                                {{ Custom::getSchool()->Mobile }}</span> --}}
-                                            </p>
-                                            <h6 class="title">Character Certificate</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="main-box">
-                                    <div class="row content">
-                                        <div class="col-12 mb-2">
-                                            S.R. No.- {{ $item->sr_no }}
-                                        </div>
-                                        <div class="col-12" style="padding-left: 65px;">This is certified that
-                                            <span
-                                                style="padding-left: 25px; font-weight: bold;
-                                            font-size: 14px;padding-right: 25px; ">{{ $item->student_name }}</span>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                S/o/D/o <span
-                                                    style="padding-left: 10px; padding-right: 10px; font-weight: bold;
-                                                font-size: 14px;">Mr.
-                                                    {{ $item->father_name }}</span>
-                                            </div>
-                                            <div class="col-6">
-                                                village- <span
-                                                    style="padding-left: 10px; padding-right: 10px;  font-weight: bold;
-                                            font-size: 14px;">{{ $item->village }}</span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-4">
-                                                Post- <span
-                                                    style="padding-left: 10px;font-weight: bold;
-                                                font-size: 15px;">
-                                                    {{ $item->town }} </span>
-                                            </div>
-                                            <div class="col-4">
-                                                District- <span
-                                                    style="padding-left: 10px; font-weight: bold;
-                                            font-size: 14px;">{{ $item->district }}</span>
-                                            </div>
-                                            <div class="col-4">
-                                                Class <span
-                                                    style="padding-left: 10px;font-weight: bold;
-                                                font-size: 14px;">
-                                                    {{ Custom::getClass($item->class_id)->classname }}</span>
-                                            </div>
-
-                                        </div>
-                                        {{-- <div class="row">
-
-                                        </div> --}}
-                                        <div class="row">
-                                            <div class="col-5">
-                                                Year ............ at School.
-                                            </div>
-                                            <div class="col-7" style="padding-left: 10px;">Student date of Birth
-                                                <span
-                                                    style="padding-left: 15px;font-weight: bold;
-                                        font-size: 14px;">{{ $item->dob }}</span>
-                                            </div>
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6">According to record..............</div>
-                                            <div class="col-6" style="padding-left: 25px;">His conduct.................
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-9">
-                                                Date
-                                            </div>
-                                            <div class="col-3" style="padding-left: 15px;">
-                                                Principal
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {{-- @endfor --}}
-                    @endforeach
-                </div>
-
+                </form>
             </div>
         </div>
 
-        <script>
-            $('#printbtn').on('click', function() {
-                event.preventDefault();
-                window.print()
-            });
-        </script>
-    @endsection
+        <div class="content container-fluid">
+            <div class="main-row">
+                {{-- @foreach ($studentList as $item) --}}
+                {{-- @for ($i = 1; $i <= 51; $i++) --}}
+                <div class="main-card">
+                    <div class="card bg-common main-body">
+                        <div class="head">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="{{ URL::to('images/1680626594.jpg') }}" alt="" width="45"
+                                        height="40">
+                                </div>
+                                <div class="col-10">
+                                    <h5>{{ Custom::getSchool()->Name }}</h5>
+                                    <p>{{ Custom::getSchool()->Address }}, {{ Custom::getSchool()->City }}
+                                        ({{ Custom::getSchool()->State }})
+                                        {{-- <br><span>Mobile No.
+                                                {{ Custom::getSchool()->Mobile }}</span> --}}
+                                    </p>
+                                    <h6 class="title">Character Certificate</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-box">
+                            <div class="row content">
+                                <div class="col-12 mb-2">
+                                    S.R. No.- {{ $studentList->sr_no }}
+                                </div>
+                                <div class="col-12" style="padding-left: 65px;">This is certified that
+                                    <span
+                                        style="padding-left: 25px; font-weight: bold;
+                                            font-size: 14px;padding-right: 25px; ">{{ $studentList->student_name }}</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        S/o/D/o <span
+                                            style="padding-left: 10px; padding-right: 10px; font-weight: bold;
+                                                font-size: 14px;">Mr.
+                                            {{ $studentList->father_name }}</span>
+                                    </div>
+                                    <div class="col-6">
+                                        village- <span
+                                            style="padding-left: 10px; padding-right: 10px;  font-weight: bold;
+                                            font-size: 14px;">{{ $studentList->village }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        Post- <span
+                                            style="padding-left: 10px;font-weight: bold;
+                                                font-size: 15px;">
+                                            {{ $studentList->town }} </span>
+                                    </div>
+                                    <div class="col-4">
+                                        District- <span
+                                            style="padding-left: 10px; font-weight: bold;
+                                            font-size: 14px;">{{ $studentList->district }}</span>
+                                    </div>
+                                    <div class="col-4">
+                                        Class <span
+                                            style="padding-left: 10px;font-weight: bold;
+                                                font-size: 14px;">
+                                            {{ Custom::getClass($studentList->class_id)->classname }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5">
+                                        Year  <input type="date" class="form-control" id="dateInput" placeholder="YYYY-MM-DD"> at School.
+                                    </div>
+                                    <div class="col-7" style="padding-left: 10px;">Student date of Birth
+                                        <span
+                                            style="padding-left: 15px;font-weight: bold;
+                                        font-size: 14px;">{{ $studentList->dob }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">According to record</div>
+                                    <div class="col-6" style="padding-left: 25px;">His conduct  
+                                     <input type="text" class="form-control" id="textInput" placeholder="Enter conduct" required>
+                                    </div>
+                                </div>
+                                <div class="col-12" style="padding-left: 65px;">I will hope gold future. </div>
+                                <div class="row mt-4">
+                                    <div class="col-9">
+                                        <input type="date" class="form-control" id="dateInput" placeholder="YYYY-MM-DD">
+                                    </div>
+                                    <div class="col-3" style="padding-left: 15px;">
+                                        Principal
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- @endfor --}}
+                {{-- @endforeach --}}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#printbtn').on('click', function() {
+            event.preventDefault();
+            window.print()
+        });
+    </script>
+@endsection

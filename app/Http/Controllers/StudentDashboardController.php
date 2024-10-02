@@ -157,5 +157,9 @@ class StudentDashboardController extends Controller
                 return redirect()->back()->with('Error', value: 'No Receipt Found!');
             }
 
-        }
+    }
+
+    public function topperstudent(){
+        return view('studentDashboard.student.topper-student');
+    }
 }

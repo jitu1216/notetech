@@ -258,6 +258,7 @@ Route::controller(StudentDashboardController::class)->group(function () {
     Route::get('student/student_profile', 'student_profile')->name('student_profile');
     Route::get('student/fees-info', 'feesInfo')->name('fees-info');
     Route::get('student/fees-card', 'feesCard')->name('fees-card');
+    Route::get('student/topper-student','topperstudent')->middleware('auth.student')->name('topper-student');
 
 
 });
@@ -287,12 +288,15 @@ Route::controller(DownloadController::class)->group(function () {
     Route::get('school/search-id-card', 'searchIdcard')->middleware('auth')->name('searchidcard');
     Route::get('school/admit-card/{text}', 'admitcard')->middleware('auth')->name('admit-card');
     Route::get('school/search-admit-card', 'searchadmitcard')->middleware('auth')->name('searchadmitcard');
-    Route::get('school/tc', 'tc')->middleware('auth')->name('tc');
-    Route::get('school/search-tc', 'searchtc')->middleware('auth')->name('searchtc');
+    
     Route::get('school/desk-slip/{text}', 'deskslip')->middleware('auth')->name('desk-slip');
     Route::get('school/search-desk-slip', 'searchdeskslip')->middleware('auth')->name('searchdeskslip');
-    Route::get('school/cc', 'cc')->middleware('auth')->name('cc');
-    Route::get('school/search-cc', 'searchcc')->middleware('auth')->name('search-cc');
+    Route::get('school/tc/{id}', 'tc')->middleware('auth')->name('tc');
+    // Route::get('school/search-tc', 'searchtc')->middleware('auth')->name('searchtc');
+    Route::get('school/cc/{id}', 'cc')->middleware('auth')->name('cc');
+    // Route::get('school/search-cc', 'searchcc')->middleware('auth')->name('search-cc');
+    Route::get('school/tc-cc-list', 'tccclist')->middleware('auth')->name('tc-cc-list');
+    Route::get('school/search-tc-cc', 'searchtccc')->middleware('auth')->name('search-tc-cc');
 });
 Route::controller(SchemeHeaderController::class)->group(function () {
     Route::get('school/scheme-class-list', 'scheme_list')->middleware('auth')->name('scheme_list');
