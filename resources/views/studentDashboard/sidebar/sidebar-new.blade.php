@@ -470,6 +470,8 @@
                 <li><a href="{{ route('fees-info')}}">Fees Info</a></li>
                 <li><a href="{{ route('fees-card')}}">Fees Card</a></li>
                 <li><a href="{{ route('fees/feesdeposite') }}">Online Fees Deposite</a></li>
+                <li><a href="{{-- route('fees/feesdeposite') --}}">Current Running Fees </a></li>
+                <li><a href="">N.O.C. Fees</a></li>
                 <li><a href="">Transport Fees Info</a></li>
                 <li><a href="">Hostel Fees Info</a></li>
             </ul>
@@ -488,6 +490,10 @@
                 <li><a href="">Test Mark</a></li>
                 <li><a href="">Exam Mark</a></li>
                 <li><a href="">Attendance Record</a></li>
+                <li><a href="{{ route('topper-student') }}">Topper Student</a></li>
+                <li><a href="">Leave Application Form</a></li>
+                <li><a href="">Leave Application Form Status</a></li>
+                <li><a href="">Password Change</a></li>
                 <li><a href="">Complaint</a></li>
             </ul>
         </li>
@@ -523,6 +529,8 @@
             </li>
                 <li><a href="">Exam Desk Slip</a></li>
                 <li><a href="">Exam Admit Card</a></li>
+                <li><a href="">T.C.</a></li>
+                <li><a href="">C.C.</a></li>
             </ul>
         </li>
         <li><a class="{{ set_active(['student']) }}" href="{{ route('student') }}"><i
@@ -533,10 +541,11 @@
                         class='bx bxs-chevron-down'></i></label>
             </a>
             <ul class="sub-menu">
-                <li><a href="">Class work</a></li>
-                <li><a href="">Home work</a></li>
-                <li><a href="">Online class</a></li>
-                <li><a href="">Online coaching</a></li>
+                <li><a href="">Class Work</a></li>
+                <li><a href="">Home Work</a></li>
+                <li><a href="">Online Class</a></li>
+                <li><a href="">Online Coaching</a></li>
+                <li><a href="">Online Class Room</a></li>
             </ul>
         </li>
         <li><a class="" href="javascript:void(0)"><i class="fas fa-building"></i>

@@ -25,6 +25,7 @@
             flex-direction: row;
             flex-wrap: wrap;
             padding: 0px;
+            /* margin-top: -95px; */
         }
 
         .main-card {
@@ -36,17 +37,17 @@
 
         .main-body {
             margin: 15px;
-            
+
         }
 
         .page-header {
             background-color: white;
-            padding-bottom: 0px
+            padding: 10px
         }
 
         .title {
             font-weight: bold;
-            font-size: 20px; 
+            font-size: 20px;
             padding: 25px;
             padding-bottom: 0px;
             padding-top: 12px;
@@ -61,6 +62,7 @@
         }
 
         @media print {
+      
 
             .container {
                 padding: 0px;
@@ -119,222 +121,151 @@
     <div class="page-wrapper">
         <div class="container mt-5">
             <div class="page-header">
-                <div class="row p-4 align-item-center m-3">
+                <div class="row p-4 align-item-center">
                     <div class="col ">
                         <h3>Transfer Certificate</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('school') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="{{-- route('') --}}">T.C. List</a></li>
+                            <li class="breadcrumb-item"><a href="{{-- route('') --}}">T.C.</a></li>
                         </ul>
                     </div>
                 </div>
-
-                <div class="student-group-form p-4" id="searchlist">
-                    <form action="{{ route('searchtc') }}" method="get">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input @if (!empty($studentsearch)) value="{{ $studentsearch }}" @endif
-                                        type="text" class="form-control" name="studentsearch"
-                                        placeholder="Search Student ...">
-                                    <input value="{{ $mark }}" type="text" class="form-control" name="searchId"
-                                        hidden>
-                                </div>
-
-                            </div>
-                            <div class=" col-md-4">
-                                <div class="form-group">
-                                    <div class="form-group ">
-                                        <select class="form-control select  @error('category') is-invalid @enderror"
-                                            name="Class">
-
-                                            <option selected value="">All Class</option>
-                                            @if (Custom::getStaffRole() == 'Assistant Teacher')
-                                                @if (!empty($class))
-                                                    @foreach ($finalarray as $value)
-                                                        @foreach (Custom::getTeacherClass() as $allot_class)
-                                                            @if ($allot_class == $value['id'])
-                                                                <option value="{{ $value['id'] }}"
-                                                                    {{ $value['id'] == $class ? 'selected' : '' }}>
-                                                                    {{ $value['classname'] }}
-                                                                </option>
-                                                            @endif
-                                                        @endforeach
-                                                    @endforeach
-                                                @else
-                                                    @foreach ($finalarray as $value)
-                                                        @foreach (Custom::getTeacherClass() as $allot_class)
-                                                            @if ($allot_class == $value['id'])
-                                                                <option value="{{ $value['id'] }}"
-                                                                    {{ old('Class') == 'I' ? 'selected' : '' }}>
-                                                                    {{ $value['classname'] }}
-                                                                </option>
-                                                            @endif
-                                                        @endforeach
-                                                    @endforeach
-                                                @endif
-                                            @else
-                                                @if (!empty($class))
-                                                    @foreach ($finalarray as $value)
-                                                        <option value="{{ $value['id'] }}"
-                                                            {{ $value['id'] == $class ? 'selected' : '' }}>
-                                                            {{ $value['classname'] }}
-                                                        </option>
-                                                    @endforeach
-                                                @else
-                                                    @foreach ($finalarray as $value)
-                                                        <option value="{{ $value['id'] }}"
-                                                            {{ old('Class') == 'I' ? 'selected' : '' }}>
-                                                            {{ $value['classname'] }}
-                                                        </option>
-                                                    @endforeach
-                                                @endif
-                                            @endif
-
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="search-student-btn">
-                                    <button type="submit" class="btn btn-primary">Search</button>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-
-                                <div class="search-student-btn">
-                                    <a id="printbtn" href="" class=" btn btn-primary"
-                                        style="margin-left:0px;">Print</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="main-row">
-                    {{-- @foreach ($studentList as $item) --}}
-                    {{-- @for ($i = 1; $i <= 51; $i++) --}}
-                    <div class="main-card">
-                        <div class="card bg-common main-body">
-                            <div class="card-header">
-                                <h3 class="title ">Scholar's Register & Transfer Certificate</h3>
-                            </div>
-
-                            <div class="table-responsive background-white">
-                                <table class="table pd-5 bordered">
-                                    <thead class=" no-wrap text-center justify-content-between">
-                                        <tr>
-                                            <th>Addmission File No. </th>
-                                            <th>Withdrawl File No.</th>
-                                            <th>Transfer certificate No.</th>
-                                            <th>Register No.</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="no-wrap text-center">
-                                            <td>001122</td>
-                                            <td>001122</td>
-                                            <td>001122</td>
-                                            <td>001122</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="table-responsive background-white">
-                                <table class="table pd-5 bordered ">
-                                    <thead class="text-center">
-                                        <tr>
-                                            <th>Name of the Scholar with nationality
-                                                <br> & caste if Hindu otherwise religion
-                                            </th>
-                                            <th>Name occcupation and address of
-                                                <br> Parents, Guardian or Husband
-                                            </th>
-                                            <th>Date of birth of scholar</th>
-                                            <th> last istitution attend by the scholar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="no-wrap text-center">
-                                            <td>001122</td>
-                                            <td>001122</td>
-                                            <td>001122</td>
-                                            <td>001122</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="row content">
-                                <div class="col-6 border border-secondary">Studnet Aadhar No.</div>
-                                <div class="col-6 border border-secondary">Student Mother Name</div>
-                            </div>
-                            <div class="row content">
-                                <div class="col-12 border border-secondary">Date of Birth in Words</div>
-                            </div>
-                            <div class="table-responsive background-white">
-                                <table class="table pd-5 bordered ">
-                                    <thead class="text-center">
-                                        <tr>
-                                            <th>Class</th>
-                                            <th>Date of Admission</th>
-                                            <th>Date of Promotion </th>
-                                            <th>Date of removal</th>
-                                            <th>Causes of Romval eg. nonpayment
-                                                <br> transfer of family expulsion etc.
-                                            </th>
-                                            <th>Year</th>
-                                            <th>Conduct</th>
-                                            <th>Work</th>
-                                            <th>Sign</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="no-wrap text-center">
-                                            <td>001122</td>
-                                            <td>001122</td>
-                                            <td>001122</td>
-                                            <td>001122</td>
-                                            <td>001122</td>
-                                            <td>001122</td>
-                                            <td>001122</td>
-                                            <td>001122</td>
-                                            <td>001122</td>
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            {{-- <hr style="height: 3px; color: black;"> --}}
-                            <div class="row content">
-                                <div class="col">
-                                    <p>1. Certified that the entries as regards details
-                                        of the studenthave been duly checked from
-                                        the Admission Form and that they are complete</p>
-                                    <p>2. Certified that the above student
-                                        Register has been posted up-to-date of the
-                                        student's leaving as reuuired by the department rules</p>
-                                </div>
-                            </div>
-                            <div class="row content ">
-                                <div class="col-4">Prepared By</div>
-                                <div class="col-4">Date </div>
-                                <div class="col-4">Head of Intitution</div>
-                            </div>
-                            <div class="row content">
-                                <div class="col">Note- If student has been among firs five,
-                                    this fact should be mentioned in the column of "work".</div>
-                            </div>
-
-                        </div>
+                <div class="col-md-2">
+                    <div class="search-student-btn">
+                        <a id="printbtn" href="" class=" btn btn-primary" style="margin-left:0px;">Print</a>
                     </div>
                 </div>
-                {{-- @endfor --}}
-                {{-- @endforeach --}}
             </div>
         </div>
     </div>
+    <div class="container-fluid cn" style="margin-top: -200px;">
+        <div class="main-row">
+            <div class="main-card">
+                <div class="card bg-common main-body">
+                    <div class="card-header">
+                        <h3 class="title ">Scholar's Register & Transfer Certificate</h3>
+                    </div>
+
+                    <div class="table-responsive background-white">
+                        <table class="table pd-5 bordered">
+                            <thead class=" no-wrap text-center justify-content-between">
+                                <tr>
+                                    <th>Addmission File No. </th>
+                                    <th>Withdrawl File No.</th>
+                                    <th>Transfer certificate No.</th>
+                                    <th>Register No.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="no-wrap text-center">
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-responsive background-white">
+                        <table class="table pd-5 bordered ">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>Name of the Scholar with nationality
+                                        <br> & caste if Hindu otherwise religion
+                                    </th>
+                                    <th>Name occcupation and address of
+                                        <br> Parents, Guardian or Husband
+                                    </th>
+                                    <th>Date of birth of scholar</th>
+                                    <th> last istitution attend by the scholar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="no-wrap text-center">
+                                    <td> <span>{{ $studentList->student_name }},</span>
+                                        <span>{{ $studentList->nationality }},</span>
+                                        <span style="padding-left: 5px;">{{ $studentList->caste }}</span>
+                                    </td>
+                                    <td>{{ $studentList->father_name }},
+                                        <span>{{ $studentList->village }} {{ $studentList->town }},</span>
+                                        <span style="padding-left: 5px;">{{ $studentList->father_occupation }},</span>
+                                    </td>
+                                    <td>{{ $studentList->dob }}</td>
+                                    <td>
+                                        {{ $studentList->last_institute }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row content">
+                        <div class="col-6 border border-secondary">Student Aadhar No. <span
+                                style="padding-left: 25px;">{{ $studentList->aadhar_no }}</span></div>
+                        <div class="col-6 border border-secondary">Student Mother Name <span
+                                style="padding-left: 25px;">{{ $studentList->mother_name }}</span> </div>
+                    </div>
+                    <div class="row content">
+                        <div class="col-12 border border-secondary">Date of Birth in Words</div>
+                    </div>
+                    <div class="table-responsive background-white">
+                        <table class="table pd-5 bordered ">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Date of Admission</th>
+                                    <th>Date of Promotion </th>
+                                    <th>Date of removal</th>
+                                    <th>Causes of Romval eg. nonpayment
+                                        <br> transfer of family expulsion etc.
+                                    </th>
+                                    <th>Year</th>
+                                    <th>Conduct</th>
+                                    <th>Work</th>
+                                    <th>Sign</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="no-wrap text-center">
+                                    <td> {{ Custom::getClass($studentList->class_id)->classname }}</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    {{-- <hr style="height: 3px; color: black;"> --}}
+                    <div class="row content">
+                        <div class="col">
+                            <p>1. Certified that the entries as regards details
+                                of the studenthave been duly checked from
+                                the Admission Form and that they are complete</p>
+                            <p>2. Certified that the above student
+                                Register has been posted up-to-date of the
+                                student's leaving as reuuired by the department rules</p>
+                        </div>
+                    </div>
+                    <div class="row content ">
+                        <div class="col-4">Prepared By</div>
+                        <div class="col-4">Date </div>
+                        <div class="col-4">Head of Intitution</div>
+                    </div>
+                    <div class="row content">
+                        <div class="col">Note- If student has been among firs five,
+                            this fact should be mentioned in the column of "work".</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         $('#printbtn').on('click', function() {
             event.preventDefault();

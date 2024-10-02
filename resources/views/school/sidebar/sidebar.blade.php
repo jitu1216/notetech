@@ -994,10 +994,9 @@
                                     href="{{ route('desk-slip', 'Annual Exam') }}">Annual Exam Desk Slip</a></li>
                         </ul>
                     </li>
-
-                    <li><a class="{{ set_active(['school/staff-list']) }}" href="{{ route('tc') }}">T.C. </a>
-                    </li>
-                    <li><a class="{{ set_active(['school/staff-list']) }}" href="{{ route('cc') }}">C.C.</a>
+                    <li>
+                        <a class="{{ set_active(['school/add-time-table']) }}"
+                            href="{{ route('tc-cc-list') }}">T.C. & C.C.</a></li>
                     </li>
                 @endif
             </ul>
