@@ -25,6 +25,7 @@
             flex-direction: row;
             flex-wrap: wrap;
             padding: 0px;
+            /* margin-top: -95px; */
         }
 
         .main-card {
@@ -41,7 +42,7 @@
 
         .page-header {
             background-color: white;
-            padding-bottom: 0px
+            padding: 10px
         }
 
         .title {
@@ -157,10 +158,10 @@
                             </thead>
                             <tbody>
                                 <tr class="no-wrap text-center">
-                                    <td>001122</td>
-                                    <td>001122</td>
-                                    <td>001122</td>
-                                    <td>001122</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -181,17 +182,25 @@
                             </thead>
                             <tbody>
                                 <tr class="no-wrap text-center">
-                                    <td>001122</td>
-                                    <td>001122</td>
-                                    <td>001122</td>
-                                    <td>001122</td>
+                                    <td> <span>{{ $studentList->student_name}}</span>
+                                        <span>{{ $studentList->nationality}},</span>
+                                        <span style="padding-left: 5px;">{{ $studentList->caste}},</span>
+                                    </td>
+                                    <td>{{ $studentList->father_name}},
+                                        <span>{{ $studentList->village}} {{ $studentList->town}},</span>
+                                        <span style="padding-left: 5px;">{{ $studentList->father_occupation}},</span>
+                                    </td>
+                                    <td>{{ $studentList->dob}}</td>
+                                    <td>
+                                      {{ $studentList->last_institute}}
+                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="row content">
-                        <div class="col-6 border border-secondary">Studnet Aadhar No.</div>
-                        <div class="col-6 border border-secondary">Student Mother Name</div>
+                        <div class="col-6 border border-secondary">Studnet Aadhar No. <span style="padding-left: 25px;">{{ $studentList->aadhar_no}}</span></div> 
+                        <div class="col-6 border border-secondary">Student Mother Name <span style="padding-left: 25px;">{{ $studentList->mother_name}}</span> </div>
                     </div>
                     <div class="row content">
                         <div class="col-12 border border-secondary">Date of Birth in Words</div>
@@ -215,15 +224,15 @@
                             </thead>
                             <tbody>
                                 <tr class="no-wrap text-center">
-                                    <td>001122</td>
-                                    <td>001122</td>
-                                    <td>001122</td>
-                                    <td>001122</td>
-                                    <td>001122</td>
-                                    <td>001122</td>
-                                    <td>001122</td>
-                                    <td>001122</td>
-                                    <td>001122</td>
+                                    <td> {{ Custom::getClass($studentList->class_id)->classname }}</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
+                                    <td>.......</td>
 
                                 </tr>
                             </tbody>

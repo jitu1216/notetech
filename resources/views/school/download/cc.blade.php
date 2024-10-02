@@ -25,7 +25,7 @@
             margin-bottom: 10px;
 
             background: white;
-            width: 500px;
+            width: 680px;
         }
 
         .main-body {
@@ -105,7 +105,7 @@
                 border-radius: 8px;
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
                 width: 7.3in;
-                height: 3.3in;
+                height: 3.5in;
 
             }
 
@@ -251,27 +251,42 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-5">
-                                        Year  <input type="date" class="form-control" id="dateInput" placeholder="YYYY-MM-DD"> at School.
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-3">Date</div>
+                                            <div class="col-9"><input type="date" class="border-0 col-6" id="date" placeholder="YYYY-MM-DD" required>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-7" style="padding-left: 10px;">Student date of Birth
+                                    <div class="col-6" style="padding-left: 6px;">Student date of Birth
                                         <span
                                             style="padding-left: 15px;font-weight: bold;
                                         font-size: 14px;">{{ $studentList->dob }}</span>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-6">According to record</div>
-                                    <div class="col-6" style="padding-left: 25px;">His conduct  
-                                     <input type="text" class="form-control" id="textInput" placeholder="Enter conduct" required>
+                                    <div class="col-4">According to record</div>
+                                    <div class="col-8">
+                                        <div class="row">
+                                            <div class="col-3">His conduct</div>
+                                            <div class="col-9"><input type="text" class="border-0 col-6" id="textInput" placeholder="Enter conduct" required>
+                                            </div>
+                                        </div>
                                     </div>
+                                    {{-- <div class="col-4" style="padding-left: 25px;">His conduct  
+                                     <input type="text" class="form-control col-2" id="textInput" placeholder="Enter conduct" required>
+                                    </div> --}}
                                 </div>
                                 <div class="col-12" style="padding-left: 65px;">I will hope gold future. </div>
                                 <div class="row mt-4">
-                                    <div class="col-9">
-                                        <input type="date" class="form-control" id="dateInput" placeholder="YYYY-MM-DD">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-3">Date</div>
+                                            <div class="col-9"><input type="date" class="border-0 col-6" id="date" placeholder="YYYY-MM-DD" required>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-3" style="padding-left: 15px;">
+                                    <div class="col-6" style="padding-left: 200px;">
                                         Principal
                                     </div>
                                 </div>
