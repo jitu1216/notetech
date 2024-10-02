@@ -712,10 +712,10 @@
                                         href="{{ route('view-scheme', 'Quarterly Exam') }}">Quarterly
                                         Exam Scheme</a></li>
                                 <li><a class="{{ set_active(['school/slider']) }}"
-                                        href="{{ route('view-scheme', 'Half Yearly') }}">Half Yearly
+                                        href="{{ route('view-scheme', 'Half Yearly Exam') }}">Half Yearly
                                         Exam Scheme</a></li>
                                 <li><a class="{{ set_active(['school/slider']) }}"
-                                        href="{{ route('view-scheme', 'Annual') }}">Annual
+                                        href="{{ route('view-scheme', 'Annual Exam') }}">Annual
                                         Exam Scheme</a></li>
                             </ul>
                         </li>

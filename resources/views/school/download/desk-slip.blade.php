@@ -426,9 +426,9 @@
                                             </div>
                                             <hr style="margin-top: 2px;">
                                             <div class="content-2 ">
-                                                <p>SERIAL NO.- {{-- $item->sr_no --}} </p>
-                                                <p>STUDENT ID- {{ $item->student_id }} </p>
-                                                <p>ROLL NO-{{ $item->roll_no }} </p>
+                                                <p>SERIAL NO : .......... </p>
+                                                <p>STUDENT ID : {{ $item->student_id }} </p>
+                                                <p>ROLL NO : {{ $item->roll_no }} </p>
                                             </div>
 
                                         </div>
