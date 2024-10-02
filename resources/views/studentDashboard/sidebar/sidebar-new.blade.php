@@ -499,7 +499,28 @@
             </a>
             <ul class="sub-menu">
                 <li><a href="">Id Card</a></li>
-                <li><a href="">Exam Scheme</a></li>
+                <li><a href="#">Exam
+                    <label title="Toggle Drop-down" class="drop-icon" for="sm2"> <i
+                            class='bx bxs-chevron-down'></i></label>
+                </a>
+                <ul class="sub-sub-menu">
+                    <li><a class="{{ set_active(['school/slider']) }}"
+                            href="{{ route('view-student-scheme', 'Test Exam') }}">Test
+                            Exam Scheme</a></li>
+                    <li><a class="{{ set_active(['school/slider']) }}"
+                            href="{{ route('view-student-scheme', 'Monthly Exam') }}">Monthly
+                            Exam Scheme</a></li>
+                    <li><a class="{{ set_active(['school/slider']) }}"
+                            href="{{ route('view-student-scheme', 'Quarterly Exam') }}">Quarterly
+                            Exam Scheme</a></li>
+                    <li><a class="{{ set_active(['school/slider']) }}"
+                            href="{{ route('view-student-scheme', 'Half Yearly Exam') }}">Half Yearly
+                            Exam Scheme</a></li>
+                    <li><a class="{{ set_active(['school/slider']) }}"
+                            href="{{ route('view-student-scheme', 'Annual Exam') }}">Annual
+                            Exam Scheme</a></li>
+                </ul>
+            </li>
                 <li><a href="">Exam Desk Slip</a></li>
                 <li><a href="">Exam Admit Card</a></li>
             </ul>
