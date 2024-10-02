@@ -258,6 +258,7 @@ Route::controller(StudentDashboardController::class)->group(function () {
     Route::get('student/student_profile', 'student_profile')->name('student_profile');
     Route::get('student/fees-info', 'feesInfo')->name('fees-info');
     Route::get('student/fees-card', 'feesCard')->name('fees-card');
+    Route::get('student/view-student-scheme/{text}', 'viewstudentscheme')->middleware('auth.student')->name('view-student-scheme');
 
 
 });
