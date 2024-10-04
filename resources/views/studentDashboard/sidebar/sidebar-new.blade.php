@@ -494,6 +494,7 @@
                 <li><a href="">Leave Application Form</a></li>
                 <li><a href="">Leave Application Form Status</a></li>
                 <li><a href="">Password Change</a></li>
+                <li><a href="">Student Maintenance</a></li>
                 <li><a href="">Complaint</a></li>
             </ul>
         </li>
