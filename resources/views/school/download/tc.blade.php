@@ -45,6 +45,25 @@
             padding: 10px
         }
 
+        .head {
+            /* margin-top: 10px; */
+            margin: 8px;
+            text-align: center;
+        }
+
+        h5 {
+            font-weight: 600 !important;
+            font-size: 20px;
+            margin-bottom: -2px;
+            color: rgb(219, 0, 0);
+        }
+
+        p {
+            font-size: 10px;
+            color: blue;
+            margin-right: 5px;
+        }
+
         .title {
             font-weight: bold;
             font-size: 20px;
@@ -62,7 +81,7 @@
         }
 
         @media print {
-      
+
 
             .container {
                 padding: 0px;
@@ -73,8 +92,40 @@
             }
 
             .main-body {
-                margin: 5px;
+                margin: 0px;
                 padding: 0px
+            }
+
+            .main-card {
+                margin: 0px;
+                padding: 0px;
+                margin-top: -350px;
+            }
+
+            .title {
+                font-weight: bold;
+                font-size: 15px;
+                padding-bottom: 0px;
+            }
+
+            .table {
+                font-size: 9px;
+            }
+
+            .table tr {
+                margin: -5px;
+
+            }
+
+            .table td {
+                padding-top: -35px;
+                padding-bottom: -25px;
+            }
+
+            .table input {
+                padding: -35px;
+                margin-top: -15px;
+
             }
 
             .header-section {
@@ -82,12 +133,9 @@
             }
 
             .page-wrapper {
-                margin-top: -80px !important;
+                margin-top: 0px !important;
             }
 
-            .table {
-                font-size: 10px;
-            }
 
             .header {
                 display: none;
@@ -95,11 +143,6 @@
 
             nav {
                 display: none;
-            }
-
-            .card-main {
-                margin: 0px;
-                padding: 0px;
             }
 
 
@@ -126,7 +169,7 @@
                         <h3>Transfer Certificate</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('school') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="{{-- route('') --}}">T.C.</a></li>
+                            <li class="breadcrumb-item"><a href="">T.C.</a></li>
                         </ul>
                     </div>
                 </div>
@@ -138,11 +181,29 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid cn" style="margin-top: -200px;">
+    <div class="container-fluid cn" style="margin-top: -250px;">
         <div class="main-row">
             <div class="main-card">
                 <div class="card bg-common main-body">
                     <div class="card-header">
+                        <div class="head">
+                            <div class="row">
+                                <div class="col-4">
+                                    <img src="{{ URL::to('images/1680626594.jpg') }}" alt="" width="45"
+                                        height="40" style="margin-left: 260px;">
+                                </div>
+                                <div class="col-5">
+
+                                    <h5>{{ Custom::getSchool()->Name }}</h5>
+                                    <p>{{ Custom::getSchool()->Address }}, {{ Custom::getSchool()->City }}
+                                        ({{ Custom::getSchool()->State }})
+                                        {{-- <br><span>Mobile No.
+                                                {{ Custom::getSchool()->Mobile }}</span> --}}
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
                         <h3 class="title ">Scholar's Register & Transfer Certificate</h3>
                     </div>
 
@@ -153,15 +214,18 @@
                                     <th>Addmission File No. </th>
                                     <th>Withdrawl File No.</th>
                                     <th>Transfer certificate No.</th>
-                                    <th>Register No.</th>
+                                    <th>Sr No.</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="no-wrap text-center">
-                                    <td>.......</td>
-                                    <td>.......</td>
-                                    <td>.......</td>
-                                    <td>.......</td>
+                                    <td><input type="text" class="border-0 form-control form-control-sm"
+                                            placeholder="Enter Here"></td>
+                                    <td><input type="text" class="border-0 form-control form-control-sm"
+                                            placeholder="Enter Here"></td>
+                                    <td><input type="text" class="border-0 form-control form-control-sm"
+                                            placeholder="Enter Here"></td>
+                                    <td><span style="color: red; font-weight: bold;">{{ $studentList->sr_no }}</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -190,7 +254,7 @@
                                         <span>{{ $studentList->village }} {{ $studentList->town }},</span>
                                         <span style="padding-left: 5px;">{{ $studentList->father_occupation }},</span>
                                     </td>
-                                    <td>{{ $studentList->dob }}</td>
+                                    <td> <span style="color: red; font-weight: bold;">{{ $studentList->dob }}</span></td>
                                     <td>
                                         {{ $studentList->last_institute }}
                                     </td>
@@ -199,9 +263,9 @@
                         </table>
                     </div>
                     <div class="row content">
-                        <div class="col-6 border border-secondary">Student Aadhar No. <span
+                        <div class="col-6 border border-secondary">Student Aadhar No- <span
                                 style="padding-left: 25px;">{{ $studentList->aadhar_no }}</span></div>
-                        <div class="col-6 border border-secondary">Student Mother Name <span
+                        <div class="col-6 border border-secondary">Student Mother Name- <span
                                 style="padding-left: 25px;">{{ $studentList->mother_name }}</span> </div>
                     </div>
                     <div class="row content">
@@ -215,7 +279,7 @@
                                     <th>Date of Admission</th>
                                     <th>Date of Promotion </th>
                                     <th>Date of removal</th>
-                                    <th>Causes of Romval eg. nonpayment
+                                    <th style="font-size: 12px; font-weight: bolder;">Causes of Romval eg. nonpayment
                                         <br> transfer of family expulsion etc.
                                     </th>
                                     <th>Year</th>
@@ -225,35 +289,54 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="no-wrap text-center">
-                                    <td> {{ Custom::getClass($studentList->class_id)->classname }}</td>
-                                    <td>.......</td>
-                                    <td>.......</td>
-                                    <td>.......</td>
-                                    <td>.......</td>
-                                    <td>.......</td>
-                                    <td>.......</td>
-                                    <td>.......</td>
-                                    <td>.......</td>
+                                @foreach ($finalarray as $item)
+                                    <tr class="no-wrap text-center ">
 
-                                </tr>
+                                        <td>
+
+                                            {{ $item['classname'] }}
+
+                                        </td>
+                                        <td><input type="date" class="form-control form-control-sm" id="dateInput"
+                                                required>
+                                        </td>
+                                        <td><input type="date" class="form-control form-control-sm" id="dateInput"
+                                                required>
+                                        </td>
+                                        <td><input type="date" class="form-control form-control-sm" id="dateInput"
+                                                required>
+                                        </td>
+                                        <td><input type="text" class="border-0 form-control form-control-sm"
+                                                id="" placeholder="Enter Here" required></td>
+                                        <td><input type="text" class="border-0 form-control form-control-sm"
+                                                placeholder="Enter Year"></td>
+                                        <td><input type="text" class="border-0 form-control form-control-sm"
+                                                placeholder="Enter Conduct"></td>
+                                        <td><input type="text" class="border-0 form-control form-control-sm"
+                                                placeholder="Enter Work"></td>
+                                        <td></td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                     {{-- <hr style="height: 3px; color: black;"> --}}
                     <div class="row content">
                         <div class="col">
-                            <p>1. Certified that the entries as regards details
+                            <div>1. Certified that the entries as regards details
                                 of the studenthave been duly checked from
-                                the Admission Form and that they are complete</p>
-                            <p>2. Certified that the above student
+                                the Admission Form and that they are complete</div>
+                            <div>2. Certified that the above student
                                 Register has been posted up-to-date of the
-                                student's leaving as reuuired by the department rules</p>
+                                student's leaving as reuuired by the department rules</div>
                         </div>
                     </div>
                     <div class="row content ">
                         <div class="col-4">Prepared By</div>
-                        <div class="col-4">Date </div>
+                        <div class="col-4">
+                            <label for="" class="">Date</label>
+                            <input type="date" class=" border-0 form-control-sm" id="dateInput" required>
+                        </div>
                         <div class="col-4">Head of Intitution</div>
                     </div>
                     <div class="row content">

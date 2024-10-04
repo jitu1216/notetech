@@ -181,7 +181,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
@@ -232,18 +232,23 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         Post- <span
                                             style="padding-left: 10px;font-weight: bold;
                                                 font-size: 15px;">
                                             {{ $studentList->town }} </span>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         District- <span
                                             style="padding-left: 10px; font-weight: bold;
                                             font-size: 14px;">{{ $studentList->district }}</span>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
+                                        State <span
+                                            style="padding-left: 10px; font-weight: bold;
+                                        font-size: 14px;">{{ $studentList->state }}</span>
+                                    </div>
+                                    <div class="col-2">
                                         Class <span
                                             style="padding-left: 10px;font-weight: bold;
                                                 font-size: 14px;">
@@ -254,7 +259,8 @@
                                     <div class="col-6">
                                         <div class="row">
                                             <div class="col-3">Date</div>
-                                            <div class="col-9"><input type="date" class="border-0 col-6" id="date" placeholder="YYYY-MM-DD" required>
+                                            <div class="col-9"><input type="date" class="border-0 col-6" id="date"
+                                                    placeholder="YYYY-MM-DD" required>
                                             </div>
                                         </div>
                                     </div>
@@ -265,13 +271,13 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-4">According to record</div>
+                                    <div class="col-4">According to record his conduct</div>
                                     <div class="col-8">
-                                        <div class="row">
-                                            <div class="col-3">His conduct</div>
-                                            <div class="col-9"><input type="text" class="border-0 col-6" id="textInput" placeholder="Enter conduct" required>
-                                            </div>
-                                        </div>
+
+
+                                        <input type="text" class="border-0 col-6" id="textInput"
+                                            placeholder="Enter conduct" required>
+
                                     </div>
                                     {{-- <div class="col-4" style="padding-left: 25px;">His conduct  
                                      <input type="text" class="form-control col-2" id="textInput" placeholder="Enter conduct" required>
@@ -282,7 +288,8 @@
                                     <div class="col-6">
                                         <div class="row">
                                             <div class="col-3">Date</div>
-                                            <div class="col-9"><input type="date" class="border-0 col-6" id="date" placeholder="YYYY-MM-DD" required>
+                                            <div class="col-9"><input type="date" class="border-0 col-6" id="date"
+                                                    placeholder="YYYY-MM-DD" required>
                                             </div>
                                         </div>
                                     </div>

@@ -469,7 +469,7 @@ class DownloadController extends Controller
                 $x = [];
             }
         }
-
+        // dd($finalarray);
         // $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(['students.status'=> '2' ,'students.school_id'=> $school->id, 'students.academic_session' => $academic])->get();
         $studentList = Student::find($id);
         // dd($studentList);
