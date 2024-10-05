@@ -72,8 +72,8 @@
         .content .row span {
             border: none;
             border-bottom: dotted black 1px;
-
         }
+      
 
         @media print {
 
@@ -133,7 +133,8 @@
             nav {
                 display: none;
             }
-            .button{
+
+            .button {
                 display: none;
             }
 
@@ -190,9 +191,8 @@
 
         <div class="content container-fluid">
             <div class="main-row">
-                <form action="">
-                    {{-- @foreach ($studentList as $item) --}}
-                    {{-- @for ($i = 1; $i <= 51; $i++) --}}
+                <form action=" {{ route('save-cc') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="main-card">
                         <div class="card bg-common main-body">
                             <div class="head">
@@ -214,7 +214,8 @@
                             </div>
                             <div class="main-box">
                                 <div class="row content">
-
+                                    <input type="text" value="{{ $studentList->id }}" name="student_id" hidden>
+                                    <input type="text" value="{{ $studentList->class_id }}" name="class_id" hidden>
                                     <div class="col-12 mb-2">
                                         S.R. No.- {{ $studentList->sr_no }}
                                     </div>
@@ -229,6 +230,7 @@
                                                 style="padding-left: 10px; padding-right: 10px; font-weight: bold;
                                                 font-size: 14px;">Mr.
                                                 {{ $studentList->father_name }}</span>
+
                                         </div>
                                         <div class="col-6">
                                             village- <span
@@ -264,8 +266,16 @@
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-3">Year</div>
-                                                <div class="col-9"><input type="date" class="border-0 col-6"
-                                                        id="date" placeholder="YYYY-MM-DD" required>
+                                                <div class="col-9">
+                                                    <select name="year"
+                                                        class="border-0  @error('year') in-valid @enderror">
+                                                        <option value="" selected disabled> Select Year </option>
+                                                        @foreach ($session as $value)
+                                                            <option value="{{ $value->session_date }}"
+                                                                {{ $value->session_date == $cc?->year ? 'selected' : '' }}>
+                                                                {{ $value->session_date }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -278,10 +288,9 @@
                                     <div class="row">
                                         <div class="col-4">According to record his conduct</div>
                                         <div class="col-8">
-
-
                                             <input type="text" class="border-0 col-6" id="textInput"
-                                                placeholder="Enter conduct" required>
+                                                placeholder="Enter conduct" name="conduct" value="{{ $cc?->conduct }}"
+                                                required>
 
                                         </div>
                                         {{-- <div class="col-4" style="padding-left: 25px;">His conduct  
@@ -293,8 +302,11 @@
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-3">Date</div>
-                                                <div class="col-9"><input type="date" class="border-0 col-6"
-                                                        id="date" placeholder="YYYY-MM-DD" required>
+                                                <div class="col-9">
+                                                    <input type="text" class="border-0 col-6 datetimepicker"
+                                                        name="date" id="date" placeholder="YYYY-MM-DD"
+                                                        value="{{ \Carbon\Carbon::parse($cc?->date)->format('d-m-Y') }}"
+                                                        required>
                                                 </div>
                                             </div>
                                         </div>
@@ -310,10 +322,6 @@
                         <div class="col-3">
                             <button type="submit" class="btn btn-success">Save</button>
                         </div>
-                        <div class="col-3">
-                            <button type="submit" class="btn btn-primary">Edit</button>
-                        </div>
-                       
                     </div>
                 </form>
             </div>
@@ -326,5 +334,23 @@
             event.preventDefault();
             window.print()
         });
+    </script>
+
+    <script>
+        @if (Session::has('Success'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.success("{{ session('Success') }}");
+        @endif
+
+        @if (Session::has('Error'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.error("{{ session('Error') }}");
+        @endif
     </script>
 @endsection

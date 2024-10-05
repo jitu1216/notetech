@@ -295,7 +295,7 @@ Route::controller(DownloadController::class)->group(function () {
     Route::get('school/tc/{id}', 'tc')->middleware('auth')->name('tc');
     // Route::get('school/search-tc', 'searchtc')->middleware('auth')->name('searchtc');
     Route::get('school/cc/{id}', 'cc')->middleware('auth')->name('cc');
-    // Route::get('school/search-cc', 'searchcc')->middleware('auth')->name('search-cc');
+    Route::post('school/save-cc', 'savecc')->middleware('auth')->name('save-cc');
     Route::get('school/tc-cc-list', 'tccclist')->middleware('auth')->name('tc-cc-list');
     Route::get('school/search-tc-cc', 'searchtccc')->middleware('auth')->name('search-tc-cc');
 });
