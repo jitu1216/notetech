@@ -46,7 +46,7 @@ class SchemeHeaderController extends Controller
         $scheme_header = new SchemeHeader;
         $scheme_header->academic_session = $academic;
         $scheme_header->school_id = $school->id;
-        $scheme_header->school_id = $school->id;
+        
         $scheme_header->exam_header= $request->exam_header;
         $scheme_header->save();
 

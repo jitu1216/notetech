@@ -14,6 +14,7 @@ use App\Models\SchoolClass;
 use App\Models\AcademicSession;
 use App\Models\ExamScheme;
 use App\Models\SchemeHeader;
+use App\Models\cc;
 use Session;
 use App\Helper\Custom;
 use Auth;
@@ -486,6 +487,8 @@ class DownloadController extends Controller
 
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
+        $cc = cc::where(['school_id' => $school->id, 'academic_session' => $academic, 'student_id'=>$id ])->first();
+        // dd($cc);
         $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic,'status' => '0'])->get();
 
         $newClass = [];
@@ -521,20 +524,37 @@ class DownloadController extends Controller
             }
         }
 
-        // $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(['students.status'=> '2' ,'students.school_id'=> $school->id, 'students.academic_session' => $academic, 'students.id' => $id])->first();
+        $session = Session::get('all_academic_session');
+        // dd($session);
+
         $studentList = Student::find($id);
-
-        // dd($studentList);
-
             $mark = 2;
-
-            // $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->select('exam_date')->distinct('exam_date')->get();
-            // $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->orderBy('updated_at', 'asc')->get();
-            return view('school.download.cc',compact('finalarray','schoolclass','mark','studentList'));
+            return view('school.download.cc',compact('finalarray','schoolclass','mark','studentList','cc','session'));
     }
 
+    public function savecc(Request $request){
+        // dd($request);
+        $request->validate([
+            'year' => 'required',
+            'date' => 'required',
+            'conduct' => 'required'
+        ]);
+        $school = custom::getschool();
+        $academic = Session::get('academic_session');
+        $cc = CC::updateOrCreate([
+            'student_id' => $request->student_id,
+            'academic_session' => $academic,
+            'school_id' => $school->id,
+        ], [
+            'year' => $request->year,
+            'date' => date('Y-m-d', strtotime($request->date)),
+            'conduct' => $request->conduct,
+            'class_id' => $request->class_id,
+        ]);
 
-
+        // return redirect()->route('cc')->with('success','CC Information Saved');
+        return redirect()->back()->with('Success','CC Information Saved');
+    }
 
     public function tccclist(){
 
