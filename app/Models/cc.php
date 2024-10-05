@@ -8,5 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class cc extends Model
 {
     use HasFactory;
-    protected $fillable = [ 'year', 'conduct', 'date' ];
+    protected $fillable = [
+        'student_id',
+        'academic_session',
+        'school_id',
+        'class_id',
+        'year',
+        'conduct',
+        'date',
+    ];
 }
