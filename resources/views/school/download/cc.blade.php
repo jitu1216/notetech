@@ -133,6 +133,9 @@
             nav {
                 display: none;
             }
+            .button{
+                display: none;
+            }
 
             .main-box {
                 margin-top: -20px;
@@ -187,123 +190,134 @@
 
         <div class="content container-fluid">
             <div class="main-row">
-                {{-- @foreach ($studentList as $item) --}}
-                {{-- @for ($i = 1; $i <= 51; $i++) --}}
-                <div class="main-card">
-                    <div class="card bg-common main-body">
-                        <div class="head">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="{{ URL::to('images/1680626594.jpg') }}" alt="" width="45"
-                                        height="40">
-                                </div>
-                                <div class="col-10">
-                                    <h5>{{ Custom::getSchool()->Name }}</h5>
-                                    <p>{{ Custom::getSchool()->Address }}, {{ Custom::getSchool()->City }}
-                                        ({{ Custom::getSchool()->State }})
-                                        {{-- <br><span>Mobile No.
+                <form action="">
+                    {{-- @foreach ($studentList as $item) --}}
+                    {{-- @for ($i = 1; $i <= 51; $i++) --}}
+                    <div class="main-card">
+                        <div class="card bg-common main-body">
+                            <div class="head">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="{{ URL::to('images/1680626594.jpg') }}" alt="" width="45"
+                                            height="40">
+                                    </div>
+                                    <div class="col-10">
+                                        <h5>{{ Custom::getSchool()->Name }}</h5>
+                                        <p>{{ Custom::getSchool()->Address }}, {{ Custom::getSchool()->City }}
+                                            ({{ Custom::getSchool()->State }})
+                                            {{-- <br><span>Mobile No.
                                                 {{ Custom::getSchool()->Mobile }}</span> --}}
-                                    </p>
-                                    <h6 class="title">Character Certificate</h6>
+                                        </p>
+                                        <h6 class="title">Character Certificate</h6>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="main-box">
-                            <div class="row content">
-                                <div class="col-12 mb-2">
-                                    S.R. No.- {{ $studentList->sr_no }}
-                                </div>
-                                <div class="col-12" style="padding-left: 65px;">This is certified that
-                                    <span
-                                        style="padding-left: 25px; font-weight: bold;
+                            <div class="main-box">
+                                <div class="row content">
+
+                                    <div class="col-12 mb-2">
+                                        S.R. No.- {{ $studentList->sr_no }}
+                                    </div>
+                                    <div class="col-12" style="padding-left: 65px;">This is certified that
+                                        <span
+                                            style="padding-left: 25px; font-weight: bold;
                                             font-size: 14px;padding-right: 25px; ">{{ $studentList->student_name }}</span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        S/o/D/o <span
-                                            style="padding-left: 10px; padding-right: 10px; font-weight: bold;
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            S/o/D/o <span
+                                                style="padding-left: 10px; padding-right: 10px; font-weight: bold;
                                                 font-size: 14px;">Mr.
-                                            {{ $studentList->father_name }}</span>
-                                    </div>
-                                    <div class="col-6">
-                                        village- <span
-                                            style="padding-left: 10px; padding-right: 10px;  font-weight: bold;
+                                                {{ $studentList->father_name }}</span>
+                                        </div>
+                                        <div class="col-6">
+                                            village- <span
+                                                style="padding-left: 10px; padding-right: 10px;  font-weight: bold;
                                             font-size: 14px;">{{ $studentList->village }}</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-3">
-                                        Post- <span
-                                            style="padding-left: 10px;font-weight: bold;
-                                                font-size: 15px;">
-                                            {{ $studentList->town }} </span>
-                                    </div>
-                                    <div class="col-3">
-                                        District- <span
-                                            style="padding-left: 10px; font-weight: bold;
-                                            font-size: 14px;">{{ $studentList->district }}</span>
-                                    </div>
-                                    <div class="col-3">
-                                        State <span
-                                            style="padding-left: 10px; font-weight: bold;
-                                        font-size: 14px;">{{ $studentList->state }}</span>
-                                    </div>
-                                    <div class="col-2">
-                                        Class <span
-                                            style="padding-left: 10px;font-weight: bold;
-                                                font-size: 14px;">
-                                            {{ Custom::getClass($studentList->class_id)->classname }}</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="row">
-                                            <div class="col-3">Date</div>
-                                            <div class="col-9"><input type="date" class="border-0 col-6" id="date"
-                                                    placeholder="YYYY-MM-DD" required>
-                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-6" style="padding-left: 6px;">Student date of Birth
-                                        <span
-                                            style="padding-left: 15px;font-weight: bold;
+                                    <div class="row">
+                                        <div class="col-3">
+                                            Post- <span
+                                                style="padding-left: 10px;font-weight: bold;
+                                                font-size: 15px;">
+                                                {{ $studentList->town }} </span>
+                                        </div>
+                                        <div class="col-3">
+                                            District- <span
+                                                style="padding-left: 10px; font-weight: bold;
+                                            font-size: 14px;">{{ $studentList->district }}</span>
+                                        </div>
+                                        <div class="col-3">
+                                            State <span
+                                                style="padding-left: 10px; font-weight: bold;
+                                        font-size: 14px;">{{ $studentList->state }}</span>
+                                        </div>
+                                        <div class="col-2">
+                                            Class <span
+                                                style="padding-left: 10px;font-weight: bold;
+                                                font-size: 14px;">
+                                                {{ Custom::getClass($studentList->class_id)->classname }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-3">Year</div>
+                                                <div class="col-9"><input type="date" class="border-0 col-6"
+                                                        id="date" placeholder="YYYY-MM-DD" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6" style="padding-left: 6px;">Student date of Birth
+                                            <span
+                                                style="padding-left: 15px;font-weight: bold;
                                         font-size: 14px;">{{ $studentList->dob }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">According to record his conduct</div>
-                                    <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-4">According to record his conduct</div>
+                                        <div class="col-8">
 
 
-                                        <input type="text" class="border-0 col-6" id="textInput"
-                                            placeholder="Enter conduct" required>
+                                            <input type="text" class="border-0 col-6" id="textInput"
+                                                placeholder="Enter conduct" required>
 
-                                    </div>
-                                    {{-- <div class="col-4" style="padding-left: 25px;">His conduct  
+                                        </div>
+                                        {{-- <div class="col-4" style="padding-left: 25px;">His conduct  
                                      <input type="text" class="form-control col-2" id="textInput" placeholder="Enter conduct" required>
                                     </div> --}}
-                                </div>
-                                <div class="col-12" style="padding-left: 65px;">I will hope gold future. </div>
-                                <div class="row mt-4">
-                                    <div class="col-6">
-                                        <div class="row">
-                                            <div class="col-3">Date</div>
-                                            <div class="col-9"><input type="date" class="border-0 col-6" id="date"
-                                                    placeholder="YYYY-MM-DD" required>
+                                    </div>
+                                    <div class="col-12" style="padding-left: 65px;">I will hope gold future. </div>
+                                    <div class="row mt-4">
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-3">Date</div>
+                                                <div class="col-9"><input type="date" class="border-0 col-6"
+                                                        id="date" placeholder="YYYY-MM-DD" required>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-6" style="padding-left: 200px;">
-                                        Principal
+                                        <div class="col-6" style="padding-left: 200px;">
+                                            Principal
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {{-- @endfor --}}
-                {{-- @endforeach --}}
+                    <div class="row button">
+                        <div class="col-3">
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                        <div class="col-3">
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </div>
+                       
+                    </div>
+                </form>
             </div>
+
         </div>
     </div>
 

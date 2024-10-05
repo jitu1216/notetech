@@ -214,7 +214,7 @@
                                     <th>Addmission File No. </th>
                                     <th>Withdrawl File No.</th>
                                     <th>Transfer certificate No.</th>
-                                    <th>Sr No.</th>
+                                    <th>S.R. No.</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -533,8 +533,9 @@ class DownloadController extends Controller
             return view('school.download.cc',compact('finalarray','schoolclass','mark','studentList'));
     }
 
-
-
+    public function savecc(){
+        
+    }
 
     public function tccclist(){
 
