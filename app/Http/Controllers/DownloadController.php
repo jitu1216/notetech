@@ -432,6 +432,31 @@ class DownloadController extends Controller
     }
 
     
+    private function numberToWords($number)
+    {
+        $words = [
+            0 => 'zero', 1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four', 5 => 'five',
+            6 => 'six', 7 => 'seven', 8 => 'eight', 9 => 'nine', 10 => 'ten',
+            11 => 'eleven', 12 => 'twelve', 13 => 'thirteen', 14 => 'fourteen',
+            15 => 'fifteen', 16 => 'sixteen', 17 => 'seventeen', 18 => 'eighteen', 19 => 'nineteen',
+            20 => 'twenty', 30 => 'thirty', 40 => 'forty', 50 => 'fifty', 60 => 'sixty',
+            70 => 'seventy', 80 => 'eighty', 90 => 'ninety', 1000 => 'thousand', 100 => 'hundred'
+        ];
+    
+        if ($number < 20) {
+            return $words[$number];
+        } elseif ($number < 100) {
+            return $words[intval($number / 10) * 10] . ($number % 10 ? ' ' . $words[$number % 10] : '');
+        } elseif ($number < 1000) {
+            return $words[intval($number / 100)] . ' hundred' . ($number % 100 ? ' ' . $this->numberToWords($number % 100) : '');
+        } else {
+            return $words[intval($number / 1000)] . ' thousand' . ($number % 1000 ? ' ' . $this->numberToWords($number % 1000) : '');
+        }
+    }
+    
+    
+
+    
     public function tc($id){
 
         $school = Custom::getschool();
@@ -475,11 +500,20 @@ class DownloadController extends Controller
         $studentList = Student::find($id);
         // dd($studentList);
 
+        $dob = Carbon::parse($studentList->dob);
+    
+        // Convert day, month, and year to words
+        $day = $this->numberToWords($dob->day);
+        $month = $dob->format('F'); // Month in words
+        $year = $this->numberToWords($dob->year); // Convert the full year to words
+    
+        $dobFormatted = "{$day} {$month} {$year}";
+
             $mark = 2;
 
             // $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->select('exam_date')->distinct('exam_date')->get();
             // $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->orderBy('updated_at', 'asc')->get();
-            return view('school.download.tc',compact('finalarray','schoolclass','mark','studentList'));
+            return view('school.download.tc',compact('finalarray','schoolclass','mark','studentList','dobFormatted'));
     }
 
 

@@ -23,6 +23,7 @@ use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\ExmaController;
 use App\Http\Controllers\SchemeHeaderController;
 use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\TopperStudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -249,7 +250,7 @@ Route::controller(StudentAuthController::class)->group(function () {
 });
 
 
-// CODED WBY ANKIT //
+// CODED BY ANKIT //
 
 Route::controller(StudentDashboardController::class)->group(function () {
     Route::get('student', 'index')->middleware('auth.student')->name('student');
@@ -288,12 +289,10 @@ Route::controller(DownloadController::class)->group(function () {
     Route::get('school/id-card', 'idcard')->middleware('auth')->name('id-card');
     Route::get('school/search-id-card', 'searchIdcard')->middleware('auth')->name('searchidcard');
     Route::get('school/admit-card/{text}', 'admitcard')->middleware('auth')->name('admit-card');
-    Route::get('school/search-admit-card', 'searchadmitcard')->middleware('auth')->name('searchadmitcard');
-    
+    Route::get('school/search-admit-card', 'searchadmitcard')->middleware('auth')->name('searchadmitcard'); 
     Route::get('school/desk-slip/{text}', 'deskslip')->middleware('auth')->name('desk-slip');
     Route::get('school/search-desk-slip', 'searchdeskslip')->middleware('auth')->name('searchdeskslip');
     Route::get('school/tc/{id}', 'tc')->middleware('auth')->name('tc');
-    // Route::get('school/search-tc', 'searchtc')->middleware('auth')->name('searchtc');
     Route::get('school/cc/{id}', 'cc')->middleware('auth')->name('cc');
     Route::post('school/save-cc', 'savecc')->middleware('auth')->name('save-cc');
     Route::get('school/tc-cc-list', 'tccclist')->middleware('auth')->name('tc-cc-list');
@@ -308,6 +307,12 @@ Route::controller(SchemeHeaderController::class)->group(function () {
     Route::get('school/removeclass/{id}', 'removeclass')->middleware('auth')->name('removeclass');
     Route::get('school/exam-time', 'examTime')->middleware('auth')->name('exam-time');
     Route::post('school/save-exam-time', 'saveExamTime')->middleware('auth')->name('save-exam-time');
+});
+
+Route::controller(TopperStudentController::class)->group(function (){
+    Route::get('school/topper-student','topperstudent')->middleware('auth')->name('topper-student');
+    Route::get('school/add-topper','addtopper')->middleware('auth')->name('add-topper');
+    Route::post('school/savetopper', 'savetopper')->middleware('auth')->name('savetopper');
 });
 
 Route::middleware('auth')->controller(AttendanceController::class)->group(function () {

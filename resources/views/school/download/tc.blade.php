@@ -109,7 +109,7 @@
             }
 
             .table {
-                font-size: 9px;
+                font-size: 5px;
             }
 
             .table tr {
@@ -128,6 +128,11 @@
 
             }
 
+            .table input::placeholder {
+                color: transparent;
+
+            }
+
             .header-section {
                 display: none !important;
             }
@@ -136,7 +141,18 @@
                 margin-top: 0px !important;
             }
 
+            input[type="date"]::placeholder {
+                color: transparent;
+                /* Make the placeholder text transparent */
+            }
 
+            input[type="date"] {
+                color: transparent;
+                /* Hide the actual text if needed */
+            }
+            .form-control{
+                border: solid white 1px;
+            }
             .header {
                 display: none;
             }
@@ -249,10 +265,22 @@
                                     <td> <span>{{ $studentList->student_name }},</span>
                                         <span>{{ $studentList->nationality }},</span>
                                         <span style="padding-left: 5px;">{{ $studentList->caste }}</span>
+                                        <span style="padding-left: 5px;"> ( {{ $studentList->religion }} )</span>
                                     </td>
-                                    <td>{{ $studentList->father_name }},
-                                        <span>{{ $studentList->village }} {{ $studentList->town }},</span>
-                                        <span style="padding-left: 5px;">{{ $studentList->father_occupation }},</span>
+                                    <td>{{ $studentList->father_name }}
+                                        <span style="padding-left: 5px;">( {{ $studentList->father_occupation }} ) </span>
+                                        <span>{{ $studentList->locality_type .
+                                            ' ' .
+                                            $studentList->village .
+                                            ',' .
+                                            $studentList->post_type .
+                                            ' ' .
+                                            $studentList->town .
+                                            ' (' .
+                                            $studentList->district .
+                                            '),' }}
+                                            <br> {{ $studentList->pincode . ' ' . $studentList->state }}</span>
+
                                     </td>
                                     <td> <span style="color: red; font-weight: bold;">{{ $studentList->dob }}</span></td>
                                     <td>
@@ -269,7 +297,9 @@
                                 style="padding-left: 25px;">{{ $studentList->mother_name }}</span> </div>
                     </div>
                     <div class="row content">
-                        <div class="col-12 border border-secondary">Date of Birth in Words</div>
+                        <div class="col-12 border border-secondary">Date of Birth in Words
+                            <span style="padding-left: 25px;"> {{ ucwords($dobFormatted) }}</span>
+                        </div>
                     </div>
                     <div class="table-responsive background-white">
                         <table class="table pd-5 bordered ">
@@ -297,8 +327,8 @@
                                             {{ $item['classname'] }}
 
                                         </td>
-                                        <td><input type="date" class="form-control form-control-sm" id="dateInput"
-                                                required>
+                                        <td><input type="date" placeholder="dd-mm-yyyy"
+                                                class="form-control form-control-sm" id="dateInput" required>
                                         </td>
                                         <td><input type="date" class="form-control form-control-sm" id="dateInput"
                                                 required>
