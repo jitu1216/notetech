@@ -833,6 +833,18 @@
                                     href="{{ route('view-time-table') }}">Print Time Table</a></li>
                         </ul>
                     </li>
+                    <li><a href="#">Topper Student
+                        <label title="Toggle Drop-down" class="drop-icon" for="sm2"> <i
+                                class='bx bxs-chevron-down'></i></label>
+                    </a>
+                    {{-- <input type="checkbox" id="sm2"> --}}
+                    <ul class="sub-sub-menu">
+                        <li><a class="{{ set_active(['school/topper-student']) }}"
+                                href="{{ route('topper-student') }}">Topper list</a></li>
+                        <li><a class="{{ set_active(['school/addslider']) }}"
+                                href="{{ route('add-topper') }}">Add Topper</a></li>
+                    </ul>
+                </li>
                 @endif
             </ul>
         </li>
