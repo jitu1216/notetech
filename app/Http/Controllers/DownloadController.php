@@ -15,6 +15,7 @@ use App\Models\AcademicSession;
 use App\Models\ExamScheme;
 use App\Models\SchemeHeader;
 use App\Models\cc;
+use App\Models\Tc;
 use Session;
 use App\Helper\Custom;
 use Auth;
@@ -511,9 +512,11 @@ class DownloadController extends Controller
 
             $mark = 2;
 
+            $tcdata = Tc::where(['student_id' => $id])->first();
+
             // $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->select('exam_date')->distinct('exam_date')->get();
             // $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->orderBy('updated_at', 'asc')->get();
-            return view('school.download.tc',compact('finalarray','schoolclass','mark','studentList','dobFormatted'));
+            return view('school.download.tc',compact('finalarray','schoolclass','mark','studentList','dobFormatted','tcdata'));
     }
 
 
@@ -723,6 +726,21 @@ class DownloadController extends Controller
         // dd($class);
         return view('school.download.tc-cc-list', compact('studentList', 'mark', 'finalarray','studentsearch','class'));
 
+    }
+
+
+    public function storeTc(Request $request){
+
+        dd($request);
+       
+        $request->validate([
+            'admission_file_no' => 'required',
+            'withdraw_file_no' => 'required',
+            'transfer_certificate_no' => 'required',
+            'tc_date' => 'required'
+        ]);
+
+        
     }
 
     

@@ -24,6 +24,7 @@ use App\Http\Controllers\ExmaController;
 use App\Http\Controllers\SchemeHeaderController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\TopperStudentController;
+use App\Http\Controllers\MaintenanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -297,6 +298,8 @@ Route::controller(DownloadController::class)->group(function () {
     Route::post('school/save-cc', 'savecc')->middleware('auth')->name('save-cc');
     Route::get('school/tc-cc-list', 'tccclist')->middleware('auth')->name('tc-cc-list');
     Route::get('school/search-tc-cc', 'searchtccc')->middleware('auth')->name('search-tc-cc');
+    Route::post('school/store-tc', 'storeTc')->middleware('auth')->name('store_tc');
+
 });
 Route::controller(SchemeHeaderController::class)->group(function () {
     Route::get('school/scheme-class-list', 'scheme_list')->middleware('auth')->name('scheme_list');
@@ -314,6 +317,15 @@ Route::controller(TopperStudentController::class)->group(function (){
     Route::get('school/add-topper','addtopper')->middleware('auth')->name('add-topper');
     Route::post('school/savetopper', 'savetopper')->middleware('auth')->name('savetopper');
 });
+
+Route::controller(MaintenanceController::class)->group(function () {
+    Route::get('school/item-list', 'item_list')->middleware('auth')->name('item_list');
+    Route::get('school/add-item', 'additem')->middleware('auth')->name('add-item');
+    Route::post('school/saveitem', 'saveitem')->middleware('auth')->name('saveitem');
+    Route::get('school/edit-item/{id}', 'edititem')->middleware('auth')->name('edit-item');
+    Route::post('school/updateitem', 'updateitem')->middleware('auth')->name('updateitem');
+    Route::get('school/removeitem/{id}', 'removeitem')->middleware('auth')->name('removeitem');
+ });
 
 Route::middleware('auth')->controller(AttendanceController::class)->group(function () {
     Route::get('school/take_student_attendance/{id?}', 'takestudentattendance')->name('school/take_student_attendance');

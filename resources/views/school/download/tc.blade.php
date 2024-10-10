@@ -8,6 +8,10 @@
 
         }
 
+        .invalid{
+            border: solid red 1px;
+        }
+
         .table tr>th {
             font-size: 15px;
             font-weight: 500;
@@ -25,7 +29,8 @@
             flex-direction: row;
             flex-wrap: wrap;
             padding: 0px;
-            /* margin-top: -95px; */
+            /* justify-content: center;
+                align-items: center; */
         }
 
         .main-card {
@@ -33,6 +38,7 @@
             margin-bottom: 10px;
             border: solid blue;
             background: white;
+            /* width: 70vw; */
         }
 
         .main-body {
@@ -46,7 +52,6 @@
         }
 
         .head {
-            /* margin-top: 10px; */
             margin: 8px;
             text-align: center;
         }
@@ -80,15 +85,18 @@
             padding: 10px;
         }
 
+        .page-wrapper {
+            margin-top: 0px !important;
+            min-height: 0px !important;
+
+        }
+
         @media print {
 
 
             .container {
                 padding: 0px;
                 margin: 0px;
-                max-width: 100%;
-                width: 100%;
-                margin-left: -25px;
             }
 
             .main-body {
@@ -99,7 +107,6 @@
             .main-card {
                 margin: 0px;
                 padding: 0px;
-                margin-top: -350px;
             }
 
             .title {
@@ -109,24 +116,9 @@
             }
 
             .table {
-                font-size: 5px;
+                font-size: 12px;
             }
 
-            .table tr {
-                margin: -5px;
-
-            }
-
-            .table td {
-                padding-top: -35px;
-                padding-bottom: -25px;
-            }
-
-            .table input {
-                padding: -35px;
-                margin-top: -15px;
-
-            }
 
             .table input::placeholder {
                 color: transparent;
@@ -139,6 +131,8 @@
 
             .page-wrapper {
                 margin-top: 0px !important;
+                min-height: 0px;
+
             }
 
             input[type="date"]::placeholder {
@@ -147,12 +141,14 @@
             }
 
             input[type="date"] {
-                color: transparent;
-                /* Hide the actual text if needed */
+                 /* Hide the actual text if needed */
             }
-            .form-control{
+
+            .form-control {
                 border: solid white 1px;
+                height: 30px;
             }
+
             .header {
                 display: none;
             }
@@ -161,6 +157,9 @@
                 display: none;
             }
 
+            .sel {
+                display: none;
+            }
 
             .print-header {
                 display: inline !important;
@@ -173,6 +172,11 @@
 
             footer {
                 display: none;
+            }
+
+
+            .table>:not(caption)>*>* {
+                padding: 7px 15px;
             }
 
         }
@@ -197,7 +201,9 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid cn" style="margin-top: -250px;">
+    <div class="container">
+        <form action="{{ route('store_tc')}}" method="post">
+            @csrf
         <div class="main-row">
             <div class="main-card">
                 <div class="card bg-common main-body">
@@ -222,12 +228,11 @@
                         </div>
                         <h3 class="title ">Scholar's Register & Transfer Certificate</h3>
                     </div>
-
                     <div class="table-responsive background-white">
                         <table class="table pd-5 bordered">
                             <thead class=" no-wrap text-center justify-content-between">
                                 <tr>
-                                    <th>Addmission File No. </th>
+                                    <th>Admission File No. </th>
                                     <th>Withdrawl File No.</th>
                                     <th>Transfer certificate No.</th>
                                     <th>S.R. No.</th>
@@ -235,11 +240,11 @@
                             </thead>
                             <tbody>
                                 <tr class="no-wrap text-center">
-                                    <td><input type="text" class="border-0 form-control form-control-sm"
+                                    <td><input type="text" name="admission_file_no" class=" form-control form-control-sm @error('admission_file_no') invalid @enderror " value="{{ old('admission_file_no')}}"
                                             placeholder="Enter Here"></td>
-                                    <td><input type="text" class="border-0 form-control form-control-sm"
+                                    <td><input name="withdraw_file_no" type="text" class=" form-control form-control-sm  @error('withdraw_file_no') invalid @enderror " value="{{ old('withdraw_file_no')}}"
                                             placeholder="Enter Here"></td>
-                                    <td><input type="text" class="border-0 form-control form-control-sm"
+                                    <td><input name="transfer_certificate_no" type="text" class=" form-control form-control-sm  @error('transfer_certificate_no') invalid @enderror " value="{{ old('transfer_certificate_no')}}"
                                             placeholder="Enter Here"></td>
                                     <td><span style="color: red; font-weight: bold;">{{ $studentList->sr_no }}</span></td>
                                 </tr>
@@ -305,7 +310,7 @@
                         <table class="table pd-5 bordered ">
                             <thead class="text-center">
                                 <tr>
-                                    <th>Class</th>
+                                    <th>Class <span class="sel">Select</span> </th>
                                     <th>Date of Admission</th>
                                     <th>Date of Promotion </th>
                                     <th>Date of removal</th>
@@ -319,34 +324,39 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($finalarray as $item)
-                                    <tr class="no-wrap text-center ">
-
+                                @for ($i = 1; $i <= 10; $i++)
+                                    <tr>
                                         <td>
-
-                                            {{ $item['classname'] }}
-
+                                            <select name="class_{{$i}}" class="form-control form-control-sm">
+                                                <option disabled selected> Select Class</option>
+                                                @foreach ($finalarray as $item)
+                                                <option value="{{ $item['id']}}">{{ $item['classname']}}</option>
+                                                @endforeach
+                                            </select>
                                         </td>
-                                        <td><input type="date" placeholder="dd-mm-yyyy"
-                                                class="form-control form-control-sm" id="dateInput" required>
+                                        <td>
+                                            <input  name="date_of_addmission_{{$i}}" type="date" class="form-control form-control-sm" value="{{$tcdata?->date_of_admission_1}}">
                                         </td>
-                                        <td><input type="date" class="form-control form-control-sm" id="dateInput"
-                                                required>
+                                        <td>
+                                            <input name="date_of_promation_{{$i}}" type="date" class="form-control form-control-sm">
                                         </td>
-                                        <td><input type="date" class="form-control form-control-sm" id="dateInput"
-                                                required>
+                                        <td>
+                                            <input name="date_of_removal_{{$i}}" type="date" class="form-control form-control-sm">
                                         </td>
-                                        <td><input type="text" class="border-0 form-control form-control-sm"
-                                                id="" placeholder="Enter Here" required></td>
-                                        <td><input type="text" class="border-0 form-control form-control-sm"
-                                                placeholder="Enter Year"></td>
-                                        <td><input type="text" class="border-0 form-control form-control-sm"
-                                                placeholder="Enter Conduct"></td>
-                                        <td><input type="text" class="border-0 form-control form-control-sm"
-                                                placeholder="Enter Work"></td>
+                                        <td>
+                                            <input name="causes_{{$i}}" type="text" class="form-control form-control-sm">
+                                        </td>
+                                        <td>
+                                            <input name="session_{{$i}}" type="text" class="form-control form-control-sm">
+                                        </td>
+                                        <td>
+                                            <input  name="conduct_{{$i}}" type="text" class="form-control form-control-sm">
+                                        </td>
+                                        <td>
+                                            <input  name="work_{{$i}}" type="text" class="form-control form-control-sm">
                                         <td></td>
                                     </tr>
-                                @endforeach
+                                @endfor
                             </tbody>
                         </table>
                     </div>
@@ -365,7 +375,7 @@
                         <div class="col-4">Prepared By</div>
                         <div class="col-4">
                             <label for="" class="">Date</label>
-                            <input type="date" class=" border-0 form-control-sm" id="dateInput" required>
+                            <input type="date" name="tc_date" class=" form-control-sm @error('tc_date') invalid @enderror " value="{{ old('tc_date')}}" id="dateInput" >
                         </div>
                         <div class="col-4">Head of Intitution</div>
                     </div>
@@ -376,7 +386,9 @@
 
                 </div>
             </div>
+            <input type="submit" class="btn btn-primary" value="Submit">
         </div>
+    </form>
     </div>
 
     <script>
