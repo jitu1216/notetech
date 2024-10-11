@@ -209,7 +209,7 @@
                 </table>
             </div>
             <div class="">
-                <form action="{{ route('save-student-maintenance' ) }} " method="POST" enctype="multipart/form-data">
+                <form action="{{ route('save-student-maintenance') }} " method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="table table-card">
                         <table class="table">
@@ -227,9 +227,13 @@
                                 @foreach ($item as $key => $value)
                                     <tr>
                                         <td>{{ ++$key }}</td>
-                                        <td>{{ $value->item_name }}</td>
+                                        <td>{{ $value->item_name }}
+                                            <input type="text" name="item[]" value="{{ $value->id }}" hidden>
+                                        </td>
                                         <td>
-                                            <input type="checkbox" name="status" {{ old('status') ? 'checked' : '' }}>
+                                            <input type="checkbox" name="status[]" {{ Custom::getstudentmaintenance($studentList->id,$value->id)->item_status == 1 ? 'checked' : '' }}
+                                                value="{{ $value->id }}">
+
                                         </td>
                                     </tr>
                                 @endforeach

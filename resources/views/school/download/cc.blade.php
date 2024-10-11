@@ -23,13 +23,12 @@
         .main-card {
             margin: 10px;
             margin-bottom: 10px;
-
             background: white;
             width: 680px;
         }
 
         .main-body {
-            border: solid blue;
+            border: solid blue 2px;
         }
 
         .head {
@@ -217,7 +216,7 @@
                                     <input type="text" value="{{ $studentList->id }}" name="student_id" hidden>
                                     <input type="text" value="{{ $studentList->class_id }}" name="class_id" hidden>
                                     <div class="col-12 mb-2">
-                                        S.R. No.- {{ $studentList->sr_no }}
+                                     <span style="color: red;">  S.R. No.- {{ $studentList->sr_no }} </span> 
                                     </div>
                                     <div class="col-12" style="padding-left: 65px;">This is certified that
                                         <span
@@ -282,7 +281,7 @@
                                         <div class="col-6" style="padding-left: 6px;">Student date of Birth
                                             <span
                                                 style="padding-left: 15px;font-weight: bold;
-                                        font-size: 14px;">{{ $studentList->dob }}</span>
+                                        font-size: 14px; color:red; ">{{ $studentList->dob }}</span>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -310,7 +309,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-6" style="padding-left: 200px;">
+                                        <div class="col-6" style="padding-left: 200px; color:red; ">
                                             Principal
                                         </div>
                                     </div>

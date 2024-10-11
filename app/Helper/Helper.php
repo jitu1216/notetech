@@ -15,6 +15,7 @@ use App\Models\Student;
 use App\Models\Staff;
 use App\Models\SchoolClass;
 use App\Models\ExamScheme;
+use App\Models\Maintenance;
 use Session;
 use Auth;
 use Carbon\Carbon;
@@ -718,6 +719,16 @@ class Custom
         $academic = Session::get('academic_session');
         $subject = ExamScheme::where(['school_id' => $school->id , 'academic_session' => $academic])->whereRaw("FIND_IN_SET(?, class_group)", [$class])->get();
         return $subject;
+    }
+
+    public static function getstudentmaintenance($id,$item){
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $data =  Maintenance::where(['student_id' => $id, 'academic_session' => $academic,
+        'school_id' => $school->id,'item_id' => $item])->first();
+
+        return $data;
     }
 
 }

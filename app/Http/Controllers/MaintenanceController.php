@@ -230,7 +230,7 @@ class MaintenanceController extends Controller
 
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
-        $item = Item::where(['school_id' => $school->id, 'academic_session' => $academic ])->get();
+        $item = Item::where(['school_id' => $school->id, 'academic_session' => $academic])->get();
         // dd($item);
         $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic,'status' => '0'])->get();
 
@@ -270,28 +270,65 @@ class MaintenanceController extends Controller
         $session = Session::get('all_academic_session');
         // dd($session);
 
+        
+
         $studentList = Student::find($id);
             $mark = 2;
 
-            return view('school.schoolmaintenance.student-maintenance',compact('finalarray','schoolclass','mark','studentList','item','session'));
+            return view('school.schoolmaintenance.student-maintenance',compact('finalarray',
+            'schoolclass','mark','studentList','item','session'));
     }
 
     public function savestudentmaintenance(Request $request){
+       
         // dd($request);
-        // $request->validate([
-        //     'status' => 'required',
-        //     ]);
         $school = custom::getschool();
         $academic = Session::get('academic_session');
-        $cc = Maintenance::updateOrCreate([
-            'student_id' => $request->student_id,
-            'academic_session' => $academic,
-            'school_id' => $school->id,
-        ], [
-            'item_status' => $request->item_status == true ? '1' : '0',
-            'class_id' => $request->class_id,
-        ]);
 
+        $data =  Maintenance::where(['student_id' => $request->student_id, 'academic_session' => $academic,'school_id' => $school->id])->get();
+
+        // dd($data);
+
+
+        if($data->isEmpty()){
+
+            foreach($request->item as $value){
+                $status = 0;
+                foreach($request->status as $item){
+                    if($item == $value){
+                        $status = 1;
+                    }
+                }
+    
+                $main = new Maintenance();
+                $main->student_id = $request->student_id;
+                $main->school_id = $school->id;
+                $main->academic_session = $academic;
+                $main->class_id = $request->class_id;
+                $main->item_status = $status;
+                $main->item_id = $value;
+                $main->save();
+            }
+            
+        }else{
+            foreach($request->item as $value){
+                $status = 0;
+                foreach($request->status as $item){
+                    if($item == $value){
+                        $status = 1;
+                    }
+                }
+    
+                $main = Maintenance::where(['student_id' => $request->student_id, 'academic_session' => $academic,'school_id' => $school->id,  'item_id' => $value])->first();
+                $main->student_id = $request->student_id;
+                $main->school_id = $school->id;
+                $main->academic_session = $academic;
+                $main->class_id = $request->class_id;
+                $main->item_status = $status;
+                $main->item_id = $value;
+                $main->update();
+            }
+        }
        
         return redirect()->back()->with('Success','Maintenance Saved');
     }
