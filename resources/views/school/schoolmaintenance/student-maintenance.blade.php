@@ -231,7 +231,7 @@
                                             <input type="text" name="item[]" value="{{ $value->id }}" hidden>
                                         </td>
                                         <td>
-                                            <input type="checkbox" name="status[]" {{ Custom::getstudentmaintenance($studentList->id,$value->id)->item_status == 1 ? 'checked' : '' }}
+                                            <input type="checkbox" name="status[]" {{ Custom::getstudentmaintenance($studentList->id,$value->id)?->item_status == 1 ? 'checked' : '' }}
                                                 value="{{ $value->id }}">
 
                                         </td>
