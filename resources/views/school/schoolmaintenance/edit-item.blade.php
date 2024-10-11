@@ -13,7 +13,7 @@
             <div class="page-header">
                 <div class="row align-item-center">
                     <div class="col">
-                        <h3>Add Maintenance Item</h3>
+                        <h3>Edit Maintenance Item</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('school') }}">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('item_list') }}">Item List</a></li>
@@ -35,17 +35,18 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <form action="{{ route('saveitem') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('updateitem') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-12 col-sm-6">
                                                 <div class="form-group local-forms">
+                                                    <input type="text" name="id" hidden value="{{ $item->id }}">
                                                     <label>Item<span class="login-danger">*</span></label>
                                                     <input type="text"
                                                         class="form-control @error('item_name') is-invalid @enderror"
                                                         name="item_name" placeholder="Enter item"
-                                                        value="{{ old('item_name') }}" id="">
+                                                        value="{{ $item->item_name }}" id="">
                                                     @error('item_name')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>

@@ -834,17 +834,29 @@
                         </ul>
                     </li>
                     <li><a href="#">Topper Student
-                        <label title="Toggle Drop-down" class="drop-icon" for="sm2"> <i
-                                class='bx bxs-chevron-down'></i></label>
-                    </a>
-                    {{-- <input type="checkbox" id="sm2"> --}}
-                    <ul class="sub-sub-menu">
-                        <li><a class="{{ set_active(['school/topper-student']) }}"
-                                href="{{ route('topper-student') }}">Topper list</a></li>
-                        <li><a class="{{ set_active(['school/addslider']) }}"
-                                href="{{ route('add-topper') }}">Add Topper</a></li>
-                    </ul>
-                </li>
+                            <label title="Toggle Drop-down" class="drop-icon" for="sm2"> <i
+                                    class='bx bxs-chevron-down'></i></label>
+                        </a>
+                        {{-- <input type="checkbox" id="sm2"> --}}
+                        <ul class="sub-sub-menu">
+                            <li><a class="{{ set_active(['school/topper-student']) }}"
+                                    href="{{ route('topper-student') }}">Topper list</a></li>
+                            <li><a class="{{ set_active(['school/addslider']) }}"
+                                    href="{{ route('add-topper') }}">Add Topper</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Maintenance
+                            <label title="Toggle Drop-down" class="drop-icon" for="sm2"> <i
+                                    class='bx bxs-chevron-down'></i></label>
+                        </a>
+                        {{-- <input type="checkbox" id="sm2"> --}}
+                        <ul class="sub-sub-menu">
+                            <li><a class="{{ set_active(['school/topper-student']) }}"
+                                    href="{{ route('item_list') }}">Item list</a></li>
+                            <li><a class="{{ set_active(['school/addslider']) }}"
+                                    href="{{ route('student-maintenance-list') }}">Student Maintenance</a></li>
+                        </ul>
+                    </li>
                 @endif
             </ul>
         </li>
@@ -1008,59 +1020,60 @@
                     </li>
                     <li>
                         <a class="{{ set_active(['school/add-time-table']) }}"
-                            href="{{ route('tc-cc-list') }}">T.C. & C.C.</a></li>
+                            href="{{ route('tc-cc-list') }}">T.C. & C.C.</a>
                     </li>
-                @endif
-            </ul>
         </li>
+        @endif
+    </ul>
+    </li>
 
-        <li><a class="" href="javascript:void(0)"><i class="fas fa-pen"></i>
-                <span>Attendance</span>
-                <label title="Toggle Drop-down" class="drop-icon" for="sm1"> <i
-                        class='bx bxs-chevron-down'></i></label>
-            </a>
-            {{-- <input type="checkbox" id="sm1"> --}}
-            <ul class="sub-menu">
-                @if (Custom::getUser()->role_name == 'Staff')
-                    <li><a
-                            @if (in_array('17', Custom::getStaffPower())) class="{{ set_active(['school/take_student_attendance']) }}"
+    <li><a class="" href="javascript:void(0)"><i class="fas fa-pen"></i>
+            <span>Attendance</span>
+            <label title="Toggle Drop-down" class="drop-icon" for="sm1"> <i
+                    class='bx bxs-chevron-down'></i></label>
+        </a>
+        {{-- <input type="checkbox" id="sm1"> --}}
+        <ul class="sub-menu">
+            @if (Custom::getUser()->role_name == 'Staff')
+                <li><a
+                        @if (in_array('17', Custom::getStaffPower())) class="{{ set_active(['school/take_student_attendance']) }}"
                             href="{{ route('school/take_student_attendance') }}" @else
                             class="{{ set_active(['school/take_student_attendance-list']) }} popup"
                                 href="javascript:(0)" @endif>Take
-                            Student Attendance</a></li>
-                    <li><a
-                            @if (in_array('17', Custom::getStaffPower())) class="{{ set_active(['school/view_student_attendance']) }}"
+                        Student Attendance</a></li>
+                <li><a
+                        @if (in_array('17', Custom::getStaffPower())) class="{{ set_active(['school/view_student_attendance']) }}"
                                         href="{{ route('school/view_student_attendance') }}" @else
                                         class="{{ set_active(['school/view_student_attendance']) }} popup"
                                             href="javascript:(0)" @endif>Edit
-                            Student Attendance</a></li>
-                    <li><a
-                            @if (in_array('17', Custom::getStaffPower())) class="{{ set_active(['school/student-attendance-record']) }}"
+                        Student Attendance</a></li>
+                <li><a
+                        @if (in_array('17', Custom::getStaffPower())) class="{{ set_active(['school/student-attendance-record']) }}"
                                             href="{{ route('school/student-attendance-record') }}" @else
                                             class="{{ set_active(['school/student-attendance-record']) }} popup"
                                                 href="javascript:(0)" @endif>Student
-                            Attendance Record</a></li>
-                    <li><a
-                            @if (in_array('26', Custom::getStaffPower())) class="{{ set_active(['school/holiday-list']) }}"
+                        Attendance Record</a></li>
+                <li><a
+                        @if (in_array('26', Custom::getStaffPower())) class="{{ set_active(['school/holiday-list']) }}"
                                                 href="{{ route('school/holiday-list') }}" @else
                                                 class="{{ set_active(['school/holiday-list']) }} popup"
                                                     href="javascript:(0)" @endif>Holiday
-                            List</a></li>
-                @else
-                    <li><a class="{{ set_active(['school/take_student_attendance']) }}"
-                            href="{{ route('school/take_student_attendance') }}">Take Student
-                            Attendance</a></li>
-                    <li><a class="{{ set_active(['school/view_student_attendance']) }}"
-                            href="{{ route('school/view_student_attendance') }}">Edit Student
-                            Attendance</a></li>
-                    <li><a class="{{ set_active(['school/student-attendance-record']) }}"
-                            href="{{ route('school/student-attendance-record') }}">Student
-                            Attendance Record</a></li>
-                    <li><a class="{{ set_active(['school/holiday-list']) }}"
-                            href="{{ route('school/holiday-list') }}">Holiday List</a></li>
-                @endif
-            </ul>
-        </li>
+                        List</a></li>
+            @else
+                <li><a class="{{ set_active(['school/take_student_attendance']) }}"
+                        href="{{ route('school/take_student_attendance') }}">Take Student
+                        Attendance</a></li>
+                <li><a class="{{ set_active(['school/view_student_attendance']) }}"
+                        href="{{ route('school/view_student_attendance') }}">Edit Student
+                        Attendance</a></li>
+                <li><a class="{{ set_active(['school/student-attendance-record']) }}"
+                        href="{{ route('school/student-attendance-record') }}">Student
+                        Attendance Record</a></li>
+                <li><a class="{{ set_active(['school/holiday-list']) }}"
+                        href="{{ route('school/holiday-list') }}">Holiday List</a></li>
+            @endif
+        </ul>
+    </li>
 
     </ul>
 </nav>

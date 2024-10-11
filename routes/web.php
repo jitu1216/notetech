@@ -325,6 +325,10 @@ Route::controller(MaintenanceController::class)->group(function () {
     Route::get('school/edit-item/{id}', 'edititem')->middleware('auth')->name('edit-item');
     Route::post('school/updateitem', 'updateitem')->middleware('auth')->name('updateitem');
     Route::get('school/removeitem/{id}', 'removeitem')->middleware('auth')->name('removeitem');
+    Route::get('school/student-maintenance-list', 'studentmaintenancelist')->middleware('auth')->name('student-maintenance-list'); 
+    Route::get('school/search-student-maintenance-list', 'searchstudentmaintenancelist')->middleware('auth')->name('search-student-maintenance-list'); 
+    Route::get('school/student-maintenance/{id}', 'studentmaintenance')->middleware('auth')->name('student-maintenance');
+    Route::post('school/save-student-maintenance', 'savestudentmaintenance')->middleware('auth')->name('save-student-maintenance');
  });
 
 Route::middleware('auth')->controller(AttendanceController::class)->group(function () {

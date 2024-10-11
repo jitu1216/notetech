@@ -15,9 +15,12 @@ return new class extends Migration
     {
         Schema::create('maintenances', function (Blueprint $table) {
             $table->id();
+            $table->integer('student_id');
             $table->string('academic_session');
             $table->integer('school_id');
-            
+            $table->integer('class_id');
+            $table->tinyInteger('item_status')->default('0');
+            $table->date('date')->nullable();
             $table->timestamps();
         });
     }

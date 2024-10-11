@@ -59,7 +59,7 @@
                                     @foreach ($item as $key => $value)
                                         <tr>
                                             <td>{{ ++$key }}</td>
-                                            <td>{{ $value->exam_header }}</td>
+                                            <td>{{ $value->item_name }}</td>
                                             <td>
                                                 <a href="{{ route('edit-item', $value->id) }}"
                                                 class="btn btn-sm bg-danger-light me-2"style="background-color: rgb(2, 167, 11) !important; color:white !important;">
