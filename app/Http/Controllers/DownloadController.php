@@ -432,7 +432,7 @@ class DownloadController extends Controller
 
     }
 
-    
+
     private function numberToWords($number)
     {
         $words = [
@@ -443,7 +443,7 @@ class DownloadController extends Controller
             20 => 'twenty', 30 => 'thirty', 40 => 'forty', 50 => 'fifty', 60 => 'sixty',
             70 => 'seventy', 80 => 'eighty', 90 => 'ninety', 1000 => 'thousand', 100 => 'hundred'
         ];
-    
+
         if ($number < 20) {
             return $words[$number];
         } elseif ($number < 100) {
@@ -454,10 +454,10 @@ class DownloadController extends Controller
             return $words[intval($number / 1000)] . ' thousand' . ($number % 1000 ? ' ' . $this->numberToWords($number % 1000) : '');
         }
     }
-    
-    
 
-    
+
+
+
     public function tc($id){
 
         $school = Custom::getschool();
@@ -502,17 +502,18 @@ class DownloadController extends Controller
         // dd($studentList);
 
         $dob = Carbon::parse($studentList->dob);
-    
+
         // Convert day, month, and year to words
         $day = $this->numberToWords($dob->day);
         $month = $dob->format('F'); // Month in words
         $year = $this->numberToWords($dob->year); // Convert the full year to words
-    
+
         $dobFormatted = "{$day} {$month} {$year}";
 
             $mark = 2;
 
             $tcdata = Tc::where(['student_id' => $id])->first();
+            // dd($tcdata);
 
             // $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->select('exam_date')->distinct('exam_date')->get();
             // $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->orderBy('updated_at', 'asc')->get();
@@ -642,7 +643,7 @@ class DownloadController extends Controller
             // $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->orderBy('updated_at', 'asc')->get();
             return view('school.download.tc-cc-list',compact('finalarray','schoolclass','mark','studentList'));
 
-    
+
     }
 
     public function searchtccc(Request $request)
@@ -731,8 +732,11 @@ class DownloadController extends Controller
 
     public function storeTc(Request $request){
 
-        dd($request);
-       
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        // dd($request);
+
         $request->validate([
             'admission_file_no' => 'required',
             'withdraw_file_no' => 'required',
@@ -740,8 +744,116 @@ class DownloadController extends Controller
             'tc_date' => 'required'
         ]);
 
-        
+
+
+        $data = [
+            'student_id' => $request->input('student_id'),
+            'academic_session' => $academic,
+            'school_id' => $school->id,
+            'class_id' => $school->id,
+            'class_1' => $request->input('class_1'),
+            'date_of_admission_1' => $request->input('date_of_admission_1'),
+            'date_of_promotion_1' => $request->input('date_of_promotion_1'),
+            'date_of_removal_1' => $request->input('date_of_removal_1'),
+            'Causes_1' => $request->input('causes_1'),
+            'session_1' => $request->input('session_1'),
+            'conduct_1' => $request->input('conduct_1'),
+            'work_1' => $request->input('work_1'),
+            'class_2' => $request->input('class_2'),
+            'date_of_admission_2' => $request->input('date_of_admission_2'),
+            'date_of_promotion_2' => $request->input('date_of_promotion_2'),
+            'date_of_removal_2' => $request->input('date_of_removal_2'),
+            'Causes_2' => $request->input('causes_2'),
+            'session_2' => $request->input('session_2'),
+            'conduct_2' => $request->input('conduct_2'),
+            'work_2' => $request->input('work_2'),
+            'class_3' => $request->input('class_3'),
+            'date_of_admission_3' => $request->input('date_of_admission_3'),
+            'date_of_promotion_3' => $request->input('date_of_promotion_3'),
+            'date_of_removal_3' => $request->input('date_of_removal_3'),
+            'Causes_3' => $request->input('causes_3'),
+            'session_3' => $request->input('session_3'),
+            'conduct_3' => $request->input('conduct_3'),
+            'work_3' => $request->input('work_3'),
+            'class_4' => $request->input('class_4'),
+            'date_of_admission_4' => $request->input('date_of_admission_4'),
+            'date_of_promotion_4' => $request->input('date_of_promotion_4'),
+            'date_of_removal_4' => $request->input('date_of_removal_4'),
+            'Causes_4' => $request->input('causes_4'),
+            'session_4' => $request->input('session_4'),
+            'conduct_4' => $request->input('conduct_4'),
+            'work_4' => $request->input('work_4'),
+            'class_5' => $request->input('class_5'),
+            'date_of_admission_5' => $request->input('date_of_admission_5'),
+            'date_of_promotion_5' => $request->input('date_of_promotion_5'),
+            'date_of_removal_5' => $request->input('date_of_removal_5'),
+            'Causes_5' => $request->input('causes_5'),
+            'session_5' => $request->input('session_5'),
+            'conduct_5' => $request->input('conduct_5'),
+            'work_5' => $request->input('work_5'),
+            'class_6' => $request->input('class_6'),
+            'date_of_admission_6' => $request->input('date_of_admission_6'),
+            'date_of_promotion_6' => $request->input('date_of_promotion_6'),
+            'date_of_removal_6' => $request->input('date_of_removal_6'),
+            'Causes_6' => $request->input('causes_6'),
+            'session_6' => $request->input('session_6'),
+            'conduct_6' => $request->input('conduct_6'),
+            'work_6' => $request->input('work_6'),
+            'class_7' => $request->input('class_7'),
+            'date_of_admission_7' => $request->input('date_of_admission_7'),
+            'date_of_promotion_7' => $request->input('date_of_promotion_7'),
+            'date_of_removal_7' => $request->input('date_of_removal_7'),
+            'Causes_7' => $request->input('causes_7'),
+            'session_7' => $request->input('session_7'),
+            'conduct_7' => $request->input('conduct_7'),
+            'work_7' => $request->input('work_7'),
+            'class_8' => $request->input('class_8'),
+            'date_of_admission_8' => $request->input('date_of_admission_8'),
+            'date_of_promotion_8' => $request->input('date_of_promotion_8'),
+            'date_of_removal_8' => $request->input('date_of_removal_8'),
+            'Causes_8' => $request->input('causes_8'),
+            'session_8' => $request->input('session_8'),
+            'conduct_8' => $request->input('conduct_8'),
+            'work_8' => $request->input('work_8'),
+            'class_9' => $request->input('class_9'),
+            'date_of_admission_9' => $request->input('date_of_admission_9'),
+            'date_of_promotion_9' => $request->input('date_of_promotion_9'),
+            'date_of_removal_9' => $request->input('date_of_removal_9'),
+            'Causes_9' => $request->input('causes_9'),
+            'session_9' => $request->input('session_9'),
+            'conduct_9' => $request->input('conduct_9'),
+            'work_9' => $request->input('work_9'),
+            'class_10' => $request->input('class_10'),
+            'date_of_admission_10' => $request->input('date_of_admission_10'),
+            'date_of_promotion_10' => $request->input('date_of_promotion_10'),
+            'date_of_removal_10' => $request->input('date_of_removal_10'),
+            'Causes_10' => $request->input('causes_10'),
+            'session_10' => $request->input('session_10'),
+            'conduct_10' => $request->input('conduct_10'),
+            'work_10' => $request->input('work_10'),
+            'transfer_certificate_no' => $request->input('transfer_certificate_no'),
+            'withdrwal_file_no' => $request->input('withdraw_file_no'),
+            'addmission_file_no' => $request->input('admission_file_no'),
+            'tc_date' => $request->input('tc_date'),
+            'tc_count' => $request->input('tc_count'),
+
+        ];
+
+        // Set the conditions for updateOrCreate
+        $conditions = [
+            'academic_session' => $academic,
+            'school_id' => $school->id,
+            'student_id' => $request->input('student_id'),
+        ];
+
+        // Use updateOrCreate to either update an existing record or create a new one
+        $record = Tc::updateOrCreate($conditions, $data);
+
+        return redirect()->back()->with('Success','TC Information Saved');
+
+
+
     }
 
-    
+
 }
