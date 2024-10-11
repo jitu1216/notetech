@@ -400,7 +400,7 @@
 
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
-                                            <label>Father Occupation <span class="login-danger">*</span></label>
+                                            <label>Gurdian's Occupation <span class="login-danger">*</span></label>
                                             <input class="form-control @error('occupation') is-invalid @enderror"
                                             type="text" name="occupation" placeholder="Enter Occupation"
                                             value="{{ old('occupation') }}">
