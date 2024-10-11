@@ -405,6 +405,8 @@
                                 <th></th>
                                 <th></th>
                                  <th></th>
+                                 <th></th>
+
                                 @if (isset($feesSearch))
                                     <th id="totalamount">{{ $totalfeesamount }}</th>
                                     <th id="totaldeposite">{{ $totalfeesdeposite }}</th>
