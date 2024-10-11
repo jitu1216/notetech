@@ -8,8 +8,6 @@
 
         }
 
-
-
         .invalid {
             border: solid red 1px;
         }
@@ -33,7 +31,7 @@
             flex-wrap: wrap;
             padding: 0px;
             /* justify-content: center;
-                                            align-items: center; */
+                                                                align-items: center; */
         }
 
         .main-card {
@@ -144,7 +142,7 @@
                 font-size: 12px;
             }
 
-            table tr td{
+            table tr td {
                 widows: 20px !important;
             }
 
@@ -205,7 +203,7 @@
                 display: none;
             }
 
-            .nodate{
+            .nodate {
                 color: transparent;
             }
 
@@ -346,7 +344,7 @@
                                         </td>
                                         <td> <span style="color: red; font-weight: bold;">{{ $studentList->dob }}</span>
                                         </td>
-                                        <td >
+                                        <td>
                                             {{ $studentList->last_institute }}
                                         </td>
                                     </tr>
@@ -386,7 +384,7 @@
                                         <tr>
                                             <td>
                                                 <select name="class_{{ $i }}"
-                                                    class="form-control form-control-sm {{ $tcdata?->{'class_' . $i} ? 'showdate' : 'nodate'}}">
+                                                    class="form-control form-control-sm {{ $tcdata?->{'class_' . $i} ? 'showdate' : 'nodate' }}">
                                                     <option disabled selected>Select Class</option>
                                                     @foreach ($finalarray as $item)
                                                         <option
@@ -414,24 +412,30 @@
                                             </td>>
                                             </td>
                                             <td>
-                                                <input name="causes_{{ $i }}" type="text"
-                                                    class="form-control form-control-sm"
+                                                <input data-id="{{ $i }}" name="causes_{{ $i }}"
+                                                    type="text" class="cause form-control form-control-sm"
                                                     value="{{ $tcdata?->{'Causes_' . $i} ? $tcdata->{'Causes_' . $i} : '' }}">
+                                                <div class="removetag" style="display: none"
+                                                    id="showcause_{{ $i }}"></div>
+
                                             </td>
                                             <td>
-                                                <input name="session_{{ $i }}" type="text"
-                                                    class="form-control form-control-sm"
+                                                <input data-id="{{ $i }}" name="session_{{ $i }}"
+                                                    type="text" class="session form-control form-control-sm"
                                                     value="{{ $tcdata?->{'session_' . $i} ? $tcdata->{'session_' . $i} : '' }}">
+                                                <div class="removetag" style="display: none" id="showsession_{{ $i }}"></div>
                                             </td>
                                             <td>
-                                                <input name="conduct_{{ $i }}" type="text"
-                                                    class="form-control form-control-sm"
+                                                <input data-id="{{ $i }}" name="conduct_{{ $i }}"
+                                                    type="text" class="conduct form-control form-control-sm"
                                                     value="{{ $tcdata?->{'conduct_' . $i} ? $tcdata->{'conduct_' . $i} : '' }}">
+                                                <div class="removetag"  style="display: none" id="showconduct_{{ $i }}"></div>
                                             </td>
                                             <td>
-                                                <input name="work_{{ $i }}" type="text"
-                                                    class="form-control form-control-sm"
+                                                <input data-id="{{ $i }}" name="work_{{ $i }}"
+                                                    type="text" class=" work form-control form-control-sm"
                                                     value="{{ $tcdata?->{'work_' . $i} ? $tcdata->{'work_' . $i} : '' }}">
+                                                <div class="removetag" style="display: none" id="showwork_{{ $i }}"></div>
                                             <td style="width: 100px;"></td>
                                         </tr>
                                     @endfor
@@ -467,15 +471,60 @@
 
                     </div>
                 </div>
-                <input type="submit" class="btn btn-primary" value="Submit">
+                <div class="row sel">
+                    <div class="col">
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                    </div>
+                </div>
             </div>
         </form>
     </div>
 
     <script>
-        $('#printbtn').on('click', function() {
+        $('#printbtn').on('click', function(event) {
             event.preventDefault();
-            window.print()
+            $('.cause').each(function() {
+                var inputField = $(this);
+                var index = inputField.data('id');
+                var inputValue = inputField.val();
+                $('#showcause_' + index).text(inputValue).show();
+                inputField.hide();
+            });
+            $('.session').each(function() {
+                var inputField = $(this);
+                var index = inputField.data('id');
+                var inputValue = inputField.val();
+
+                $('#showsession_' + index).text(inputValue).show();
+
+                inputField.hide();
+            });
+
+            $('.conduct').each(function() {
+                var inputField = $(this);
+                var index = inputField.data('id');
+                var inputValue = inputField.val();
+                $('#showconduct_' + index).text(inputValue).show();
+                inputField.hide();
+            });
+
+            $('.work').each(function() {
+                var inputField = $(this);
+                var index = inputField.data('id');
+                var inputValue = inputField.val();
+                $('#showwork_' + index).text(inputValue).show();
+                inputField.hide();
+            });
+
+            window.print();
+
+            setTimeout(function() {
+                $('.cause').show(); 
+                $('.session').show();
+                $('.conduct').show();
+                $('.work').show();
+                $('.removetag').hide(); 
+            }, 100);
         });
 
         $('input[type="date"]').on('change', function() {
