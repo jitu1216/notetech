@@ -235,100 +235,10 @@
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
                                             <label>Gurdian's Occupation <span class="login-danger">*</span></label>
-                                            <select class="form-control select @error('occupation') is-invalid @enderror"
-                                                name="occupation">
-                                                <option selected disabled>Please Occupation </option>
-                                                <option value="Labour"
-                                                    {{ old('occupation') == 'Labour' ? 'selected' : '' }}>
-                                                    Labour</option>
-                                                <option value="Agriculture"
-                                                    {{ old('occupation') == 'Agriculture' ? 'selected' : '' }}>Agriculture
-                                                </option>
-                                                <option value="Grocery store"
-                                                    {{ old('occupation') == 'Grocery store' ? 'selected' : '' }}>
-                                                    Grocery store</option>
-                                                <option value="Ngo jobs"
-                                                    {{ old('occupation') == 'Ngo jobs' ? 'selected' : '' }}>Ngo jobs
-                                                </option>
-                                                <option value="Government Job"
-                                                    {{ old('occupation') == 'Government Job' ? 'selected' : '' }}>
-                                                    Government Job
-                                                </option>
-                                                <option value="Army"
-                                                    {{ old('occupation') == 'Army' ? 'selected' : '' }}>Army
-                                                </option>
-                                                <option value="Teacher"
-                                                    {{ old('occupation') == 'Teacher' ? 'selected' : '' }}>Teacher
-                                                </option>
-                                                <option value="Businessman"
-                                                    {{ old('occupation') == 'Businessman' ? 'selected' : '' }}>Businessman
-                                                </option>
-                                                <option value="Doctor"
-                                                    {{ old('occupation') == 'Doctor' ? 'selected' : '' }}>Doctor
-                                                </option>
-                                                <option value="Painter"
-                                                    {{ old('occupation') == 'Painter' ? 'selected' : '' }}>Painter
-                                                </option>
-                                                <option value="Driver"
-                                                    {{ old('occupation') == 'Driver' ? 'selected' : '' }}>Driver
-                                                </option>
-                                                <option value="Raj Mistri"
-                                                    {{ old('occupation') == 'Raj Mistri' ? 'selected' : '' }}>Raj Mistri
-                                                </option>
-                                                <option value="Carpenter"
-                                                    {{ old('occupation') == 'Carpenter' ? 'selected' : '' }}>Carpenter
-                                                </option>
-                                                <option value="Tailor"
-                                                    {{ old('occupation') == 'Tailor' ? 'selected' : '' }}>Tailor
-                                                </option>
-                                                <option value="Barber"
-                                                    {{ old('occupation') == 'Barber' ? 'selected' : '' }}>Barber
-                                                </option>
-                                                <option value="Hawker"
-                                                    {{ old('occupation') == 'Hawker' ? 'selected' : '' }}>Hawker
-                                                </option>
-                                                <option value="Coaching master"
-                                                    {{ old('occupation') == 'Coaching master' ? 'selected' : '' }}>Coaching
-                                                    master
-                                                </option>
-                                                <option value="Gardner"
-                                                    {{ old('occupation') == 'Gardner' ? 'selected' : '' }}>Gardner
-                                                </option>
-                                                <option value="Goldsmith"
-                                                    {{ old('occupation') == 'Goldsmith' ? 'selected' : '' }}>Goldsmith
-                                                </option>
-                                                <option value="Jouralist"
-                                                    {{ old('occupation') == 'Jouralist' ? 'selected' : '' }}>Jouralist
-                                                </option>
-                                                <option value="Sweeper"
-                                                    {{ old('occupation') == 'Sweeper' ? 'selected' : '' }}>Sweeper
-                                                </option>
-                                                <option value="Cook"
-                                                    {{ old('occupation') == 'Cook' ? 'selected' : '' }}>Cook
-                                                </option>
-                                                <option value="Confectioner"
-                                                    {{ old('occupation') == 'Confectioner' ? 'selected' : '' }}>
-                                                    Confectioner
-                                                </option>
-                                                <option value="Welding"
-                                                    {{ old('occupation') == 'Welding' ? 'selected' : '' }}>Welding
-                                                </option>
-                                                <option value="Contractor"
-                                                    {{ old('occupation') == 'Contractor' ? 'selected' : '' }}>Contractor
-                                                </option>
-                                                <option value="Electrician"
-                                                    {{ old('occupation') == 'Electrician' ? 'selected' : '' }}>Electrician
-                                                </option>
-                                                <option value="Material Seller"
-                                                    {{ old('occupation') == 'Material Seller' ? 'selected' : '' }}>Material
-                                                    Seller
-                                                </option>
-                                                <option value="Private  Job"
-                                                    {{ old('occupation') == 'Private  Job' ? 'selected' : '' }}>Private Job
-                                                </option>
-
-
-                                            </select>
+                                            <input class="form-control @error('occupation') is-invalid @enderror"
+                                                name="date_of_birth" type="text"
+                                                placeholder="Enter Gurdian Occupation" value="{{ old('occupation') }}"
+                                                id="occupation">
                                             @error('occupation')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -756,8 +666,8 @@
                                                 name="experience_qualification">
                                                 <option selected disabled>Please Select Degree </option>
                                                 <option value="Nill Degree"
-                                                {{ old('experience_qualification') == 'Nill Degree' ? 'selected' : '' }}>
-                                                Nill Degree</option>
+                                                    {{ old('experience_qualification') == 'Nill Degree' ? 'selected' : '' }}>
+                                                    Nill Degree</option>
 
                                                 <option value="B.Ed."
                                                     {{ old('experience_qualification') == 'B.Ed.' ? 'selected' : '' }}>
@@ -840,7 +750,7 @@
                                     </div>
 
                                     <div class="col-12 col-sm-4 power">
-                                        <div class="form-group local-forms" >
+                                        <div class="form-group local-forms">
                                             <label>Select Staff Power <span class="login-danger"></span></label>
                                             <select name="power[]" class="form-control select power_allocate"
                                                 id="test_class" multiple="multiple" style="width: 100%;">
