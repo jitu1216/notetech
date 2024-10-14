@@ -22,4 +22,10 @@ class Student extends Model implements AuthenticatableContract
     {
         return $this->belongsTo(SchoolClass::class, 'class_id', 'id');
     }
+
+    public function maintenances()
+    {
+        return $this->hasMany(Maintenance::class, 'student_id');
+    }
+
 }

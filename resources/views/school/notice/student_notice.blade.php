@@ -74,6 +74,16 @@
             border-bottom: dotted black 1px;
         }
 
+        .table tr th,
+        td {
+            border: solid black 1px;
+
+        }
+
+        .bg-firozi {
+            background-color: rgb(147, 242, 255) !important;
+        }
+
 
         @media print {
 
@@ -175,48 +185,45 @@
                         </ul>
                     </div>
                 </div>
+                <div class="table table-card p-4">
+                    <table class="table">
+                        <thead class="text-nowrap table-success">
+                            <tr>
+
+                                <th>Student Id</th>
+                                <th>Student Roll No.</th>
+                                <th>Application No.</th>
+                                <th>Student Name</th>
+                                <th>Father Name</th>
+                                <th>Class</th>
+                                <th>Mobile</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="text-nowrap">
+                            <tr>
+                                <td>{{ $studentList->student_id }}</td>
+                                <td>{{ $studentList->roll_no }}</td>
+                                <td>{{ $studentList->application_no }}</td>
+                                <td>{{ $studentList->student_name }}</td>
+                                <td>{{ $studentList->father_name }}</td>
+                                <td>{{-- $studentList['classname']->class --}}</td>
+                                <td>{{ $studentList->mobile }}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
-            <div class="table table-card">
-                <table class="table">
-                    <thead class="text-nowrap table-success">
-                        <tr>
-
-                            <th>Student Id</th>
-                            <th>Student Roll No.</th>
-                            <th>Application No.</th>
-                            <th>Student Name</th>
-                            <th>Father Name</th>
-                            <th>Class</th>
-                            <th>Mobile</th>
-                        </tr>
-                    </thead>
-
-                    <tbody class="text-nowrap">
-
-                        <tr>
-
-                            <td>{{ $studentList->student_id }}</td>
-                            <td>{{ $studentList->roll_no }}</td>
-                            <td>{{ $studentList->application_no }}</td>
-                            <td>{{ $studentList->student_name }}</td>
-                            <td>{{ $studentList->father_name }}</td>
-                            <td>{{-- $studentList['classname']->class --}}</td>
-                            <td>{{ $studentList->mobile }}</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="">
+            <div class="card p-4">
                 <form action="{{ route('save-student-notice') }} " method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="table table-card">
                         <table class="table">
-                            <thead class="text-nowrap table-success">
+                            <thead class="text-nowrap table-warning">
                                 <tr>
-                                    <th>Sr No.</th>
-                                    <th>Notice</th>
+                                    <th>Sr. No.</th>
+                                    <th>Complaints</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -232,31 +239,35 @@
                                             <input type="text" name="item[]" value="{{ $item->id }}" hidden>
                                         </td>
                                         <td>
-                                            <input type="checkbox" name="status[]" {{ Custom::getstudentnotice($studentList->id,$item->id)?->item_status == 1 ? 'checked' : '' }}
+                                            <input type="checkbox" name="status[]"
+                                                {{ Custom::getstudentnotice($studentList->id, $item->id)?->item_status == 1 ? 'checked' : '' }}
                                                 value="{{ $item->id }}">
 
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
-                                
-                            <thead class="text-nowrap table-success">
+                        </table>
+
+                        <table class="table mt-4">
+                            <thead class="text-nowrap bg-firozi">
                                 <tr>
                                     <th>Sr No.</th>
-                                    <th>Notice</th>
+                                    <th>Suggestions</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
 
                             <tbody class="text-nowrap">
-                                @foreach ( $sugg_notice as $key => $value)
+                                @foreach ($sugg_notice as $key => $value)
                                     <tr>
                                         <td>{{ ++$key }}</td>
                                         <td>{{ $value->item_name }}
-                                            <input type="text" name="item[]" value="{{ $value->id }}" hidden>
+                                            <input type="text" name="suggest_item[]" value="{{ $value->id }}" hidden>
                                         </td>
                                         <td>
-                                            <input type="checkbox" name="status[]" {{ Custom::getstudentnotice($studentList->id,$value->id)?->item_status == 1 ? 'checked' : '' }}
+                                            <input type="checkbox" name="suggest_status[]"
+                                                {{ Custom::getstudentnotice($studentList->id, $value->id)?->item_status == 1 ? 'checked' : '' }}
                                                 value="{{ $value->id }} ">
 
                                         </td>
@@ -265,13 +276,14 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                    <div class="row mt-4">
+                        <div class="col-12 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary w-25">Save</button>
                         </div>
                     </div>
                 </form>
             </div>
+
         </div>
     </div>
 

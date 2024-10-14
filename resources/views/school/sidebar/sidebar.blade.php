@@ -851,10 +851,13 @@
                         </a>
                         {{-- <input type="checkbox" id="sm2"> --}}
                         <ul class="sub-sub-menu">
-                            <li><a class="{{ set_active(['school/topper-student']) }}"
+                            <li><a class="{{ set_active(['school/item_list']) }}"
                                     href="{{ route('item_list') }}">Item list</a></li>
-                            <li><a class="{{ set_active(['school/addslider']) }}"
+                            <li><a class="{{ set_active(['school/student-maintenance-list']) }}"
                                     href="{{ route('student-maintenance-list') }}">Student Maintenance</a></li>
+                                    <li><a class="{{ set_active(['school/student-maintenance-record']) }}"
+                                        href="{{ route('student-maintenance-record') }}">Student Maintenance Record</a></li>
+
                         </ul>
                     </li>
                     <li><a href="#">Notice

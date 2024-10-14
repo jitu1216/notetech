@@ -18,9 +18,8 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
             $table->string('academic_session');
             $table->integer('school_id');
-            $table->foreignId('class_id')->constrained('school_classes')->onDelete('cascade'); 
+            $table->foreignId('class_id')->constrained('school_classes')->onDelete('cascade');
             $table->foreignId('item_id')->constrained('notice_items')->onDelete('cascade');
-            $table->foreignId('item_type_id')->constrained('notice_items')->onDelete('cascade');
             $table->tinyInteger('item_status')->default(0);
             $table->date('date')->nullable();
             $table->timestamps();
