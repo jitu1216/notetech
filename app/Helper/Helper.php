@@ -16,6 +16,7 @@ use App\Models\Staff;
 use App\Models\SchoolClass;
 use App\Models\ExamScheme;
 use App\Models\Maintenance;
+use App\Models\StudentNotice;
 use Session;
 use Auth;
 use Carbon\Carbon;
@@ -726,6 +727,16 @@ class Custom
         $school = Custom::getSchool();
         $academic = Session::get('academic_session');
         $data =  Maintenance::where(['student_id' => $id, 'academic_session' => $academic,
+        'school_id' => $school->id,'item_id' => $item])->first();
+
+        return $data;
+    }
+
+    public static function getstudentnotice($id,$item){
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $data =  StudentNotice::where(['student_id' => $id, 'academic_session' => $academic,
         'school_id' => $school->id,'item_id' => $item])->first();
 
         return $data;

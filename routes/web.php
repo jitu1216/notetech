@@ -25,6 +25,7 @@ use App\Http\Controllers\SchemeHeaderController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\TopperStudentController;
 use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\NoticeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -329,6 +330,19 @@ Route::controller(MaintenanceController::class)->group(function () {
     Route::get('school/search-student-maintenance-list', 'searchstudentmaintenancelist')->middleware('auth')->name('search-student-maintenance-list'); 
     Route::get('school/student-maintenance/{id}', 'studentmaintenance')->middleware('auth')->name('student-maintenance');
     Route::post('school/save-student-maintenance', 'savestudentmaintenance')->middleware('auth')->name('save-student-maintenance');
+ });
+
+ Route::controller(NoticeController::class)->group(function () {
+    Route::get('school/notice-item', 'notice_item')->middleware('auth')->name('notice_item');
+    Route::get('school/add-notice-item', 'addnoticeitem')->middleware('auth')->name('add-notice-item');
+    Route::post('school/save-notice-item', 'savenoticeitem')->middleware('auth')->name('save-notice-item');
+    Route::get('school/edit-notice-item/{id}', 'editnoticeitem')->middleware('auth')->name('edit-notice-item');
+    Route::post('school/updatenoticeitem', 'updatenoticeitem')->middleware('auth')->name('update-notice-item');
+    Route::get('school/removenoticeitem/{id}', 'removenoticeitem')->middleware('auth')->name('removenoticeitem');
+    Route::get('school/student-notice-list', 'studentnoticelist')->middleware('auth')->name('student-notice-list'); 
+    Route::get('school/search-student-notice-list', 'searchstudentnotice')->middleware('auth')->name('search-student-notice-list'); 
+    Route::get('school/student-notice/{id}', 'studentnotice')->middleware('auth')->name('student-notice');
+    Route::post('school/save-student-notice', 'savestudentnotice')->middleware('auth')->name('save-student-notice');
  });
 
 Route::middleware('auth')->controller(AttendanceController::class)->group(function () {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Attendance;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -16,84 +17,88 @@ use App\Models\ExamScheme;
 use App\Models\SchemeHeader;
 use App\Models\Maintenance;
 use App\Models\Item;
+use App\Models\NoticeItem;
+use App\Models\StudentNotice;
 use Session;
 use App\Helper\Custom;
 use Auth;
 use Carbon\Carbon;
 
-class MaintenanceController extends Controller
+class NoticeController extends Controller
 {
 
-    public function item_list(){
+    public function notice_item(){
 
     $school = Custom::getschool();
     $academic = Session::get('academic_session');
-    $item = Item::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->get();
-    return view('school.schoolmaintenance.item-list', compact('item'));
+    $item = NoticeItem::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->get();
+    return view('school.notice.notice_item', compact('item'));
 
     }
 
-    public function additem(){
-        return view('school.schoolmaintenance.add-item');
+    public function addnoticeitem(){
+        return view('school.notice.add_notice_item');
     }
 
-    public function saveitem(Request $request){
+    public function savenoticeitem(Request $request){
         // dd($request);
         $request->validate([
             'item_name' => 'required',
+            'item_type' => 'required',
         ]);
 
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
 
-        $item = new Item;
+        $item = new NoticeItem;
         $item->academic_session = $academic;
         $item->school_id = $school->id;
         $item->item_name= $request->item_name;
+        $item->item_type = $request->item_type;
         $item->save();
 
-        return redirect()->route('item_list')->with('Success','item Added Successfully');
+        return redirect()->route('notice_item')->with('Success','Notice Added Successfully');
 
     }
 
-    public function edititem($id){
+    public function editnoticeitem($id){
 
-        $item = Item::find($id);
+        $item = NoticeItem::find($id);
 
-        return view('school.schoolmaintenance.edit-item', compact('item'));
+        return view('school.notice.edit_notice_item', compact('item'));
     }
 
-    public function updateitem(Request $request){
+    public function updatenoticeitem(Request $request){
       
 
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
 
-        $item = Item::find($request->id);
+        $item = NoticeItem::find($request->id);
         $item->academic_session = $academic;
         $item->school_id = $school->id;
-        
+        $item->item_type = $request->item_type;
         $item->item_name= $request->item_name;
         $item->update();
 
-        return redirect()->route('item_list')->with('Success','Item Edit Successfully');
+        return redirect()->route('notice_item')->with('Success','Notice Edit Successfully');
 
     }
 
-    public function removeitem($id){
+    public function removenoticeitem($id){
 
-        $record = Item::find($id);
+        $record = NoticeItem::find($id);
 
         if($record){
             $record-> delete();
-            return redirect()->back()->with('Success','Item delete Successfully');
+            return redirect()->back()->with('Success','Notice delete Successfully');
         }
         else {
-            return redirect()->back()->with('Success','Item Not Found');
+            return redirect()->back()->with('Success','Notice Not Found');
         }
     }
 
-    public function studentmaintenancelist(){
+    public function studentnoticelist(){
 
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
@@ -140,10 +145,10 @@ class MaintenanceController extends Controller
 
             // $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->select('exam_date')->distinct('exam_date')->get();
             // $scheme_header = SchemeHeader::where(['school_id'=> $school->id, 'academic_session'=> $academic ])->orderBy('updated_at', 'asc')->get();
-            return view('school.schoolmaintenance.student-maintenance-list',compact('finalarray','schoolclass','mark','studentList'));
+            return view('school.notice.student_notice_list',compact('finalarray','schoolclass','mark','studentList'));
     }
 
-    public function searchstudentmaintenance(Request $request)
+    public function searchstudentnotice(Request $request)
     {
 
         $school = Custom::getSchool();
@@ -222,15 +227,14 @@ class MaintenanceController extends Controller
         $studentsearch = $request->studentsearch;
         $class =  $request->Class;
         // dd($class);
-        return view('school.maintenance_student-maintenance-list', compact('studentList', 'mark', 'finalarray','studentsearch','class'));
+        return view('school.notice.student_notice_list', compact('studentList', 'mark', 'finalarray','studentsearch','class'));
 
     }
 
-    public function studentmaintenance($id){
+    public function studentnotice($id){
 
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
-        $item = Item::where(['school_id' => $school->id, 'academic_session' => $academic])->get();
         // dd($item);
         $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic,'status' => '0'])->get();
 
@@ -270,22 +274,24 @@ class MaintenanceController extends Controller
         $session = Session::get('all_academic_session');
         // dd($session);
 
-        
+        $sugg_notice = NoticeItem::where(['school_id' => $school->id, 'academic_session' => $academic, 'item_type' => 'suggestion'])->get();
+
+        $compl_notice = NoticeItem::where(['school_id' => $school->id, 'academic_session' => $academic, 'item_type' =>'complaints'])->get();
 
         $studentList = Student::find($id);
             $mark = 2;
 
-            return view('school.schoolmaintenance.student-maintenance',compact('finalarray',
-            'schoolclass','mark','studentList','item','session'));
+            return view('school.notice.student_notice',compact('finalarray',
+            'schoolclass','mark','studentList','session','compl_notice','sugg_notice'));
     }
 
-    public function savestudentmaintenance(Request $request){
+    public function savestudentnotice(Request $request){
        
         // dd($request);
         $school = custom::getschool();
         $academic = Session::get('academic_session');
 
-        $data =  Maintenance::where(['student_id' => $request->student_id, 'academic_session' => $academic,'school_id' => $school->id])->get();
+        $data = StudentNotice::where(['student_id' => $request->student_id, 'academic_session' => $academic,'school_id' => $school->id])->get();
 
         // dd($data);
 
@@ -300,7 +306,7 @@ class MaintenanceController extends Controller
                     }
                 }
     
-                $main = new Maintenance();
+                $main = new StudentNotice();
                 $main->student_id = $request->student_id;
                 $main->school_id = $school->id;
                 $main->academic_session = $academic;
@@ -319,7 +325,7 @@ class MaintenanceController extends Controller
                     }
                 }
     
-                $main = Maintenance::where(['student_id' => $request->student_id, 'academic_session' => $academic,'school_id' => $school->id,  'item_id' => $value])->first();
+                $main = StudentNotice::where(['student_id' => $request->student_id, 'academic_session' => $academic,'school_id' => $school->id,  'item_id' => $value])->first();
                 $main->student_id = $request->student_id;
                 $main->school_id = $school->id;
                 $main->academic_session = $academic;
@@ -330,6 +336,7 @@ class MaintenanceController extends Controller
             }
         }
        
-        return redirect()->back()->with('Success','Maintenance Saved');
+        return redirect()->back()->with('Success','Notice Saved');
     }
+
 }
