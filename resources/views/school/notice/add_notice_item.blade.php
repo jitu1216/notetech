@@ -47,7 +47,8 @@
                                                         name="item_type">
                                                         <option selected disabled>Select Notice Type </option>
                                                         <option value="Complaints"
-                                                            {{ old('item_type') == 'Complaints' ? 'selected' : '' }}>Compliants</option>
+                                                            {{ old('item_type') == 'Complaints' ? 'selected' : '' }}>
+                                                            Compliants</option>
                                                         <option value="Suggestion"
                                                             {{ old('item_type') == 'Suggestion' ? 'selected' : '' }}>
                                                             Suggestion </option>
@@ -62,15 +63,11 @@
                                             <div class="col-12 col-sm-6">
                                                 <div class="form-group local-forms">
                                                     <label>Item<span class="login-danger">*</span></label>
-                                                    <textarea type="text"
-                                                        class="form-control @error('item_name') is-invalid @enderror"
-                                                        name="item_name" placeholder="Enter item"
-                                                        value="{{ old('item_name') }}" id="" cols="30" rows="10">
+                                                    <textarea type="text" class="form-control @error('item_name') is-invalid @enderror" name="item_name"
+                                                        placeholder="Enter item" id=""rows="10">{{ old('item_name') }}</textarea>
                                                     @error('item_name')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror </textarea>
+<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+@enderror </textarea>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-sm-6">

@@ -17,6 +17,7 @@ class Maintenance extends Model
         return $this->belongsTo(Student::class);
     }
 
+
     public function item()
     {
         return $this->belongsTo(Item::class);

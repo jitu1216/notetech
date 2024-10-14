@@ -291,7 +291,7 @@ Route::controller(DownloadController::class)->group(function () {
     Route::get('school/id-card', 'idcard')->middleware('auth')->name('id-card');
     Route::get('school/search-id-card', 'searchIdcard')->middleware('auth')->name('searchidcard');
     Route::get('school/admit-card/{text}', 'admitcard')->middleware('auth')->name('admit-card');
-    Route::get('school/search-admit-card', 'searchadmitcard')->middleware('auth')->name('searchadmitcard'); 
+    Route::get('school/search-admit-card', 'searchadmitcard')->middleware('auth')->name('searchadmitcard');
     Route::get('school/desk-slip/{text}', 'deskslip')->middleware('auth')->name('desk-slip');
     Route::get('school/search-desk-slip', 'searchdeskslip')->middleware('auth')->name('searchdeskslip');
     Route::get('school/tc/{id}', 'tc')->middleware('auth')->name('tc');
@@ -326,10 +326,11 @@ Route::controller(MaintenanceController::class)->group(function () {
     Route::get('school/edit-item/{id}', 'edititem')->middleware('auth')->name('edit-item');
     Route::post('school/updateitem', 'updateitem')->middleware('auth')->name('updateitem');
     Route::get('school/removeitem/{id}', 'removeitem')->middleware('auth')->name('removeitem');
-    Route::get('school/student-maintenance-list', 'studentmaintenancelist')->middleware('auth')->name('student-maintenance-list'); 
-    Route::get('school/search-student-maintenance-list', 'searchstudentmaintenancelist')->middleware('auth')->name('search-student-maintenance-list'); 
+    Route::get('school/student-maintenance-list', 'studentmaintenancelist')->middleware('auth')->name('student-maintenance-list');
+    Route::get('school/search-student-maintenance-list', 'searchstudentmaintenancelist')->middleware('auth')->name('search-student-maintenance-list');
     Route::get('school/student-maintenance/{id}', 'studentmaintenance')->middleware('auth')->name('student-maintenance');
     Route::post('school/save-student-maintenance', 'savestudentmaintenance')->middleware('auth')->name('save-student-maintenance');
+    Route::get('school/student-maintenance-record/{id?}', 'studentMaintenanceRecord')->middleware('auth')->name('student-maintenance-record');
  });
 
  Route::controller(NoticeController::class)->group(function () {
@@ -339,8 +340,8 @@ Route::controller(MaintenanceController::class)->group(function () {
     Route::get('school/edit-notice-item/{id}', 'editnoticeitem')->middleware('auth')->name('edit-notice-item');
     Route::post('school/updatenoticeitem', 'updatenoticeitem')->middleware('auth')->name('update-notice-item');
     Route::get('school/removenoticeitem/{id}', 'removenoticeitem')->middleware('auth')->name('removenoticeitem');
-    Route::get('school/student-notice-list', 'studentnoticelist')->middleware('auth')->name('student-notice-list'); 
-    Route::get('school/search-student-notice-list', 'searchstudentnotice')->middleware('auth')->name('search-student-notice-list'); 
+    Route::get('school/student-notice-list', 'studentnoticelist')->middleware('auth')->name('student-notice-list');
+    Route::get('school/search-student-notice-list', 'searchstudentnotice')->middleware('auth')->name('search-student-notice-list');
     Route::get('school/student-notice/{id}', 'studentnotice')->middleware('auth')->name('student-notice');
     Route::post('school/save-student-notice', 'savestudentnotice')->middleware('auth')->name('save-student-notice');
  });

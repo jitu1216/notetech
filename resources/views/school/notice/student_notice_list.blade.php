@@ -26,12 +26,11 @@
                             </div>
 
                         </div>
-                        <div class=" col-md-4">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <div class="form-group ">
                                     <select class="form-control select  @error('category') is-invalid @enderror"
                                         name="Class">
-
                                         <option selected value="">All Class</option>
                                         @if (Custom::getStaffRole() == 'Assistant Teacher')
                                             @if (!empty($class))
