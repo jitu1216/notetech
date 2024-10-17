@@ -282,7 +282,6 @@
                                                 <th>Sr.No.</th>
                                                 <th>Item</th>
                                                 <th>Status</th>
-
                                             </tr>
                                         </thead>
                                         <tbody class=" no-wrap text-center">

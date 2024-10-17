@@ -28,7 +28,7 @@
             width: 680px;
         }
 
-        .invalid{
+        .invalid {
             border: solid red 1px !important;
         }
 
@@ -195,7 +195,8 @@
                         <table class="table">
                             <thead class="text-nowrap table-success">
                                 <tr>
-
+                                    <th>Notice No.</th>
+                                    <th>Notice Date.</th>
                                     <th>Student Id</th>
                                     <th>Student Roll No.</th>
                                     <th>Application No.</th>
@@ -203,14 +204,18 @@
                                     <th>Father Name</th>
                                     <th>Class</th>
                                     <th>Mobile</th>
-                                    <th>Notice No.</th>
-                                    <th>Notice Date.</th>
-
                                 </tr>
                             </thead>
 
                             <tbody class="text-nowrap">
                                 <tr>
+                                    <td><input class="border @error('date') invalid @enderror" type="date"
+                                            value="{{ Custom::getstudentnoticedata($studentList->id)?->date }}"
+                                            name="date"></td>
+                                    <td><input class="border @error('date') invalid @enderror " type="text"
+                                            name="notice_no"
+                                            value="{{ Custom::getstudentnoticedata($studentList->id)?->notice_no }}"
+                                            placeholder="Enter Notice No."></td>
                                     <td>{{ $studentList->student_id }}</td>
                                     <td>{{ $studentList->roll_no }}</td>
                                     <td>{{ $studentList->application_no }}</td>
@@ -218,8 +223,7 @@
                                     <td>{{ $studentList->father_name }}</td>
                                     <td>{{ Custom::getClass($studentList->class_id)->classname }}</td>
                                     <td>{{ $studentList->mobile }}</td>
-                                    <td><input class="border @error('date') invalid @enderror" type="date" value="{{ Custom::getstudentnoticedata($studentList->id)->date }}" name="date"></td>
-                                    <td><input class="border @error('date') invalid @enderror " type="text" name="notice_no" value="{{ Custom::getstudentnoticedata($studentList->id)->notice_no }}" placeholder="Enter Notice No."></td>
+
                                 </tr>
 
                             </tbody>
