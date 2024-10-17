@@ -418,4 +418,16 @@ class MaintenanceController extends Controller
 
         return view('school.schoolmaintenance.student-maintenance-record', compact('finalarray', 'class', 'maintenance', 'item'));
     }
+
+
+    public  function viewStudentmaintenance(){
+
+        $user =  Auth::guard('student')->user();
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $item = Item::where(['school_id' => $school->id, 'academic_session' => $academic])->get();
+
+        return view('studentDashboard.maintenance.student-maintenance', compact( 'item','user'));
+
+    }
 }

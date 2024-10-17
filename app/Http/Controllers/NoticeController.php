@@ -308,6 +308,11 @@ class NoticeController extends Controller
         $school = custom::getschool();
         $academic = Session::get('academic_session');
 
+        $request->validate([
+            'notice_no' => 'required',
+            'date' => 'required',
+        ]);
+
         $data = StudentNotice::where(['student_id' => $request->student_id, 'academic_session' => $academic, 'school_id' => $school->id])->get();
 
 
@@ -327,6 +332,8 @@ class NoticeController extends Controller
                     $main->school_id = $school->id;
                     $main->academic_session = $academic;
                     $main->class_id = $request->class_id;
+                    $main->notice_no = $request->notice_no;
+                    $main->date = $request->date;
                     $main->item_status = $status;
                     $main->item_id = $value;
                     $main->save();
@@ -346,6 +353,8 @@ class NoticeController extends Controller
                     $main->school_id = $school->id;
                     $main->academic_session = $academic;
                     $main->class_id = $request->class_id;
+                    $main->notice_no = $request->notice_no;
+                    $main->date = $request->date;
                     $main->item_status = $status;
                     $main->item_id = $value;
                     $main->save();
@@ -371,6 +380,8 @@ class NoticeController extends Controller
                 $main->school_id = $school->id;
                 $main->academic_session = $academic;
                 $main->class_id = $request->class_id;
+                $main->notice_no = $request->notice_no;
+                $main->date = $request->date;
                 $main->item_status = $status;
                 $main->item_id = $value;
                 if (!$check) {
@@ -400,6 +411,8 @@ class NoticeController extends Controller
                 $main->school_id = $school->id;
                 $main->academic_session = $academic;
                 $main->class_id = $request->class_id;
+                $main->notice_no = $request->notice_no;
+                $main->date = $request->date;
                 $main->item_status = $status;
                 $main->item_id = $value;
                 if (!$check) {
