@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Attendance;
+use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Validator;
+use App\Models\School;
+use App\Models\Subject;
+use App\Models\Student;
+use App\Models\StudentFees;
+use App\Models\SchoolClass;
+use App\Models\AcademicSession;
+use App\Models\ExamScheme;
+use App\Models\SchemeHeader;
+use App\Models\Maintenance;
+use App\Models\Item;
+use App\Models\NoticeItem;
+use App\Models\StudentNotice;
+use Session;
+use App\Helper\Custom;
+use Auth;
+use Carbon\Carbon;
+
+class StudentNoticeBoardController extends Controller
+{
+    public function notice_for_you()
+    {
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+
+        $id = Auth::guard('student')->User()->id;
+        $student = Student::where('id', $id)->first();
+        $schoolclass = SchoolClass::where('id', $student->class_id)->first();
+        $subjectList = explode(",", $schoolclass->subject_id);
+
+        foreach ($subjectList as $value) {
+            $data = Subject::where('id', $value)->first();
+            $subject[] = $data;
+        }
+       
+        $sugg_notice = StudentNotice::where(['school_id' => $school->id, 'academic_session' => $academic, 'item_id' => 'suggestion'])->get();
+
+        $compl_notice = StudentNotice::where(['school_id' => $school->id, 'academic_session' => $academic, 'item_id' => 'complaints'])->get();
+
+        return view('studentDashboard.noticeboard.notice-for-you', compact('student', 'schoolclass', 'subject', 'compl_notice',
+        'sugg_notice'));
+
+    }
+}

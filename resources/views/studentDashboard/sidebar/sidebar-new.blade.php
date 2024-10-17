@@ -534,8 +534,17 @@
                 <li><a href="">C.C.</a></li>
             </ul>
         </li>
-        <li><a class="{{ set_active(['student']) }}" href="{{ route('student') }}"><i
-                    class="fas feather-grid"></i><span>Notice</span></a></li>
+        <li><a class="" href="javascript:void(0)"><i class="fas fa-building"></i>
+            <span>Notice</span>
+            <label title="Toggle Drop-down" class="drop-icon" for="sm1"> <i
+                    class='bx bxs-chevron-down'></i></label>
+        </a>
+        <ul class="sub-menu">
+            <li><a href="{{ route('notice-for-you') }} ">Notice For You</a></li>
+            <li><a href="">Notice For All</a></li>
+        
+        </ul>
+    </li>
         <li><a class="" href="javascript:void(0)"><i class="fas fa-building"></i>
                 <span>Work</span>
                 <label title="Toggle Drop-down" class="drop-icon" for="sm1"> <i

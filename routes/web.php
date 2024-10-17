@@ -26,6 +26,7 @@ use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\TopperStudentController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\StudentNoticeBoardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -345,6 +346,10 @@ Route::controller(MaintenanceController::class)->group(function () {
     Route::get('school/student-notice/{id}', 'studentnotice')->middleware('auth')->name('student-notice');
     Route::post('school/save-student-notice', 'savestudentnotice')->middleware('auth')->name('save-student-notice');
  });
+
+ Route::controller(StudentNoticeBoardController::class)->group(function () {
+    Route::get('student/notice-for-you', 'notice_for_you')->middleware('auth.student')->name('notice-for-you');
+   });
 
 Route::middleware('auth')->controller(AttendanceController::class)->group(function () {
     Route::get('school/take_student_attendance/{id?}', 'takestudentattendance')->name('school/take_student_attendance');
