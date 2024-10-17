@@ -18,6 +18,7 @@ use App\Models\Maintenance;
 use App\Models\Item;
 use App\Models\NoticeItem;
 use App\Models\StudentNotice;
+use App\Models\NoticeForAll;
 use Session;
 use App\Helper\Custom;
 use Auth;
@@ -32,6 +33,7 @@ class StudentNoticeBoardController extends Controller
         $academic = Session::get('academic_session');
 
         $id = Auth::guard('student')->User()->id;
+        // dd($id);
         $student = Student::where('id', $id)->first();
         $schoolclass = SchoolClass::where('id', $student->class_id)->first();
         $subjectList = explode(",", $schoolclass->subject_id);
@@ -41,12 +43,23 @@ class StudentNoticeBoardController extends Controller
             $subject[] = $data;
         }
        
-        $sugg_notice = StudentNotice::where(['school_id' => $school->id, 'academic_session' => $academic, 'item_id' => 'suggestion'])->get();
+        $compl_notice = StudentNotice::where(['school_id' => $school->id, 'academic_session' => $academic, 'item_status' => '1','student_id' => $id])->with('item')->get();
+        // dd($compl_notice);
+        // $compl_notice = StudentNotice::where(['school_id' => $school->id, 'academic_session' => $academic, 'item_status' => '1','student_id' => $id])->get();
 
-        $compl_notice = StudentNotice::where(['school_id' => $school->id, 'academic_session' => $academic, 'item_id' => 'complaints'])->get();
+        return view('studentDashboard.noticeboard.notice-for-you', compact('student', 'schoolclass', 'subject', 'compl_notice'));
 
-        return view('studentDashboard.noticeboard.notice-for-you', compact('student', 'schoolclass', 'subject', 'compl_notice',
-        'sugg_notice'));
+    }
+
+    public function notice_for_all()
+    {
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+       
+        $notice = NoticeForAll::where(['school_id' => $school->id, 'academic_session' => $academic])->first();
+
+        return view('studentDashboard.noticeboard.notice-for-all', compact('notice'));
 
     }
 }

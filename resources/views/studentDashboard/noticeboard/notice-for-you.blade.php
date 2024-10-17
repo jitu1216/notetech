@@ -4,7 +4,7 @@
         background-color: white;
     }
 
-    td{
+    td {
         font-size: 15px;
         font-weight: 700;
     }
@@ -271,23 +271,30 @@
                             </p>
                         </div>
                     </div>
-                    <div class="responsive-table"> <span style="color: red; font-weight:800;">*Complain</span>
-                        <table class="border-0 table">
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <h4 class="text-center">NOTICE</h4>
+                        </div>
+                    </div>
+                    <div class="responsive-table m-5 pd-3"> <span style="color: red; font-weight:800;">*Complain</span>
+                        <table class="border-0 table ">
                             @foreach ($compl_notice as $key => $item)
-                                <tr>
-                                    <td>{{ ++$key }}</td>
-                                    <td>{{ $item->item_name }} </td>
-                                </tr>
+                                @if ($item->item->item_type == 'Complaints')
+                                    <tr>
+                                        <td>{{ ++$key }} ) &nbsp;  {{ $item->item->item_name }} </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </table>
                     </div>
-                    <div class="responsive-table"> <span style="color: green; font-weight:800;">*Sugesstion</span>   
+                    <div class="responsive-table  m-5 pd-3"> <span style="color: green; font-weight:800;">*Sugesstion</span>
                         <table class="border-0 table">
-                            @foreach ($sugg_notice as $key => $item)
-                                <tr>
-                                    <td>{{ ++$key }}</td>
-                                    <td>{{ $item->item_name }} </td>
-                                </tr>
+                            @foreach ($compl_notice as $key => $item)
+                                @if ($item->item->item_type == 'Suggestion')
+                                    <tr>
+                                        <td>{{ ++$key }} ) &nbsp;  {{ $item->item->item_name }}</td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </table>
                     </div>
@@ -296,7 +303,7 @@
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-6">
-                                    Date
+                                    Date &nbsp; {{  Custom::getstudentnoticedata($student->id)?->date }}
                                 </div>
                                 <div class="col-6 flex-end  d-flex justify-content-end">
                                     Order By

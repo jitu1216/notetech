@@ -855,23 +855,29 @@
                                     href="{{ route('item_list') }}">Item list</a></li>
                             <li><a class="{{ set_active(['school/student-maintenance-list']) }}"
                                     href="{{ route('student-maintenance-list') }}">Student Maintenance</a></li>
-                                    <li><a class="{{ set_active(['school/student-maintenance-record']) }}"
-                                        href="{{ route('student-maintenance-record') }}">Student Maintenance Record</a></li>
+                            <li><a class="{{ set_active(['school/student-maintenance-record']) }}"
+                                    href="{{ route('student-maintenance-record') }}">Student Maintenance Record</a>
+                            </li>
 
                         </ul>
                     </li>
                     <li><a href="#">Notice
-                        <label title="Toggle Drop-down" class="drop-icon" for="sm2"> <i
-                                class='bx bxs-chevron-down'></i></label>
-                    </a>
-                    {{-- <input type="checkbox" id="sm2"> --}}
-                    <ul class="sub-sub-menu">
-                        <li><a class="{{ set_active(['school/topper-student']) }}"
-                                href="{{ route('notice_item') }}">Notice List </a></li>
-                        <li><a class="{{ set_active(['school/addslider']) }}"
-                                href="{{ route('student-notice-list') }}">Student Notice</a></li>
-                    </ul>
-                </li>
+                            <label title="Toggle Drop-down" class="drop-icon" for="sm2"> <i
+                                    class='bx bxs-chevron-down'></i></label>
+                        </a>
+                        {{-- <input type="checkbox" id="sm2"> --}}
+                        <ul class="sub-sub-menu">
+                            <li><a class="{{ set_active(['school/topper-student']) }}"
+                                    href="{{ route('notice_item') }}">Notice List </a></li>
+                            <li><a class="{{ set_active(['school/addslider']) }}"
+                                    href="{{ route('student-notice-list') }}">Student Notice</a></li>
+                            <li><a class="{{ set_active(['school/addslider']) }}"
+                                    href="{{ route('genrate-notice-list') }}">Genrate Student Notice</a></li>
+                            <li><a class="{{ set_active(['school/topper-student']) }}"
+                                    href="{{ route('notice-for-all-list') }}">Notice For All </a></li>
+
+                        </ul>
+                    </li>
                 @endif
             </ul>
         </li>

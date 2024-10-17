@@ -1,4 +1,4 @@
-@extends('studentDashboard.layouts.master')
+@extends('school.layouts.master')
 <style>
     .school {
         width: auto;
