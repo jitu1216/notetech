@@ -249,7 +249,7 @@
                         <div class="form-group">
                             <div class="form-group ">
                                 <select class="form-control" name="Class" id="class">
-                                    <option selected disabled value="">Select Class</option>
+                                    <option selected value="">All Class</option>
                                     @if (Custom::getStaffRole() == 'Assistant Teacher')
                                         @if (!empty($class))
                                             @foreach ($finalarray as $value)
@@ -301,7 +301,7 @@
                         <table class="table">
                             <thead class="table-success text-nowrap">
                                 <tr style="">
-                                    <th colspan="5">Student Info
+                                    <th colspan="6">Student Info
                                     </th>
                                     <th colspan="{{ $item->count() }}">Items</th>
                                     {{-- <th colspan="5"></th> --}}
@@ -309,6 +309,7 @@
                                 <tr>
                                     <th class="tb-bg">S.No</th>
                                     <th class="tb-bg">Student Name</th>
+                                    <th class="tb-bg">Father Name</th>
                                     <th class="tb-bg">Roll No</th>
                                     <th class="tb-bg">Mobile No.</th>
                                     <th class="tb-bg">Class</th>
@@ -330,6 +331,7 @@
                                     <tr>
                                         <td>{{ ++$key }}</td>
                                         <td>{{ $value->student_name }}</td>
+                                        <td>{{ $value->father_name }}</td>
                                         <td>{{ $value->roll_no }}</td>
                                         <td>{{ $value->mobile }}</td>
                                         <td>{{ Custom::getClass($value->class_id)->classname }}</td>

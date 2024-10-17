@@ -165,9 +165,16 @@ class StudentDashboardController extends Controller
     public function viewstudentscheme($text)
     {
 
+        $user =  Auth::guard('student')->user();
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
-        $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->select('exam_date')->distinct('exam_date')->get();
+        $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])
+            ->whereRaw("FIND_IN_SET($user->class_id, class_group)")
+            ->get();
+
+        // dd($scheme);
+        // $scheme = ExamScheme::where(['school_id' => $school->id, 'academic_session' => $academic, 'exam_type' => $text])->select('exam_date')->distinct('exam_date')->get();
+
         $scheme_header = SchemeHeader::where(['school_id' => $school->id, 'academic_session' => $academic])->orderBy('updated_at', 'asc')->get();
 
         return view('studentDashboard.exam-scheme.view-test-scheme', compact('scheme', 'scheme_header', 'text'));

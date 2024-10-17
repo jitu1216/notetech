@@ -331,6 +331,7 @@ Route::controller(MaintenanceController::class)->group(function () {
     Route::get('school/student-maintenance/{id}', 'studentmaintenance')->middleware('auth')->name('student-maintenance');
     Route::post('school/save-student-maintenance', 'savestudentmaintenance')->middleware('auth')->name('save-student-maintenance');
     Route::get('school/student-maintenance-record/{id?}', 'studentMaintenanceRecord')->middleware('auth')->name('student-maintenance-record');
+    Route::get('student/view-student-maintenance', 'viewStudentmaintenance')->middleware('auth.student')->name('view-student-maintenance');
  });
 
  Route::controller(NoticeController::class)->group(function () {

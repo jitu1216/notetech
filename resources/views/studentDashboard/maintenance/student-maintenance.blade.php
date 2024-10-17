@@ -5,6 +5,15 @@
             background-color: white;
         }
 
+        .right{
+            color: green !important;
+            font-weight: bold !important;
+        }
+        .wrong{
+            color: red !important;
+            font-weight: bold !important;
+        }
+
         .print-header {
             /* display: none; */
             margin-top: -30px !important;
@@ -214,7 +223,7 @@
 
             .timing {
                 padding: 5px 20px 5px 20px;
-                color:black;
+                color: black;
                 border-radius: 5px;
             }
 
@@ -230,13 +239,13 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">{{ $text }} Scheme</h3>
+                        <h3 class="page-title">Maintenace Record</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('school') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Scheme</li>
+                            <li class="breadcrumb-item active">Maintenance Record</li>
                             <a id="extra" href="" class="" style="margin-left:20px;"></a>
-                            <a id="printbtn" href="" class=" btn btn-primary text-white"
-                                style="margin-left:20px;">Print</a>
+                            {{-- <a id="printbtn" href="" class=" btn btn-primary text-white"
+                                style="margin-left:20px;">Print</a> --}}
                         </ul>
                     </div>
                 </div>
@@ -262,21 +271,6 @@
                             </div>
                             <div class="row mt-4 mb-0">
                                 <div class="col-12 d-flex flex-column justify-content-center align-items-center">
-                                    <h5>{{ $text }} Scheme ( Session {{ Session::get('academic_session') }} )</h5>
-                                    @if ($text == 'Test Exam')
-                                        <h5 class="timing"> Exam Timing : {{ Custom::getSchool()->test_exam_time }}</h5>
-                                    @elseif ($text == 'Monthly Exam')
-                                        <h5 class="timing"> Exam Timing : {{ Custom::getSchool()->monthly_scheme_time }}
-                                        </h5>
-                                    @elseif ($text == 'Quarterly Exam')
-                                        <h5 class="timing"> Exam Timing : {{ Custom::getSchool()->quarter_scheme_time }}
-                                        </h5>
-                                    @elseif ($text == 'Half Yearly Exam')
-                                        <h5 class="timing"> Exam Timing : {{ Custom::getSchool()->half_scheme_time }}</h5>
-                                    @elseif ($text == 'Annual Exam')
-                                        <h5 class="timing"> Exam Timing : {{ Custom::getSchool()->annual_scheme_time }}
-                                        </h5>
-                                    @endif
                                 </div>
                             </div>
 
@@ -286,27 +280,20 @@
                                         <thead class="no-wrap text-center">
                                             <tr class="table-success">
                                                 <th>Sr.No.</th>
-                                                <th>Date</th>
-                                                <th>Day</th>
-                                                {{-- @foreach ($scheme_header as $header)
-                                                    <th>{{ $header->exam_header }}</th>
-                                                @endforeach --}}
-                                                <th>{{ $scheme[0]?->exam_class}}</th>
+                                                <th>Item</th>
+                                                <th>Status</th>
 
                                             </tr>
                                         </thead>
                                         <tbody class=" no-wrap text-center">
-                                            @foreach ($scheme as $key => $item)
+                                            @foreach ($item as $key => $items)
                                                 <tr>
                                                     <td>{{ ++$key }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($item->exam_date)->format('d-m-Y') }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($item->exam_date)->format('l') }}</td>
-                                                    <td>{{ $item->exam_subject}}</td>
-
-                                                    {{-- @foreach ($scheme_header as $value)
-                                                        <td>{{ Custom::getExamSubject($value->exam_header, $item->exam_date) }}
-                                                        </td>
-                                                    @endforeach --}}
+                                                    <td>{{ $items->item_name }}</td>
+                                                    <td
+                                                        class="{{ Custom::getstudentmaintenance($user->id, $items->id)?->item_status == 1 ? 'right' : 'wrong' }}">
+                                                        {{ Custom::getstudentmaintenance($user->id, $items->id)?->item_status == 1 ? '✔' : '✗' }}
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
