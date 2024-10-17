@@ -742,4 +742,15 @@ class Custom
         return $data;
     }
 
+
+    public static function getstudentnoticedata($id){
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+        $data =  StudentNotice::where(['student_id' => $id, 'academic_session' => $academic,
+        'school_id' => $school->id])->first();
+        return $data;
+    }
+
+
 }

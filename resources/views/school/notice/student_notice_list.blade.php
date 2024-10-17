@@ -14,6 +14,7 @@
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="student-group-form" id="searchlist">
+                <h3>Notice Student List</h3>
                 <form action="{{ route('search-student-notice-list') }}" method="get">
                     @csrf
                     <div class="row">

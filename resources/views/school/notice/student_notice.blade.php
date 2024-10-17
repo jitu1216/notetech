@@ -28,6 +28,10 @@
             width: 680px;
         }
 
+        .invalid{
+            border: solid red 1px !important;
+        }
+
         .main-body {
             border: solid blue;
         }
@@ -175,49 +179,55 @@
     </style>
     <div class="page-wrapper">
         <div class="container mt-5">
-            <div class="page-header">
-                <div class="row p-4 align-item-center m-3">
-                    <div class="col">
-                        <h3>Student Notice</h3>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('school') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="{{-- route('') --}}">Notice</a></li>
-                        </ul>
+            <form action="{{ route('save-student-notice') }} " method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="page-header">
+                    <div class="row p-4 align-item-center m-3">
+                        <div class="col">
+                            <h3>Student Notice</h3>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ route('school') }}">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="{{-- route('') --}}">Notice</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="table table-card p-4">
+                        <table class="table">
+                            <thead class="text-nowrap table-success">
+                                <tr>
+
+                                    <th>Student Id</th>
+                                    <th>Student Roll No.</th>
+                                    <th>Application No.</th>
+                                    <th>Student Name</th>
+                                    <th>Father Name</th>
+                                    <th>Class</th>
+                                    <th>Mobile</th>
+                                    <th>Notice No.</th>
+                                    <th>Notice Date.</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody class="text-nowrap">
+                                <tr>
+                                    <td>{{ $studentList->student_id }}</td>
+                                    <td>{{ $studentList->roll_no }}</td>
+                                    <td>{{ $studentList->application_no }}</td>
+                                    <td>{{ $studentList->student_name }}</td>
+                                    <td>{{ $studentList->father_name }}</td>
+                                    <td>{{ Custom::getClass($studentList->class_id)->classname }}</td>
+                                    <td>{{ $studentList->mobile }}</td>
+                                    <td><input class="border @error('date') invalid @enderror" type="date" value="{{ Custom::getstudentnoticedata($studentList->id)->date }}" name="date"></td>
+                                    <td><input class="border @error('date') invalid @enderror " type="text" name="notice_no" value="{{ Custom::getstudentnoticedata($studentList->id)->notice_no }}" placeholder="Enter Notice No."></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="table table-card p-4">
-                    <table class="table">
-                        <thead class="text-nowrap table-success">
-                            <tr>
+                <div class="card p-4">
 
-                                <th>Student Id</th>
-                                <th>Student Roll No.</th>
-                                <th>Application No.</th>
-                                <th>Student Name</th>
-                                <th>Father Name</th>
-                                <th>Class</th>
-                                <th>Mobile</th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="text-nowrap">
-                            <tr>
-                                <td>{{ $studentList->student_id }}</td>
-                                <td>{{ $studentList->roll_no }}</td>
-                                <td>{{ $studentList->application_no }}</td>
-                                <td>{{ $studentList->student_name }}</td>
-                                <td>{{ $studentList->father_name }}</td>
-                                <td>{{-- $studentList['classname']->class --}}</td>
-                                <td>{{ $studentList->mobile }}</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="card p-4">
-                <form action="{{ route('save-student-notice') }} " method="POST" enctype="multipart/form-data">
-                    @csrf
                     <div class="table table-card">
                         <table class="table">
                             <thead class="text-nowrap table-warning">
@@ -281,8 +291,9 @@
                             <button type="submit" class="btn btn-primary w-25">Save</button>
                         </div>
                     </div>
-                </form>
-            </div>
+
+                </div>
+            </form>
 
         </div>
     </div>
