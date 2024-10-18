@@ -215,13 +215,13 @@
 
                             <tbody class="text-nowrap">
                                 <tr>
-                                    <td><input class="border @error('date') invalid @enderror" type="date"
-                                            value="{{ Custom::getstudentnoticedata($studentList->id)?->date }}"
-                                            name="date"></td>
-                                    <td><input class="border @error('date') invalid @enderror " type="text"
+                                    <td><input class="border p-2 @error('date') invalid @enderror " type="text"
                                             name="notice_no"
                                             value="{{ Custom::getstudentnoticedata($studentList->id)?->notice_no }}"
                                             placeholder="Enter Notice No."></td>
+                                    <td><input class="border p-2 @error('date') invalid @enderror" type="date"
+                                            value="{{ Custom::getstudentnoticedata($studentList->id)?->date }}"
+                                            name="date"></td>
                                     <td>{{ $studentList->student_id }}</td>
                                     <td>{{ $studentList->roll_no }}</td>
                                     <td>{{ $studentList->application_no }}</td>

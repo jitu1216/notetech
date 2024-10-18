@@ -286,7 +286,8 @@ class NoticeController extends Controller
 
         $compl_notice = NoticeItem::where(['school_id' => $school->id, 'academic_session' => $academic, 'item_type' => 'complaints'])->get();
 
-        $studentList = Student::find($id);
+        $studentList = Student::where(['school_id' => $school->id, 'academic_session' => $academic, 'id' => $id])->first();
+        // dd($studentList);
         $mark = 2;
 
         return view('school.notice.student_notice', compact(
@@ -506,7 +507,7 @@ class NoticeController extends Controller
         $school = Custom::getschool();
         $academic = Session::get('academic_session');
         $notice = NoticeForAll::where(['school_id' => $school->id, 'academic_session' => $academic,'id' => $id])->first();
-     
+
         return view('school.notice.student_notice_for_all',compact('notice'));
 
     }
@@ -554,16 +555,14 @@ class NoticeController extends Controller
         $studentIds = StudentNotice::where(['item_status' => '1', 'school_id' => $school->id, 'academic_session' => $academic])
         ->pluck('student_id')
         ->unique(); // Get unique student IDs
-    
-        // Step 2: Retrieve full student data
-        $studentList = Student::select('students.*', 'school_classes.*') // Select desired fields
-        ->join('school_classes', 'students.class_id', '=', 'school_classes.id') // Adjust the join condition as necessary
-        ->whereIn('students.id', $studentIds)
+
+        $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->whereIn('students.id', $studentIds)
         ->get();
+
         // dd($studentList);
 
         $mark = 2;
-       
+
         return view('school.notice.genrate_notice_list', compact('finalarray', 'schoolclass', 'mark', 'studentList'));
     }
 
@@ -643,7 +642,7 @@ class NoticeController extends Controller
 
         $studentIdsWithNotices  = StudentNotice::where(['item_status' => '1', 'school_id' => $school->id, 'academic_session' => $academic])
         ->pluck('student_id')
-        ->unique(); 
+        ->unique();
 
 
         // Filter the provided student collection

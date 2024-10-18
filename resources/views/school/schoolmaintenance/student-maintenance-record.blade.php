@@ -354,14 +354,19 @@
                                 @endforeach
                             </tbody>
                             <thead class="table-success text-nowrap">
-                                <th colspan="6">Total Pending</th>
-                                @foreach ($wrongTickCount as $count)
-                                    <th>{{ $count }}</th>
-                                @endforeach
+                                <tr>
+                                    <th class="align-middle" rowspan="2" colspan="6">Total Pending Items</th>
+                                    @foreach ($item as $data)
+                                        <th class="">{{ $data->item_name }}</th>
+                                    @endforeach
+                                </tr>
+                                <tr>
+                                    @foreach ($wrongTickCount as $count)
+                                        <th>{{ $count }}</th>
+                                    @endforeach
+                                </tr>
                             </thead>
-
                         </table>
-
                     </div>
                 </div>
             </form>
