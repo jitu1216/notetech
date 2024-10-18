@@ -179,6 +179,12 @@
     </style>
     <div class="page-wrapper">
         <div class="container mt-5">
+            {{-- <div class="card-header">
+                <h3 class="Info">
+                    <a href="{{ route('student-notice-list')}}" class="btn btn-primary">
+                        <i class=""></i> Back</a>
+                </h3>
+            </div> --}}
             <form action="{{ route('save-student-notice') }} " method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="page-header">

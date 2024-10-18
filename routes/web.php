@@ -26,6 +26,7 @@ use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\TopperStudentController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\StudentNoticeBoardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -345,7 +346,24 @@ Route::controller(MaintenanceController::class)->group(function () {
     Route::get('school/search-student-notice-list', 'searchstudentnotice')->middleware('auth')->name('search-student-notice-list');
     Route::get('school/student-notice/{id}', 'studentnotice')->middleware('auth')->name('student-notice');
     Route::post('school/save-student-notice', 'savestudentnotice')->middleware('auth')->name('save-student-notice');
+    Route::get('school/genrate-notice-list', 'genratenoticelist')->middleware('auth')->name('genrate-notice-list');
+    Route::get('school/search-genrate-notice-list', 'searchgenratenotice')->middleware('auth')->name('search-genrate-notice-list');
+    Route::get('school/notice-for-all-list', 'notice_for_all_list')->middleware('auth')->name('notice-for-all-list');
+    Route::get('school/add-notice-for-all', 'add_notice_for_all')->middleware('auth')->name('add-notice-for-all');
+    Route::post('school/save-notice-for_all', 'savenoticeforall')->middleware('auth')->name('save-notice-for-all');
+    Route::get('school/edit-notice-for-all/{id}', 'editnoticeforall')->middleware('auth')->name('edit-notice-for-all');
+    Route::post('school/update-notice-for-all', 'updatenoticeforall')->middleware('auth')->name('update-notice-for-all');
+    Route::get('school/remove-notice/{id}', 'remove_notice')->middleware('auth')->name('remove-notice');
+    Route::get('school/student-notice-for-all/{id}', 'notice_for_all')->middleware('auth')->name('notice-for-all');
+
  });
+
+ Route::controller(StudentNoticeBoardController::class)->group(function () {
+    Route::get('student/notice-for-you', 'notice_for_you')->middleware('auth.student')->name('notice-for-you');
+    Route::get('student/notice-for-all', 'notice_for_all')->middleware('auth.student')->name('student-notice-for-all');
+    Route::get('student/student-notice-for-all-list', 'notice_for_all_list')->middleware('auth.student')->name('student-notice-for-all-list');
+
+   });
 
 Route::middleware('auth')->controller(AttendanceController::class)->group(function () {
     Route::get('school/take_student_attendance/{id?}', 'takestudentattendance')->name('school/take_student_attendance');
