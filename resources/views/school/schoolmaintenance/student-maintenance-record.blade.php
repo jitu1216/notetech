@@ -175,7 +175,7 @@
             object-fit: cover;
         }
 
-         @media print {
+        @media print {
             #menu {
                 display: none;
             }
@@ -325,7 +325,7 @@
                             </thead>
                             <tbody class="text-nowrap">
                                 @php
-                                    $sunday = 0;
+                                    $wrongTickCount = array_fill(0, $item->count(), 0);
                                 @endphp
                                 @foreach ($maintenance as $key => $value)
                                     <tr>
@@ -335,15 +335,30 @@
                                         <td>{{ $value->roll_no }}</td>
                                         <td>{{ $value->mobile }}</td>
                                         <td>{{ Custom::getClass($value->class_id)->classname }}</td>
-                                        @foreach ($item as $data)
-                                            <td
-                                                class="{{ Custom::getstudentmaintenance($value->id, $data->id)?->item_status == 1 ? 'right' : 'wrong' }}">
-                                                {{ Custom::getstudentmaintenance($value->id, $data->id)?->item_status == 1 ? '✔' : '✗' }}
+                                        @foreach ($item as $index => $data)
+                                            @php
+                                                $status =
+                                                    Custom::getstudentmaintenance($value->id, $data->id)
+                                                        ?->item_status == 1
+                                                        ? '✔'
+                                                        : '✗';
+                                                if ($status == '✗') {
+                                                    $wrongTickCount[$index]++;
+                                                }
+                                            @endphp
+                                            <td class="{{ $status == '✔' ? 'right' : 'wrong' }}">
+                                                {{ $status }}
                                             </td>
                                         @endforeach
                                     </tr>
                                 @endforeach
                             </tbody>
+                            <thead class="table-success text-nowrap">
+                                <th colspan="6">Total Pending</th>
+                                @foreach ($wrongTickCount as $count)
+                                    <th>{{ $count }}</th>
+                                @endforeach
+                            </thead>
 
                         </table>
 

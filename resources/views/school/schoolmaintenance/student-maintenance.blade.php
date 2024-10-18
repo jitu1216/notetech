@@ -201,7 +201,7 @@
                             <td>{{ $studentList->application_no }}</td>
                             <td>{{ $studentList->student_name }}</td>
                             <td>{{ $studentList->father_name }}</td>
-                            <td>{{-- $studentList['classname']->class --}}</td>
+                            <td>{{ Custom::getClass($studentList->class_id)->classname }}</td>
                             <td>{{ $studentList->mobile }}</td>
                         </tr>
 
