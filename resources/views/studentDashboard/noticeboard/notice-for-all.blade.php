@@ -96,8 +96,15 @@
 @section('content')
     <div class="page-wrapper">
         <div class="content container-fluid bg-white d-flex flex-column justify-content-center ">
+            <div class="card-header">
+                <h3 class="Info">
+                    <a href="{{ route('student-notice-for-all-list')}}" class="btn btn-primary">
+                        <i class=""></i> Back</a>
+                </h3>
+            </div>
             <div class="">
                 <div class=" m-2 mt-0 mb-1 p-4 border border-primary">
+                  
                     <div class="school d-flex justify-content-center">
                         <div class="logo-container">
                             <img src="{{ URL::to('images/1680626594.jpg') }}" alt="" width="40" height="40">
