@@ -248,12 +248,12 @@
 @section('content')
     <div class="page-wrapper">
         <div class="content container-fluid bg-white d-flex flex-column justify-content-center ">
-            <div class="header-section">
+            {{-- <div class="header-section">
 
                 <a id="extra" href="" class="" style="margin-left:20px;"></a>
                 <a id="printbtn" href="" class=" btn btn-success mb-4" style="margin-left:20px;">Print</a>
 
-            </div>
+            </div> --}}
             <div class="printbox">
                 <div class="print-header m-2 mt-0 mb-1 p-4 border border-primary">
                     <div class="school d-flex justify-content-center">
@@ -303,7 +303,7 @@
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-6">
-                                    Date &nbsp; {{  Custom::getstudentnoticedata($student->id)?->date }}
+                                    Date &nbsp; {{\Carbon\Carbon::parse(Custom::getstudentnoticedata($student->id)?->date)->format('d/m/Y')  }}
                                 </div>
                                 <div class="col-6 flex-end  d-flex justify-content-end">
                                     Order By

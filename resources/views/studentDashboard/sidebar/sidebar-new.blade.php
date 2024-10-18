@@ -541,7 +541,7 @@
         </a>
         <ul class="sub-menu">
             <li><a href="{{ route('notice-for-you') }} ">Notice For You</a></li>
-            <li><a href=" {{ route('student-notice-for-all')}}">Notice For All</a></li>
+            <li><a href=" {{ route('student-notice-for-all-list')}}">Notice For All</a></li>
         
         </ul>
     </li>

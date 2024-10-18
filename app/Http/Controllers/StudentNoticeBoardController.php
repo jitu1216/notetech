@@ -62,4 +62,13 @@ class StudentNoticeBoardController extends Controller
         return view('studentDashboard.noticeboard.notice-for-all', compact('notice'));
 
     }
+
+    public function notice_for_all_list()
+    {
+        $school = Custom::getschool();
+        $academic = Session::get('academic_session');
+        $notice = NoticeForAll::where(['school_id' => $school->id, 'academic_session' => $academic])->orderBy('updated_at', 'asc')->get();
+        return view('studentDashboard.noticeboard.notice-for-all-list', compact('notice'));
+
+    }
 }

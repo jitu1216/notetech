@@ -361,6 +361,8 @@ Route::controller(MaintenanceController::class)->group(function () {
  Route::controller(StudentNoticeBoardController::class)->group(function () {
     Route::get('student/notice-for-you', 'notice_for_you')->middleware('auth.student')->name('notice-for-you');
     Route::get('student/notice-for-all', 'notice_for_all')->middleware('auth.student')->name('student-notice-for-all');
+    Route::get('student/student-notice-for-all-list', 'notice_for_all_list')->middleware('auth.student')->name('student-notice-for-all-list');
+
    });
 
 Route::middleware('auth')->controller(AttendanceController::class)->group(function () {

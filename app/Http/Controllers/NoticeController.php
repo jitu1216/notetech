@@ -555,11 +555,11 @@ class NoticeController extends Controller
         ->pluck('student_id')
         ->unique(); // Get unique student IDs
     
-    // Step 2: Retrieve full student data
-    $studentList = Student::select('students.*', 'school_classes.*') // Select desired fields
-    ->join('school_classes', 'students.class_id', '=', 'school_classes.id') // Adjust the join condition as necessary
-    ->whereIn('students.id', $studentIds)
-    ->get();
+        // Step 2: Retrieve full student data
+        $studentList = Student::select('students.*', 'school_classes.*') // Select desired fields
+        ->join('school_classes', 'students.class_id', '=', 'school_classes.id') // Adjust the join condition as necessary
+        ->whereIn('students.id', $studentIds)
+        ->get();
         // dd($studentList);
 
         $mark = 2;
