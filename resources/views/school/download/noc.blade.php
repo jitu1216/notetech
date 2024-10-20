@@ -223,13 +223,13 @@
                                         <div class="row mb-2">
                                             <div class="col-7">
                                                 Receipt No.- &nbsp;
-                                                <input type="text" class="border-0" value="{{ $noc->receipt_no }}"
+                                                <input type="text" class="border-0" value="{{ $noc?->receipt_no}}"
                                                 name="receipt_no" placeholder="Enter Here">
                                             </div>
                                             <diV class="col-5">
                                                 Date- &nbsp;
                                                 <input type="text" class="border-0 datetimepicker"
-                                                value="{{ \Carbon\Carbon::parse($noc->date)->format('d/m/Y') }}"
+                                                value="{{ \Carbon\Carbon::parse($noc?->date)->format('d/m/Y')}}"
                                                 name="date" placeholder="DD-MM-YY">
                                             </div>
                                         </div>
