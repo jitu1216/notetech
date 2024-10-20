@@ -16,6 +16,7 @@ use App\Models\ExamScheme;
 use App\Models\SchemeHeader;
 use App\Models\cc;
 use App\Models\Tc;
+use App\Models\NOC;
 use Session;
 use App\Helper\Custom;
 use Auth;
@@ -455,9 +456,6 @@ class DownloadController extends Controller
         }
     }
 
-
-
-
     public function tc($id){
 
         $school = Custom::getschool();
@@ -855,5 +853,204 @@ class DownloadController extends Controller
 
     }
 
+    public function viewnoc($id,$text){
+
+        $school = Custom::getschool();
+        $academic = Session::get('academic_session');
+        // dd($cc);
+        $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic,'status' => '0'])->get();
+
+        $newClass = [];
+        foreach ($schoolclass as $class) {
+            $number =  Custom::romanToInt($class->classname);
+            $newClass[$class->id] = $number;
+        }
+        $sortedArray = ['P.N.C.','N.C.','K.G.','L.K.G.','U.K.G.','I','II','III','IV','V','VI','VII','VIII','IX','X','XI (Art)','XI (Biology)','XI (Agriculture)','XI (Mathematics)','XI (Commerce)','XII (Art)','XII (Biology)','XII (Agriculture)','XII (Mathematics)','XII (Commerce)'];
+        $newroman = [];
+        sort($newClass);
+        $newromanclass = [];
+
+        foreach($sortedArray as $organize){
+            if(in_array($organize,$newClass)){
+                array_push($newromanclass, $organize);
+            }
+        }
+
+        foreach ($newromanclass as $sortClass) {
+            $newnumber = Custom::getRomanNumber($sortClass);
+            array_push($newroman, $newnumber);
+            // dd($newroman);
+        }
+        $finalarray = array();
+        foreach ($newroman as $value) {
+            foreach ($schoolclass as $class) {
+                if ($class->classname == $value) {
+                    $x['classname'] = $class->classname;
+                    $x['id'] = $class->id;
+                    $finalarray[] = $x;
+                }
+                $x = [];
+            }
+        }
+
+        $session = Session::get('all_academic_session');
+        $noc = NOC::where(['school_id' => $school->id, 'academic_session' => $academic, 'student_id'=>$id ])->first();
+        $studentList = Student::find($id);
+
+            $mark = 2;
+            return view('school.download.noc',compact('finalarray','text','schoolclass','mark','studentList','session','noc'));
+    }
+
+    public function noclist($text){
+        // dd($text);
+        $school = Custom::getschool();
+        $academic = Session::get('academic_session');
+        $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic,])->get();
+
+        $newClass = [];
+        foreach ($schoolclass as $class) {
+            $number =  Custom::romanToInt($class->classname);
+            $newClass[$class->id] = $number;
+        }
+        $sortedArray = ['P.N.C.','N.C.','K.G.','L.K.G.','U.K.G.','I','II','III','IV','V','VI','VII','VIII','IX','X','XI (Art)','XI (Biology)','XI (Agriculture)','XI (Mathematics)','XI (Commerce)','XII (Art)','XII (Biology)','XII (Agriculture)','XII (Mathematics)','XII (Commerce)'];
+        $newroman = [];
+        sort($newClass);
+        $newromanclass = [];
+
+        foreach($sortedArray as $organize){
+            if(in_array($organize,$newClass)){
+                array_push($newromanclass, $organize);
+            }
+        }
+
+        foreach ($newromanclass as $sortClass) {
+            $newnumber = Custom::getRomanNumber($sortClass);
+            array_push($newroman, $newnumber);
+            // dd($newroman);
+        }
+        $finalarray = array();
+        foreach ($newroman as $value) {
+            foreach ($schoolclass as $class) {
+                if ($class->classname == $value) {
+                    $x['classname'] = $class->classname;
+                    $x['id'] = $class->id;
+                    $finalarray[] = $x;
+                }
+                $x = [];
+            }
+        }
+
+        $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(['students.status'=> '2' ,'students.school_id'=> $school->id, 'students.academic_session' => $academic])->get();
+            $mark = 2;
+
+        return view('school.download.noc-list',compact('finalarray','schoolclass','mark','studentList','text'));
+
+
+    }
+
+    public function searchnoc(Request $request)
+    {
+
+        $school = Custom::getSchool();
+        $academic = Session::get('academic_session');
+
+        $schoolclass = SchoolClass::where(['school_id' => $school->id, 'academic_session' => $academic, 'status' => '0'])->get();
+
+        $newClass = [];
+        foreach ($schoolclass as $class) {
+            $number =  Custom::romanToInt($class->classname);
+            $newClass[$class->id] = $number;
+        }
+        $sortedArray = ['P.N.C.','N.C.','K.G.','L.K.G.','U.K.G.','I','II','III','IV','V','VI','VII','VIII','IX','X','XI (Art)','XI (Biology)','XI (Agriculture)','XI (Mathematics)','XI (Commerce)','XII (Art)','XII (Biology)','XII (Agriculture)','XII (Mathematics)','XII (Commerce)'];
+        $newroman = [];
+        sort($newClass);
+        $newromanclass = [];
+
+        foreach($sortedArray as $organize){
+            if(in_array($organize,$newClass)){
+                array_push($newromanclass, $organize);
+            }
+        }
+
+        foreach ($newromanclass as $sortClass) {
+            $newnumber = Custom::getRomanNumber($sortClass);
+            array_push($newroman, $newnumber);
+            // dd($newroman);
+        }
+        // dd($newroman);
+
+        $finalarray = array();
+
+
+        foreach ($newroman as $value) {
+            foreach ($schoolclass as $class) {
+                if ($class->classname == $value) {
+                    $x['classname'] = $class->classname;
+                    $x['id'] = $class->id;
+                    $finalarray[] = $x;
+                }
+                $x = [];
+            }
+        }
+
+        if($request->searchId == 2) {
+            $mark = 2;
+        }
+        if($request->searchId == 1) {
+            $mark = 1;
+        }
+        if($request->searchId == 3) {
+            $mark = 3;
+        }
+        if($request->searchId == 4){
+            $mark = 4;
+        }
+        if($request->searchId == 5){
+            $mark = 2;
+        }
+
+        if (!empty($request->Class)) {
+            $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(function ($query) use ($request,$mark) {
+                $query->where('application_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('sr_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('student_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('father_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('district', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('state', 'LIKE', "%" . $request->studentsearch . "%");
+            })->where('class_id', $request->Class)->where('students.status', $mark)->get();
+
+        }else{
+            $studentList = SchoolClass::join('students', 'students.class_id', '=', 'school_classes.id')->where(function ($query) use ($request,$mark) {
+                $query->where('application_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('sr_no', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('student_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('father_name', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('district', 'LIKE', "%" . $request->studentsearch . "%")->orwhere('state', 'LIKE', "%" . $request->studentsearch . "%");
+            })->where('students.status', $mark)->get();
+        }
+
+        if($request->searchId == 5){
+            $mark = 5;
+        }
+
+        $studentsearch = $request->studentsearch;
+        $class =  $request->Class;
+        // dd($class);
+        return view('school.download.noc-list', compact('studentList', 'mark', 'finalarray','studentsearch','class'));
+
+    }
+
+    public function savenoc(Request $request){
+        // dd($request);
+        $request->validate([
+            'date' => 'required',
+            'receipt_no' => 'required',
+        ]);
+        $school = custom::getschool();
+        $academic = Session::get('academic_session');
+        $cc = NOC::updateOrCreate([
+            'student_id' => $request->student_id,
+            'academic_session' => $academic,
+            'school_id' => $school->id,
+        ], [
+            'date' => date('Y-m-d', strtotime($request->date)),
+            'receipt_no' => $request->receipt_no,
+            'exam_type' => $request->exam_type,
+        ]);
+
+        // return redirect()->route('cc')->with('success','CC Information Saved');
+        return redirect()->back()->with('Success','CC Information Saved');
+    }
 
 }
