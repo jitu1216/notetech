@@ -727,7 +727,6 @@ class DownloadController extends Controller
 
     }
 
-
     public function storeTc(Request $request){
 
 
@@ -1050,7 +1049,7 @@ class DownloadController extends Controller
         ]);
 
         // return redirect()->route('cc')->with('success','CC Information Saved');
-        return redirect()->back()->with('Success','CC Information Saved');
+        return redirect()->back()->with('Success','N.O.C. Information Saved');
     }
 
 }
