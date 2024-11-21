@@ -1448,7 +1448,7 @@ class FeesController extends Controller
         if (!empty($unique->toArray())) {
             return view('school.fees.fees-deposite.fees-card-list', compact('student', 'schoolclass', 'unique'));
         } else {
-            return redirect()->back()->with('Warning', 'No Fees Receipt Found!');
+            return redirect()->back()->with('Error', 'No Fees Receipt Found!');
         }
 
     }
