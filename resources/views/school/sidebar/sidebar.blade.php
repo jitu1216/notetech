@@ -543,7 +543,7 @@
                         <li><a class="{{ set_active(['school/fee-deposite-list', 'school/search']) }}"
                                 href="{{ route('fee-deposite-list', '2') }}">Fees Deposite</a></li>
                         <li><a class="{{ set_active(['school/fees-card', 'school/search']) }}"
-                                href="{{ route('fees-card', '2') }}">Fees Card</a></li>
+                                href="{{ route('fees-student-list') }}">Fees Card</a></li>
                         <li><a class="{{ set_active(['school/fees-report', 'school/search']) }}"
                                 href="{{ route('fees-report', '2') }}">Fees Report</a></li>
                         <li><a class="{{ set_active(['school/pending-fees', 'school/search']) }}"
@@ -589,7 +589,7 @@
                             href="{{ route('fee-deposite-list', '2') }}">Fees Deposite</a></li>
 
                     <li><a class="{{ set_active(['school/fees-card', 'school/search']) }}"
-                            href="{{ route('fees-card', '2') }}">Fees Card</a></li>
+                            href="{{ route('fees-student-list') }}">Fees Card</a></li>
 
                     <li><a class="{{ set_active(['school/fees-report', 'school/search']) }}"
                             href="{{ route('fees-report', '2') }}">Fees Report</a></li>

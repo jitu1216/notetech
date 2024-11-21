@@ -258,7 +258,7 @@
 
         <div class="content container-fluid bg-white d-flex flex-column justify-content-center ">
             <div class="header-section">
-                <a id="cancelbtn" href="{{ route('fees-report', '2') }}" class=" btn btn-primary mb-4"
+                <a id="cancelbtn" href="{{ URL::previous() }}" class=" btn btn-primary mb-4"
                     style="margin-left:20px;">Cancel</a>
                 <a id="extra" href="" class="" style="margin-left:20px;"></a>
                 <a id="printbtn" href="" class=" btn btn-success mb-4" style="margin-left:20px;">Print</a>
