@@ -1043,6 +1043,28 @@
                         <a class="{{ set_active(['school/add-time-table']) }}"
                             href="{{ route('tc-cc-list') }}">T.C. & C.C.</a>
                     </li>
+                    <li><a href="#">N.O.C.
+                            <label title="Toggle Drop-down" class="drop-icon" for="sm2"> <i
+                                    class='bx bxs-chevron-down'></i></label>
+                        </a>
+                        <ul class="sub-sub-menu">
+                            <li><a class="{{ set_active(['school/slider']) }}"
+                                    href="{{ route('noc-list', 'Test Exam') }}">Test
+                                    Exam Scheme</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
+                                    href="{{ route('noc-list', 'Monthly Exam') }}">Monthly
+                                    Exam Scheme</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
+                                    href="{{ route('noc-list', 'Quarterly Exam') }}">Quarterly
+                                    Exam Scheme</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
+                                    href="{{ route('noc-list', 'Half Yearly Exam') }}">Half Yearly
+                                    Exam Scheme</a></li>
+                            <li><a class="{{ set_active(['school/slider']) }}"
+                                    href="{{ route('noc-list', 'Annual Exam') }}">Annual
+                                    Exam Scheme</a></li>
+                        </ul>
+                    </li>
         </li>
         @endif
     </ul>

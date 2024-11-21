@@ -269,7 +269,6 @@ Route::controller(StudentDashboardController::class)->group(function () {
     Route::get('student/topper-student','topperstudent')->middleware('auth.student')->name('topper-student');
     Route::get('student/view-student-scheme/{text}', 'viewstudentscheme')->middleware('auth.student')->name('view-student-scheme');
 
-
 });
 
 Route::controller(SlideController::class)->group(function () {
@@ -305,6 +304,10 @@ Route::controller(DownloadController::class)->group(function () {
     Route::get('school/tc-cc-list', 'tccclist')->middleware('auth')->name('tc-cc-list');
     Route::get('school/search-tc-cc', 'searchtccc')->middleware('auth')->name('search-tc-cc');
     Route::post('school/store-tc', 'storeTc')->middleware('auth')->name('store_tc');
+    Route::get('school/view-noc/{id}/{text}', 'viewnoc')->middleware('auth')->name('view-noc');
+    Route::get('school/noc-list/{text}', 'noclist')->middleware('auth')->name('noc-list');
+    Route::get('school/search-noc', 'searchtccc')->middleware('auth')->name('search-noc');
+    Route::post('school/save-noc', 'savenoc')->middleware('auth')->name('save-noc');
 
 });
 Route::controller(SchemeHeaderController::class)->group(function () {
@@ -364,7 +367,7 @@ Route::controller(MaintenanceController::class)->group(function () {
 
  Route::controller(StudentNoticeBoardController::class)->group(function () {
     Route::get('student/notice-for-you', 'notice_for_you')->middleware('auth.student')->name('notice-for-you');
-    Route::get('student/notice-for-all', 'notice_for_all')->middleware('auth.student')->name('student-notice-for-all');
+    Route::get('student/notice-for-all/{id}', 'notice_for_all')->middleware('auth.student')->name('student-notice-for-all');
     Route::get('student/student-notice-for-all-list', 'notice_for_all_list')->middleware('auth.student')->name('student-notice-for-all-list');
 
    });
