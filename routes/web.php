@@ -216,6 +216,10 @@ Route::controller(FeesController::class)->group(function () {
     Route::post('school/feesearchreport', 'feeReportSearchStudent')->middleware('auth')->name('feesearchreport');
     Route::get('school/pending-fees/{id}', 'feesPendingList')->middleware('auth')->name('pending-fees');
     Route::get('school/feesearchpending', 'feependingSearchStudent')->middleware('auth')->name('feesearchpending');
+    Route::get('school/fees-student-list', 'feesStudentList')->middleware('auth')->name('fees-student-list');
+    Route::get('school/search-fees-student-list', 'feeCardSearchStudent')->middleware('auth')->name('search-fees-student-list');
+    Route::get('school/fees-card-list/{id}', 'feesCardList')->middleware('auth')->name('fees-card-list');
+    Route::get('school/print-single-report/{receipt}/{id}', 'printSingleReport')->middleware('auth')->name('print-single-report');
 
 
 });
